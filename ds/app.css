@@ -1,0 +1,2117 @@
+/* =========================================================
+   Solved Design System — PANTALLA DE APP
+   El fragmento de producto de una escena, construido en HTML.
+
+   POR QUÉ EN HTML Y NO CON CAPTURAS
+   Decisión del cliente: las pantallas que salen en la web se maquetan, no se
+   capturan, porque así él ajusta el contenido sobre lo que ve —un dato, un
+   estado, un nombre— sin volver a la app, abrir el módulo, dejarlo en el estado
+   correcto y recortar. La captura envejece con cada release; esto no.
+
+   Lo que NO cambia por maquetarlo: sigue siendo la app real. Mismo azul, misma
+   tipografía, misma densidad, mismos datos de demo. Una pantalla inventada
+   —columnas que no existen, un dashboard que la app no sabe pintar— es el
+   anti-patrón que más credibilidad cuesta, y maquetar no es permiso para eso.
+   La referencia viva es el tour de /incidencias/ (assets/tour/), que se hizo
+   contra capturas reales: si algo no está allí, se comprueba antes de pintarlo.
+
+   TIPOGRAFÍA
+   Dentro de la pantalla manda Roboto, que es la fuente real de la app. Fuera
+   manda Geist. Es el mismo criterio del tour: el fragmento no se rediseña para
+   que pegue con la web, porque entonces deja de ser el producto.
+
+   ESCALA
+   La app se pinta a 0,8× de su densidad real. A tamaño natural, un fragmento de
+   400px de ancho —una escena de 4 columnas— enseñaría la casilla y media
+   descripción. A 0,8× entra la fila entera y el texto no baja de 10px, que es
+   el suelo del componente.
+
+   CÓMO SE RECORTA
+   Por el borde, nunca encogiendo. El contenido lleva min-width mayor que la
+   caja y sobra por la derecha y por abajo; el recorte lo hace el overflow de
+   .scene__media o de .device__screen. Eso es lo que dice "esto continúa".
+
+   Requiere ds/tokens.css y _ds/…/colors-and-type.css (los tokens del producto).
+   Se usa dentro de .scene__media (ds/scene.css), con marco de dispositivo o sin
+   él (ds/device.css).
+
+     <div class="scene__media" data-crop="br">
+       <div class="app app--tabla"> … </div>
+     </div>
+   ========================================================= */
+
+.app{
+  /* Tokens del producto, no de la web. Los valores de reserva son por si la
+     pantalla se monta en una página que no cargue el paquete de _ds. */
+  --app-blue:var(--blue,#1E6BFF);
+  --app-blue-deep:var(--blue-700,#1450C7);
+  --app-blue-wash:var(--blue-50,#EAF1FF);
+  --app-canvas:var(--ink-50,#F4F6FB);
+  --app-line:var(--ink-100,#E6EAF2);
+  --app-line-2:var(--ink-200,#C7CFDD);
+  --app-mute:var(--ink-400,#8B95A7);
+  --app-text-2:var(--ink-600,#4A5468);
+  --app-text:var(--ink-800,#1B2230);
+  --app-ok:var(--ok,#2F9E44);
+  --app-warn:var(--warn,#F59F00);
+  --app-crit:var(--crit,#E03131);
+  --app-accion:var(--accion,#F2700F);
+  /* El morado de Registros estaba escrito a pelo en cinco sitios del bloque de
+     color del dashboard. Al usarlo también en las barras se le da alias, como
+     tienen los demás, y el valor de reserva es el token del sistema. */
+  --app-registro:var(--module-registros,#7C3AED);
+
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  background:var(--app-canvas);
+  color:var(--app-text);
+  font-family:Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-weight:400;
+  text-align:left;
+  /* Las cifras de un producto industrial van siempre tabulares. */
+  font-variant-numeric:tabular-nums;
+}
+/* Dentro de un marco de dispositivo la pantalla ya pone su radio y su recorte;
+   la app no trae ni borde ni esquinas propias (ds/device.css la posiciona en
+   absoluto sobre la pantalla). Fuera del marco sí las trae: es el canto del
+   fragmento suelto. */
+.scene__media>.app{ border-radius:inherit }
+.device__screen .app{ border-radius:0 }
+
+/* ds/scene.css estira al 100 % cualquier <img> que haya dentro del fragmento
+   —la regla se escribió cuando el fragmento era una captura entera—. Las
+   imágenes de dentro de la app tienen su propio tamaño, así que aquí se
+   desactiva con una especificidad que gane. */
+.app img{ width:auto; height:auto; max-width:none }
+.app .app__thumb{ width:30px; height:30px }
+.app .app__logo{ height:17px; width:auto }
+.app .app__co img{ width:38px; height:38px }
+
+/* ---------------------------------------------------------
+   BARRA SUPERIOR — la de la app, que es azul y llena el ancho
+   No confundir con el cromo de navegador que el componente prohíbe: eso es la
+   ventana; esto es el producto.
+   --------------------------------------------------------- */
+.app__top{
+  flex:0 0 auto;
+  height:42px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:0 14px;
+  background:var(--app-blue);
+  color:#fff;
+}
+.app__logo{ height:17px; width:auto; display:block; filter:brightness(0) invert(1) }
+.app__vbar{ width:1px; height:18px; background:rgba(255,255,255,.28) }
+.app__topttl{ font-size:13px; font-weight:500 }
+.app__spacer{ flex:1 }
+.app__ic{ width:26px; height:26px; display:grid; place-items:center; color:rgba(255,255,255,.92) }
+.app__ic svg{ width:15px; height:15px; display:block }
+.app__me{
+  width:24px; height:24px; border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:grid; place-items:center;
+  font-size:11px; font-weight:500; color:#fff;
+}
+
+/* ---------------------------------------------------------
+   CUERPO — sidebar + zona de trabajo
+   --------------------------------------------------------- */
+.app__body{ flex:1; min-height:0; display:flex }
+
+.app__side{
+  flex:0 0 132px;
+  background:#fff;
+  border-right:1px solid var(--app-line);
+  padding:11px 8px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+/* El bloque de empresa y el paso del menú van justos a propósito: en un
+   fragmento, el ítem activo —el que dice en qué pantalla estamos— tiene que
+   caer por encima del corte, y cada píxel de más aquí lo empuja fuera. */
+.app__co{
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+  padding:2px 6px 8px;
+}
+.app__co img{
+  width:38px; height:38px; border-radius:8px;
+  border:1px solid var(--app-line); object-fit:cover; display:block;
+}
+.app__co span{ font-size:10px; font-weight:500; color:var(--app-text); text-align:center }
+.app__nav{
+  display:flex; align-items:center; gap:9px;
+  padding:5px 9px; border-radius:6px;
+  font-size:11.5px; color:var(--app-text-2);
+}
+.app__nav svg{ width:15px; height:15px; flex:0 0 auto; color:var(--app-mute) }
+.app__nav--on{ background:var(--app-blue-wash); color:var(--app-blue-deep); font-weight:500 }
+.app__nav--on svg{ color:var(--app-blue) }
+
+.app__main{
+  flex:1; min-width:0;
+  padding:13px 16px;
+  display:flex; flex-direction:column; gap:11px;
+}
+
+/* ---------------------------------------------------------
+   CABECERA DE LISTADO — segmentos de vista, de estado y el botón de añadir
+   --------------------------------------------------------- */
+.app__listtop{ display:flex; align-items:center; gap:10px; flex:0 0 auto }
+/* Nada de la cabecera encoge: si no cabe, se sale por el borde y lo corta el
+   marco, que es como se recorta todo aquí. */
+.app__listtop>*{ flex:0 0 auto }
+.app__seg{
+  display:inline-flex; align-items:center; gap:3px;
+  background:#fff; border:1px solid var(--app-line);
+  border-radius:8px; padding:3px;
+}
+.app__segb{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:5px 10px; border-radius:5px;
+  font-size:10.5px; font-weight:500; color:var(--app-text-2);
+  white-space:nowrap;
+}
+.app__segb svg{ width:12px; height:12px }
+.app__segb--on{ background:var(--app-blue); color:#fff }
+.app__segb--stat{ background:var(--app-blue-wash); color:var(--app-blue-deep) }
+.app__cnt{
+  font-size:10px; padding:1px 6px; border-radius:999px;
+  background:var(--app-line); color:var(--app-text-2);
+}
+.app__segb--stat .app__cnt{ background:var(--app-blue); color:#fff }
+.app__add{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 12px; border-radius:7px;
+  background:#fff; border:1px solid var(--blue-300,#8EB1FF);
+  color:var(--app-blue-deep); font-size:11px; font-weight:500;
+  white-space:nowrap;
+}
+.app__add svg{ width:13px; height:13px }
+
+/* ---------------------------------------------------------
+   TARJETA DE TABLA
+   El ancho natural va por delante del hueco: la tabla se sale por la derecha y
+   la corta el marco. Nunca se quitan columnas para que quepa —eso sería otra
+   app—, se enseñan menos.
+   --------------------------------------------------------- */
+.app__card{
+  flex:1; min-height:0;
+  background:#fff;
+  border:1px solid var(--app-line);
+  border-radius:11px;
+  overflow:hidden;
+}
+.app__tbar{
+  display:flex; align-items:center; gap:10px;
+  padding:8px 12px; border-bottom:1px solid var(--app-line);
+  font-size:10.5px; color:var(--app-text-2);
+}
+.app__tbar svg{ width:13px; height:13px; color:var(--app-mute) }
+.app__range{ color:var(--app-blue-deep); font-weight:500 }
+
+.app__table{ width:100%; border-collapse:collapse; min-width:var(--app-table-w,620px) }
+.app__table th{
+  text-align:left; padding:8px 11px;
+  background:var(--app-canvas); border-bottom:1px solid var(--app-line);
+  font-size:10px; font-weight:500; color:var(--app-text-2); white-space:nowrap;
+}
+.app__table td{
+  padding:8px 11px; border-bottom:1px solid var(--app-line);
+  font-size:11px; color:var(--app-text-2); white-space:nowrap;
+}
+
+.app__desc{ display:flex; align-items:center; gap:9px }
+.app__thumb{
+  width:30px; height:30px; border-radius:6px; object-fit:cover; flex:0 0 auto;
+  box-shadow:inset 0 0 0 1px rgba(11,18,32,.06);
+}
+.app__thumb--none{
+  background:linear-gradient(135deg,#F5C542,var(--app-warn));
+  display:grid; place-items:center; color:rgba(255,255,255,.92);
+}
+.app__thumb--none svg{ width:15px; height:15px }
+.app__code{ font-size:10.5px; font-weight:500; color:var(--app-blue) }
+.app__dtxt{ font-size:10.5px; color:var(--app-text-2); margin-top:1px }
+
+.app__user{ display:inline-flex; align-items:center; gap:7px }
+.app__ava{
+  width:20px; height:20px; border-radius:50%; flex:0 0 auto;
+  display:grid; place-items:center;
+  font-size:10px; font-weight:500; color:#fff;
+}
+.app__tag{
+  display:inline-flex; padding:2px 9px; border-radius:999px;
+  font-size:10px; font-weight:500;
+}
+.app__tag--alta{ background:#FBD5D5; color:#B02020 }
+.app__tag--media{ background:var(--prio-media-bg,#FCEFB8); color:var(--prio-media-fg,#8A6A12) }
+.app__tag--curso{ background:var(--accion-bg,#FCEBD9); color:var(--app-accion) }
+.app__tag--abierta{ background:var(--app-blue-wash); color:var(--app-blue-deep) }
+.app__tag--hecha{ background:#E4F6EA; color:#12813B }
+.app__num{ color:var(--app-blue-deep); font-size:11px }
+.app__num--crit{ color:var(--app-crit) }
+.app__chk{
+  display:inline-block; width:13px; height:13px;
+  border:1.5px solid var(--app-line-2); border-radius:3px;
+}
+
+/* ---------------------------------------------------------
+   FRAGMENTO SIN MARCO
+   Una escena sin aparato no enseña la ventana entera: enseña la zona de
+   trabajo. Sin barra azul y sin sidebar, que a 400px se comerían el fragmento
+   y no son lo que la tarjeta está contando.
+   --------------------------------------------------------- */
+.app--fragmento{ padding:13px 15px; display:flex; flex-direction:column; gap:10px }
+
+/* ---------------------------------------------------------
+   MÓVIL — el operario reporta de pie, delante de la máquina
+   La tabla de ocho columnas no existe aquí: la app de móvil apila. Es la misma
+   regla del sistema —antes que reducir hasta el ruido gris, se enseña menos—,
+   sólo que en la app ya viene resuelta.
+   --------------------------------------------------------- */
+.app--movil{ background:var(--app-canvas) }
+.app--movil .app__top{
+  /* Hueco para la isla dinámica: sin él el título queda debajo del recorte. */
+  height:auto; padding:26px 12px 9px; gap:8px;
+}
+.app--movil .app__topttl{ font-size:12.5px }
+.app__mfilters{
+  flex:0 0 auto; display:flex; gap:5px;
+  padding:9px 10px 7px; background:#fff; border-bottom:1px solid var(--app-line);
+}
+.app__mchip{
+  padding:4px 9px; border-radius:999px;
+  font-size:10px; color:var(--app-text-2); background:var(--app-canvas);
+  white-space:nowrap;
+}
+.app__mchip--on{ background:var(--app-blue-wash); color:var(--app-blue-deep); font-weight:500 }
+.app__mlist{ list-style:none; margin:0; padding:8px; display:flex; flex-direction:column; gap:7px }
+.app__mcard{
+  display:flex; gap:8px; align-items:flex-start;
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:8px;
+}
+.app--movil .app__mcard .app__thumb{ width:28px; height:28px }
+.app__mtxt{ min-width:0 }
+.app__mdesc{ font-size:11px; line-height:1.25; color:var(--app-text); margin-top:2px }
+.app__mmeta{
+  display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+  margin-top:5px; font-size:10px; color:var(--app-mute);
+}
+/* Botón de añadir flotante: en la app de planta es la afordancia principal, y
+   sin él la pantalla parece un visor y no una herramienta de reporte. */
+.app__fab{
+  position:absolute; right:11px; bottom:13px;
+  width:34px; height:34px; border-radius:50%;
+  background:var(--app-blue); color:#fff;
+  display:grid; place-items:center;
+  box-shadow:0 4px 12px rgba(30,107,255,.36);
+}
+.app__fab svg{ width:17px; height:17px }
+
+/* ---------------------------------------------------------
+   REGISTRO CUMPLIMENTADO — la ronda firmada en la tablet de línea
+   Un registro no es un listado: lo que demuestra el módulo es el papel relleno,
+   con sus OK, su KO y su firma. Un listado de registros no demuestra nada que
+   no demuestre ya la tabla de incidencias.
+   --------------------------------------------------------- */
+/* El registro no se sale por el costado: cortar la columna de OK/KO sería
+   cortar justo lo que la tarjeta demuestra. Se sale por abajo, por el último
+   punto de la ronda.
+   Por eso lleva ancho fijo en vez de estirarse: el aparato sí se sale por la
+   derecha —lo corta el borde de la escena, que es lo que dice "esto continúa"—
+   y el contenido tiene que caber en la parte que queda a la vista. */
+.app__rec{
+  flex:1; min-height:0; width:var(--app-rec-w,auto);
+  padding:12px 14px; display:flex; flex-direction:column; gap:9px;
+}
+/* Tablet de línea. El ancho va en porcentaje, no en píxeles, porque lo que
+   fija es la parte de la pantalla que queda a la vista: con el encuadre
+   dev-br el aparato entra por el 13 % y mide el 104 %, así que se ve el 84 %
+   escaso de su ancho. En porcentaje eso sigue valiendo cuando la escena pasa a
+   ancho completo en tablet; en píxeles dejaría medio lienzo vacío. */
+.app--tablet{ --app-rec-w:84% }
+.app__rechead{
+  display:flex; align-items:center; gap:9px;
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:9px 11px;
+}
+.app__recico{
+  width:28px; height:28px; border-radius:7px; flex:0 0 auto;
+  background:var(--app-blue-wash); color:var(--app-blue);
+  display:grid; place-items:center;
+}
+.app__recico svg{ width:15px; height:15px }
+.app__rect{ font-size:12px; font-weight:500; color:var(--app-text) }
+.app__recs{ font-size:10px; color:var(--app-text-2); margin-top:1px }
+.app__recprog{
+  margin-left:auto; font-size:10px; font-weight:500;
+  color:var(--app-ok); white-space:nowrap;
+}
+/* La lista no encoge. Si los puntos de la ronda no caben, se salen por abajo y
+   los corta el marco; encogerlos dejaría medio punto a la vista y el registro
+   parecería un recuadro con dos líneas. */
+.app__items{
+  flex:0 0 auto;
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  overflow:hidden;
+}
+.app__item{
+  display:flex; align-items:center; gap:9px;
+  padding:8px 11px; border-bottom:1px solid var(--app-line);
+  font-size:11px; color:var(--app-text);
+}
+.app__itemq{ flex:1; min-width:0 }
+/* Las opciones OK/KO son de las dos únicas píldoras del sistema: el resto de
+   la app usa radio de control. */
+.app__opt{
+  display:inline-flex; padding:2px 9px; border-radius:999px;
+  font-size:10px; font-weight:500; white-space:nowrap;
+}
+.app__opt--ok{ background:#E4F6EA; color:#12813B }
+.app__opt--ko{ background:#FBD5D5; color:#B02020 }
+/* Un KO abre incidencia sola: es el argumento entero del módulo, así que el
+   enlace se ve, no se cuenta. */
+.app__link{
+  font-size:10px; color:var(--app-blue); font-weight:500; white-space:nowrap;
+}
+.app__sign{
+  display:flex; align-items:center; gap:9px;
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:9px 11px; font-size:10.5px; color:var(--app-text-2);
+}
+.app__signimg{ height:22px; width:auto; display:block; opacity:.85 }
+
+/* ---------------------------------------------------------
+   DASHBOARD — el escritorio de calidad o dirección
+   Cifras y una serie, que es lo que la app pinta. Ni anillos, ni mapas de
+   calor, ni gráficos que el producto no sabe hacer.
+   --------------------------------------------------------- */
+.app__dash{ display:flex; flex-direction:column; gap:11px; min-width:var(--app-dash-w,560px) }
+.app__kpis{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px }
+.app__kpi{
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:10px 12px;
+}
+.app__kpil{ font-size:10px; color:var(--app-text-2) }
+.app__kpiv{
+  font-size:22px; font-weight:400; color:var(--app-text);
+  line-height:1.1; margin-top:5px;
+}
+.app__kpiv small{ font-size:11px; color:var(--app-text-2); margin-left:2px }
+.app__delta{ font-size:10px; margin-top:3px }
+.app__delta--ok{ color:var(--app-ok) }
+.app__delta--crit{ color:var(--app-crit) }
+
+.app__panels{ display:grid; grid-template-columns:1.35fr 1fr; gap:10px }
+.app__panel{
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:10px 12px 12px;
+}
+.app__panelt{ font-size:11px; font-weight:500; color:var(--app-text) }
+.app__panels{ align-items:start }
+/* El panel de listado ocupa el ancho del dashboard y la tabla se conforma con
+   él: aquí no hay que forzar ancho natural, el recorte ya lo dan la ventana por
+   la derecha y el borde de la escena por abajo. */
+.app__panel--list{ padding-bottom:0 }
+.app__panel--list .app__table{ min-width:0; margin-top:6px }
+.app__panel--list .app__table td{ padding:7px 0 }
+.app__panel--list .app__table tr:last-child td{ border-bottom:0 }
+
+/* Barras del mes. Se dibujan con CSS y no con SVG porque son seis rectángulos
+   y una línea base: un SVG aquí sólo añade un sistema de coordenadas más. */
+/* Las columnas se estiran a la altura de la caja —no se ajustan al contenido—
+   porque la altura de cada barra va en porcentaje y necesita una referencia
+   definida. Con align-items:flex-end el porcentaje no tendría contra qué medir. */
+.app__bars{ display:flex; align-items:stretch; gap:10px; height:82px; margin-top:12px }
+.app__bar{ flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:5px }
+/* Sin fondo propio: lo que pinta la barra son sus tramos (.app__bseg), más
+   abajo. El radio se queda aquí y lo recorta el overflow del contenedor. */
+.app__barv{ border-radius:3px 3px 0 0 }
+.app__barl{ font-size:10px; color:var(--app-mute); text-align:center }
+
+.app__breaks{ margin-top:10px; display:flex; flex-direction:column; gap:8px }
+.app__break{ font-size:10px; color:var(--app-text-2) }
+.app__breakh{ display:flex; justify-content:space-between; gap:8px }
+.app__track{
+  height:5px; border-radius:999px; background:var(--app-line);
+  margin-top:4px; overflow:hidden;
+}
+.app__fill{ height:100%; border-radius:999px; background:var(--app-blue) }
+
+/* ---------------------------------------------------------
+   PANTALLAS PEQUEÑAS
+   Por debajo de tablet la escena pasa a ancho completo y el aparato encoge con
+   ella; el texto de la app no encoge —va en px, y el suelo son 10— así que lo
+   que se hace es enseñar menos: fuera la miniatura y fuera las columnas de la
+   derecha. Es la regla de siempre, aplicada al fragmento.
+   --------------------------------------------------------- */
+@media (max-width:600px){
+  .app--movil .app__thumb{ display:none }
+  .app--movil .app__mfilters{ padding:7px 8px 6px }
+}
+
+/* =========================================================
+   LA PANTALLA, MÁS PEQUEÑA EN PANTALLAS ESTRECHAS
+   La pantalla de producto está maquetada en píxeles fijos —columnas, filas,
+   avatares— y vive dentro de una caja con `overflow:hidden`. Eso es lo que
+   quiere el sistema: la escena enseña un FRAGMENTO, y el recorte es el gesto
+   que dice «esto continúa».
+
+   Lo que no quiere es que el fragmento sea otro en cada tamaño. Medido el 3 de
+   septiembre de 2026 sobre la home: en escritorio se ve entre el 68 % y el
+   100 % de cada interfaz; a 390px, el 55 %. O sea que en el móvil el recorte
+   deja de ser un gesto y se convierte en una frase cortada por la mitad.
+
+   Se corrige con `zoom` y no con `transform:scale`: zoom recalcula la caja, así
+   que la pantalla sigue llenando su hueco exacto sin tener que agrandarla
+   primero para encogerla después. Los factores salen de la proporción medida
+   entre el hueco del móvil y el de escritorio (353/476 ≈ .74); se quedan algo
+   por encima para no bajar el cuerpo del texto de la interfaz de 13px a menos
+   de 10, que es donde deja de leerse.
+
+   La maqueta de teléfono (.app--movil) no entra: ya está dibujada a tamaño de
+   teléfono, y encogerla la haría ilegible sin ganar nada de encuadre.
+   ========================================================= */
+@media (max-width:900px){
+  .app:not(.app--movil){ zoom:.86 }
+}
+@media (max-width:600px){
+  .app:not(.app--movil){ zoom:.78 }
+}
+
+/* =========================================================
+   COLOR EN EL DASHBOARD
+   Hasta aquí el panel iba todo en azul, y un dashboard de una sola tinta no
+   dice nada: si las cuatro cifras y las cinco barras son del mismo color, el
+   color no está trabajando.
+
+   La regla del sistema resuelve cuál va en cada sitio sin abrir una paleta
+   nueva: EL COLOR ES EL DEL MÓDULO DEL QUE SALE EL DATO. Las acciones fuera de
+   plazo van en naranja porque naranja es Acciones; los registros firmados en
+   morado porque morado es Registros. No es decoración, es la misma señal que
+   en el menú y en las escenas.
+   ========================================================= */
+.app__kpiv--incidencias{ color:var(--app-blue) }
+.app__kpiv--acciones{ color:var(--app-accion) }
+.app__kpiv--registros{ color:var(--app-registro) }
+.app__delta--acciones{ color:var(--app-accion) }
+.app__delta--registros{ color:var(--app-registro) }
+
+/* Barras y trazos del desglose, cada categoría con su color de módulo. */
+.app__fill--incidencias{ background:var(--app-blue) }
+.app__fill--acciones{ background:var(--app-accion) }
+.app__fill--registros{ background:var(--app-registro) }
+.app__fill--kpis{ background:#3FAFD6 }
+
+/* --- Las barras del mes, segmentadas ------------------------------------
+   Antes la barra era un bloque azul y la única señal de color era el mes en
+   curso, más oscuro que los anteriores. Ahora cada barra se parte en los tres
+   módulos que la alimentan, con lo que el color pasa a decir DE DÓNDE sale
+   cada tramo en vez de sólo cuál es el mes de hoy.
+
+   Los tramos llevan `flex-grow`, no altura: el alto total lo sigue fijando el
+   `height` de `.app__barv`, así que la silueta del gráfico es exactamente la
+   de antes y el reparto se lee dentro. Y `app-bar-grow` sigue escalando el
+   contenedor, así que crecen los tres a la vez, como una sola barra. */
+.app__barv{ display:flex; flex-direction:column; overflow:hidden }
+.app__bseg{ display:block; min-height:1px }
+.app__bseg--incidencias{ background:var(--app-blue) }
+.app__bseg--acciones{ background:var(--app-accion) }
+.app__bseg--registros{ background:var(--app-registro) }
+
+/* El mes en curso sigue destacando, pero ya no con otro azul —eso obligaría a
+   tener una versión clara de cada uno de los tres colores—: los anteriores se
+   bajan de intensidad y ya está. */
+.app__bar--prev .app__barv{ opacity:.72 }
+
+/* La leyenda va en la misma línea que el título del panel, no debajo: la
+   ventana del navegador va recortada por abajo y una fila más de alto se come
+   la última banda de la tabla. */
+.app__panelt--legend{ display:flex; align-items:center; justify-content:space-between; gap:10px }
+.app__legend{ display:flex; align-items:center; gap:9px }
+.app__lg{ font-size:9px; color:var(--app-text-2); display:inline-flex; align-items:center; gap:3px }
+.app__lg::before{ content:""; width:6px; height:6px; border-radius:2px; background:currentColor }
+.app__lg--incidencias::before{ background:var(--app-blue) }
+.app__lg--acciones::before{ background:var(--app-accion) }
+.app__lg--registros::before{ background:var(--app-registro) }
+
+/* =========================================================
+   MOVIMIENTO DENTRO DE LA PANTALLA
+   Lo que se mueve es el CONTENIDO de la app, nunca la tarjeta: es la misma
+   distinción que hace Stripe —sus tarjetas no animan, sus mockups sí—. Un
+   dashboard con las barras quietas parece una captura; con las barras
+   creciendo parece la aplicación.
+
+   Y una regla de consumo: TODO esto obedece a --play, que ds/scene.js pone en
+   `paused` cuando la escena sale de la pantalla. Una tarjeta que no se ve no
+   tiene por qué estar repintando. Si el script no carga, --play se queda en
+   `running` y se mueve igual: se degrada hacia el lado bueno.
+
+   Tres límites, para que no se convierta en un salvapantallas:
+     · ciclos largos (6-9s) y con reposo;
+     · nada se mueve de sitio: crecen, aparecen, parpadean. Si un elemento se
+       desplaza, el ojo lo persigue y deja de leer el dato;
+     · con prefers-reduced-motion se queda todo quieto y en su estado final.
+   ========================================================= */
+
+/* --- El filtro de turno, y todo lo que cuelga de él ----------------------
+   El tablero no se mueve por moverse: se mueve porque se está filtrando. Se
+   elige un turno y se recalcula TODO —las cuatro cifras, las seis barras, el
+   desglose y el listado—, que es lo único que demuestra que el tablero es
+   configurable y no una captura.
+
+   RELOJ ÚNICO: 12 s, tres pasos de 4 s, y los cortes en 32 % y 65 %. Son
+   exactamente los de `app-cnt1/2/3` y los del filtro de la escena de Acciones,
+   así que las dos escenas de la home van sincronizadas. Cualquier cosa que se
+   añada a este tablero tiene que entrar en este reloj o se verá desfasada.
+
+   Por qué el TURNO y no el área o la línea: es la única variable que no vacía
+   ningún panel. Filtrando por departamento, «Por categoría» se queda con una
+   sola barra; por turno, las cuatro categorías siguen existiendo en los dos.
+
+   El gesto de pulsar es el de la escena de Acciones: el chip que se selecciona
+   se enciende y abre un anillo. Sin el anillo sólo cambia de color y no se lee
+   como una pulsación. */
+.app__filters--turno{ margin-bottom:1px }
+.app__flabel{
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:10.5px; color:var(--app-mute); margin-right:2px;
+}
+.app__flabel svg{ width:12px; height:12px; flex:0 0 auto }
+
+.app__filter--t1,.app__filter--t2,.app__filter--t3{
+  animation-duration:12s;
+  animation-iteration-count:infinite;
+  animation-timing-function:ease-out;
+  animation-play-state:var(--play,running);
+}
+.app__filter--t1{ animation-name:app-tsel-1 }
+.app__filter--t2{ animation-name:app-tsel-2 }
+.app__filter--t3{ animation-name:app-tsel-3 }
+@keyframes app-tsel-1{
+  0%,30%   { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  32%,96%  { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  98%      { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 5px rgba(30,107,255,.22) }
+  100%     { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+@keyframes app-tsel-2{
+  0%,30%   { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  33%      { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 5px rgba(30,107,255,.22) }
+  40%,63%  { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  65%,100% { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+@keyframes app-tsel-3{
+  0%,63%   { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  66%      { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 5px rgba(30,107,255,.22) }
+  73%,96%  { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  98%,100% { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+
+/* Relevo de tres valores en el mismo hueco. Es `.app__cntswap` sin su
+   `margin-left:auto`, y reutiliza sus keyframes a propósito: un solo juego de
+   cortes para todo el tablero. La rejilla mide lo que el valor más ancho, así
+   que la caja no salta al cambiar de turno. */
+.app__sw3{ display:inline-grid; vertical-align:baseline }
+.app__sw3 > *{
+  grid-area:1/1;
+  animation-duration:12s; animation-iteration-count:infinite;
+  animation-timing-function:steps(1);
+  animation-play-state:var(--play,running);
+}
+.app__sw3 > :nth-child(1){ animation-name:app-cnt1 }
+.app__sw3 > :nth-child(2){ animation-name:app-cnt2 }
+.app__sw3 > :nth-child(3){ animation-name:app-cnt3 }
+
+/* La lista de abajo se acorta con el turno: tres vistas en la misma celda para
+   que el panel no dé saltos de alto. `.app__views` normal es `flex:1` porque
+   ahí ocupa todo el fragmento; dentro de un panel tiene que medir lo suyo. */
+.app__views--lista{ flex:0 0 auto; margin-top:6px }
+.app__views--lista .app__table{ margin-top:0 }
+
+/* --- Las cifras ruedan de un valor al siguiente --------------------------
+   Un panel donde las barras se mueven pero las cifras están fijas se lee como
+   una captura con un gif encima. Aquí cada cifra arranca contando desde cero y
+   luego RUEDA al valor del turno que se acaba de elegir, justo en el corte.
+
+   El número lo pinta `counter()` a partir de `--app-n`, que es lo que anima el
+   keyframe —un entero no se puede interpolar de otra forma en CSS—. Cada
+   tarjeta lleva el valor del primer paso en un `style` inline: es lo que se ve
+   si el navegador no registra `@property` y no sabe interpolar, y así la cifra
+   correcta está en el marcado y no sólo en la hoja de estilos.
+
+   La de días necesita dos contadores porque `counter()` no da decimales: uno
+   para el entero y otro para la cifra de después de la coma. */
+@property --app-n{ syntax:'<integer>'; initial-value:0; inherits:false }
+@property --app-d{ syntax:'<integer>'; initial-value:0; inherits:false }
+
+.app__kpiv--count,.app__kpiv--dec{
+  animation-duration:12s;
+  animation-timing-function:cubic-bezier(.16,1,.3,1);
+  animation-iteration-count:infinite;
+  animation-play-state:var(--play,running);
+  font-variant-numeric:tabular-nums;   /* si no, la caja baila al pasar de 9 a 10 */
+}
+.app__kpiv--count{ counter-reset:n var(--app-n) }
+.app__kpiv--count::before{ content:counter(n) }
+.app__kpiv--dec{ counter-reset:n var(--app-n) d var(--app-d) }
+.app__kpiv--dec::before{ content:counter(n) "," counter(d) }
+
+/* Un keyframe por cifra: los valores de un contador tienen que ir literales,
+   así que no hay forma de compartirlos. Todos: 4 % arranque, y las ruedas
+   centradas en los cortes de 32 % y 65 %.
+     abiertas   5 → 3 → 2      fuera de plazo  1 → 1 → 0
+     cierre   2,4 → 2,0 → 3,1  registros      96 → 52 → 44 */
+.app__kpi:nth-child(1) .app__kpiv{ animation-name:app-n-abiertas }
+.app__kpi:nth-child(2) .app__kpiv{ animation-name:app-n-cierre; animation-delay:.08s }
+.app__kpi:nth-child(3) .app__kpiv{ animation-name:app-n-plazo;  animation-delay:.16s }
+.app__kpi:nth-child(4) .app__kpiv{ animation-name:app-n-firmados; animation-delay:.24s }
+@keyframes app-n-abiertas{ 0%{--app-n:0} 4%,28%{--app-n:5}  34%,61%{--app-n:3}  68%,96%{--app-n:2}  100%{--app-n:0} }
+@keyframes app-n-plazo   { 0%{--app-n:0} 4%,28%{--app-n:1}  34%,61%{--app-n:1}  68%,96%{--app-n:0}  100%{--app-n:0} }
+@keyframes app-n-firmados{ 0%{--app-n:0} 4%,28%{--app-n:96} 34%,61%{--app-n:52} 68%,96%{--app-n:44} 100%{--app-n:0} }
+@keyframes app-n-cierre{
+  0%      { --app-n:0; --app-d:0 }
+  4%,28%  { --app-n:2; --app-d:4 }
+  34%,61% { --app-n:2; --app-d:0 }
+  68%,96% { --app-n:3; --app-d:1 }
+  100%    { --app-n:0; --app-d:0 }
+}
+
+/* --- Las barras del mes ---------------------------------------------------
+   Crecen desde la base y, en cada corte, se reescalan al peso del turno. Un
+   keyframe por mes porque el reparto mañana/tarde no es el mismo en todos, y
+   los dos factores de cada mes suman 1: el turno no inventa actividad, la
+   reparte. Los `scale` van sobre la altura inline, que es la del turno «Todos».
+     ENE .58/.42 · FEB .62/.38 · MAR .60/.40 · ABR .57/.43 · MAY .64/.36 · JUN .60/.40 */
+.app__barv{
+  transform-origin:50% 100%;
+  animation-duration:12s;
+  animation-timing-function:cubic-bezier(.16,1,.3,1);
+  animation-iteration-count:infinite;
+  animation-play-state:var(--play,running);
+}
+.app__bar:nth-child(1) .app__barv{ animation-name:app-bar-ene; animation-delay:0s }
+.app__bar:nth-child(2) .app__barv{ animation-name:app-bar-feb; animation-delay:.09s }
+.app__bar:nth-child(3) .app__barv{ animation-name:app-bar-mar; animation-delay:.18s }
+.app__bar:nth-child(4) .app__barv{ animation-name:app-bar-abr; animation-delay:.27s }
+.app__bar:nth-child(5) .app__barv{ animation-name:app-bar-may; animation-delay:.36s }
+.app__bar:nth-child(6) .app__barv{ animation-name:app-bar-jun; animation-delay:.45s }
+@keyframes app-bar-ene{ 0%{scale:1 .06} 4%,28%{scale:1 1} 34%,61%{scale:1 .58} 68%,96%{scale:1 .42} 100%{scale:1 .06} }
+@keyframes app-bar-feb{ 0%{scale:1 .06} 4%,28%{scale:1 1} 34%,61%{scale:1 .62} 68%,96%{scale:1 .38} 100%{scale:1 .06} }
+@keyframes app-bar-mar{ 0%{scale:1 .06} 4%,28%{scale:1 1} 34%,61%{scale:1 .60} 68%,96%{scale:1 .40} 100%{scale:1 .06} }
+@keyframes app-bar-abr{ 0%{scale:1 .06} 4%,28%{scale:1 1} 34%,61%{scale:1 .57} 68%,96%{scale:1 .43} 100%{scale:1 .06} }
+@keyframes app-bar-may{ 0%{scale:1 .06} 4%,28%{scale:1 1} 34%,61%{scale:1 .64} 68%,96%{scale:1 .36} 100%{scale:1 .06} }
+@keyframes app-bar-jun{ 0%{scale:1 .06} 4%,28%{scale:1 1} 34%,61%{scale:1 .60} 68%,96%{scale:1 .40} 100%{scale:1 .06} }
+
+/* Los trazos del desglose se llenan de izquierda a derecha y, en cada corte,
+   se reescalan a la proporción del turno. El factor es el cociente de las
+   cifras que van escritas al lado, para que la barra y el número digan lo
+   mismo: Mantenimiento 5→3→2, Calidad 3→2→1, Producción 2→1→1 y Reclamación
+   1→1→0 (por eso ésa desaparece en el turno de tarde). */
+.app__fill{
+  transform-origin:0 50%;
+  animation-duration:12s;
+  animation-timing-function:cubic-bezier(.16,1,.3,1);
+  animation-iteration-count:infinite;
+  animation-play-state:var(--play,running);
+}
+.app__break:nth-child(1) .app__fill{ animation-name:app-fill-mant }
+.app__break:nth-child(2) .app__fill{ animation-name:app-fill-cal;  animation-delay:.1s }
+.app__break:nth-child(3) .app__fill{ animation-name:app-fill-prod; animation-delay:.2s }
+.app__break:nth-child(4) .app__fill{ animation-name:app-fill-recl; animation-delay:.3s }
+@keyframes app-fill-mant{ 0%{scale:0 1} 4%,28%{scale:1 1} 34%,61%{scale:.6 1}  68%,96%{scale:.4 1}   100%{scale:0 1} }
+@keyframes app-fill-cal { 0%{scale:0 1} 4%,28%{scale:1 1} 34%,61%{scale:.67 1} 68%,96%{scale:.33 1}  100%{scale:0 1} }
+@keyframes app-fill-prod{ 0%{scale:0 1} 4%,28%{scale:1 1} 34%,61%{scale:.5 1}  68%,96%{scale:.5 1}   100%{scale:0 1} }
+@keyframes app-fill-recl{ 0%{scale:0 1} 4%,28%{scale:1 1} 34%,61%{scale:1 1}   68%,96%{scale:.02 1}  100%{scale:0 1} }
+
+/* El parte que acaba de entrar en el móvil: aparece y se queda. Es lo que pasa
+   de verdad cuando alguien reporta desde la línea. */
+.app__mcard--nueva{ animation:app-card-in 8s ease-out infinite; animation-play-state:var(--play,running) }
+@keyframes app-card-in{
+  0%     { opacity:0; translate:0 -6px }
+  6%,96% { opacity:1; translate:0 0 }
+  100%   { opacity:0; translate:0 -6px }
+}
+/* Y su punto de aviso late mientras está sin abrir. */
+.app__dot{
+  display:inline-block; width:5px; height:5px; border-radius:50%;
+  background:var(--app-blue); margin-left:5px; vertical-align:middle;
+  animation:app-dot 2.4s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-dot{
+  0%  { box-shadow:0 0 0 0 rgba(30,107,255,.5) }
+  70% { box-shadow:0 0 0 6px rgba(30,107,255,0) }
+  100%{ box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+
+/* Los OK de la ronda se van marcando en cascada. */
+.app__opt--ok{ animation:app-ok-in 8s ease-out infinite; animation-play-state:var(--play,running) }
+.app__item:nth-child(2) .app__opt--ok{ animation-delay:.5s }
+.app__item:nth-child(3) .app__opt--ok{ animation-delay:1s }
+.app__item:nth-child(4) .app__opt--ok{ animation-delay:1.5s }
+.app__item:nth-child(5) .app__opt--ok{ animation-delay:2s }
+.app__item:nth-child(6) .app__opt--ok{ animation-delay:2.5s }
+@keyframes app-ok-in{
+  0%,4%   { opacity:0; scale:.9 }
+  10%,96% { opacity:1; scale:1 }
+  100%    { opacity:0; scale:.9 }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .app__barv,.app__fill,.app__mcard--nueva,.app__dot,.app__opt--ok,
+  .app__chat p,.app__cursor{ animation:none !important; opacity:1; scale:1; translate:0 0 }
+  /* Las cifras se quedan quietas en su valor final: el `style` inline de cada
+     tarjeta ya lleva ese número, así que basta con no animarlas. */
+  .app__kpiv--count,.app__kpiv--dec{ animation:none !important }
+  /* El filtro se queda en el primer turno y el tablero, en sus cifras: se
+     enciende «Todos» a mano —su estado seleccionado lo ponía el keyframe— y de
+     los relevos de tres sólo queda el primer valor. */
+  .app__filter--t1,.app__filter--t2,.app__filter--t3,
+  .app__sw3 > *,.app__views--lista .app__view{ animation:none !important; opacity:1 }
+  .app__filter--t1{
+    background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+  }
+  .app__sw3 > :nth-child(2),.app__sw3 > :nth-child(3),
+  .app__views--lista .app__view--b,.app__views--lista .app__view--c{ opacity:0 }
+}
+
+/* =========================================================
+   PANTALLA DE IA — "Pregunta a tus datos"
+   Una de las seis funciones de IA de la plataforma. Va sobre grafito, como
+   todo lo de IA, y por eso invierte los colores de la app.
+   ========================================================= */
+.app--ia{
+  background:var(--color-graphite-900,#111214);
+  color:#E7E9EC;
+}
+.app--ia .app__top{ background:#1B2026; border-bottom:1px solid #2A2E34 }
+.app__chat{
+  flex:1; min-height:0;
+  padding:14px 16px;
+  display:flex; flex-direction:column; gap:12px;
+  min-width:var(--app-chat-w,0);
+}
+.app__ask{
+  align-self:flex-end;
+  max-width:74%;
+  background:#23282F;
+  border:1px solid #33383F;
+  border-radius:10px 10px 3px 10px;
+  padding:8px 11px;
+  font-size:11.5px; line-height:1.35; color:#E7E9EC;
+}
+.app__answer{
+  display:flex; gap:9px; align-items:flex-start;
+  max-width:88%;
+}
+.app__aiico{
+  flex:0 0 auto;
+  width:22px; height:22px; border-radius:6px;
+  display:grid; place-items:center;
+  background:rgba(168,85,247,.16);
+  color:#C88BFA;
+}
+.app__aiico svg{ width:13px; height:13px; display:block }
+.app__answer > div{ min-width:0 }
+.app__chat p{
+  margin:0 0 6px;
+  font-size:11.5px; line-height:1.45; color:#B9BEC6;
+  animation:app-line-in 9s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__chat p:nth-of-type(2){ animation-delay:.5s }
+.app__chat p:nth-of-type(3){ animation-delay:1s }
+@keyframes app-line-in{
+  0%,6%   { opacity:0 }
+  12%,96% { opacity:1 }
+  100%    { opacity:0 }
+}
+/* Los códigos que cita la respuesta son enlaces reales dentro de la app: es lo
+   que separa "un chat" de "un chat sobre tus datos". */
+.app__ref{ color:#7FB4FF; font-weight:500 }
+.app__cursor{
+  display:inline-block; width:6px; height:12px; vertical-align:-2px;
+  background:#C88BFA; margin-left:2px;
+  animation:app-cursor 1.1s steps(1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-cursor{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
+.app__prompt{
+  margin-top:auto;
+  display:flex; align-items:center; gap:8px;
+  border:1px solid #33383F; border-radius:9px;
+  padding:7px 10px;
+  font-size:11px; color:#7C838C;
+}
+.app__prompt svg{ width:14px; height:14px; flex:0 0 auto; color:#C88BFA }
+
+/* =========================================================
+   PANTALLA DE INTEGRACIONES
+   Solved en el centro y alrededor lo que ya hay en la fábrica. La rejilla es
+   deliberadamente sobria: aquí el argumento son los logos, no el dibujo.
+   ========================================================= */
+.app__integra{
+  flex:1; min-height:0;
+  padding:16px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  align-content:center;
+  min-width:var(--app-integra-w,0);
+}
+.app__int{
+  display:grid; place-items:center;
+  height:52px;
+  background:#fff;
+  border:1px solid var(--app-line);
+  border-radius:9px;
+  transition:border-color var(--ds-motion);
+}
+.app__int img{ max-width:66%; max-height:24px; width:auto; height:auto; object-fit:contain }
+/* La casilla de Solved manda: es la que recibe y reparte. */
+.app__int--solved{
+  border-color:var(--app-blue);
+  box-shadow:0 0 0 3px rgba(30,107,255,.10);
+}
+.app__intcap{
+  grid-column:1/-1;
+  margin:2px 0 0;
+  font-size:10.5px; line-height:1.4; color:var(--app-text-2);
+}
+.app__intcap b{ font-weight:500; color:var(--app-text) }
+
+/* --- Acciones: el listado cambia de filtro -------------------------------
+   Dos vistas del mismo listado que se relevan: primero filtrado por equipo y
+   después por persona. Es lo que hace un responsable de planta cada mañana, y
+   es lo que la tarjeta cuenta — que las tareas tienen dueño y se pueden mirar
+   por donde haga falta.
+
+   Van superpuestas en la misma celda de rejilla, no una debajo de otra: así la
+   tabla no da un salto de alto al cambiar el filtro, que es lo que delataría
+   que son dos cosas distintas y no un filtro. */
+.app__table tbody tr{
+  animation:app-row-in 8s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__table tbody tr:nth-child(2){ animation-delay:.12s }
+.app__table tbody tr:nth-child(3){ animation-delay:.24s }
+.app__table tbody tr:nth-child(4){ animation-delay:.36s }
+.app__table tbody tr:nth-child(5){ animation-delay:.48s }
+@keyframes app-row-in{
+  0%,2%   { opacity:0 }
+  9%,96%  { opacity:1 }
+  100%    { opacity:0 }
+}
+
+/* El relevo del estado. Se marca con data-swap para no animar todos los chips
+   de la tabla: sólo el de la acción que se cierra. */
+.app__swap{ position:relative; display:inline-grid }
+.app__swap > *{ grid-area:1/1 }
+.app__swap > :first-child{
+  animation:app-swap-out 8s ease-in-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__swap > :last-child{
+  animation:app-swap-in 8s ease-in-out infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-swap-out{ 0%,58%{opacity:1} 66%,100%{opacity:0} }
+@keyframes app-swap-in { 0%,58%{opacity:0} 66%,100%{opacity:1} }
+
+/* --- Integraciones: los sistemas se van conectando -----------------------
+   Cada casilla aparece con su retraso —el orden en que se enchufa un ERP, un
+   MES, el correo— y la de Solved late al recibirlos. El movimiento aquí es el
+   argumento: sin él, la rejilla es un muro de logos. */
+.app__int{
+  animation:app-int-in 9s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__int:nth-child(2){ animation-delay:.14s }
+.app__int:nth-child(3){ animation-delay:.28s }
+.app__int:nth-child(4){ animation-delay:.42s }
+.app__int:nth-child(5){ animation-delay:.56s }
+.app__int:nth-child(7){ animation-delay:.70s }
+.app__int:nth-child(8){ animation-delay:.84s }
+@keyframes app-int-in{
+  0%,3%   { opacity:0; scale:.97 }
+  10%,96% { opacity:1; scale:1 }
+  100%    { opacity:0; scale:.97 }
+}
+/* La casilla de Solved no aparece: ya estaba. Lo que hace es recibir. */
+.app__int--solved{
+  animation:app-int-hub 9s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-int-hub{
+  0%,12%  { box-shadow:0 0 0 3px rgba(30,107,255,.10) }
+  24%     { box-shadow:0 0 0 7px rgba(30,107,255,.16) }
+  40%,100%{ box-shadow:0 0 0 3px rgba(30,107,255,.10) }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .app__table tbody tr,.app__swap>*,.app__int,.app__int--solved{
+    animation:none !important; opacity:1; scale:1;
+  }
+  .app__swap > :first-child{ opacity:0 }
+}
+
+/* La escena fuera de pantalla no anima. Lo marca ds/scene.js. */
+.scene[data-offscreen] .app{ --play:paused }
+
+/* =========================================================
+   ESQUEMA DE CONEXIÓN
+   La única pieza del fragmento que NO es sólo una pantalla, y va aquí
+   documentada como excepción para que nadie la copie sin pensarlo.
+
+   Cuenta un ciclo entero, no una foto: de tres orígenes —un sensor de planta,
+   el ERP y una máquina— baja un dato por su cable, y al llegar al móvil
+   APARECE LA INCIDENCIA que ese dato ha creado. La pantalla del teléfono es la
+   de siempre (.app--movil), así que la mitad de abajo sigue siendo producto de
+   verdad; lo que se añade arriba es de dónde viene.
+
+   Por eso se justifica el esquema: una captura del listado no dice "esto ha
+   entrado solo, desde el sensor". El movimiento ES el argumento.
+
+   SINCRONÍA. Todo comparte un ciclo de 12s y se desfasa con animation-delay:
+     origen A  el dato baja de 0% a 12%   → su incidencia aparece en el 12%
+     origen B  delay 4s  (33% → 45%)
+     origen C  delay 8s  (66% → 78%)
+   Las tres incidencias se acumulan y se van al cerrar el ciclo. Si se toca la
+   duración hay que tocarla en los cinco sitios o la bolita llegará cuando la
+   incidencia ya esté puesta, que es lo único que rompe el efecto.
+   ========================================================= */
+/* El esquema NO es una pantalla, así que no lleva marco: sin fondo, sin radio
+   y sin la sombra que .scene__media le pone a los fragmentos. Con ellos
+   parecía una ventana de navegador flotando dentro de la tarjeta, que es
+   justo lo que el componente prohíbe. Flota sobre el lienzo teñido y ya. */
+.scene__media:has(> .hub){
+  box-shadow:none;
+  border-radius:0;
+  overflow:visible;
+}
+.hub{
+  position:relative;
+  width:100%; height:100%;
+  background:transparent;
+  font-family:Roboto,'Helvetica Neue',Arial,sans-serif;
+  container-type:size;
+}
+
+/* --- Los cables ---------------------------------------------------------- */
+.hub__wires{ position:absolute; inset:0; width:100%; height:100%; display:block }
+.hub__wire{
+  fill:none;
+  stroke:var(--app-line-2,#C7CFDD);
+  stroke-width:1.6;
+  stroke-dasharray:5 5;
+  stroke-linecap:round;
+}
+/* El dato que baja. El dashoffset va a negativo para que avance en el sentido
+   en que está trazado el path —del origen al móvil—; en positivo el patrón
+   retrocede y el dato subiría, que cuenta lo contrario. */
+.hub__pulse{
+  fill:none;
+  stroke:var(--app-blue,#1E6BFF);
+  stroke-width:2.6;
+  stroke-linecap:round;
+  stroke-dasharray:14 400;
+  animation:hub-pulse 12s linear infinite;
+  animation-play-state:var(--play,running);
+  filter:drop-shadow(0 0 3px rgba(30,107,255,.6));
+}
+.hub__pulse--b{ animation-delay:4s }
+.hub__pulse--c{ animation-delay:8s }
+@keyframes hub-pulse{
+  0%          { stroke-dashoffset:0 }
+  12%         { stroke-dashoffset:-300 }
+  12.01%,100% { stroke-dashoffset:-420 }   /* fuera del cable el resto del ciclo */
+}
+
+/* --- Los orígenes -------------------------------------------------------- */
+.hub__node{
+  position:absolute;
+  translate:-50% -50%;
+  display:grid;
+  place-items:center;
+  width:11.4cqw; height:11.4cqw;
+  border-radius:50%;
+  background:#fff;
+  border:1px solid var(--app-line,#E6EAF2);
+  box-shadow:0 2px 10px rgba(12,32,64,.06);
+  color:var(--app-text-2,#4A5468);
+}
+.hub__node svg{ width:44%; height:44%; display:block }
+/* Las fotos recortadas llenan más que un logo: el objeto ya viene ajustado a
+   su caja, así que sin este 72% quedaría flotando en medio de la burbuja. El
+   logo del ERP es apaisado y se queda en 58%. */
+.hub .hub__node img{ width:72%; height:auto; object-fit:contain }
+.hub .hub__node--b img{ width:58% }
+/* Late justo cuando suelta su dato: es lo que ata la burbuja con la bolita. */
+.hub__node{
+  animation:hub-node 12s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+.hub__node--b{ animation-delay:4s }
+.hub__node--c{ animation-delay:8s }
+@keyframes hub-node{
+  0%      { box-shadow:0 0 0 0 rgba(30,107,255,.45), 0 2px 10px rgba(12,32,64,.06) }
+  7%      { box-shadow:0 0 0 8px rgba(30,107,255,0), 0 2px 10px rgba(12,32,64,.06) }
+  8%,100% { box-shadow:0 0 0 0 rgba(30,107,255,0), 0 2px 10px rgba(12,32,64,.06) }
+}
+/* La etiqueta se separa con la misma unidad que fija el diámetro: en % se
+   despegaría en cuanto la tarjeta cambiara de proporción. */
+.hub__tag{
+  position:absolute;
+  translate:-50% 0;
+  margin-top:6.8cqw;
+  white-space:nowrap;
+  font-size:10.5px; line-height:1.2;
+  color:var(--app-text-2,#4A5468);
+}
+
+/* --- El móvil ------------------------------------------------------------ */
+/* container-type propio: ds/device.css calcula el bisel y el radio del iPhone
+   en cqw, y sin esto los mide contra el ancho del hub —cuatro veces mayor— y
+   el teléfono sale con esquinas de 120px. El contenedor tiene que ser el padre
+   directo del .device, como dice el propio componente. */
+.hub__phone{
+  position:absolute;
+  translate:-50% 0;
+  width:34cqw;
+  container-type:inline-size;
+}
+
+/* Las incidencias que van naciendo. Cada una entra cuando su bolita toca el
+   teléfono y se queda hasta que el ciclo cierra. */
+.hub__new{
+  overflow:hidden;
+  animation:hub-new-a 12s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+.hub__new--b{ animation-name:hub-new-b }
+.hub__new--c{ animation-name:hub-new-c }
+/* No basta con la opacidad ni con el alto: una tarjeta colapsada conserva su
+   relleno y su borde —16px y 2px por cabeza—, y tres de ellas dejan un palmo
+   de hueco sobre el listado. Colapsan en alto y el margen negativo se
+   come el gap de la lista, así que el listado CRECE cuando llega el dato —que
+   es justo lo que se está contando—. */
+@keyframes hub-new-a{
+  0%,11%  { opacity:0; max-height:0; padding-block:0; border-width:0; margin-bottom:-7px }
+  14%,96% { opacity:1; max-height:110px; padding-block:8px; border-width:1px; margin-bottom:0 }
+  100%    { opacity:0; max-height:0; padding-block:0; border-width:0; margin-bottom:-7px }
+}
+@keyframes hub-new-b{
+  0%,44%  { opacity:0; max-height:0; padding-block:0; border-width:0; margin-bottom:-7px }
+  47%,96% { opacity:1; max-height:110px; padding-block:8px; border-width:1px; margin-bottom:0 }
+  100%    { opacity:0; max-height:0; padding-block:0; border-width:0; margin-bottom:-7px }
+}
+@keyframes hub-new-c{
+  0%,77%  { opacity:0; max-height:0; padding-block:0; border-width:0; margin-bottom:-7px }
+  80%,96% { opacity:1; max-height:110px; padding-block:8px; border-width:1px; margin-bottom:0 }
+  100%    { opacity:0; max-height:0; padding-block:0; border-width:0; margin-bottom:-7px }
+}
+/* El contador de abiertas sube con ellas. Tres cifras superpuestas que se
+   relevan: así el número no salta de ancho al cambiar. */
+.hub__count{ display:inline-grid; vertical-align:baseline }
+.hub__count > *{ grid-area:1/1 }
+.hub__count > :nth-child(1){ animation:hub-n1 12s steps(1) infinite }
+.hub__count > :nth-child(2){ animation:hub-n2 12s steps(1) infinite }
+.hub__count > :nth-child(3){ animation:hub-n3 12s steps(1) infinite }
+.hub__count > *{ animation-play-state:var(--play,running) }
+@keyframes hub-n1{ 0%,13%{opacity:1} 14%,100%{opacity:0} }
+@keyframes hub-n2{ 0%,13%{opacity:0} 14%,46%{opacity:1} 47%,100%{opacity:0} }
+@keyframes hub-n3{ 0%,46%{opacity:0} 47%,100%{opacity:1} }
+
+@media (prefers-reduced-motion:reduce){
+  .hub__pulse{ animation:none; stroke-dashoffset:-150 }
+  .hub__node,.hub__new,.hub__count > *{ animation:none; opacity:1; max-height:none; margin-bottom:0 }
+  .hub__count > :nth-child(1),.hub__count > :nth-child(2){ opacity:0 }
+}
+
+/* =========================================================
+   EL PUENTE — cómo se conecta Solved con el sistema que ya tienes
+   Va en la tarjeta ampliada de Integraciones. Réplica del recurso de la
+   tarjeta «Integra pagos en tu plataforma» de la home de Stripe, medido en su
+   DOM en vivo el 16 de agosto de 2026.
+
+   LO QUE SE COPIA (que es la composición, no el contenido):
+     · dos planos — la ventana de la plataforma DETRÁS, y delante una tarjeta
+       pequeña, elevada, del sistema con el que se habla;
+     · un cable explícito ENTRE los dos, en codo: sube, gira con una esquina
+       redondeada y sale en horizontal. Es lo que convierte dos pantallas
+       sueltas en «una habla con la otra»;
+     · el cable es PUNTEADO y muy fino —punto y hueco iguales—, no la raya de
+       5-5 de `.hub__wire`: aquí no es una manguera de datos, es un enlace;
+     · el trazo va en degradado y se APAGA en el extremo lejano, así el cable
+       no compite con las dos pantallas ni parece un borde;
+     · y se dibuja solo, de un extremo al otro.
+
+   Sus proporciones son las de Stripe, en porcentaje sobre un lienzo de
+   1000×457: ventana 72,8 % de ancho a (21,6 %, 5,7 %); tarjeta 29,6 % a
+   (7 %, 24,1 %); cable 13,1 % a (10,2 %, 19,3 %).
+
+   LO QUE NO SE COPIA: el sentido. El de Stripe va sólo hacia la plataforma;
+   aquí el pulso hace el viaje de ida y vuelta, porque la integración de Solved
+   es en los dos sentidos y es lo que dice el propio diálogo.
+   ========================================================= */
+.bridge{ position:absolute; inset:0 }
+
+/* La ventana, detrás y desplazada a la derecha. Se sale por abajo a propósito:
+   es la única pieza del puente que se recorta, y es lo que da profundidad.
+   Lleva además `device-box` en el marcado: es el contenedor contra el que
+   ds/device.css calcula el bisel y los radios en `cqw`. */
+.bridge__win{
+  position:absolute;
+  left:21.6%; top:5.7%; width:72.8%;
+}
+
+/* La tarjeta del sistema con el que se habla: delante, a la izquierda y
+   elevada. La sombra es la de Stripe, convertida a los tokens de aquí. */
+.bridge__card{
+  position:absolute; z-index:2;
+  left:7%; top:24.1%; width:29.6%;
+  background:#fff;
+  border:1px solid var(--app-line);
+  border-radius:10px;
+  box-shadow:0 16px 32px rgba(50,50,93,.12);
+  padding:11px 12px 12px;
+  display:flex; flex-direction:column; gap:9px;
+}
+.bridge__cardh{ display:flex; align-items:center; justify-content:space-between; gap:8px }
+.bridge .bridge__logo{ height:18px; width:auto; display:block }
+.bridge__badge{
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:9px; font-weight:500; color:var(--app-ok);
+}
+.bridge__badge::before{
+  content:""; width:5px; height:5px; border-radius:50%; background:currentColor;
+}
+.bridge__cardt{ margin:0; font-size:10px; color:var(--app-mute) }
+.bridge__log{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px }
+.bridge__log li{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding-top:6px; border-top:1px solid var(--app-line);
+  font-size:9.5px; color:var(--app-text-2);
+}
+.bridge__log li:first-child{ padding-top:0; border-top:0 }
+.bridge__ok{ color:var(--app-ok) }
+.bridge__wait{ color:var(--app-mute) }
+.bridge__foot{
+  margin:0; padding-top:8px; border-top:1px solid var(--app-line);
+  font-size:9px; color:var(--app-mute);
+}
+
+/* --- El cable ------------------------------------------------------------
+   Entre los dos planos: por encima de la ventana y por debajo de la tarjeta,
+   que es lo que hace que parezca entrar por detrás de ésta. */
+.bridge__wire{
+  position:absolute; z-index:1;
+  left:10.2%; top:19.3%; width:13.1%;
+  height:auto; overflow:visible; display:block;
+}
+.bridge__trace,.bridge__pulse2{ fill:none; stroke-linecap:round }
+/* Punto y hueco iguales, y el punto vale 1,33 veces el grosor: así se lee como
+   una línea de puntos y no como una raya cortada. */
+.bridge__trace{
+  stroke:url(#bridge-grad);
+  stroke-width:1.2;
+  stroke-dasharray:1.6 1.6;
+}
+/* El trazo se revela con una MÁSCARA —un segundo trazado, sin puntear, cuyo
+   `stroke-dashoffset` se anima— y no con el offset del propio trazo punteado:
+   animar el offset de una línea de puntos hace DESFILAR los puntos, que es
+   otra cosa. 222 es el largo del trazado, medido con getTotalLength(). */
+.bridge__mask{
+  fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round;
+  stroke-dasharray:222;
+  animation:bridge-draw 9s ease-in-out infinite;
+  animation-play-state:var(--play,running);
+}
+/* El dato que viaja. Ida y vuelta: sube al ERP y baja a la ficha. */
+.bridge__pulse2{
+  stroke:var(--app-blue);
+  stroke-width:2.2;
+  stroke-dasharray:9 300;
+  animation:bridge-pulse 9s ease-in-out infinite;
+  animation-play-state:var(--play,running);
+  filter:drop-shadow(0 0 3px rgba(30,107,255,.55));
+}
+@keyframes bridge-draw{
+  0%      { stroke-dashoffset:222 }
+  22%,88% { stroke-dashoffset:0 }
+  100%    { stroke-dashoffset:222 }
+}
+@keyframes bridge-pulse{
+  0%,24%  { stroke-dashoffset:0 }
+  46%     { stroke-dashoffset:-231 }   /* llega a la ventana */
+  58%     { stroke-dashoffset:-231 }   /* espera allí */
+  80%     { stroke-dashoffset:0 }      /* y vuelve a la ficha */
+  100%    { stroke-dashoffset:0 }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .bridge__mask,.bridge__pulse2{ animation:none }
+  .bridge__mask{ stroke-dashoffset:0 }   /* el cable, entero y quieto */
+  .bridge__pulse2{ opacity:0 }
+}
+
+/* Por debajo de tablet el puente no cabe: la tarjeta de delante taparía media
+   ventana. Se apilan, y el cable —que sólo tiene sentido entre dos planos que
+   se solapan— desaparece. */
+@media (max-width:719px){
+  .bridge{ position:static; display:flex; flex-direction:column; gap:14px }
+  .bridge__win,.bridge__card{ position:static; width:100%; left:auto; top:auto }
+  .bridge__wire{ display:none }
+}
+
+.app__views{ display:grid; flex:1; min-height:0 }
+.app__views > *{ grid-area:1/1 }
+.app__view{
+  display:flex; flex-direction:column; gap:10px; min-height:0;
+  animation:app-view-a 12s ease-in-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__view--b{ animation-name:app-view-b }
+.app__view--c{ animation-name:app-view-c }
+/* Cada vista manda la mitad del ciclo, con un cruce corto: el relevo tiene
+   que leerse como un filtro que cambia, no como un parpadeo. */
+/* Tres pasos de filtro, cuatro segundos cada uno. El cruce es corto: tiene que
+   leerse como una lista que se acorta, no como un pase de diapositivas. */
+@keyframes app-view-a{ 0%,28%{opacity:1} 33%,95%{opacity:0} 100%{opacity:1} }
+@keyframes app-view-b{ 0%,28%{opacity:0} 33%,61%{opacity:1} 66%,100%{opacity:0} }
+@keyframes app-view-c{ 0%,61%{opacity:0} 66%,95%{opacity:1} 100%{opacity:0} }
+
+/* La barra de filtros. Los chips se acumulan, así que puede haber dos o tres:
+   se envuelven antes que encogerse, porque un chip recortado deja de decir por
+   qué está filtrando. */
+.app__filters{
+  display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+  flex:0 0 auto;
+}
+
+
+/* El chip que dice por qué se está filtrando. */
+.app__filter{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 10px;
+  border:1px solid var(--app-line);
+  border-radius:999px;
+  background:#fff;
+  font-size:10.5px; font-weight:500; color:var(--app-text-2);
+  white-space:nowrap;
+}
+.app__filter{ overflow:hidden }
+.app__filter svg{ width:12px; height:12px; flex:0 0 auto; color:var(--app-mute) }
+.app__filter .app__ava{ width:16px; height:16px; font-size:9px }
+/* La flecha de desplegable: sin ella el chip parece una etiqueta y no un
+   filtro que se puede abrir. */
+.app__fcar{ opacity:.55 }
+
+/* El valor elegido. Arranca colapsado —el filtro está vacío— y entra al
+   seleccionarlo. Se anima el ancho y no sólo la opacidad: si sólo se
+   desvaneciera, el hueco ya estaría reservado y no se leería como que el
+   valor ENTRA en el filtro. */
+.app__fval{
+  display:inline-flex; align-items:center;
+  max-width:0; opacity:0; overflow:hidden;
+  white-space:nowrap;
+  animation-duration:12s; animation-iteration-count:infinite;
+  animation-timing-function:cubic-bezier(.16,1,.3,1);
+  animation-play-state:var(--play,running);
+}
+.app__filter--dep .app__fval{ animation-name:app-val-dep }
+.app__filter--resp .app__fval{ animation-name:app-val-resp }
+@keyframes app-val-dep{
+  0%,28%  { max-width:0;    opacity:0 }
+  36%,95% { max-width:16ch; opacity:1 }
+  100%    { max-width:0;    opacity:0 }
+}
+@keyframes app-val-resp{
+  0%,61%  { max-width:0;    opacity:0 }
+  69%,95% { max-width:12ch; opacity:1 }
+  100%    { max-width:0;    opacity:0 }
+}
+/* El avatar entra con el nombre: es parte del valor, no del campo. */
+.app__fval--ava{ margin-right:0 }
+.app__filter--resp .app__fval--ava{ animation-name:app-val-ava }
+@keyframes app-val-ava{
+  0%,61%  { max-width:0;  opacity:0; margin-right:0 }
+  69%,95% { max-width:20px; opacity:1; margin-right:6px }
+  100%    { max-width:0;  opacity:0; margin-right:0 }
+}
+/* Filtrar por persona es más concreto que por equipo, y el chip lo dice. */
+.app__filter--on{
+  background:var(--app-blue-wash);
+  border-color:rgba(30,107,255,.28);
+  color:var(--app-blue-deep);
+}
+
+/* --- Los botones se seleccionan solos ------------------------------------
+   La barra se queda fija y lo que cambia es el ESTADO de cada botón: primero
+   se enciende el de departamento y luego el de responsable. Así se ve el gesto
+   —qué se pulsa y qué pasa— en vez de un baile de chips que aparecen y
+   desaparecen, que es lo que hacía antes y no contaba nada.
+
+   El anillo que se abre en el instante del cambio es la mitad del efecto: sin
+   él, el botón sólo cambia de color y no se lee como una pulsación. */
+.app__filter--dep,
+.app__filter--resp{
+  animation-duration:12s;
+  animation-iteration-count:infinite;
+  animation-timing-function:ease-out;
+  animation-play-state:var(--play,running);
+}
+.app__filter--dep{ animation-name:app-pick-dep }
+.app__filter--resp{ animation-name:app-pick-resp }
+
+@keyframes app-pick-dep{
+  0%,28%   { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  33%      { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 5px rgba(30,107,255,.22) }
+  40%,95%  { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  100%     { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+@keyframes app-pick-resp{
+  0%,61%   { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  66%      { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 5px rgba(30,107,255,.22) }
+  73%,95%  { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  100%     { background:#fff; border-color:var(--app-line); color:var(--app-text-2);
+             box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+
+/* El contador acompaña al filtro: 9 → 3 → 2. Tres cifras superpuestas, para
+   que el número no salte de ancho al cambiar. */
+.app__cntswap{ margin-left:auto; display:inline-grid }
+.app__cntswap > *{ grid-area:1/1 }
+.app__cntswap > *{
+  animation-duration:12s; animation-iteration-count:infinite;
+  animation-timing-function:steps(1);
+  animation-play-state:var(--play,running);
+}
+.app__cntswap > :nth-child(1){ animation-name:app-cnt1 }
+.app__cntswap > :nth-child(2){ animation-name:app-cnt2 }
+.app__cntswap > :nth-child(3){ animation-name:app-cnt3 }
+@keyframes app-cnt1{ 0%,31%{opacity:1} 32%,100%{opacity:0} }
+@keyframes app-cnt2{ 0%,31%{opacity:0} 32%,64%{opacity:1} 65%,100%{opacity:0} }
+@keyframes app-cnt3{ 0%,64%{opacity:0} 65%,97%{opacity:1} 98%,100%{opacity:0} }
+
+/* =========================================================
+   REGISTRO CUMPLIMENTADO — copiado del producto, no aproximado
+   ---------------------------------------------------------
+   Medido en app.trysolved.com el 1 de septiembre de 2026, en la ficha de un
+   registro cerrado (/checklist/preview/…/section/0). Lo que se copia y de
+   dónde sale cada valor:
+
+     · Botón OK  → fondo #16A34A, texto #DCFCE7   (medido)
+     · Botón KO  → fondo blanco, borde y texto #DC2626 (medido)
+     · Chip verde de estado → borde #BBF7D0, texto #15803D (medido)
+     · N/A y textos secundarios → #4B5563 (medido)
+     · Hairline de tarjeta → #E5E7EB (medido)
+     · Tipografía → Roboto, que ya era la del resto de ds/app.css
+
+   El verde OK del producto resultó ser exactamente --color-status-ok de
+   ds/tokens.css. No es casualidad y no se toca.
+
+   La gramática también es la real: cabecera con ID en chip, el par OK%/KO%,
+   el estado, y los controles con su sello "Modificado por … el …". Lo que NO
+   se copia es el índice de navegación lateral ni la zona de adjuntos: no caben
+   a este tamaño y su ausencia no falsea nada.
+   ========================================================= */
+.app--registro{ background:#fff; display:flex; flex-direction:column }
+.app--registro .rg__cab{
+  padding:14px 16px 12px;
+  border-bottom:1px solid #E5E7EB;
+  display:grid; gap:8px;
+}
+.app--registro .rg__ttl{ display:flex; align-items:center; gap:8px }
+.app--registro .rg__id{
+  font:500 11px/1 Roboto, sans-serif;
+  color:#15803D; background:#DCFCE7;
+  padding:5px 8px; border-radius:6px; letter-spacing:.2px;
+}
+.app--registro .rg__nom{ font:500 14px/1.2 Roboto, sans-serif; color:#1A1B1F }
+.app--registro .rg__estado{ display:flex; align-items:center; gap:12px; flex-wrap:wrap }
+.app--registro .rg__pct{
+  display:inline-flex; align-items:center; gap:6px;
+  font:500 11.5px/1 Roboto, sans-serif; color:#4B5563;
+}
+.app--registro .rg__pct::before{
+  content:""; width:7px; height:7px; border-radius:50%; background:var(--rg-dot,#16A34A);
+}
+.app--registro .rg__pct--ok{ --rg-dot:#16A34A }
+.app--registro .rg__pct--ko{ --rg-dot:#DC2626 }
+.app--registro .rg__chip{
+  font:500 10.5px/1 Roboto, sans-serif; color:#15803D;
+  border:1px solid #BBF7D0; border-radius:12px; padding:4px 9px;
+}
+.app--registro .rg__meta{ font:400 10.5px/1.3 Roboto, sans-serif; color:#4B5563 }
+
+.app--registro .rg__lista{ display:grid; gap:10px; padding:14px 16px 16px }
+.app--registro .rg__ctrl{
+  border:1px solid #E5E7EB; border-radius:10px;
+  padding:11px 12px; display:grid; gap:9px;
+  border-left:3px solid #16A34A;
+}
+.app--registro .rg__ctrl--ko{ border-left-color:#DC2626 }
+.app--registro .rg__ctrl--na{ border-left-color:#D1D5DB }
+.app--registro .rg__fila{ display:flex; align-items:center; gap:9px }
+.app--registro .rg__n{
+  width:20px; height:20px; flex:none;
+  display:grid; place-items:center; border-radius:6px;
+  background:#DCFCE7; color:#15803D;
+  font:500 11px/1 Roboto, sans-serif;
+}
+.app--registro .rg__ctrl--ko .rg__n{ background:#FEE2E2; color:#DC2626 }
+.app--registro .rg__ctrl--na .rg__n{ background:#F3F4F6; color:#4B5563 }
+.app--registro .rg__ctxt{ font:400 12.5px/1.3 Roboto, sans-serif; color:#1A1B1F }
+.app--registro .rg__sello{
+  display:inline-flex; align-items:center; gap:6px;
+  font:400 10px/1 Roboto, sans-serif; color:#4B5563;
+  background:#F3F4F6; border-radius:6px; padding:5px 8px;
+  width:fit-content;
+}
+.app--registro .rg__sello svg{ width:11px; height:11px }
+/* El par de botones del producto: KO en blanco con borde rojo, OK macizo. */
+.app--registro .rg__bts{ display:flex; gap:8px; justify-content:flex-end }
+.app--registro .rg__bt{
+  font:500 12px/1 Roboto, sans-serif;
+  padding:8px 22px; border-radius:999px; border:1px solid transparent;
+}
+.app--registro .rg__bt--ko{ color:#DC2626; border-color:#DC2626; background:#fff }
+/* El resultado elegido va macizo y el otro apagado, que es como se lee en el
+   producto: allí el control estaba en OK y el verde era sólido. Aquí el
+   control 1 está en KO, así que el macizo es el rojo. */
+.app--registro .rg__bt--ko.rg__bt--on{ background:#DC2626; color:#FEE2E2 }
+.app--registro .rg__bt--ok{ color:#DCFCE7; background:#16A34A }
+.app--registro .rg__bt--off{ opacity:.32 }
+/* Los controles ya resueltos se pliegan a una línea, como en el producto. */
+.app--registro .rg__res{ margin-left:auto; font:500 11.5px/1 Roboto, sans-serif }
+.app--registro .rg__res--ok{ color:#15803D }
+.app--registro .rg__res--na{ color:#4B5563 }
+
+/* =========================================================
+   LISTADO DE REGISTROS — copiado del producto
+   ---------------------------------------------------------
+   Medido en app.trysolved.com/checklist el 1 de septiembre de 2026, pestaña
+   Historial. Se copian las tres pestañas con su contador, el par
+   Detallada/Compacta, el separador de fecha en píldora centrada entre
+   hairlines, y la fila: miniatura, ID en chip, título, estado con punto,
+   chip Processing, "Ejecutado el:" y las píldoras de Responsable y Verificador.
+
+   Lo que NO se copia: la paginación y el buscador. A este tamaño son ruido y
+   quitarlos no falsea el producto.
+   ========================================================= */
+.app--reglista{ background:#F7F8FA }
+/* LA PANTALLA SE QUEDA EN LO QUE CUENTA: cabecera, el filtro que se pulsa y
+   los registros. Fuera la barra de Lista/Calendario y las pestañas
+   Pendientes/Historial, y fuera el conmutador Detallada/Compacta (3 sep 2026).
+   Es cromo de aplicación: dentro de un plano de 250 px no se lee, y lo que
+   sostiene la escena es que la operaria pide dos filtros y salen sus registros,
+   no cuántas vistas tiene el listado. El contador sí se queda —es el remate del
+   filtro, el que pasa de «1-4 de 4» a «1-2 de 2»—, y por eso .rl__sub sigue. */
+.app--reglista .rl__sub{
+  display:flex; align-items:center; gap:8px;
+  padding:9px 14px; border-bottom:1px solid #E5E7EB; background:#fff;
+}
+
+.app--reglista .rl__fecha{
+  display:flex; align-items:center; gap:10px; padding:14px 14px 6px;
+}
+.app--reglista .rl__fecha::before,
+.app--reglista .rl__fecha::after{ content:""; flex:1; height:1px; background:#DBE7FF }
+.app--reglista .rl__fechat{
+  font:500 10.5px/1 Roboto, sans-serif; color:#1E6BFF;
+  background:#EAF1FF; border-radius:999px; padding:6px 12px;
+}
+.app--reglista .rl__filas{ padding:6px 14px 14px }
+.app--reglista .rl__fila + .rl__fila{ margin-top:8px }
+.app--reglista .rl__fila{
+  display:flex; align-items:center; gap:11px;
+  background:#fff; border:1px solid #E5E7EB; border-left:3px solid #16A34A;
+  border-radius:9px; padding:9px 11px;
+}
+.app--reglista .rl__fila--inc{ border-left-color:#9CA3AF }
+.app--reglista .rl__mini{
+  width:38px; height:30px; flex:none; border-radius:5px;
+  background:linear-gradient(135deg,#C7CDD4,#8C949D);
+}
+.app--reglista .rl__id{
+  font:500 10.5px/1 Roboto, sans-serif; color:#15803D;
+  background:#DCFCE7; border-radius:5px; padding:4px 6px; flex:none;
+}
+.app--reglista .rl__cuerpo{ display:grid; gap:4px; min-width:0 }
+.app--reglista .rl__nom{ font:500 12px/1.2 Roboto, sans-serif; color:#1A1B1F }
+.app--reglista .rl__linea{ display:flex; align-items:center; gap:9px; flex-wrap:wrap }
+.app--reglista .rl__est{
+  display:inline-flex; align-items:center; gap:5px;
+  font:500 10.5px/1 Roboto, sans-serif; color:#15803D;
+}
+.app--reglista .rl__est::before{ content:""; width:6px; height:6px; border-radius:50%; background:#16A34A }
+.app--reglista .rl__est--inc{ color:#4B5563 }
+.app--reglista .rl__est--inc::before{ background:#9CA3AF }
+.app--reglista .rl__proc{
+  font:500 10px/1 Roboto, sans-serif; color:#15803D;
+  background:#DCFCE7; border-radius:5px; padding:4px 6px;
+}
+.app--reglista .rl__cuando{ font:400 10.5px/1 Roboto, sans-serif; color:#4B5563 }
+.app--reglista .rl__gente{ display:flex; gap:7px; margin-left:auto; flex:none }
+.app--reglista .rl__pers{
+  display:flex; align-items:center; gap:6px;
+  border:1px solid #E5E7EB; border-radius:8px; padding:4px 8px 4px 4px;
+}
+.app--reglista .rl__av{
+  width:19px; height:19px; border-radius:50%;
+  display:grid; place-items:center;
+  font:500 9.5px/1 Roboto, sans-serif; color:#fff; background:#1E6BFF;
+}
+.app--reglista .rl__av--ver{ background:#16A34A }
+.app--reglista .rl__rol{ display:grid; gap:1px }
+.app--reglista .rl__rolt{ font:400 8.5px/1 Roboto, sans-serif; color:#1E6BFF }
+.app--reglista .rl__rolt--ver{ color:#15803D }
+.app--reglista .rl__roln{ font:400 10px/1 Roboto, sans-serif; color:#1A1B1F }
+
+/* =========================================================
+   EL REGISTRO SE RELLENA — animación del bocadillo
+   ---------------------------------------------------------
+   La tarjeta quieta enseñaba el resultado; lo que cuenta la página es el acto
+   de registrar. Ciclo de 8 s, el mismo que el resto de ds/app.css:
+
+     0,0 s   tarjeta en blanco: sin resultados, contadores a cero
+     1,2 s   control 1 → se pulsa KO y su franja se pone roja
+     2,6 s   control 2 → OK
+     3,8 s   control 3 → OK
+     5,0 s   control 4 → N/A
+     5,2 s   los porcentajes terminan de subir
+     8,0 s   vuelve a empezar
+
+   Se anima el CONTENIDO de la pantalla, nunca la tarjeta: es la distinción del
+   sistema, la misma que siguen el dashboard y el parte de la home.
+
+   Los tiempos van escritos a mano en cada keyframe y no con `animation-delay`
+   sobre uno común: un retardo positivo desplaza el primer ciclo respecto de
+   los demás y la primera pasada se ve descuadrada. Un selector de @keyframes
+   tampoco admite variables ni calc(), así que cuatro keyframes cortos es la
+   forma honesta de escribir esto.
+
+   Los porcentajes los pinta counter() desde --rg-ok/--rg-ko, que es lo que
+   anima el keyframe —un entero no se interpola de otra forma en CSS—, con
+   @property para registrarlos. Cada uno lleva su valor final en un style
+   inline: es lo que se ve si el navegador no registra @property, y es lo que
+   queda con prefers-reduced-motion.
+
+   Todo obedece a --play, como el resto del fichero.
+   ========================================================= */
+@property --rg-ok{ syntax:'<integer>'; initial-value:0; inherits:false }
+@property --rg-ko{ syntax:'<integer>'; initial-value:0; inherits:false }
+
+/* El contador, la variable y la animación van en el MISMO elemento. Con
+   @property e `inherits:false` un hijo no recibe el valor animado del padre:
+   se queda en el initial-value y el número sale a cero. Es el mismo montaje
+   que .app__kpiv--count. */
+.app--registro .rg__num{
+  font-variant-numeric:tabular-nums;   /* si no, la caja baila al pasar de 9 a 10 */
+  animation-duration:8s;
+  animation-timing-function:linear;
+  animation-iteration-count:infinite;
+  animation-play-state:var(--play,running);
+}
+.app--registro .rg__num::before{ content:counter(n) }
+.app--registro .rg__num--ok{ counter-reset:n var(--rg-ok); animation-name:rg-ok }
+.app--registro .rg__num--ko{ counter-reset:n var(--rg-ko); animation-name:rg-ko }
+
+@keyframes rg-ok{ 0%,14%{ --rg-ok:0 } 65%,100%{ --rg-ok:67 } }
+@keyframes rg-ko{ 0%,14%{ --rg-ko:0 } 65%,100%{ --rg-ko:33 } }
+
+/* Cada resultado entra cuando le toca, y la franja de la celda viaja de gris a
+   su color en el mismo instante: es lo que hace que se lea como "resuelto" y
+   no como "ha aparecido un texto". */
+@keyframes rg-res-2{ 0%,30%{ opacity:0; transform:translateY(3px) } 34%,100%{ opacity:1; transform:none } }
+@keyframes rg-res-3{ 0%,45%{ opacity:0; transform:translateY(3px) } 49%,100%{ opacity:1; transform:none } }
+@keyframes rg-res-4{ 0%,60%{ opacity:0; transform:translateY(3px) } 64%,100%{ opacity:1; transform:none } }
+.app--registro .rg__ctrl:nth-of-type(2) .rg__res{ animation:rg-res-2 8s linear infinite }
+.app--registro .rg__ctrl:nth-of-type(3) .rg__res{ animation:rg-res-3 8s linear infinite }
+.app--registro .rg__ctrl:nth-of-type(4) .rg__res{ animation:rg-res-4 8s linear infinite }
+.app--registro .rg__res{ animation-play-state:var(--play,running) }
+
+@keyframes rg-franja-ko{ 0%,14%{ border-left-color:#D1D5DB } 18%,100%{ border-left-color:#DC2626 } }
+@keyframes rg-franja-2{ 0%,30%{ border-left-color:#D1D5DB } 34%,100%{ border-left-color:#16A34A } }
+@keyframes rg-franja-3{ 0%,45%{ border-left-color:#D1D5DB } 49%,100%{ border-left-color:#16A34A } }
+.app--registro .rg__ctrl--ko{ animation:rg-franja-ko 8s linear infinite }
+.app--registro .rg__ctrl:nth-of-type(2){ animation:rg-franja-2 8s linear infinite }
+.app--registro .rg__ctrl:nth-of-type(3){ animation:rg-franja-3 8s linear infinite }
+.app--registro .rg__ctrl{ animation-play-state:var(--play,running) }
+
+/* El botón KO se pulsa: pasa de contorno a macizo, y el OK se apaga a la vez,
+   que es como queda en el producto cuando el otro está elegido. */
+@keyframes rg-pulsa{ 0%,14%{ background:#fff; color:#DC2626 } 18%,100%{ background:#DC2626; color:#FEE2E2 } }
+@keyframes rg-apaga{ 0%,14%{ opacity:1 } 18%,100%{ opacity:.32 } }
+.app--registro .rg__bt--ko.rg__bt--on{ animation:rg-pulsa 8s linear infinite; animation-play-state:var(--play,running) }
+.app--registro .rg__bt--ok.rg__bt--off{ animation:rg-apaga 8s linear infinite; animation-play-state:var(--play,running) }
+
+/* Quieto: cada pieza se queda en el valor final que ya lleva el marcado. La
+   tarjeta cuenta lo mismo, sólo que ya resuelta. */
+@media (prefers-reduced-motion:reduce){
+  .app--registro .rg__num,
+  .app--registro .rg__res,
+  .app--registro .rg__ctrl,
+  .app--registro .rg__bt--ko.rg__bt--on,
+  .app--registro .rg__bt--ok.rg__bt--off{ animation:none }
+}
+
+/* =========================================================
+   FILTROS RÁPIDOS — animación del listado de registros
+   ---------------------------------------------------------
+   La escena de al lado enseña a la operaria dando DOS toques en la tablet, así
+   que la pantalla hace exactamente dos clics: uno por toque. Los tiempos no
+   están puestos a ojo — se midieron sobre el propio vídeo, comparando
+   fotogramas a 20 fps en la mitad del cuadro donde están las manos: los picos
+   de movimiento caen en 1,25 s (25 % del ciclo) y 2,25 s (45 %).
+
+   Los chips son los reales del panel "Filtrar registros" de
+   app.trysolved.com/checklist, comprobado el 1 de septiembre de 2026:
+   Departamento con Producción / Calidad / Cliente, y "Para hoy". Del panel
+   se recorta lo que no cabe —tipo, ID, estado, ejecutor, verificador,
+   responsable, planta y rango de fechas— pero no se inventa ninguno.
+
+   Ciclo = duración del vídeo (--rl-dur, la pone ds/sections.js), y el propio
+   script devuelve las animaciones a cero en cada vuelta del bucle:
+
+     0 %      panel abierto, ningún filtro puesto, cuatro registros
+     25 %     clic 1 → "Calidad"
+     45 %     clic 2 → "Para hoy"
+     50 %     se pulsa "Aplicar filtros"
+     54 %     EL PANEL SE CIERRA, que es lo que hace el producto al aplicar
+     55 %     la lista se pliega a los dos que quedan y sube a su sitio
+     60 %     el contador pasa de "1–4 de 4" a "1–2 de 2"
+     100 %    vuelve a empezar, con el vídeo
+
+   POR QUÉ SE CIERRA EL PANEL Y NO SE QUEDA ABIERTO
+   Porque si no, la escena enseña cómo se pide, pero no lo que se pide. Con la
+   tarjeta a su tamaño de antes daba igual —cabían el panel y las filas—, pero
+   dentro del comparador a media página la tarjeta se recorta por abajo y el
+   panel se comía justo la parte que importa: los registros. Cerrarlo no es un
+   apaño de encuadre, además: es lo que hace la aplicación de verdad cuando
+   pulsas «Aplicar filtros».
+   ========================================================= */
+.app--reglista .rl__panel{
+  padding:11px 14px 12px;
+  border-bottom:1px solid var(--app-line,#E6EAF2);
+  background:#fff;
+  display:grid; gap:9px;
+}
+.app--reglista .rl__ptit{
+  display:flex; align-items:center; gap:7px;
+  font:500 11.5px/1 Roboto, sans-serif; color:var(--app-text,#1B2230);
+}
+.app--reglista .rl__ptit svg{ width:13px; height:13px; color:var(--app-blue,#1E6BFF) }
+.app--reglista .rl__grupo{ display:grid; gap:6px }
+.app--reglista .rl__glab{ font:400 10px/1 Roboto, sans-serif; color:var(--app-mute,#8B95A7) }
+.app--reglista .rl__chips{ display:flex; gap:6px; flex-wrap:wrap; align-items:center }
+.app--reglista .rl__chip{
+  font:400 10.5px/1 Roboto, sans-serif;
+  color:var(--app-blue,#1E6BFF);
+  border:1px solid var(--app-blue-wash,#C7D9FF);
+  border-radius:999px; padding:5px 10px;
+  background:#fff;
+}
+.app--reglista .rl__mas{ font:400 12px/1 Roboto, sans-serif; color:var(--app-mute,#8B95A7) }
+.app--reglista .rl__aplica{
+  justify-self:end;
+  font:500 10.5px/1 Roboto, sans-serif; color:#fff;
+  background:var(--app-blue,#1E6BFF); border-radius:7px; padding:7px 11px;
+}
+
+/* El panel se cierra al aplicar y deja sitio a la lista. Se animan alto,
+   aire y borde a la vez: con sólo el max-height quedaría la franja del padding
+   y la línea de abajo flotando sobre las filas. */
+@keyframes rl-panel{
+  0%,52%{ max-height:220px; opacity:1; padding-top:11px; padding-bottom:12px; border-bottom-width:1px }
+  62%,100%{ max-height:0; opacity:0; padding-top:0; padding-bottom:0; border-bottom-width:0 }
+}
+.app--reglista .rl__panel{
+  overflow:hidden;
+  animation:rl-panel var(--rl-dur,5.04s) ease-in-out infinite;
+  animation-play-state:var(--play,running);
+}
+
+/* Los dos clics. Cada chip se enciende en el instante de su toque. */
+@keyframes rl-chip-1{ 0%,24%{ background:#fff; color:#1E6BFF; border-color:#C7D9FF } 26%,100%{ background:#1E6BFF; color:#fff; border-color:#1E6BFF } }
+@keyframes rl-chip-2{ 0%,44%{ background:#fff; color:#1E6BFF; border-color:#C7D9FF } 46%,100%{ background:#1E6BFF; color:#fff; border-color:#1E6BFF } }
+.app--reglista .rl__chip--c1{ animation:rl-chip-1 var(--rl-dur,5.04s) linear infinite; animation-play-state:var(--play,running) }
+.app--reglista .rl__chip--c2{ animation:rl-chip-2 var(--rl-dur,5.04s) linear infinite; animation-play-state:var(--play,running) }
+/* El botón de aplicar acusa el segundo clic. */
+@keyframes rl-aplica{ 0%,46%{ transform:none } 50%{ transform:scale(.94) } 55%,100%{ transform:none } }
+.app--reglista .rl__aplica{ animation:rl-aplica var(--rl-dur,5.04s) ease-out infinite; animation-play-state:var(--play,running) }
+
+/* Las filas que no cumplen los dos filtros se pliegan: alto y margen a la vez,
+   porque el `gap` de una rejilla no se puede animar y quedaría el hueco. */
+@keyframes rl-pliega{
+  0%,52%{ max-height:80px; opacity:1; margin-top:8px }
+  60%,100%{ max-height:0; opacity:0; margin-top:0 }
+}
+@keyframes rl-pliega-1{
+  0%,52%{ max-height:80px; opacity:1 }
+  60%,100%{ max-height:0; opacity:0 }
+}
+.app--reglista .rl__fila--fuera{
+  overflow:hidden;
+  animation:rl-pliega var(--rl-dur,5.04s) ease-in-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app--reglista .rl__fila--fuera:first-child{ animation-name:rl-pliega-1 }
+
+.app--reglista .rl__cuenta{ position:relative; display:inline-grid }
+.app--reglista .rl__cuenta span{ grid-area:1/1; animation:rl-cuenta var(--rl-dur,5.04s) linear infinite; animation-play-state:var(--play,running) }
+.app--reglista .rl__cuenta .rl__c2{ animation-name:rl-cuenta-2 }
+@keyframes rl-cuenta{ 0%,56%{ opacity:1 } 60%,100%{ opacity:0 } }
+@keyframes rl-cuenta-2{ 0%,56%{ opacity:0 } 60%,100%{ opacity:1 } }
+
+@media (prefers-reduced-motion:reduce){
+  .app--reglista .rl__chip--c1,
+  .app--reglista .rl__chip--c2,
+  .app--reglista .rl__aplica,
+  .app--reglista .rl__fila--fuera,
+  .app--reglista .rl__cuenta span{ animation:none }
+  .app--reglista .rl__chip--c1,
+  .app--reglista .rl__chip--c2{ background:#1E6BFF; color:#fff; border-color:#1E6BFF }
+  .app--reglista .rl__fila--fuera{ display:none }
+  .app--reglista .rl__cuenta .rl__c1{ opacity:0 }
+  /* Sin animación se enseña el final, que es donde está el argumento: los dos
+     registros que quería ver, no el panel con el que los pidió. */
+  .app--reglista .rl__panel{ display:none }
+}
+
+/* =========================================================
+   FICHA DE ACTIVO — la pantalla del módulo Activos
+   Comprobada contra la aplicación (demo.trysolved.com/assets/…, ficha de un
+   activo de la base «Maquinaria») el 3 de septiembre de 2026. Lo que se
+   reproduce es lo que hay: cabecera con el código y el tipo de activo, cuatro
+   contadores —actividad total, incidencias, checklists y acciones—, el panel
+   de detalles con los atributos del tipo, el del código QR con sus dos
+   botones, y el historial filtrable por módulo. Nada más: la ficha real no
+   tiene gráficas, ni contador de horas, ni stock de repuestos, y pintarlos
+   aquí sería vender lo que no está.
+
+   OJO CON LOS RÓTULOS: dentro de la pantalla el contador dice «Checklists»,
+   que es como se llama en la aplicación, aunque la web lo llame Registros.
+   El fragmento no se retraduce para que pegue con el copy de la página.
+
+   El recorte es por la derecha: el panel de acciones abiertas y la mitad del
+   QR se salen de la ventana, que es lo que dice «esto continúa».
+   ========================================================= */
+.app__act{
+  display:flex; flex-direction:column; gap:9px;
+  min-width:var(--app-act-w,760px);
+}
+
+/* Cabecera: el cuadro del icono, el código con el nombre, el tipo de activo
+   debajo y el estado a la derecha. VA SIN TARJETA, como en la ficha real: es
+   el encabezado de la página, no un panel más. */
+.app__acthead{ display:flex; align-items:center; gap:10px; padding:1px 2px }
+.app__actico{
+  width:32px; height:32px; border-radius:9px; flex:0 0 auto;
+  background:var(--app-line); color:var(--app-text-2);
+  display:grid; place-items:center;
+}
+.app__actico svg{ width:17px; height:17px }
+.app__actt{ font-size:13px; font-weight:500; color:var(--app-text) }
+.app__acts{ font-size:10px; color:var(--app-text-2); margin-top:1px }
+/* El estado del alta —activo o retirado—, no la criticidad: ésa va en los
+   detalles y va en palabras, no en color. */
+.app__actbadge{
+  margin-left:auto; flex:0 0 auto;
+  display:inline-flex; padding:2px 9px; border-radius:999px;
+  background:#E4F6EA; color:#12813B; font-size:10px; font-weight:500;
+}
+
+/* Los rótulos de panel de esta pantalla van en versalitas, como en la app. */
+.app__panelt--caps{
+  text-transform:uppercase; letter-spacing:.06em;
+  font-size:9.5px; color:var(--app-text-2);
+}
+
+/* Dos columnas, como en la ficha real: a la izquierda los detalles y debajo el
+   historial; a la derecha el código QR y las acciones abiertas. La columna
+   estrecha es la que se sale por el borde de la ventana, así que lo que se
+   recorta es el QR y no el historial —que es lo que la tarjeta demuestra—. */
+.app__actcols{ display:grid; grid-template-columns:minmax(0,1.9fr) minmax(0,1fr); gap:9px; align-items:start }
+.app__actcol{ display:flex; flex-direction:column; gap:9px; min-width:0 }
+
+/* Atributos del tipo de activo. Son pares, así que van en <dl>: los nombres
+   los pone quien configura el tipo, no vienen fijos en el producto. */
+.app__kv{ margin:8px 0 0; display:grid; grid-template-columns:repeat(3,1fr); gap:7px 14px }
+.app__kv > div{ min-width:0 }
+.app__kv dt{
+  font-size:9.5px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--app-mute);
+}
+.app__kv dd{ margin:2px 0 0; font-size:11px; font-weight:500; color:var(--app-text) }
+
+/* Código QR. Se pega en la máquina y lleva a esta misma ficha. */
+.app__qr{ display:flex; align-items:center; gap:11px; margin-top:9px }
+.app__qrimg{
+  width:56px; height:56px; flex:0 0 auto; display:block;
+  /* El código se sirve como SVG y se pinta a tamaño entero de módulo: a 56px
+     un PNG de 100 se vería con los bordes sucios. */
+}
+.app__qrtxt{ min-width:0 }
+.app__qrcap{ font-size:10px; color:var(--app-text-2) }
+.app__qrbtns{ display:flex; gap:6px; margin-top:7px }
+
+/* Historial del activo. Las pestañas filtran por módulo y el listado es el
+   mismo de siempre; lo que cambia es que aquí la clave es el activo. */
+.app__acttabs{ display:flex; gap:5px; margin-left:auto }
+.app__acttab{
+  padding:3px 9px; border-radius:999px;
+  font-size:9.5px; color:var(--app-text-2); background:var(--app-canvas);
+  white-space:nowrap;
+}
+.app__acttab--on{ background:var(--app-blue); color:#fff; font-weight:500 }
+.app__panelt--row{ display:flex; align-items:center; gap:9px }
+/* La columna de módulo va con la tinta de su módulo, que es la regla del
+   sistema: el color dice de dónde sale el dato. */
+.app__mod{ font-size:10px; font-weight:500 }
+.app__mod--incidencias{ color:var(--app-blue-deep) }
+.app__mod--acciones{ color:var(--app-accion) }
+.app__mod--registros{ color:var(--app-registro) }
+
+
+/* Acciones abiertas del activo: la columna estrecha de la ficha. Es un listado
+   corto, no una tabla —la tabla ya está en el historial de al lado—. */
+.app--activo .app__kpi{ padding:7px 11px }
+.app--activo .app__kpiv{ font-size:19px; margin-top:3px }
+
+.app__oalist{ margin-top:9px; display:flex; flex-direction:column; gap:8px }
+.app__oa{ font-size:10.5px; color:var(--app-text) }
+.app__oad{ font-size:10.5px; color:var(--app-text-2); margin-top:1px }
+.app__oam{ display:flex; align-items:center; gap:6px; margin-top:4px; font-size:10px; color:var(--app-mute) }
+
+/* =========================================================
+   CARPETA DE DOCUMENTOS — la pantalla del módulo Documentos
+   Comprobada contra la aplicación (demo.trysolved.com/documents, vista de
+   tabla de una carpeta) el 3 de septiembre de 2026. Se reproduce lo que hay:
+   la franja de «Documentos requeridos» con su frase y su aviso ámbar, y la
+   tabla con NOMBRE —nombre, quien lo subió y el marcador de pendiente—,
+   SUBIDO EL, FECHA DE REVISIÓN, FECHA DE EXPIRACIÓN y ESTADO.
+
+   LO QUE NO SE PINTA, PORQUE NO ESTÁ EN ESTA VISTA: el número de versión (va
+   en la vista de tarjetas, no en la tabla), el visor y el botón de descarga de
+   la columna ACCIONES —que en el bocadillo caen fuera— y cualquier cosa que
+   la ficha real no tenga. Los dos estados son los dos que existen: «Pendiente
+   de validación» y «Validado».
+
+   El rótulo de estado va con punto de color y texto del mismo color, no con
+   píldora rellena: es como lo pinta la aplicación, y además a este tamaño una
+   píldora rellena pesaría más que el nombre del documento.
+
+   Va dentro de un bocadillo de .stage (ds/sections.css), sin marco de
+   dispositivo: en el bocadillo el marco sobra.
+   ========================================================= */
+.app--docs{ padding:0; display:flex; flex-direction:column; min-width:0 }
+
+/* Miga de pan de la carpeta. */
+.app__docbc{
+  display:flex; align-items:center; gap:6px;
+  padding:9px 12px; border-bottom:1px solid var(--app-line);
+  font-size:10px; color:var(--app-mute); white-space:nowrap;
+}
+.app__docbc b{ font-weight:500; color:var(--app-text) }
+.app__docbc svg{ width:11px; height:11px; flex:0 0 auto }
+
+/* Franja de «Documentos requeridos». Es la pieza que distingue a una carpeta
+   de Solved de una carpeta compartida: sabe qué tiene que haber dentro. */
+.app__req{
+  display:flex; align-items:center; gap:10px;
+  padding:9px 12px; border-bottom:1px solid var(--app-line);
+  background:var(--app-canvas);
+}
+.app__reqt{ font-size:11px; font-weight:500; color:var(--app-text) }
+.app__reqs{ font-size:9.5px; color:var(--app-text-2); margin-top:1px }
+.app__reqavi{
+  margin-left:auto; flex:0 0 auto;
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:9.5px; font-weight:500; color:#8A6A12;
+}
+.app__reqavi::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background:var(--app-warn); flex:0 0 auto;
+}
+
+/* Tabla de la carpeta. Aquí sí se conforma al ancho del bocadillo: la columna
+   que importa —el estado— es la última, y recortarla dejaría la tarjeta sin
+   argumento. Lo que se estrecha es el nombre, que ya se entiende truncado. */
+.app--docs .app__table{ min-width:0 }
+.app--docs .app__table th{ font-size:9px; letter-spacing:.04em; padding:7px 10px }
+.app--docs .app__table td{ padding:8px 10px; vertical-align:middle }
+.app--docs .app__table tr:last-child td{ border-bottom:0 }
+
+.app__docn{ display:flex; align-items:flex-start; gap:8px; min-width:0 }
+/* Icono de tipo de fichero. El del PDF va en su rojo porque es el color del
+   propio icono en la aplicación, no una señal del sistema. */
+.app__docico{
+  width:22px; height:22px; border-radius:5px; flex:0 0 auto;
+  display:grid; place-items:center;
+  background:#FBE9E9; color:#C33;
+  font-size:7px; font-weight:500; letter-spacing:.02em;
+}
+.app__doct{
+  font-size:10.5px; font-weight:500; color:var(--app-text);
+  line-height:1.25;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.app__docby{ display:flex; align-items:center; gap:5px; margin-top:3px; font-size:9.5px; color:var(--app-text-2) }
+.app__docby .app__ava{ width:15px; height:15px; font-size:8px }
+/* Marcador de pendiente: el mismo aviso ámbar que pinta la aplicación al lado
+   del nombre. */
+.app__docwarn{
+  width:15px; height:15px; border-radius:50%; flex:0 0 auto;
+  background:var(--app-warn); color:#fff;
+  display:grid; place-items:center;
+  font-size:10px; font-weight:500; line-height:1;
+}
+
+.app__est{ display:inline-flex; align-items:center; gap:5px; font-size:9.5px; font-weight:500; white-space:nowrap }
+.app__est::before{ content:""; width:6px; height:6px; border-radius:50%; flex:0 0 auto }
+.app__est--val{ color:#12813B }
+.app__est--val::before{ background:var(--app-ok) }
+.app__est--pend{ color:var(--app-accion) }
+.app__est--pend::before{ background:var(--app-accion) }
+
+/* Una fecha vacía se pinta con una raya, como en la aplicación. */
+.app__vacio{ color:var(--app-line-2) }
+/* Las fechas van en la tinta del texto, no en azul: `.app__num` nació para las
+   fechas de vencimiento de las incidencias, donde el azul es el módulo, y aquí
+   la aplicación las pinta en gris. Y NO se pinta de rojo una expiración
+   próxima: la ficha real no tiene ese estado —los dos que tiene son «Validado»
+   y «Pendiente de validación»— y colorear la fecha sería inventar una señal. */
+.app--docs .app__num{ color:var(--app-text-2) }
+
+/* En pantalla estrecha el bocadillo pasa a ocupar el ancho de la escena y la
+   tabla no cabe. Lo que se cae son las dos columnas de fecha intermedias, no
+   el estado: la regla del fragmento dice que lo que queda fuera del corte
+   tiene que ser lo prescindible, y aquí lo que la tarjeta demuestra es que un
+   documento está validado o pendiente y cuándo expira. */
+@media (max-width:820px){
+  .app--docs .app__table th:nth-child(2),
+  .app--docs .app__table td:nth-child(2),
+  .app--docs .app__table th:nth-child(3),
+  .app--docs .app__table td:nth-child(3){ display:none }
+}
+
+/* =========================================================
+   FICHA SIMPLIFICADA DE ACTIVO — `.app--ficha`
+   El resumen de la ficha que flota sobre el plano en la composición de planta
+   (`.compo`, ds/sections.css). No sustituye a `.app--activo`, que es la ficha
+   entera dentro de la ventana del navegador.
+
+   VA EN VERTICAL, Y NO ES UN CAPRICHO: en la composición el aparato que sale
+   en la foto es una tablet en vertical, así que una tarjeta apaisada flotando
+   a su lado se lee como otra cosa. Lo que se enseña es lo que ese aparato
+   tiene en la mano.
+
+   Y VA SIN LA BARRA DE LA APLICACIÓN. En la composición no hay ventana ni
+   dispositivo alrededor: es la ficha sola, como en la creatividad de la
+   referencia. La barra azul con el logotipo pertenece a las pantallas que van
+   dentro de un marco (`.app--activo` en su ventana), no a ésta.
+
+   ⚠️ AVISO — ESTA PANTALLA VA POR DELANTE DEL PRODUCTO
+   Cuatro de sus piezas NO existen todavía en la aplicación (comprobado en
+   demo.trysolved.com el 3 de septiembre de 2026): la **foto del activo**, y
+   las pestañas de **Documentos**, **Imágenes** y **Mantenimientos**. La ficha
+   real tiene icono genérico, contadores, DETALLES, ACTIVIDAD, CÓDIGO QR y
+   ACCIONES ABIERTAS, y nada más. Se pintan a petición expresa del cliente
+   («puedes inventártelo porque dentro de muy poco estarán»). Mientras no
+   estén, esta página no debería publicarse. Pendiente 0 de CLAUDE.md.
+   ========================================================= */
+.app--ficha{
+  display:flex; flex-direction:column;
+  padding:11px 11px 4px;
+  gap:9px;
+  min-width:0;
+}
+
+/* Miga de pan mínima, como en la referencia: de dónde vengo y qué activo es. */
+.fic__bc{
+  display:flex; align-items:center; gap:6px;
+  font-size:10px; color:var(--app-text-2); white-space:nowrap;
+}
+.fic__bc svg{ width:11px; height:11px; flex:0 0 auto }
+.fic__bc b{ font-weight:500; color:var(--app-text) }
+
+/* La foto del activo: cuadrada y a la izquierda del nombre, como en la
+   referencia. Grande —no un icono de listado— pero dentro de la cabecera, que
+   es lo que deja sitio para que el nombre respire a su lado. */
+.app .fic__foto{
+  width:var(--fic-foto, 86px); height:var(--fic-foto, 86px);
+  flex:0 0 auto;
+  border-radius:10px; object-fit:cover; display:block;
+  box-shadow:inset 0 0 0 1px rgba(11,18,32,.08);
+}
+
+/* `min-width:0` en el bloque de texto: sin él el titular empuja y la píldora
+   de estado se sale por el borde de la tarjeta, que va con overflow oculto. */
+.fic__hd{ display:flex; align-items:center; gap:12px }
+.fic__hd > div{ min-width:0 }
+.fic__hd .app__actbadge{ flex:0 0 auto }
+.fic__t{ font-size:14px; font-weight:500; color:var(--app-text); line-height:1.25 }
+.fic__s{ font-size:10px; color:var(--app-text-2); margin-top:3px }
+.fic__hd .app__actbadge{ margin-left:auto; margin-top:2px }
+
+/* Pestañas: subrayado, no píldora —las píldoras del sistema son los filtros y
+   esto es navegación—. En vertical no caben las cinco, así que la última se
+   corta por el borde, que es lo que hace un listado de verdad. */
+.fic__tabs{
+  display:flex; gap:13px; align-items:center;
+  border-bottom:1px solid var(--app-line);
+  overflow:hidden;
+}
+.fic__tab{
+  padding:0 0 7px;
+  font-size:10.5px; color:var(--app-text-2); white-space:nowrap;
+  border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.fic__tab--on{ color:var(--app-blue); font-weight:500; border-bottom-color:var(--app-blue) }
+
+/* Con la tarjeta ancha los cuatro contadores caben en una fila sin que la
+   cifra baje a tamaño de nota al pie, que era el motivo de partirlos en dos. */
+.app--ficha .app__kpis{ grid-template-columns:repeat(4,1fr); gap:8px }
+.app--ficha .app__kpi{ padding:7px 10px }
+.app--ficha .app__kpiv{ font-size:17px; margin-top:2px }
+
+.fic__lab{
+  font-size:9.5px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--app-text-2);
+}
+.app--ficha .app__table{ min-width:0; margin-top:2px }
+.app--ficha .app__table td{ padding:7px 0; border-bottom:1px solid var(--app-line); vertical-align:middle }
+.app--ficha .app__table tr:last-child td{ border-bottom:0 }
+/* En vertical la fila va en dos alturas: el código y la descripción arriba, el
+   módulo y la fecha debajo. En una sola línea no cabe sin encoger el texto por
+   debajo de los 10px, que es el suelo del sistema. */
+.app--ficha .app__table td:last-child{ text-align:right; white-space:nowrap }

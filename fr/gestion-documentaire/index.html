@@ -1,0 +1,560 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.hsforms.net https://*.hsforms.com https://*.hs-scripts.com https://*.hscollectedforms.net https://*.hs-analytics.net https://*.hubspot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://maps.google.com https://*.hsforms.com https://*.hsforms.net; connect-src 'self' https://*.hsforms.com https://*.hubspot.com https://*.hs-analytics.net https://*.hscollectedforms.net; object-src 'none'; base-uri 'self'; form-action 'self' https://*.hsforms.com; upgrade-insecure-requests">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<title>Gestion documentaire pour la qualité et la maintenance · Solved</title>
+<!-- SEO:start -->
+<meta name="description" content="Maîtrisez la version en vigueur, la validation et l'expiration de chaque document d'usine, et repérez le dossier incomplet avant l'audit, pas pendant.">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1E6BFF">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Solved">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Gestion documentaire pour la qualité et la maintenance · Solved">
+<meta property="og:description" content="Maîtrisez la version en vigueur, la validation et l'expiration de chaque document d'usine, et repérez le dossier incomplet avant l'audit, pas pendant.">
+<meta property="og:image" content="https://trysolved.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gestion documentaire pour la qualité et la maintenance · Solved">
+<meta name="twitter:description" content="Maîtrisez la version en vigueur, la validation et l'expiration de chaque document d'usine, et repérez le dossier incomplet avant l'audit, pas pendant.">
+<meta name="twitter:image" content="https://trysolved.com/assets/og-image.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://trysolved.com/fr/"},{"@type":"ListItem","position":2,"name":"Gestionnaire documentaire","item":"https://trysolved.com/fr/gestion-documentaire/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"En quoi est-ce différent d'un SharePoint ou d'un Drive ?","acceptedAnswer":{"@type":"Answer","text":"Un dossier partagé stocke des fichiers et conserve leur historique de modifications, et pour cela il fonctionne bien. Ce qu'il ne fait pas, c'est savoir quels documents devraient s'y trouver, alerter qu'un certificat expire, distinguer un document validé d'un document en attente de validation, ni se trouver à côté de l'enregistrement qui applique la procédure. C'est ce qu'ajoute la gestion documentaire de Solved."}},{"@type":"Question","name":"Gère-t-il les versions ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Chaque document affiche son numéro de version : celui qui l'ouvre sait laquelle il consulte et il n'y a pas deux copies en circulation sans savoir laquelle fait foi."}},{"@type":"Question","name":"Comment les échéances sont-elles contrôlées ?","acceptedAnswer":{"@type":"Answer","text":"Chaque document a une date de révision et une date d'expiration. Le module offre une vue calendrier — mois, semaine, jour et agenda — que l'on peut trier par date d'expiration ou de modification, et une liste de tout ce qui est à réviser. Le suivi des échéances cesse d'être une feuille avec cent dates."}},{"@type":"Question","name":"Que sont les listes de documents requis ?","acceptedAnswer":{"@type":"Answer","text":"C'est la liste des documents qu'un dossier doit contenir. Elle se définit par dossier et le module alerte lui-même quand il manque des documents à une liste : le dossier incomplet est repéré avant l'audit et non pendant."}},{"@type":"Question","name":"Est-ce un module à part ?","acceptedAnswer":{"@type":"Answer","text":"Documents est un module du système, avec sa propre entrée de menu, et s'active comme les autres. L'homologation des fournisseurs, en revanche, n'est pas un module distinct : c'est cette même gestion documentaire appliquée au fournisseur, avec ses incidents de réception."}},{"@type":"Question","name":"Faut-il réorganiser toute la documentation pour commencer ?","acceptedAnswer":{"@type":"Answer","text":"Non. L'arborescence de dossiers et sous-dossiers se crée comme vous voulez : vous pouvez reproduire celle que vous utilisez déjà et téléverser ce qui est en vigueur. Ce qui change, ce n'est pas l'organisation : c'est que chaque document a désormais une date, un statut et un responsable."}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://trysolved.com/#organization","name":"Solved","legalName":"VOLTSTONE TECHNOLOGY SERVICES S.L.","url":"https://trysolved.com/fr/","logo":{"@type":"ImageObject","url":"https://trysolved.com/assets/logotipo-solved.webp"},"sameAs":["https://www.linkedin.com/company/trysolved","https://www.youtube.com/@trysolved"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Solved","applicationCategory":"BusinessApplication","operatingSystem":"Web, iOS, Android","url":"https://trysolved.com/fr/gestion-documentaire/","description":"Maîtrisez la version en vigueur, la validation et l'expiration de chaque document d'usine, et repérez le dossier incomplet avant l'audit, pas pendant.","publisher":{"@id":"https://trysolved.com/#organization"}}</script>
+<!-- SEO:end -->
+<!-- Roboto es la fuente real de la app: la usa la pantalla de ds/app.css que
+     va dentro del bocadillo de la escena. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Roboto:wght@400;500&amp;display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="preload" as="font" type="font/woff2" crossorigin="" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/fonts/DMSans-VariableFont_opsz_wght.woff2">
+<link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260803a">
+<link rel="stylesheet" href="/solved.css?v=20260817a">
+<!-- Solved Design System — va después de solved.css para que mande -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
+<link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
+<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/hero.css?v=20260903a">
+<link rel="stylesheet" href="/ds/app.css?v=20260904d">
+<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
+</head>
+<body data-screen-label="Gestor documental">
+
+<div id="nav"></div>
+
+<!-- ============ HERO ============ -->
+<!-- La misma hero que el resto del sitio: el shader de ds/hero-wave.js por
+     detrás y el texto dentro del encuadre. El copy es el de esta página.
+
+     VOCABULARIO. El módulo se llama Documentos y el equipo lo vende como «el
+     gestor documental» —de ahí la URL—, pero el titular no lidera con la
+     categoría: lidera con el documento concreto. En las 955 transcripciones de
+     ~/samu-export el cliente dice documento (38,8 % de las reuniones), papel
+     (24,1 %), PDF (13,5 %), versión (12,1 %), procedimiento (9,3 %) y
+     certificado (8,6 %); «gestor documental» sólo en el 9,0 %. Y como en el
+     resto del sitio: herramienta y sistema, nunca «plataforma». -->
+<section class="ds-hero ds-hero--centro" data-screen-label="Gestor documental · Hero">
+  <canvas class="ds-hero__weave" aria-hidden="true" id="dsWeave"></canvas>
+  <div class="frame frame--seam ds-hero__frame">
+    <div class="ds-hero__txt">
+      <span class="ds-eyebrow">Gestion documentaire</span>
+      <h1>Maîtrisez toute la documentation de votre usine : <span class="ds-dim">version en vigueur, validation et expirations signalées avant que l'auditeur ne les demande.</span></h1>
+      <p class="ds-hero__sub">Chaque document sait quand il expire, qui l'a validé et dans quel dossier il manque. Un dossier partagé ne sait rien de tout cela.</p>
+      <div class="ds-hero__cta">
+        <a class="ds-btn ds-btn--primary" href="#contacto">Demander une démo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGOS BAND ============ -->
+<!-- ============ CLIENTES ============
+     La misma franja que la home: una sola cinta, logos a color, dentro del
+     marco y sin unión superior, para que continúe la hero. -->
+<div class="frame frame--seam ds-logos-frame">
+  <div class="ds-logos" aria-label="Entreprises qui travaillent déjà avec Solved">
+    <div class="ds-logos__track" id="dsLogos">
+      <img src="/assets/clients-color/agroveco.webp" alt="Agroveco" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/jealsa.webp" alt="Jealsa" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/covap.webp" alt="COVAP" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/delaviuda.webp" alt="Delaviuda" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/dogfy-diet.webp" alt="Dogfy Diet" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/la-chinata.webp" alt="La Chinata" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/patatas-gomez.webp" alt="Patatas Gómez" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/deterra.webp" alt="Deterra" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/fritoper.webp" alt="Fritoper" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/genesal-energy.webp" alt="Genesal Energy" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/almendras-de-la-mancha.webp" alt="Almendras de La Mancha" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/laboratorios-almond.webp" alt="Laboratorios Almond" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/carnavi.webp" alt="Carnavi" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/cotecnica.webp" alt="Cotecnica" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/riverbend-espana.webp" alt="Riverbend" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/pampling.webp" alt="Pampling" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/wetaca.webp" alt="Wetaca" width="800" height="320" decoding="async">
+      <img src="/assets/clients-color/asp-asepsia.webp" alt="ASP Asepsia" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/exquisitarium.webp" alt="Exquisitarium" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/ga-torres.webp" alt="G.A. Torres" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/imperio-garlic.webp" alt="Imperio Garlic" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/panificadora-alcala.webp" alt="Panificadora de Alcalá" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/patatas-hijolusa.webp" alt="Patatas Hijolusa" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/prilux.webp" alt="Prilux" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/royal-chef.webp" alt="Royal Chef" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/gil-comes.webp" alt="Gil Comes" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/inalsa.webp" alt="Inalsa" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/rujamar.webp" alt="Grupo Avícola Rujamar" width="800" height="320" decoding="async" loading="lazy">
+      <img src="/assets/clients-color/tuflesa.webp" alt="Tuflesa" width="800" height="320" decoding="async" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ============ PAIN ============
+     Los cinco cuadros salen de contar, en las 955 transcripciones de
+     ~/samu-export y sólo del lado cliente, qué dice quien compra cuando sale
+     la documentación. Frecuencia sobre las 955 reuniones:
+
+       documentos ..................... 38,8 %
+       el auditor ..................... 27,5 %
+       papel .......................... 24,1 %
+       PDF ............................ 13,5 %
+       versión / versiones ............ 12,1 %
+       carpetas ....................... 11,9 %
+       firma / firmar ................. 11,8 %
+       procedimientos .................  9,3 %
+       archivo (el sitio) .............  9,3 %
+       gestor / gestión documental ....  9,0 %
+       certificados ...................  8,6 %
+       caducidad / vencimiento ........  7,0 %
+       servidor / carpeta compartida ...  6,0 %
+       SharePoint, Drive o Dropbox ....  4,7 %
+       ficha técnica ..................  4,3 %
+       obsoleto / desactualizado ......  3,5 %
+
+     El rival de esta página no es otro gestor documental: es el SharePoint, la
+     carpeta del servidor y el Excel de control de caducidades. Las cifras se
+     quedan en el comentario, como en /incidencias/ y en /gestion-de-activos/:
+     el corpus es de reuniones privadas. -->
+<section class="section" data-screen-label="Gestor documental · Dolor">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <h2>Un dossier partagé stocke des fichiers ; il n'alerte ni sur ce qui expire ni sur ce qui manque</h2>
+      <p>Ni que le certificat du fournisseur a expiré le mois dernier, ni que la version qui circule dans l'usine n'est plus la version en vigueur, ni qu'il manque un document dans ce dossier.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><p>La documentation vit dans un SharePoint ou un dossier serveur. Il stocke bien les fichiers ; ce qu'il ne fait pas, c'est alerter.</p></div>
+      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="13" height="16" rx="2"></rect><path d="M4 6v13a2 2 0 0 0 2 2h11"></path></svg></span><p>On téléverse la version 2 et la version 1 continue de circuler. Personne ne sait avec certitude laquelle est en vigueur ni qui l'a validée.</p></div>
+      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span><p>Les certificats fournisseurs expirent chacun à une date différente, et les suivre revient à passer en revue cent échéances une par une.</p></div>
+      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 11h6M12 8v6"></path></svg></span><p>L'auditeur demande la procédure et l'enregistrement qui l'applique. Ils sont à deux endroits différents qui ne communiquent pas.</p></div>
+      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v14H4z"></path><path d="M4 10h16M9 10v10"></path></svg></span><p>Personne ne sait si le dossier est complet jusqu'à ce qu'un document manque, et cela se découvre devant celui qui l'a demandé.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ESCENA CON BOCADILLO — ds/sections.css, patrón 10
+     La foto es ambiente y la interfaz va en el bocadillo, que es la pantalla
+     de ds/app.css montada en HTML. Aquí encaja mejor que una escena de
+     producto por una razón concreta: **el sistema no tiene tinte de módulo
+     para Documentos** —los seis valores de `.scene[data-module]` son
+     incidencias, acciones, checklists, activos, kpis e ia— y teñir el lienzo
+     con el color de otro módulo sería justo lo que la regla del tinte
+     prohíbe. La escena con bocadillo no pide módulo. Anotado como pendiente
+     de decisión en CLAUDE.md.
+
+     La pantalla es la VISTA DE TABLA de una carpeta, comprobada en
+     demo.trysolved.com/documents el 3 de septiembre de 2026: la franja de
+     «Documentos requeridos» con su frase literal, y las columnas NOMBRE,
+     SUBIDO EL, FECHA DE REVISIÓN, FECHA DE EXPIRACIÓN y ESTADO, con los dos
+     estados que existen. El bocadillo se ensancha a 640px —la base son 460—
+     porque a 460 la columna de estado caía fuera, y el estado es el argumento.
+
+     Los datos son los del resto del sitio: PopCorn Mediterránea, junio de
+     2026, y las personas del listado de acciones —Ana, Marta, Pablo—.
+     ============================================================ -->
+<section class="section" data-screen-label="Gestor documental · La carpeta">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <h2>Le dossier, avec ce qui s'y trouve et ce qui manque</h2>
+      <p>Chaque document avec sa date de révision, sa date d'expiration et son statut de validation. Et en haut, la liste des documents que ce dossier doit contenir.</p>
+    </div>
+
+    <div class="stage" style="--stage-ar:16/9">
+      <div class="stage__media">
+        <!-- Foto propia de esta página: ninguna imagen del sitio se reutiliza
+             entre páginas (regla en assets/planta/FUENTES.md). Sustituye al
+             hueco de imagen que marcaba su sitio.
+
+             EL ENCUADRE ES PARTE DEL COMPONENTE: la persona y la carpeta de
+             anillas caen en la mitad izquierda porque el bocadillo con la
+             pantalla ocupa el 58 % derecho. Si algún día se cambia la foto,
+             hay que mantener ese reparto o la escena se tapa a sí misma.
+
+             La tablet sale con la pantalla apagada, que es lo que pide el
+             componente: la interfaz de verdad es la del bocadillo, montada en
+             HTML, y no hay ni un píxel de producto inventado en la fotografía. -->
+        <img src="/assets/procedimiento-carpeta-tablet.webp" alt="Un technicien qualité dans la halle d'une usine agroalimentaire consulte une procédure dans un classeur, une tablette dans l'autre main" width="1920" height="1080" loading="lazy" decoding="async">
+      </div>
+      <div class="stage__bocadillo" style="width:min(58%,640px)">
+        <div class="app app--docs" aria-hidden="true">
+          <div class="app__top">
+            <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
+            <span class="app__vbar"></span>
+            <span class="app__topttl">Documents</span>
+            <span class="app__spacer"></span>
+            <span class="app__me">G</span>
+          </div>
+
+          <div class="app__docbc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"></path></svg>
+            Tous les documents
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>
+            <b>PLAN D'ASSURANCE QUALITÉ</b>
+          </div>
+
+          <div class="app__req">
+            <div>
+              <div class="app__reqt">Documents requis</div>
+              <div class="app__reqs">Il assure le suivi des documents qui doivent figurer dans ce dossier.</div>
+            </div>
+            <span class="app__reqavi">Il manque des documents à 1 liste</span>
+          </div>
+
+          <table class="app__table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Téléversé le</th>
+                <th>Revue</th>
+                <th>Expiration</th>
+                <th>Statut</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="app__docn">
+                    <span class="app__docico">PDF</span>
+                    <div style="min-width:0">
+                      <div class="app__doct">PR-07 Nettoyage et désinfection</div>
+                      <div class="app__docby"><span class="app__ava" style="background:#8B4FE0">A</span> Ana</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="app__num">12/06/26</span></td>
+                <td><span class="app__num">12/12/26</span></td>
+                <td><span class="app__vacio">—</span></td>
+                <td><span class="app__est app__est--val">Validé</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="app__docn">
+                    <span class="app__docico">PDF</span>
+                    <div style="min-width:0">
+                      <div class="app__doct">Fiche technique · Pop-corn 90 g</div>
+                      <div class="app__docby"><span class="app__ava" style="background:#E0489B">M</span> Marta</div>
+                    </div>
+                    <span class="app__docwarn">!</span>
+                  </div>
+                </td>
+                <td><span class="app__num">02/06/26</span></td>
+                <td><span class="app__vacio">—</span></td>
+                <td><span class="app__vacio">—</span></td>
+                <td><span class="app__est app__est--pend">En attente de validation</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="app__docn">
+                    <span class="app__docico">PDF</span>
+                    <div style="min-width:0">
+                      <div class="app__doct">Certificat IFS · Huile de tournesol</div>
+                      <div class="app__docby"><span class="app__ava" style="background:#E0489B">M</span> Marta</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="app__num">28/05/26</span></td>
+                <td><span class="app__vacio">—</span></td>
+                <td><span class="app__num">30/09/26</span></td>
+                <td><span class="app__est app__est--val">Validé</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="app__docn">
+                    <span class="app__docico">PDF</span>
+                    <div style="min-width:0">
+                      <div class="app__doct">PR-12 Détection des métaux</div>
+                      <div class="app__docby"><span class="app__ava" style="background:#1098AD">P</span> Pablo</div>
+                    </div>
+                  </div>
+                </td>
+                <td><span class="app__num">20/05/26</span></td>
+                <td><span class="app__num">20/05/27</span></td>
+                <td><span class="app__vacio">—</span></td>
+                <td><span class="app__est app__est--val">Validé</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CICLO DE VIDA ============
+     Escalera de pasos (ds/sections.css, patrón 8). Los cuatro pasos son los
+     cuatro estados que el módulo tiene de verdad. El cuarto NO promete
+     notificación por correo: promete lo que se ve —el calendario de
+     expiraciones y el listado de pendientes de revisión—, que es lo que se
+     comprobó en la aplicación. -->
+<section class="section" data-screen-label="Gestor documental · Ciclo de vida">
+  <div class="wrap">
+    <div class="section-head"><h2>Le cycle d'un document, de la création à l'échéance</h2></div>
+    <div class="steps steps--4">
+      <div class="step">
+        <span class="step__n" aria-hidden="true">1</span>
+        <h3>Téléverser</h3>
+        <p>Le document entre dans son dossier depuis le PC ou le téléphone, avec sa date de révision et sa date d'expiration s'il en a.</p>
+      </div>
+      <div class="step">
+        <span class="step__n" aria-hidden="true">2</span>
+        <h3>Valider</h3>
+        <p>Il reste marqué en attente de validation jusqu'à ce que la personne habilitée le valide. Tant que ce n'est pas fait, cela se voit.</p>
+      </div>
+      <div class="step">
+        <span class="step__n" aria-hidden="true">3</span>
+        <h3>En vigueur</h3>
+        <p>C'est le document qu'ouvre celui qui en a besoin, avec son numéro de version bien visible : pas deux copies en circulation sans savoir laquelle fait foi.</p>
+      </div>
+      <div class="step">
+        <span class="step__n" aria-hidden="true">4</span>
+        <h3>Expirer</h3>
+        <p>La date d'expiration apparaît dans le calendrier du module et le document entre dans la liste des éléments à réviser, sans passer les échéances une par une.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUÉ TRAE ============
+     Rejilla de argumentos (.reasons): seis celdas, 4+4+4 dos veces. Sólo las
+     tres últimas llevan enlace, porque su detalle vive en otra página; las
+     tres primeras se explican aquí y una flecha sin destino cuesta más de lo
+     que gana. Todo lo que se afirma se comprobó en la aplicación. -->
+<section class="section section--tight" data-screen-label="Gestor documental · Qué trae">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <h2>Ce que fait ce dossier et que celui du serveur ne fait pas</h2>
+      <p>Ce qui distingue ce dossier de celui du serveur n'est pas l'endroit où se trouve le fichier : c'est que le dossier sait ce qui doit s'y trouver et dans quel état.</p>
+    </div>
+    <div class="reasons" style="margin-top:var(--s-6)">
+      <div data-span="4">
+        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="m9 13 2 2 4-4"></path></svg></span>
+        <p><span class="em">Listes de documents requis :</span> on définit par dossier les documents qu'il doit contenir, et le module alerte quand il en manque à une liste. Le dossier incomplet est repéré avant l'audit, pas pendant.</p>
+      </div>
+      <div data-span="4">
+        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M3 11h18"></path><path d="M12 15h.01M16 15h.01M8 15h.01"></path></svg></span>
+        <p><span class="em">Date d'expiration et calendrier :</span> chaque document porte la sienne, et le module offre des vues mois, semaine, jour et agenda, par date d'expiration ou de modification. Cent échéances cessent d'être cent dates dans un Excel.</p>
+      </div>
+      <div data-span="4">
+        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg></span>
+        <p><span class="em">Validé ou en attente :</span> les deux états sont visibles dans la liste, et un filtre réunit en une seule vue tout ce qui est à réviser. Un document non validé ne se confond pas avec un document en vigueur.</p>
+      </div>
+      <div data-span="4">
+        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg></span>
+        <p><span class="em">À côté de l'enregistrement qui l'applique :</span> la procédure et le rapport de contrôle qui l'exécute vivent dans le même système, avec le même accès depuis la tablette de ligne.</p>
+        <a class="reasons__link" href="/fr/registres-et-controles/">Voir enregistrements et audits →</a>
+      </div>
+      <div data-span="4">
+        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13z"></path><path d="M9 21v-6h6v6"></path></svg></span>
+        <p><span class="em">Un dossier par fournisseur :</span> ce même gestionnaire appliqué au fournisseur — certificat, fiche technique et analyse — avec l'historique des incidents de réception.</p>
+        <a class="reasons__link" href="/fr/homologation-fournisseurs/">Voir l'homologation des fournisseurs →</a>
+      </div>
+      <div data-span="4">
+        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+        <p><span class="em">L'information documentée de la norme :</span> IFS, BRCGS, ISO 9001 et FSSC 22000 exigent une version unique et la maîtrise documentaire. C'est littéralement ce module.</p>
+        <a class="reasons__link" href="/fr/logiciel-certifications/">Voir le logiciel pour les certifications →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EL LÍMITE ============
+     La objeción que aparece tal cual en las llamadas —«cuando trabajas con los
+     documentos en la nube también hay historial de cambios, eso está más
+     cubierto»— y que esta página tiene que responder de frente, porque el
+     rival de un gestor documental de planta es el SharePoint que la empresa
+     ya paga. Lo que se afirma de Solved está comprobado en la aplicación; lo
+     que se dice de una carpeta compartida es lo que una carpeta compartida no
+     hace, no un defecto inventado. -->
+<section class="section" data-screen-label="Gestor documental · El límite">
+  <div class="wrap">
+    <div class="section-head"><h2>Ce que SharePoint ou Drive ne couvrent pas</h2></div>
+    <div class="split">
+      <div class="split__txt">
+        <p style="font-weight:var(--font-weight-medium);color:var(--ink-900);font-size:16px;margin-bottom:var(--s-3);">Un dossier dans le cloud stocke les fichiers et conserve leur historique de modifications, et pour cela il fonctionne bien. Le problème n'est pas où se trouve le fichier : c'est qu'un fichier isolé ne sait rien de lui-même.</p>
+        <div class="feat-list">
+          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Il ne sait pas quels documents devraient se trouver dans son dossier, il ne peut donc pas signaler qu'il en manque un.</p></div></div>
+          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Il n'a pas de date d'expiration : le certificat périme et le fichier reste là, exactement pareil.</p></div></div>
+          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Il ne distingue pas un document validé d'un document en attente de validation, ce qui représente la moitié d'un audit.</p></div></div>
+          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Il n'est pas à côté de l'enregistrement qui applique la procédure ni de l'incident qui l'enfreint.</p></div></div>
+          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Et il ne se consulte pas depuis l'usine avec le même accès que celui utilisé pour remplir un contrôle de poste.</p></div></div>
+        </div>
+      </div>
+      <div class="split__art">
+        <img class="shot" src="/assets/planta/almacen-tablet-estanteria.webp" alt="Un responsable consulte la documentation sur la tablette près des rayonnages de l'entrepôt" width="1100" height="1100" decoding="async" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARA QUIÉN ============ -->
+<section class="section section--tight section--capabilities" data-screen-label="Gestor documental · Para quién">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <h2>À qui cela s'adresse</h2>
+      <p>Pour celui qui répond quand on demande un document précis — l'auditeur, le client ou le technicien devant la machine : qualité, sécurité alimentaire, maintenance et systèmes de management.</p>
+    </div>
+    <div class="check-grid">
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"></path><path d="M15 2v5h5"></path><path d="M9 13h6M9 17h4"></path></svg> Celui qui tient à jour le manuel qualité, les procédures et les instructions machine</div>
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg> Celui qui surveille les échéances des certificats fournisseurs</div>
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg> Des usines soumises à IFS, BRCGS, ISO 9001 ou FSSC 22000</div>
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Des équipes qui gèrent aujourd'hui la documentation dans des dossiers serveur</div>
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13z"></path><path d="M9 21v-6h6v6"></path></svg> Des groupes qui veulent la même arborescence de dossiers dans plusieurs usines</div>
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg> Ceux qui utilisent déjà Solved pour les enregistrements ou les incidents et dont la documentation est ailleurs</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIO ============
+     NO HAY CITA EN ESTA PÁGINA, igual que en /ia/ y en /gestion-de-activos/.
+     La regla es una cita por página y cada página la suya, y de las siete que
+     hay ninguna habla de documentación. La de Samuel Pardo —«hay mucha
+     información que manteníamos en papel»— es la que más se acerca, pero ya
+     está usada en /auditorias/ y reutilizada en /software-certificaciones/, y
+     una tercera vez la convierte en relleno. Su hueco está aquí en cuanto
+     haya un testimonio del gestor documental. -->
+
+<!-- ============ FAQ ============ -->
+<section class="section section--tight" data-screen-label="Gestor documental · FAQ">
+  <div class="wrap">
+    <div class="section-head"><h2>Questions fréquentes</h2></div>
+    <div class="faq">
+      <details class="faq__item" name="faq" open=""><summary>En quoi est-ce différent d'un SharePoint ou d'un Drive ?</summary><div class="faq__a"><p>Un dossier partagé stocke des fichiers et conserve leur historique de modifications, et pour cela il fonctionne bien. Ce qu'il ne fait pas, c'est savoir quels documents devraient s'y trouver, alerter qu'un certificat expire, distinguer un document validé d'un document en attente de validation, ni se trouver à côté de l'enregistrement qui applique la procédure. C'est ce qu'ajoute la gestion documentaire de Solved.</p></div></details>
+      <details class="faq__item" name="faq"><summary>Gère-t-il les versions ?</summary><div class="faq__a"><p>Oui. Chaque document affiche son numéro de version : celui qui l'ouvre sait laquelle il consulte et il n'y a pas deux copies en circulation sans savoir laquelle fait foi.</p></div></details>
+      <details class="faq__item" name="faq"><summary>Comment les échéances sont-elles contrôlées ?</summary><div class="faq__a"><p>Chaque document a une date de révision et une date d'expiration. Le module offre une vue calendrier — mois, semaine, jour et agenda — que l'on peut trier par date d'expiration ou de modification, et une liste de tout ce qui est à réviser. Le suivi des échéances cesse d'être une feuille avec cent dates.</p></div></details>
+      <details class="faq__item" name="faq"><summary>Que sont les listes de documents requis ?</summary><div class="faq__a"><p>C'est la liste des documents qu'un dossier doit contenir. Elle se définit par dossier et le module alerte lui-même quand il manque des documents à une liste : le dossier incomplet est repéré avant l'audit et non pendant.</p></div></details>
+      <details class="faq__item" name="faq"><summary>Est-ce un module à part ?</summary><div class="faq__a"><p>Documents est un module du système, avec sa propre entrée de menu, et s'active comme les autres. L'homologation des fournisseurs, en revanche, n'est pas un module distinct : c'est cette même gestion documentaire appliquée au fournisseur, avec ses incidents de réception.</p></div></details>
+      <details class="faq__item" name="faq"><summary>Faut-il réorganiser toute la documentation pour commencer ?</summary><div class="faq__a"><p>Non. L'arborescence de dossiers et sous-dossiers se crée comme vous voulez : vous pouvez reproduire celle que vous utilisez déjà et téléverser ce qui est en vigueur. Ce qui change, ce n'est pas l'organisation : c'est que chaque document a désormais une date, un statut et un responsable.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contacto" data-screen-label="Gestor documental · Contacto">
+  <div class="wrap contact__in">
+    <div class="form-card">
+      <h2>Contact avec un spécialiste des opérations industrielles</h2>
+      <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
+      <div class="hs-contact-form"></div>
+    </div>
+    <div class="contact__art">
+      <img src="/assets/contacto-tecnica-tablet.webp" alt="Une technicienne d'usine consulte Solved sur la tablette" style="width:100%;display:block;border-radius:var(--r-3);box-shadow:var(--shadow-2);" width="1024" height="910" decoding="async" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<div id="footer"></div>
+<script src="/fr/chrome.js?v=20260903b"></script>
+<!-- Hero y franja de clientes: el mismo shader y la misma cinta que la home.
+     sections.js es sólo para el riel de la escalera de pasos. -->
+<script src="/ds/sections.js?v=20260903a" defer=""></script>
+<script src="/ds/hero-wave.js?v=20260901a" defer=""></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function mount() {
+    if (window.SolvedHeroWave) window.SolvedHeroWave.mount(document.getElementById('dsWeave'));
+  }
+  if (window.SolvedHeroWave) mount();
+  else document.querySelector('script[src*="ds/hero-wave.js"]').addEventListener('load', mount);
+
+  /* La cinta de logos se duplica para que el bucle no tenga costura. */
+  var t = document.getElementById('dsLogos');
+  if (t) t.innerHTML += t.innerHTML;
+});
+</script>
+
+
+</body></html>

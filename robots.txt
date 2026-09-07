@@ -1,0 +1,8 @@
+# Preview privada de Web Solved 3.0 — no es el sitio público.
+# El sitio público es https://trysolved.com/ y tiene su propio robots.txt.
+#
+# Todas las páginas de aquí llevan <meta name="robots" content="noindex,nofollow">.
+# El rastreo se permite justamente para que ese noindex se pueda leer: un
+# Disallow lo escondería y la URL podría indexarse igual, sin contenido.
+User-agent: *
+Allow: /

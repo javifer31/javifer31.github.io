@@ -1,0 +1,732 @@
+/* =========================================================
+   Solved Design System — ESCENA DE PRODUCTO
+   SceneCard + SceneGrid. Sustituye a cualquier rejilla de "features" con
+   icono y párrafo: aquí se enseña producto funcionando, no una promesa.
+
+   Requiere ds/tokens.css y ds/tint.css.
+
+   API — atributos, no clases sueltas:
+     .scene-grid                        rejilla de 12 columnas, gutter 20px
+       article.scene[data-module]       incidencias · acciones · checklists
+                                        activos · kpis · ia   → DICTA EL TINTE
+                [data-span]             4 · 6 · 8 · 12
+                [data-ratio]            4:3 · 1:1 · 21:9
+         .scene__title                  título, arriba a la izquierda
+         .scene__media                  el fragmento de producto
+         .scene__expand                 sólo si expande de verdad
+
+   NO HAY FORMA DE PASAR UN COLOR. No existe --scene-tint, ni una clase de
+   fondo, ni un modificador cromático: el único selector que pinta lienzo es
+   .scene[data-module="…"] con la lista cerrada de seis valores. Un data-module
+   que no esté en la lista no pinta nada y el validador de desarrollo lo canta.
+   Esa restricción es el componente: sin ella, en tres meses hay lienzos
+   elegidos por gusto y el color deja de significar módulo.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   REJILLA
+   Doce columnas dentro del encuadre existente. No trae padding ni ancho
+   propios: vive dentro de .frame, como todo lo demás del sitio.
+   --------------------------------------------------------- */
+.scene-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+}
+
+/* Una pieza que no es escena pero comparte fila: la banda de IA de
+   /incidencias/ entra en la rejilla como la tarjeta ancha de la primera fila.
+   Ocupa las doce y toma el radio de la escena —16 y no 12—, porque dentro de
+   esta rejilla lo que manda es la ventana, no la ficha. */
+.scene-grid > .aiband{ grid-column:1 / -1; border-radius:16px }
+
+/* ---------------------------------------------------------
+   MARCO
+   Radio 16 —mayor que --ds-radius-card (12px), que es el de las tarjetas de
+   texto—: una escena es una ventana, no una ficha, y el radio la separa.
+   Sin sombra: la única sombra del componente es la del fragmento.
+   --------------------------------------------------------- */
+.scene{
+  position:relative;
+  grid-column:span 6;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--color-hairline);
+  background:var(--ds-surface);
+  transition:border-color var(--ds-motion);
+}
+.scene:hover{ border-color:var(--color-hairline-input) }
+
+/* La tarjeta crece hacia fuera al pasar por encima. NUNCA con transform:scale:
+   dentro hay una pantalla con texto de 10px y escalarla la deja borrosa, que
+   es justo lo que no puede pasar en el sitio donde se gana la credibilidad.
+
+   Crece un anillo por fuera del marco, en el color del módulo y casi
+   transparente. Va en outline y no en una capa propia porque el outline se
+   dibuja fuera del borde y NO lo recorta el overflow:hidden de la escena —una
+   capa hija sí quedaría cortada, y ese overflow es el que recorta el
+   fragmento, así que no se puede tocar. */
+.scene{
+  outline:0 solid transparent;
+  transition:border-color var(--ds-motion),
+             outline-width 320ms cubic-bezier(.16,1,.3,1),
+             outline-color 320ms linear;
+}
+.scene:hover{
+  outline-width:5px;
+  outline-color:color-mix(in srgb, var(--scene-glow, var(--color-primary)) 12%, transparent);
+}
+/* El foco de teclado manda sobre el hover: ahí el anillo es el del sistema. */
+button.scene:focus-visible,
+a.scene:focus-visible{ outline:2px solid var(--color-primary); outline-offset:3px }
+
+@media (prefers-reduced-motion:reduce){
+  .scene{ transition:border-color var(--ds-motion) }
+  .scene:hover{ outline-width:0 }
+}
+
+/* Una escena puede ser un enlace al módulo que enseña. Sigue sin llevar texto
+   de llamada dentro: la tarjeta entera es el destino, y el cambio de borde más
+   el cursor son la afordancia. Si hace falta un "Ver módulo →" para que se
+   entienda que se puede pulsar, el patrón elegido es otro. */
+a.scene{ display:block; text-decoration:none; color:inherit }
+a.scene:focus-visible,
+button.scene:focus-visible{ outline:2px solid var(--color-primary); outline-offset:3px }
+
+/* Cuando la escena abre un diálogo en vez de navegar, es un <button> y no un
+   <a>. No es formalismo: un enlace que no lleva a ninguna URL rompe el clic
+   con rueda, el "abrir en pestaña nueva" y el anuncio del lector de pantalla.
+   El destino del módulo no se pierde — vive dentro del diálogo. */
+button.scene{
+  display:block; width:100%;
+  padding:0;
+  font:inherit; color:inherit; text-align:left;
+  -webkit-appearance:none; appearance:none;
+  cursor:pointer;
+}
+/* Hover: sólo el borde. Ni elevación, ni escala, ni movimiento del fragmento —
+   si la escena se mueve, el ojo va al gesto y no a lo que la tarjeta enseña. */
+
+.scene[data-span="4"]{ grid-column:span 4 }
+.scene[data-span="6"]{ grid-column:span 6 }
+.scene[data-span="8"]{ grid-column:span 8 }
+.scene[data-span="12"]{ grid-column:span 12 }
+
+/* La altura la fija la proporción, nunca el contenido: dos escenas de la misma
+   fila con distinta cantidad de fragmento tienen que medir lo mismo. */
+.scene[data-ratio="4:3"]{ aspect-ratio:4/3 }
+.scene[data-ratio="1:1"]{ aspect-ratio:1/1 }
+.scene[data-ratio="21:9"]{ aspect-ratio:21/9 }
+
+/* FILAS MIXTAS — data-ratio="fila"
+   Los repartos 8+4 y 4+8 estaban permitidos pero no se podían montar: a doce
+   columnas y 20px de calle, un 8 en 4:3 mide 571 de alto y un 4 en 1:1 mide
+   371, y la proporción gana a `stretch` —comprobado: la corta NO se estira—,
+   así que la fila quedaba con un agujero de 200px debajo de la estrecha.
+
+   La salida no es igualar las proporciones (a distinto ancho, distinto alto
+   igual) sino declarar quién manda: la ancha lleva su proporción y la estrecha
+   lleva `fila`, que renuncia a la suya y toma el alto de la fila. Una fila, una
+   proporción declarada; el resto la obedece.
+
+   No es un tercer formato libre: sin `aspect-ratio` la caja depende de la
+   vecina, así que `fila` sólo tiene sentido acompañando a una escena que sí la
+   declare. Sola en su fila deja la altura al contenido, que es justo lo que el
+   componente no quiere. */
+.scene[data-ratio="fila"]{ aspect-ratio:auto; align-self:stretch }
+
+/* ---------------------------------------------------------
+   LIENZO TEÑIDO
+   Capa propia bajo el contenido: así el mismo tinte sirve sobre blanco y sobre
+   grafito sin tocar el marco. El tinte SÓLO se asigna aquí.
+   --------------------------------------------------------- */
+.scene::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.scene[data-module="incidencias"]::before{ background-image:var(--tint-incidencias) }
+.scene[data-module="acciones"]::before{    background-image:var(--tint-acciones) }
+.scene[data-module="checklists"]::before{  background-image:var(--tint-checklists) }
+.scene[data-module="activos"]::before{     background-image:var(--tint-activos) }
+.scene[data-module="kpis"]::before{        background-image:var(--tint-kpis) }
+.scene[data-module="ia"]::before{          background-image:var(--tint-ia) }
+
+/* El mismo atributo dicta el color del halo del borde. Un módulo, un color:
+   si el tinte y el halo pudieran ir por separado, en dos meses no coincidirían. */
+.scene[data-module="incidencias"]{ --scene-glow:var(--module-incidencias) }
+.scene[data-module="acciones"]   { --scene-glow:var(--module-acciones) }
+.scene[data-module="checklists"] { --scene-glow:var(--module-registros) }
+.scene[data-module="activos"]    { --scene-glow:var(--module-activos) }
+.scene[data-module="kpis"]       { --scene-glow:var(--module-kpis) }
+.scene[data-module="ia"]         { --scene-glow:var(--module-ia) }
+
+/* La capa de IA es la única que va sobre grafito, y va sola: el token del
+   tinte y el fondo oscuro se activan con el mismo atributo, así que no se
+   pueden separar por descuido. */
+.scene[data-module="ia"]{
+  background:var(--color-graphite-900);
+  border-color:#2A2E34;
+}
+.scene[data-module="ia"]:hover{ border-color:#3C424A }
+
+/* ---------------------------------------------------------
+   TÍTULO
+   Arriba a la izquierda, sobre el lienzo limpio. Dos líneas como máximo: si
+   hacen falta tres, el título está explicando en vez de nombrar.
+   Sin descripción dentro de la tarjeta — el párrafo va una vez, en el
+   encabezado de la sección.
+   --------------------------------------------------------- */
+.scene__title{
+  position:absolute;
+  top:20px; left:20px; right:52px;
+  z-index:2;
+  margin:0;
+  font:var(--type-body-md);
+  letter-spacing:var(--tracking-body);
+  color:var(--color-ink);
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.scene[data-module="ia"] .scene__title{ color:#fff }
+
+/* ---------------------------------------------------------
+   ESCENA ANCHA: el título en columna
+   A 12 columnas el título arriba a la izquierda deja un tercio de lienzo
+   muerto —la línea de texto mide lo que mide y el resto de la banda queda
+   vacío—. Así que en la ancha el título baja al centro del tercio izquierdo y
+   el fragmento ocupa los dos tercios de la derecha, sangrando por ese lado.
+   Sigue sin haber descripción dentro: es el mismo título, sólo colocado donde
+   la tarjeta lo necesita.
+   --------------------------------------------------------- */
+.scene[data-span="12"] .scene__title{
+  top:50%; translate:0 -50%;
+  left:6%; right:auto;
+  width:26%;
+  font:var(--type-display-md);
+  letter-spacing:var(--tracking-display-md);
+  -webkit-line-clamp:3;
+}
+.scene[data-span="12"] .scene__media[data-crop="br"],
+.scene[data-span="12"] .scene__media[data-crop="r"]{ left:38%; top:14%; right:-10%; bottom:-12% }
+.scene[data-span="12"] .scene__media[data-crop="dev-br"]{ left:38%; top:12%; width:72% }
+
+/* ---------------------------------------------------------
+   LA ESTRECHA DE UNA FILA MIXTA — data-span="4" + data-ratio="fila"
+   Los recortes están calculados sobre una tarjeta de 6 columnas. A 4 columnas
+   —y con el alto de la fila, o sea, más alta que ancha— los mismos porcentajes
+   dejan el aparato en 108px de ancho, y dentro no hay texto que llegue a 10px
+   reales. La regla de los 10px manda sobre la de la proporción, así que aquí
+   el fragmento ocupa más porcentaje de tarjeta: en píxeles acaba midiendo lo
+   mismo que en una de 6.
+
+   Va atado a `fila` y no sólo a `data-span="4"`: una de 4 columnas en `1:1` es
+   un cuadrado pequeño, no una tarjeta alta, y ahí el aparato al 50 % se sale.
+   Lo que pide el ajuste es el alto de la fila mixta, no el ancho.
+   --------------------------------------------------------- */
+.scene[data-span="4"][data-ratio="fila"] .scene__media[data-crop="dev-movil-c"]{ top:26%; width:50% }
+.scene[data-span="4"][data-ratio="fila"] .scene__media[data-crop="dev-movil"]{ left:8%; top:26%; width:48% }
+
+/* Los recortes planos (br, bl, b, r) NO se tocan aquí, y se probó: sangrar más
+   por el lado sólo ensancha el fragmento, y una rejilla como la de
+   Integraciones —cuatro columnas centradas— se queda con dos logotipos y medio
+   lienzo vacío. Con el recorte de siempre entran los mismos que en una tarjeta
+   de 6 columnas, y lo que se pierde por el borde es la última columna. */
+
+@media (max-width:900px){
+  /* Ya no es ancha: el título vuelve arriba. */
+  .scene[data-span="12"] .scene__title{
+    top:20px; translate:none; left:20px; right:52px; width:auto;
+    font:var(--type-body-md); letter-spacing:var(--tracking-body); -webkit-line-clamp:2;
+  }
+  .scene[data-span="12"] .scene__media[data-crop="br"],
+  .scene[data-span="12"] .scene__media[data-crop="r"]{ left:11%; top:26%; right:-14%; bottom:-10% }
+  .scene[data-span="12"] .scene__media[data-crop="dev-br"]{ left:13%; top:25%; width:104% }
+}
+
+/* ---------------------------------------------------------
+   FRAGMENTO DE PRODUCTO
+   Captura real, recortada por al menos un borde. El recorte es el gesto que
+   dice "esto continúa"; un fragmento entero y centrado parece un icono grande.
+   Se posiciona desde el HTML de cada escena (top/left/width), porque el
+   encuadre depende de qué parte de la pantalla se está enseñando.
+   --------------------------------------------------------- */
+.scene__media{
+  position:absolute;
+  z-index:1;
+  border-radius:10px;
+  overflow:hidden;
+  /* Contenedor de medida para los marcos de dispositivo (ds/device.css): bisel
+     y radio del aparato se calculan sobre este ancho. */
+  container-type:inline-size;
+  /* La única sombra del componente: despega el fragmento del lienzo. */
+  box-shadow:rgba(12,32,64,.10) 0 8px 24px;
+}
+.scene__media img,
+.scene__media picture,
+.scene__media video{ display:block; width:100%; height:auto }
+
+/* Encuadres de uso corriente. Todos se salen por al menos un lado. */
+.scene__media[data-crop="br"]{ left:11%; top:26%; right:-14%; bottom:-10% }
+.scene__media[data-crop="bl"]{ right:11%; top:26%; left:-14%; bottom:-10% }
+.scene__media[data-crop="b"] { left:11%; right:11%; top:26%; bottom:-10% }
+.scene__media[data-crop="r"] { left:11%; right:-14%; top:26%; bottom:12% }
+
+/* Encuadres para marco de dispositivo (ds/device.css). Aquí no se fija el alto:
+   lo pone la proporción del propio aparato, que es la que lo hace reconocible.
+   Se fija la esquina y el ancho, y el recorte lo hace el borde de la escena. */
+.scene__media[data-crop^="dev-"]{ right:auto; bottom:auto }
+.scene__media[data-crop="dev-br"]{ left:13%; top:25%; width:104% }
+.scene__media[data-crop="dev-b"] { left:50%; translate:-50% 0; top:27%; width:58% }
+.scene__media[data-crop="dev-bl"]{ left:-17%; top:25%; width:104% }
+/* Un móvil es estrecho y alto: se planta más abajo y ocupa menos ancho, para
+   que se salga por abajo y no por el costado. */
+.scene__media[data-crop="dev-movil"]{ left:11%; top:30%; width:30% }
+.scene__media[data-crop="dev-movil-c"]{ left:50%; translate:-50% 0; top:30%; width:31% }
+
+/* ---------------------------------------------------------
+   FRAGMENTO COMPUESTO
+   Dos fragmentos en la misma escena, uno delante del otro: la ventana de
+   escritorio detrás y el móvil delante. Es el patrón de la home de Stripe, y
+   sirve para lo que un fragmento solo no puede decir — que la misma cosa se
+   hace desde el puesto y desde la planta.
+
+   Sigue siendo UNA escena: un tinte, un título, un recorte. Lo que cambia es
+   que hay dos capas. Tres ya no; con tres no se lee ninguna.
+
+   El de delante lleva más sombra que el de detrás. Sin esa diferencia las dos
+   capas se leen como una sola imagen pegada y el gesto se pierde.
+
+     <div class="scene__media" data-crop="comp-back">  …ventana… </div>
+     <div class="scene__media" data-crop="comp-front"> …móvil…   </div>
+   --------------------------------------------------------- */
+.scene__media[data-crop^="comp-"]{ right:auto; bottom:auto }
+.scene__media[data-crop="comp-back"]{
+  left:26%; top:20%; width:92%;
+  z-index:1;
+}
+.scene__media[data-crop="comp-front"]{
+  left:5%; top:36%; width:25%;
+  z-index:2;
+  box-shadow:rgba(12,32,64,.16) 0 16px 40px;
+}
+
+/* En la escena ancha el título baja al centro del tercio izquierdo, así que
+   las dos capas se corren a la derecha para no pisarlo. Es el mismo ajuste que
+   ya tienen br, r y dev-br unas líneas más arriba. */
+.scene[data-span="12"] .scene__media[data-crop="comp-back"]{ left:52%; top:12%; width:62% }
+.scene[data-span="12"] .scene__media[data-crop="comp-front"]{ left:37%; top:26%; width:15% }
+
+@media (max-width:900px){
+  /* A una columna la composición se estrecha: el móvil se sale por la
+     izquierda y la ventana pierde el arranque, que es lo prescindible.
+     La ancha deja de serlo aquí —el título vuelve arriba—, así que sus dos
+     capas se reescriben con los mismos valores en vez de "resetearse": una
+     regla con data-span="12" gana a la suelta y dejaría el encuadre a medias. */
+  .scene__media[data-crop="comp-back"],
+  .scene[data-span="12"] .scene__media[data-crop="comp-back"]{ left:30%; top:22%; width:100% }
+  .scene__media[data-crop="comp-front"],
+  .scene[data-span="12"] .scene__media[data-crop="comp-front"]{ left:2%; top:38%; width:30% }
+}
+@media (max-width:600px){
+  /* En teléfono no caben dos capas legibles. Se queda la de delante, que es la
+     que argumenta, y la de detrás desaparece: enseñar menos antes que enseñar
+     ruido. */
+  .scene__media[data-crop="comp-back"]{ display:none }
+  .scene__media[data-crop="comp-front"],
+  .scene[data-span="12"] .scene__media[data-crop="comp-front"]{ left:8%; top:32%; width:52% }
+}
+
+/* ---------------------------------------------------------
+   HALO DEL BORDE
+   Un círculo de color que sigue al cursor por el borde de la tarjeta. Es el
+   único movimiento del componente y es el de Stripe, medido en su home: un
+   radial-gradient de 1,4 veces el ancho, al 50 % de opacidad, que persigue al
+   ratón con transform y un easing largo (1s, easeOutExpo). El retraso es lo
+   que lo hace elegante: si va pegado al cursor parece un puntero, no una luz.
+
+   Nada se mueve solo. En la home de Stripe no hay una sola animación en bucle
+   dentro de estas tarjetas — 76 elementos con transición y cero keyframes—:
+   el movimiento RESPONDE, no entretiene. Es la diferencia entre un producto
+   serio y una landing.
+
+   El color sale del módulo, como el tinte: lo pone --scene-glow desde
+   ds/tint.css. No hay forma de darle un color a mano.
+   --------------------------------------------------------- */
+.scene__glow{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  border-radius:inherit;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .25s linear;
+  /* Sólo se ve en el perímetro: dos máscaras, una recortada a la caja de
+     contenido y otra a la caja entera, y se restan. El compuesto va en su
+     propia propiedad — dentro del atajo `mask` no es válido y la máscara se
+     ignora entera, con lo que el halo llena la tarjeta en vez de quedarse en
+     el canto. */
+  padding:1px;
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;          /* el nombre viejo del mismo compuesto */
+          mask-composite:exclude;
+  overflow:hidden;
+}
+.scene__glow::before{
+  content:"";
+  position:absolute;
+  top:0; left:0;
+  width:140%; aspect-ratio:1;
+  translate:calc(var(--glow-x,50%) - 50%) calc(var(--glow-y,50%) - 50%);
+  background:radial-gradient(circle,
+    var(--scene-glow,var(--color-primary)) 0%,
+    rgba(211,79,157,.55) 33%,
+    var(--frame) 66%,
+    transparent 70%);
+  transition:translate 1s cubic-bezier(.16,1,.3,1);
+}
+.scene:hover .scene__glow,
+.scene:focus-visible .scene__glow{ opacity:.55 }
+
+@media (prefers-reduced-motion:reduce){
+  .scene__glow::before{ transition:none }
+}
+
+/* ---------------------------------------------------------
+   EXPANDIR
+   Sólo se pinta si expande de verdad. Una afordancia que no hace nada cuesta
+   más confianza de la que gana, así que el marcado exige el destino:
+   .scene__expand sin [data-expand-target] lo canta el validador y no se pinta.
+   --------------------------------------------------------- */
+.scene__expand{
+  position:absolute;
+  top:14px; right:14px;
+  z-index:3;
+  width:32px; height:32px;
+  display:none;                     /* por defecto no existe */
+  place-items:center;
+  padding:0;
+  border:1px solid var(--color-hairline);
+  border-radius:var(--ds-radius-control);
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(6px);
+  color:var(--ds-text-2);
+  cursor:pointer;
+  transition:border-color var(--ds-motion), background var(--ds-motion);
+}
+.scene__expand[data-expand-target]{ display:grid }
+.scene__expand:hover,
+.scene:hover .scene__expand{ border-color:var(--color-hairline-input); background:#fff }
+/* Con la tarjeta entera pulsable, la afordancia se adelanta un pelo al pasar
+   por encima: es lo que dice "esto se abre" antes de que nadie lo pruebe. */
+.scene:hover .scene__expand{ translate:0 -1px }
+.scene[data-module="ia"] .scene__expand{
+  border-color:#3C424A; background:rgba(17,18,20,.6); color:#C9CFD6;
+}
+.scene[data-module="ia"] .scene__expand:hover{ border-color:#555C65; background:#1B2026 }
+.scene__expand svg{ width:16px; height:16px; display:block }
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+   Por debajo de tablet la rejilla de 12 no aporta nada: una escena por fila,
+   y la proporción se relaja para que el fragmento siga siendo legible (la
+   regla de los 10px reales manda sobre la de la proporción).
+   --------------------------------------------------------- */
+@media (max-width:900px){
+  .scene-grid{ grid-template-columns:repeat(6,1fr) }
+  .scene[data-span]{ grid-column:span 6 }
+  .scene[data-ratio="21:9"]{ aspect-ratio:16/9 }
+  /* Aquí ya no hay filas mixtas —una escena por fila—, así que `fila` se queda
+     sin vecina de la que tomar el alto y la caja colapsa a dos píxeles. A lo
+     ancho de la columna, la proporción que toca es la misma a la que se relaja
+     todo lo demás en teléfono. */
+  .scene[data-ratio="fila"]{ aspect-ratio:4/3 }
+}
+@media (max-width:600px){
+  .scene-grid{ grid-template-columns:1fr; gap:16px }
+  .scene[data-span]{ grid-column:auto }
+  .scene[data-ratio="4:3"],
+  .scene[data-ratio="1:1"],
+  .scene[data-ratio="21:9"],
+  .scene[data-ratio="fila"]{ aspect-ratio:4/3 }
+}
+
+/* El móvil es el encuadre que peor aguanta el estrechamiento: su ancho es un
+   porcentaje de la tarjeta, así que en un teléfono el aparato acaba midiendo
+   cien píxeles y dentro no cabe nada legible. Se le va dando más porcentaje a
+   medida que la tarjeta encoge, para que la pantalla siga midiendo parecido en
+   píxeles reales — que es lo que manda la regla de los 10px. */
+@media (max-width:900px){
+  .scene__media[data-crop="dev-movil"]{ width:34% }
+}
+@media (max-width:600px){
+  .scene__media[data-crop="dev-movil"]{ left:8%; width:44% }
+}
+@media (max-width:430px){
+  .scene__media[data-crop="dev-movil"]{ width:56% }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .scene,.scene__expand{ transition:none }
+}
+
+/* =========================================================
+   LIENZO DE FOTO — .scene[data-canvas="foto"]
+   =========================================================
+   Variante de lienzo, no un componente nuevo: la escena sigue siendo el mismo
+   marco, el mismo título y el mismo fragmento cortado por el borde. Lo único
+   que cambia es el suelo — en vez de una superficie teñida, una fotografía de
+   alguien usando móvil, tablet, portátil o el panel de una máquina en planta o
+   en almacén.
+
+   Por qué existe: el lienzo plano dice "esto es software". La foto dice quién
+   lo usa y dónde, que es la mitad del argumento en un sitio donde el rival no
+   es otro software sino el Excel, el papel y el grupo de WhatsApp. Encima de
+   la foto siguen flotando las piezas de producto (ds/app.css) o, cuando la
+   sección no enseña pantalla, un recurso: la tarjeta que comunica la acción
+   —parte creado, acción asignada, registro firmado, respuesta de la IA—.
+
+   Lo que NO cambia:
+   · El tinte lo sigue dictando data-module, con los mismos seis colores. Sobre
+     foto usan --tint-foto-* (ds/tint.css), que es el mismo color con más
+     cuerpo, porque al 10% sobre una fotografía el color no significa nada.
+   · Sigue sin haber forma de pasar un color a mano.
+   · El fragmento sigue saliéndose por al menos un borde.
+
+   Lo que sí cambia: el título pasa a blanco, porque debajo hay una foto y
+   ninguna foto garantiza contraste para tinta oscura. El velo que lo permite
+   es neutro, no de módulo: si el velo tuviera color, se sumaría al tinte y
+   cada escena tendría un color distinto del que le toca.
+
+   Las fotos viven en assets/planta/ y su procedencia está en
+   assets/planta/FUENTES.md. Criterio para añadir una: una persona usando un
+   dispositivo en un entorno industrial. Una nave vacía no vale.
+
+   Marcado:
+
+     <article class="scene" data-module="incidencias" data-span="6" data-ratio="1:1"
+              data-canvas="foto">
+       <img class="scene__foto" src="/assets/planta/…webp" alt="" width="1100"
+            height="1100" loading="lazy" decoding="async">
+       <span class="scene__velo" aria-hidden="true"></span>
+       <h3 class="scene__title">…</h3>
+       <div class="scene__media" data-crop="br"> …pantalla o recurso… </div>
+     </article>
+   --------------------------------------------------------- */
+
+.scene[data-canvas="foto"]{
+  /* Suelo bajo la foto: si la imagen tarda o falla, la escena sigue siendo una
+     tarjeta oscura legible y no un rectángulo blanco con texto blanco. */
+  background:var(--color-graphite-900, #111214);
+}
+
+.scene__foto{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Velo neutro. Dos gradientes: uno de arriba, que es donde vive el título, y
+   otro general que baja el contraste de la foto para que el fragmento de
+   producto —blanco, con texto de 10px— se despegue de ella. */
+.scene__velo{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(11,18,32,.74) 0%, rgba(11,18,32,.30) 30%, rgba(11,18,32,.16) 60%, rgba(11,18,32,.46) 100%);
+}
+
+/* El tinte del módulo pasa por delante de la foto y por delante del velo: es
+   la señal, y una señal debajo de un velo neutro deja de serlo. */
+.scene[data-canvas="foto"]::before{ z-index:1 }
+.scene[data-canvas="foto"][data-module="incidencias"]::before{ background-image:var(--tint-foto-incidencias) }
+.scene[data-canvas="foto"][data-module="acciones"]::before{    background-image:var(--tint-foto-acciones) }
+.scene[data-canvas="foto"][data-module="checklists"]::before{  background-image:var(--tint-foto-checklists) }
+.scene[data-canvas="foto"][data-module="activos"]::before{     background-image:var(--tint-foto-activos) }
+.scene[data-canvas="foto"][data-module="kpis"]::before{        background-image:var(--tint-foto-kpis) }
+.scene[data-canvas="foto"][data-module="ia"]::before{          background-image:var(--tint-foto-ia) }
+
+/* Reparto de capas dentro de la variante. Mismo orden de siempre, subido uno
+   para dejar sitio a la foto y al velo. */
+.scene[data-canvas="foto"] .scene__media{ z-index:2 }
+.scene[data-canvas="foto"] .scene__title{ z-index:3; color:#fff }
+.scene[data-canvas="foto"] .scene__expand{
+  z-index:4;
+  border-color:rgba(255,255,255,.28);
+  background:rgba(11,18,32,.44);
+  color:#fff;
+}
+.scene[data-canvas="foto"]:hover .scene__expand,
+.scene[data-canvas="foto"] .scene__expand:hover{
+  border-color:rgba(255,255,255,.5);
+  background:rgba(11,18,32,.62);
+}
+
+/* =========================================================
+   RECURSO — .res
+   =========================================================
+   La pieza que comunica la acción cuando la escena no enseña una pantalla
+   entera: el parte que se acaba de crear, la acción con su plazo, el registro
+   firmado, la respuesta de la IA citando el parte del que sale.
+
+   Va dentro de un .scene__media, así que hereda su recorte y su sombra. Es
+   producto, no adorno: los datos son los del tour de /incidencias/, y un
+   identificador que sale en dos sitios es la misma avería.
+
+   El color del icono lo pone la escena, no el recurso: --res-acento cae por
+   herencia desde .scene[data-module], igual que el tinte.
+   --------------------------------------------------------- */
+
+.scene[data-module="incidencias"]{ --res-acento:var(--module-incidencias) }
+.scene[data-module="acciones"]   { --res-acento:var(--module-acciones) }
+.scene[data-module="checklists"] { --res-acento:var(--module-registros) }
+.scene[data-module="activos"]    { --res-acento:var(--module-activos) }
+.scene[data-module="kpis"]       { --res-acento:var(--module-kpis) }
+.scene[data-module="ia"]         { --res-acento:var(--module-ia) }
+
+.res{
+  background:#fff;
+  border-radius:var(--ds-radius-card, 12px);
+  padding:16px 18px;
+  color:var(--color-ink);
+  text-align:left;
+}
+.res__hd{ display:flex; align-items:center; gap:10px }
+.res__ico{
+  flex:none;
+  width:30px; height:30px;
+  border-radius:9px;
+  display:grid; place-items:center;
+  background:var(--res-acento, var(--color-primary));
+  color:#fff;
+}
+.res__ico svg{ width:16px; height:16px; display:block }
+.res__t{
+  margin:0;
+  font:var(--font-weight-medium, 500) 14px/1.25 var(--font-sans);
+  letter-spacing:-.01em;
+}
+.res__s{
+  margin:2px 0 0;
+  font:var(--type-body-sm, 400 13px/1.4 var(--font-sans));
+  color:var(--color-ink-mute);
+}
+.res__rows{ margin-top:12px }
+.res__kv{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  padding:8px 0;
+  border-top:1px solid var(--color-hairline);
+  font-size:13px;
+}
+.res__kv dt{ margin:0; color:var(--color-ink-mute) }
+.res__kv dd{ margin:0; color:var(--color-ink) }
+
+/* Píldora flotante: el aviso de una sola línea. No lleva marco de tarjeta
+   porque no es un registro, es que algo acaba de pasar. */
+.res-pill{
+  position:absolute;
+  z-index:3;
+  display:inline-flex; align-items:center; gap:9px;
+  padding:9px 14px;
+  border-radius:var(--ds-radius-pill);
+  background:#fff;
+  border:1px solid var(--color-hairline);
+  color:var(--color-ink);
+  font:var(--font-weight-medium, 500) 13px/1.2 var(--font-sans);
+  white-space:nowrap;
+  box-shadow:rgba(12,32,64,.24) 0 10px 28px;
+}
+.res-pill svg{ width:15px; height:15px; flex:none; display:block; color:var(--res-acento, var(--color-primary)) }
+.res-pill__dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--res-acento, var(--color-primary));
+  flex:none;
+}
+
+/* Lo oscuro es de la IA y de nada más. En Solved el grafito no es un recurso
+   estético disponible para dar contraste sobre una foto: es la superficie de
+   la capa de IA, igual que el naranja es Acciones. Una píldora oscura en una
+   escena de Registros dice «IA» sin querer decirlo. */
+.scene[data-module="ia"] .res-pill{
+  background:rgba(11,18,32,.66);
+  border-color:rgba(255,255,255,.22);
+  color:#fff;
+  box-shadow:rgba(0,0,0,.34) 0 10px 28px;
+}
+.scene[data-module="ia"] .res-pill svg{ color:var(--module-ia) }
+
+/* La respuesta de la IA. Va sobre grafito y no sobre blanco, como todo lo de
+   la capa de IA, y siempre con la referencia del parte del que sale: una
+   respuesta que no se puede comprobar no sirve en una planta. */
+.res-ia{
+  background:#111214;
+  border:1px solid #2A2F36;
+  border-radius:var(--ds-radius-card, 12px);
+  padding:16px 18px;
+  color:#fff;
+  text-align:left;
+}
+.res-ia__q{ display:flex; align-items:center; gap:9px; font:var(--font-weight-medium, 500) 14px/1.3 var(--font-sans) }
+.res-ia__q svg{ width:16px; height:16px; flex:none; color:var(--module-ia) }
+.res-ia__a{
+  margin:10px 0 0;
+  padding-top:10px;
+  border-top:1px solid #2A2F36;
+  font:var(--type-body-sm, 400 13px/1.45 var(--font-sans));
+  color:#C6CCD4;
+}
+.res-ia__ref{
+  display:inline-block;
+  margin-top:8px;
+  padding:3px 8px;
+  border-radius:var(--ds-radius-chip, 4px);
+  background:rgba(168,85,247,.18);
+  color:#D6B4FD;
+  font:var(--font-weight-medium, 500) 12px/1.3 var(--font-mono, var(--font-sans));
+  letter-spacing:.02em;
+}
+
+/* Encuadre del recurso — UNO SOLO, y esto es la regla, no el valor por defecto.
+   Las seis escenas de una rejilla son la misma herramienta contada para un
+   trabajo distinto. Si el recurso cambia de ancho o de esquina en cada una, el
+   ojo lee seis tarjetas sueltas y no seis versiones de lo mismo: la diferencia
+   deja de estar en lo que dice cada una y pasa a estar en dónde se ha puesto.
+   Por eso hay un único sitio —abajo a la derecha— y un único ancho en píxeles,
+   no en porcentaje: en porcentaje, la escena cuadrada y la de banda darían dos
+   tamaños distintos otra vez.
+
+   El ancho está elegido para que quepan las versiones más largas: tres filas
+   de pares con un valor de dos palabras («PDF con evidencias», «De planta a
+   dirección») sin partirse, y el título del recurso en dos líneas.
+
+   Aquí se rompe a propósito la regla de «el fragmento se sale por un borde»:
+   esa regla existe porque una captura cortada dice «esto continúa», y un dato
+   cortado no dice que continúe, dice que está roto —se probó, y «Conforme» se
+   leía «C»—. El recurso va entero; lo que continúa más allá del marco es la
+   foto.
+
+   Los tres nombres (`res`, `res-br`, `res-bl`) resuelven al mismo sitio: los
+   variantes quedan como alias para que el marcado antiguo no se descoloque,
+   pero no hay dos encuadres. */
+.scene__media[data-crop^="res"]{
+  left:auto; right:24px;
+  top:auto; bottom:24px;
+  width:340px;
+  box-shadow:rgba(12,32,64,.30) 0 16px 40px;
+}
+
+/* Por debajo de 900px el ancho fijo se come el marco: ahí el recurso pasa a
+   ocupar el ancho disponible, que sigue siendo el mismo trato para todas. */
+@media (max-width:900px){
+  .scene__media[data-crop^="res"]{ left:20px; right:20px; width:auto; bottom:20px }
+}

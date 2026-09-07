@@ -1,0 +1,168 @@
+/* =========================================================
+   Hero del design system + primer scroll
+   Réplica de templates/marketing-page (ruta "inicio") del proyecto
+   "Gradient Design System".
+   ========================================================= */
+
+/* ---------- Hero ---------- */
+.ds-hero{
+  position:relative; overflow:hidden; isolation:isolate;
+  background:var(--ds-surface);
+}
+/* El shader ocupa toda la hero por detrás del texto. Sin desenfoque: el lavado
+   hacia la izquierda ya lo hace el propio shader, que es donde vive el texto.
+
+   Se probó a ponerlo delante y a plena saturación hasta el borde inferior
+   (agosto 2026). Se descartó: el lavado no es decoración, es lo que sostiene la
+   legibilidad. Con la cinta encima, en las siete páginas se perdían primero el
+   subtítulo en gris y los botones —el titular en negro aún atravesaba el color,
+   el gris no—. Si vuelve a intentarse, hace falta mix-blend-mode:multiply o
+   sacar el texto del paso de la cinta. */
+.ds-hero__weave{
+  position:absolute; inset:0; width:100%; height:100%;
+  z-index:0; display:block; pointer-events:none;
+}
+.ds-hero__frame{
+  position:relative; z-index:2;
+  /* ALTO DE LA HERO: EL 90 % DE LA PANTALLA (3 sep 2026)
+     Antes era `64vh - 136px + 150px`, o sea 64vh escasos: en un portátil la
+     hero terminaba a media pantalla y la primera fila entraba a medias, que es
+     lo que hacía que la página abriera pequeña.
+
+     La cuenta es la barra incluida: el nav va fijo y por encima, así que hero
+     + barra suman el 90 % del alto y el 10 % que queda deja asomar lo de
+     abajo. Por eso se resta --nav-h en vez de pedir 90vh a secas, que con la
+     barra sumaría 90vh + 68px y se comería la pantalla entera.
+
+     svh y no vh: en el móvil `vh` cuenta la pantalla SIN las barras del
+     navegador, así que una hero de 90vh se sale por debajo mientras la barra
+     de direcciones está a la vista. `svh` es esa misma pantalla con las barras
+     puestas, que es como se ve al entrar. La línea con vh queda de reserva
+     para navegadores sin svh. */
+  min-height:calc(90vh - var(--nav-h));
+  min-height:calc(90svh - var(--nav-h));
+  padding-block:40px;
+  display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
+  gap:24px;
+}
+.ds-hero__txt{
+  width:66%; max-width:640px;
+  display:flex; flex-direction:column; align-items:flex-start; gap:24px;
+}
+.ds-eyebrow{
+  font:var(--type-micro-cap); font-size:12px; line-height:1.2;
+  letter-spacing:1.1px; text-transform:uppercase; color:var(--ds-text-mute);
+}
+.ds-hero h1{
+  margin:0;
+  font:var(--font-weight-thin) clamp(34px,4.6vw,52px)/1.08 var(--font-sans);
+  letter-spacing:-1.3px; max-width:24ch; text-wrap:balance; color:var(--ds-text);
+}
+.ds-hero__sub{
+  margin:0; font:var(--font-weight-thin) 16px/1.5 var(--font-sans);
+  color:var(--ds-text-2); max-width:44ch; text-wrap:pretty;
+}
+.ds-hero__cta{ display:flex; gap:12px; flex-wrap:wrap; }
+
+@media (max-width:900px){
+  .ds-hero__txt{ width:100%; }
+  .ds-hero h1{ max-width:none; }
+}
+/* En teléfono los dos botones no caben en una línea y quedaban partidos y de
+   anchos distintos, uno debajo de otro. Se dan por vencidos antes: cada uno
+   ocupa la línea entera, que además es la única forma de que el área de toque
+   llegue a lo que pide un dedo. */
+@media (max-width:600px){
+  .ds-hero__cta{ width:100%; flex-direction:column; align-items:stretch; }
+  .ds-hero__cta .ds-btn{ width:100%; padding-block:14px; }
+}
+
+/* ---------- Franja de clientes ----------
+   Va dentro del marco y sin unión superior: continúa la hero, no abre sección. */
+.ds-logos-frame{ padding-block:0; }
+.ds-logos{
+  height:80px; overflow:hidden; position:relative;
+  border-top:var(--frame-width) solid var(--frame);
+  border-bottom:var(--frame-width) solid var(--frame);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 60px,#000 calc(100% - 60px),transparent 100%);
+}
+.ds-logos__track{
+  display:flex; width:max-content; height:80px; align-items:center;
+  /* La duración va con el largo de la cinta, no al revés: la animación recorre
+     un -50 % del track, así que si se añaden logos y no se sube el tiempo, la
+     cinta acelera. 84s son los 52s originales escalados de 18 a 29 logos. */
+  animation:ds-drift 84s linear infinite;
+  will-change:transform;
+}
+.ds-logos__track img{
+  height:38px; width:auto; max-width:160px; object-fit:contain;
+  margin:0 34px; display:block;
+}
+@keyframes ds-drift{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@media (prefers-reduced-motion:reduce){ .ds-logos__track{ animation:none } }
+
+/* ---------- Hero de titular largo ----------
+   La hero base está calculada para un titular de una línea o dos. Con uno de
+   cuatro, con el ancho de 66% y el cuerpo de la base, salían siete líneas y la
+   columna de texto se comía la hero entera.
+
+   Es un modificador y no un cambio de la base a propósito: las páginas
+   interiores tienen titulares cortos y ahí el tamaño grande es lo que las
+   sostiene. Se ensancha hasta donde el shader sigue lavado —más allá el texto
+   entra en la cinta brillante y se pierde— y el cuerpo baja lo justo para
+   caber en cuatro líneas. */
+.ds-hero--wide .ds-hero__txt{ width:76%; max-width:900px; }
+.ds-hero--wide h1{
+  font-size:clamp(28px,3.5vw,42px);
+  line-height:1.12;
+  letter-spacing:-1px;
+  max-width:34ch;
+}
+@media (max-width:900px){
+  .ds-hero--wide .ds-hero__txt{ width:100%; }
+  .ds-hero--wide h1{ font-size:clamp(26px,5.2vw,34px); max-width:none; }
+}
+
+/* ---------- Hero centrada ----------
+   Texto al medio y la creatividad debajo, que es como está montada `/ia/`: el
+   eje del titular y el de lo que viene debajo son el mismo, y la página baja
+   recta en vez de en zigzag.
+
+   Estaba escrita dentro de `[data-tema="ia"]`, o sea disponible sólo en la
+   única página oscura del sitio. Sube aquí como modificador porque lo que hace
+   no tiene nada de IA: es una forma de hero.
+
+   EL VELO NO ES DECORACIÓN. La hero de la izquierda funcionaba porque el
+   shader lava justo por ahí; en el centro el texto se mete en el haz brillante
+   y el gris de `.ds-dim` desaparece. El velo va detrás del texto y delante del
+   canvas —el texto nunca va directo sobre el material—, y su color sale de
+   variables para que la página oscura pueda darle la vuelta sin duplicar la
+   regla. */
+.ds-hero{
+  --hero-velo-centro:rgba(255,255,255,.82);
+  --hero-velo-medio:rgba(255,255,255,.44);
+  --hero-velo-borde:rgba(255,255,255,0);
+}
+.ds-hero--centro::after{
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(58% 62% at 50% 52%,
+    var(--hero-velo-centro) 0%, var(--hero-velo-medio) 55%, var(--hero-velo-borde) 100%);
+}
+.ds-hero--centro .ds-hero__frame{ align-items:center; }
+.ds-hero--centro .ds-hero__txt{
+  width:100%; max-width:760px;
+  align-items:center; text-align:center;
+}
+.ds-hero--centro h1{ max-width:22ch; }
+.ds-hero--centro .ds-hero__sub{ max-width:56ch; }
+.ds-hero--centro .ds-hero__cta{ justify-content:center; }
+
+/* La home lleva titular largo: conserva su ancho, sólo cambia de eje. */
+.ds-hero--wide.ds-hero--centro .ds-hero__txt{ max-width:900px; }
+.ds-hero--wide.ds-hero--centro h1{ max-width:30ch; }
+
+@media (max-width:900px){
+  .ds-hero--centro .ds-hero__txt{ max-width:none; }
+  .ds-hero--centro h1{ max-width:none; }
+}
