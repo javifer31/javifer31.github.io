@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -108,13 +144,13 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
 <style>
 /* Esta página no lleva estilos propios (3 sep 2026).
    Antes tenía aquí 140 líneas: la plantilla de deck de la 2.0 —`.stack-card`,
@@ -407,58 +443,6 @@
        lo que le toca: el paso 2 del circuito la nombra, la pregunta frecuente
        la define y la rejilla de abajo enlaza con /incidencias/. -->
 
-  <!-- ========== 4 · PARA QUÉ LO USAN ==========
-       Rejilla de argumentos en cuadro (ds/sections.css). Recoge lo que quedaba
-       de las listas de «features» de las cinco tarjetas viejas, sin repetir lo
-       que ya cuentan los pasos y las escenas, y es la sección que enlaza con el
-       resto del sitio: cuatro de las seis celdas llevan destino. -->
-  <section class="section section--tight" data-screen-label="Acciones · Casos de uso">
-    <div class="wrap">
-      <div class="section-head section-head--split">
-        <h2>Was Teams hier abschließen</h2>
-        <p>Das Modul ist keine Aufgabenliste: Es ist der Ort, an dem alles landet, was im Werk, im Audit oder beim Kunden auffällt – samt Beleg, dass es gelöst wurde.</p>
-      </div>
-
-      <div class="reasons reasons--cuadro">
-
-        <div data-span="4">
-          <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 7v6c0 5 3.8 8.4 9 9 5.2-.6 9-4 9-9V7z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
-          <p><span class="em">Auditabweichungen.</span> Jeder Befund nach ISO 9001, IFS, BRC, ISO 22000 oder HACCP wird mit Nachweis in einer einzigen Akte erfasst und bis zum Abschluss verfolgt.</p>
-          <a class="reasons__link" href="/de/digitale-checklisten/">Zu Aufzeichnungen und Audits →</a>
-        </div>
-
-        <div data-span="4">
-          <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
-          <p><span class="em">Störungen und Abweichungen an der Linie.</span> Die im Werk geöffnete Störung wird ohne erneutes Tippen zu ihrer Korrekturmaßnahme, und die Benachrichtigung erreicht die richtige Schicht.</p>
-          <a class="reasons__link" href="/de/stoerungsmanagement/">Zum Störungsmanagement →</a>
-        </div>
-
-        <div data-span="4">
-          <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M3 11h18"></path><path d="M8 15h4"></path></svg></span>
-          <p><span class="em">Geplante Aufgaben, nicht nur korrektive.</span> Wiederkehrendes und Einmaliges wird geplant und einer Person oder Abteilung zugewiesen – mit derselben Nachverfolgung wie eine Korrekturmaßnahme.</p>
-        </div>
-
-        <div data-span="4">
-          <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.1a4 4 0 0 1 0 7.75"></path></svg></span>
-          <p><span class="em">Abteilungsübergreifende Arbeit.</span> Die meisten Probleme werden bereichsübergreifend gelöst: Die Maßnahme wandert von einem zum nächsten, ohne verloren zu gehen – und die Abstimmung geht mit.</p>
-        </div>
-
-        <div data-span="4">
-          <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></span>
-          <p><span class="em">Lieferanten und Fremdfirmen.</span> Ein Externer erhält seine Maßnahme, beantwortet sie und hängt seine Analyse an, ohne Nutzer des Systems zu sein: Die Reklamation geht mit Frist hinaus und muss beantwortet werden.</p>
-          <a class="reasons__link" href="/de/lieferantenfreigabe/">Zur Lieferantenfreigabe →</a>
-        </div>
-
-        <div data-span="4">
-          <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"></path></svg></span>
-          <p><span class="em">Was abgeschlossen wird und was hängen bleibt.</span> Offene Maßnahmen, überfällige und die durchschnittliche Abschlusszeit liest man als Kennzahl, nicht als Liste, die man einzeln zählen muss.</p>
-          <a class="reasons__link" href="/de/dashboards/">Zu KPIs und Dashboards →</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
   <!-- ========== 5 · LA REFERENCIA ==========
        Cita centrada (patrón 5), UNA por página. Ana ya sale en /incidencias/,
        pero con otra cita: allí habla de registrar desde el móvil y aquí de
@@ -501,6 +485,7 @@
     <div class="wrap contact__in">
       <div class="form-card">
         <h2>Kontakt zu einem Spezialisten für industrielle Abläufe</h2>
+        <p class="form-card__nota">Häufige Fragen in dieser Phase: der Freigabeweg der jeweiligen Organisation, die Verknüpfung mit bereits offenen Störungen und Nachweisen und der Umfang eines Pilotprojekts.</p>
         <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
         <div class="hs-contact-form"></div>
       </div>

@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -110,13 +146,13 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
 <link rel="stylesheet" href="/ds/app.css?v=20260904d">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
 </head>
 <body data-screen-label="Activos">
 
@@ -693,83 +729,6 @@
   </div>
 </section>
 
-<!-- ============ CÓMO FUNCIONA ============
-     Escalera de pasos (ds/sections.css, patrón 8). Los cuatro pasos son los
-     cuatro que hay: el alta por tipo de activo, el QR que se imprime desde la
-     ficha, el registro o el aviso que se engancha al equipo y la consulta del
-     historial. Ninguno promete nada que la ficha no haga. -->
-<section class="section" data-screen-label="Activos · Cómo funciona">
-  <div class="wrap">
-    <div class="section-head"><h2>Quattro passi, e il terzo lo fa lo stabilimento senza saperlo</h2></div>
-    <div class="steps steps--4">
-      <div class="step">
-        <span class="step__n" aria-hidden="true">1</span>
-        <h3>Registra</h3>
-        <p>Si definisce un tipo di asset con gli attributi da seguire — criticità, stato, produttore, modello, tipo, ubicazione — e si caricano le macchine in una volta, non una a una.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">2</span>
-        <h3>Attacca il codice</h3>
-        <p>Ogni asset ha il suo codice QR. Si scarica o si stampa dalla sua scheda e si attacca sulla macchina, sul quadro o sulla porta dell'impianto.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">3</span>
-        <h3>Lavora come sempre</h3>
-        <p>L'operatore apre l'anomalia e il tecnico compila la registrazione come fa oggi, indicando la macchina. Nessuno mantiene uno storico: si scrive con ogni rapporto.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">4</span>
-        <h3>Consulta</h3>
-        <p>La scheda della macchina mostra la sua attività completa, filtrabile per anomalie, registrazioni e azioni, e ciò che ha aperto in questo momento.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ QUÉ QUEDA ENGANCHADO ============
-     Rejilla de argumentos (.reasons): seis celdas, 4+4+4 dos veces. Cinco de
-     las seis llevan enlace porque la respuesta completa vive en otra página;
-     la del QR no lo lleva, porque su detalle está en esta misma. -->
-<section class="section section--tight" data-screen-label="Activos · Qué engancha">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Cosa resta agganciato a ogni macchina</h2>
-      <p>Il modulo asset non aggiunge un nuovo modo di lavorare: è la chiave che ordina per macchina ciò che gli altri moduli già generano.</p>
-    </div>
-    <div class="reasons" style="margin-top:var(--s-6)">
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 7h6M9 11h6M9 15h3"></path></svg></span>
-        <p><span class="em">Guasti e anomalie:</span> il rapporto si apre dal telefono davanti alla macchina, con foto, responsabile e priorità, e viene conteggiato nella scheda di quella macchina.</p>
-        <a class="reasons__link" href="/it/gestione-delle-anomalie/">Vedi la gestione delle anomalie →</a>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg></span>
-        <p><span class="em">Preventiva e revisioni:</span> il piano si programma come registrazione con la sua frequenza e il suo responsabile, avvisa prima della scadenza e un punto in KO apre l'anomalia da solo.</p>
-        <a class="reasons__link" href="/it/registri-e-checklist/">Vedi registrazioni e audit →</a>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v5h5"></path><path d="m9 14 2 2 4-4"></path></svg></span>
-        <p><span class="em">Riparazioni con titolare:</span> ogni guasto genera un'azione con responsabile e data di chiusura, e la macchina mostra quelle aperte senza doverle sollecitare.</p>
-        <a class="reasons__link" href="/it/azioni-correttive/">Vedi azioni e non conformità →</a>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><path d="M14 14h3v3M20 17v3h-3"></path></svg></span>
-        <p><span class="em">Un QR per asset:</span> si stampa dalla scheda e si attacca sulla macchina. Chi lo scansiona arriva a quella macchina, non a un motore di ricerca dove digitare il codice.</p>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"></path></svg></span>
-        <p><span class="em">Indicatori per macchina:</span> la ricaduta smette di guardarsi solo per area. Quale macchina concentra i guasti e quale torna a rompersi dopo essere stata data per chiusa.</p>
-        <a class="reasons__link" href="/it/dashboard/">Vedi KPI e cruscotti →</a>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 16h10"></path><circle cx="5" cy="8" r="2"></circle><circle cx="19" cy="16" r="2"></circle></svg></span>
-        <p><span class="em">Il CMMS e l'ERP che hai già:</span> rapporti e registrazioni escono verso il sistema in uso, nei due sensi, senza digitare nulla due volte.</p>
-        <a class="reasons__link" href="/it/integrazioni/">Vedi le integrazioni →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ EL LÍMITE ============
      La sección que el análisis de mensajes del 1 de septiembre marcaba como
      ausente en toda la web: la diferenciación que el equipo sí usa en las
@@ -803,24 +762,6 @@
   </div>
 </section>
 
-<!-- ============ PARA QUIÉN ============ -->
-<section class="section section--tight section--capabilities" data-screen-label="Activos · Para quién">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>A chi è rivolto</h2>
-      <p>Soprattutto per stabilimenti dove manutenzione e qualità si sovrappongono: il guasto lo vede la produzione, lo registra la qualità e lo ripara la manutenzione, ognuno nel suo.</p>
-    </div>
-    <div class="check-grid">
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="4" rx="1"></rect><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8"></path><path d="M10 12h4"></path></svg> Stabilimenti con un parco macchine che non sta più in un Excel</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg> Squadre di manutenzione che oggi ricevono le segnalazioni via WhatsApp</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg> Chi porta il piano di preventiva su un quadro annuale di carta</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg> La qualità, quando l'auditor chiede lo storico di una macchina precisa</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8h10M7 16h10"></path><circle cx="5" cy="8" r="2"></circle><circle cx="19" cy="16" r="2"></circle></svg> Aziende con un CMMS che non dialoga con il sistema qualità</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V10l6 4V10l6 4V7l6 4v10z"></path><path d="M3 21h18"></path></svg> Gruppi con più stabilimenti e lo stesso parco ripetuto in ciascuno</div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ TESTIMONIO ============
      NO HAY CITA EN ESTA PÁGINA, y es la misma decisión que en /ia/: la regla
      del sistema es una cita por página y cada página la suya, y de las siete
@@ -849,6 +790,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Contatto con uno specialista di operazioni industriali</h2>
+      <p class="form-card__nota">Domande frequenti in questa fase: la convivenza con il CMMS già in uso, il caricamento iniziale dell'inventario delle macchine e il perimetro di un progetto pilota.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

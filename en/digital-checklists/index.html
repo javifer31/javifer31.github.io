@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -110,14 +146,14 @@
      maquetas .hero-vis__* del <style> de aquí abajo. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
 <link rel="stylesheet" href="/ds/celdas.css?v=20260904a">
 <style>
 /* Hero con foto + elementos flotantes (mismo patrón que la página de tareas y acciones) */
@@ -346,105 +382,7 @@
   </div>
 </section>
 
-<!-- ============ PLANIFICA ============ -->
-<section class="section" data-screen-label="Registros · Planifica">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Plan, record, review and resolve</h2>
-      <p>Each procedure's frequency and date are scheduled, the check is filled in from phone, tablet or PC, execution is verified on time and a non-conformity turns into an action with an owner.</p>
-    </div>
-    <div class="steps steps--4">
-      <div class="step">
-        <span class="step__n" aria-hidden="true">1</span>
-        <h3>Planning</h3>
-        <p>Every check is scheduled with its frequency, its owner and its closing date, and the system notifies before it falls due.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">2</span>
-        <h3>Recording</h3>
-        <p>It is filled in on templates configured to fit, from the phone or tablet at the workstation and at the point where the check is done.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">3</span>
-        <h3>Review</h3>
-        <p>Real-time oversight of what is done and what is pending, by shift, by line and by owner, without asking each area for it.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">4</span>
-        <h3>Resolution</h3>
-        <p>A check that comes back KO raises the incident automatically, with an owner and a deadline, and the follow-up continues in the same system.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ RESULTS ============ -->
-
-<!-- ============================================================
-     ESCENAS DE PLANTA — ds/scene.css (.scene[data-canvas="foto"])
-     Registros: la tablet en la línea y el archivo de marzo, que son las dos mitades del argumento de esta página.
-     Fotos en assets/planta/, procedencia en assets/planta/FUENTES.md.
-     Los identificadores son los mismos del tour de /incidencias/: si un
-     UTD26_… sale en dos páginas, es la misma avería.
-     ============================================================ -->
-<section class="section" data-screen-label="Registros · En planta">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Fill in the check where it happens, not when the shift ends</h2>
-      <p>On the line itself and on the workstation tablet, not retrospectively at the end of the shift.</p>
-    </div>
-
-    <div class="scene-grid">
-
-      <article class="scene" data-module="checklists" data-span="6" data-ratio="1:1" data-canvas="foto">
-        <img class="scene__foto" src="/assets/planta/almacen-tablet-pasillo.webp" alt="" width="1100" height="1100" loading="lazy" decoding="async">
-        <span class="scene__velo" aria-hidden="true"></span>
-        <h3 class="scene__title">The shift check, signed and logged once</h3>
-        <span class="scene__glow" aria-hidden="true"></span>
-        <span class="res-pill" style="left:6%; top:16%" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Signed at 21:12</span></span>
-        <div class="scene__media" data-crop="res">
-          <div class="res">
-            <div class="res__hd">
-              <span class="res__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span>
-              <div>
-                <p class="res__t">Cleaning check · Afternoon shift</p>
-                <p class="res__s">Bounded answers, signature and time</p>
-              </div>
-            </div>
-            <dl class="res__rows">
-              <div class="res__kv"><dt>Packaging surfaces</dt><dd>Conforming</dd></div>
-              <div class="res__kv"><dt>Cutting room</dt><dd>With an incident</dd></div>
-              <div class="res__kv"><dt>Signed</dt><dd>3 of 3</dd></div>
-            </dl>
-          </div>
-        </div>
-      </article>
-
-      <article class="scene" data-module="checklists" data-span="6" data-ratio="1:1" data-canvas="foto">
-        <img class="scene__foto" src="/assets/planta/almacen-tablet-revision.webp" alt="" width="1100" height="1100" loading="lazy" decoding="async">
-        <span class="scene__velo" aria-hidden="true"></span>
-        <h3 class="scene__title">A full month of records and evidence, in one filter</h3>
-        <span class="scene__glow" aria-hidden="true"></span>
-        <div class="scene__media" data-crop="res">
-          <div class="res">
-            <div class="res__hd">
-              <span class="res__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v5h5"></path><path d="M9 13h6M9 17h4"></path></svg></span>
-              <div>
-                <p class="res__t">March 2026 · 214 records</p>
-                <p class="res__s">Filtered by line and by shift</p>
-              </div>
-            </div>
-            <dl class="res__rows">
-              <div class="res__kv"><dt>With an incident</dt><dd>9</dd></div>
-              <div class="res__kv"><dt>Export</dt><dd>PDF with evidence</dd></div>
-            </dl>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
 <section class="section section--results-big" data-screen-label="Auditorías · Resultados">
   <div class="wrap">
     <div class="section-head section-head--split">
@@ -500,6 +438,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Talk to an industrial operations specialist</h2>
+      <p class="form-card__nota">Common questions at this stage: converting the report forms and checklists already in use, the frequency and scope of each inspection, and how a pilot is set up.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

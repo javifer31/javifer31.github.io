@@ -1319,3 +1319,114 @@ a.rail-card:focus-visible{ outline:2px solid var(--color-primary); outline-offse
   .kpibars__grid{ height:clamp(180px,42vw,240px); gap:8px; }
   .kpibars__meses{ gap:8px; }
 }
+
+
+/* =========================================================
+   12 · ROTADOR DE CAPACIDADES
+   ---------------------------------------------------------
+   Lista de capacidades a la izquierda y la pantalla que la demuestra a la
+   derecha. La activa se abre, avanza sola y arrastra el panel: es la forma de
+   enseñar cuatro pantallas en el sitio de una sin que la página se alargue.
+   Traído de la sección «Una única plataforma…» de mitti.com/es/gestion-de-activos
+   —de la que se copia la estructura, no la paleta ni la interfaz—, con dos
+   cosas que allí no están: el riel de avance, que dice cuánto queda y que esto
+   se mueve solo, y el enlace al módulo dentro de cada capacidad.
+
+   EL PANEL ES UNA `.scene`, no un componente nuevo. El lienzo teñido, el
+   recorte del fragmento (`data-crop`) y el marco de dispositivo ya están
+   resueltos allí, y duplicarlos aquí habría dado dos sistemas de pantalla que
+   envejecen por separado. Lo único que se le quita a la escena es el reparto
+   en la rejilla de doce columnas —dentro del rotador manda el rotador— y su
+   rótulo, que aquí lo pone la lista.
+
+   Sin JS: los cuatro paneles quedan uno detrás de otro y las cuatro
+   descripciones abiertas. El contenido está entero en el marcado; el script
+   sólo lo pliega, y por eso los `hidden` los pone él.
+   ========================================================= */
+.rotador{
+  --rot-dur:7s;
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+  gap:48px;
+  align-items:center;
+}
+.rotador__lista{ display:flex; flex-direction:column; }
+
+/* El riel vive en el item, no en la lista: así el tramo encendido es
+   exactamente el alto de la capacidad abierta, que es lo que lo hace legible. */
+.rotador__item{
+  position:relative;
+  padding:20px 0 20px 22px;
+  border-left:2px solid var(--color-hairline);
+}
+.rotador__item::before{
+  content:"";
+  position:absolute; left:-2px; top:0; width:2px; height:100%;
+  background:var(--color-primary);
+  transform:scaleY(0); transform-origin:top;
+}
+.rotador__item[data-activo="true"]::before{ animation:rotAvance var(--rot-dur) linear forwards }
+.rotador[data-pausa="true"] .rotador__item::before{ animation-play-state:paused }
+@keyframes rotAvance{ from{ transform:scaleY(0) } to{ transform:scaleY(1) } }
+
+.rotador__btn{
+  appearance:none; -webkit-appearance:none;
+  display:block; width:100%; padding:0;
+  border:0; background:none; cursor:pointer; text-align:left;
+  font:var(--type-heading-md);
+  letter-spacing:var(--tracking-body);
+  color:var(--ds-text-mute);
+  transition:color .18s ease;
+}
+.rotador__btn:hover{ color:var(--ds-text) }
+.rotador__btn[aria-selected="true"]{ color:var(--ds-text) }
+.rotador__btn:focus-visible{ outline:2px solid var(--color-primary); outline-offset:4px }
+
+.rotador__cuerpo{ display:grid; gap:10px; padding-top:10px }
+.rotador__cuerpo[hidden]{ display:none }
+.rotador__cuerpo p{
+  margin:0;
+  font:var(--type-body-md);
+  letter-spacing:var(--tracking-body);
+  color:var(--ds-text-mute);
+  text-wrap:pretty;
+}
+.rotador__cuerpo a{
+  justify-self:start;
+  font:var(--type-body-md);
+  color:var(--color-primary);
+  text-decoration:none;
+}
+.rotador__cuerpo a:hover{ text-decoration:underline }
+
+/* La vista apila los paneles en la misma celda: sin salto de alto al cambiar
+   de capacidad, que es lo que delata a un acordeón mal hecho. */
+.rotador__vista{ display:grid }
+.rotador__vista > .scene{
+  grid-area:1 / 1;
+  grid-column:auto;          /* el reparto de doce columnas no manda aquí */
+  aspect-ratio:4/3;
+  align-self:stretch;
+}
+.rotador__vista > .scene[hidden]{ display:none }
+.rotador__vista .scene__title{ position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap }
+
+@media (prefers-reduced-motion:no-preference){
+  .rotador__vista > .scene:not([hidden]){ animation:rotEntra .34s cubic-bezier(.2,.7,.3,1) both }
+}
+@keyframes rotEntra{ from{ opacity:0 } to{ opacity:1 } }
+
+/* Con movimiento reducido no hay avance automático (lo apaga el script) ni
+   riel animado: el tramo se pinta entero y quieto. */
+@media (prefers-reduced-motion:reduce){
+  .rotador__item[data-activo="true"]::before{ animation:none; transform:scaleY(1) }
+}
+
+@media (max-width:900px){
+  .rotador{ grid-template-columns:1fr; gap:28px }
+  .rotador__vista{ order:-1 }
+  /* En una columna el panel mide la mitad de ancho, y a 4:3 eso deja 270px de
+     alto: el móvil de la primera capacidad salía cortado por la pantalla, que
+     es lo que la escena enseña. Cuadrado cabe entero. */
+  .rotador__vista > .scene{ aspect-ratio:1/1 }
+}

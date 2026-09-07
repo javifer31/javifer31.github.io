@@ -888,3 +888,16 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
 @media (max-width:900px){
   .aiband--caja .canales{ grid-template-columns:1fr }
 }
+
+/* El enlace al módulo, al pie de la caja (7 sep 2026). Llega con la sección de
+   capacidades: la banda es la pieza que enseña la IA, así que es donde tiene
+   sentido el enlace a /ia/ que antes vivía en la rejilla de seis cuadros. Tinta
+   clara y no la primaria del sistema: sobre grafito, el azul de marca da 3:1. */
+.aiband--caja .cab__link{
+  font:var(--type-body-md);
+  color:rgba(231,233,236,.86);
+  text-decoration:none;
+  border-bottom:1px solid rgba(231,233,236,.28);
+  padding-bottom:2px;
+}
+.aiband--caja .cab__link:hover{ color:#fff; border-bottom-color:rgba(255,255,255,.6) }

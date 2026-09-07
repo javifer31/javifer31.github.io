@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -107,12 +143,12 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
-<link rel="stylesheet" href="/ds/aiband.css?v=20260903a">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
+<link rel="stylesheet" href="/ds/aiband.css?v=20260907a">
 <link rel="stylesheet" href="/ds/ia-dark.css?v=20260903b">
 </head>
 <!-- La única página del sitio entera sobre grafito. `data-tema="ia"` es lo que
@@ -318,74 +354,6 @@
     </div>
   </div>
 </section>
-<section class="section section--tight" id="preguntas" data-screen-label="IA · Preguntas">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Requêtes d'usage courant, <span class="ds-dim">celles que le système lui-même suggère</span></h2>
-      <p>Ce ne sont pas des exemples rédigés pour cette page : ce sont les requêtes que le système lui-même propose à l'ouverture du chat.</p>
-    </div>
-    <div class="iaq">
-      <div class="iaq__col iaq__col--incidencias">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 3 2.5 20h19z"></path><path d="M12 10v4M12 17h.01"></path></svg> Incidents</p>
-        <ul>
-          <li>Combien d'incidents avons-nous eus ce mois-ci ?</li>
-          <li>Quelle usine a eu le plus d'incidents ?</li>
-          <li>Afficher les incidents ouverts qui me sont assignés</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--registros">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l2 2 3-3M3 13l2 2 3-3M3 20l2 2 3-3M12 7h9M12 14h9M12 21h9"></path></svg> Enregistrements</p>
-        <ul>
-          <li>Combien d'enregistrements sont en retard ?</li>
-          <li>Quel est notre taux d'achèvement cette semaine ?</li>
-          <li>Quels enregistrements ont échoué ce mois-ci ?</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--acciones">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg> Actions</p>
-        <ul>
-          <li>Combien d'actions restent ouvertes ?</li>
-          <li>Quelles actions sont hors délai ?</li>
-          <li>Afficher les actions par priorité</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--documentos">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg> Documents</p>
-        <ul>
-          <li>Quels documents expirent bientôt ?</li>
-          <li>Afficher les documents à réviser</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CÓMO ESTÁ HECHA ============
-     Los tres detalles del diálogo de IA de la home, tal cual. Son los tres
-     motivos por los que esto no es "un chat" pegado al producto. -->
-<section class="section section--tight" data-screen-label="IA · Cómo está hecha">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Traçabilité des réponses, <span class="ds-dim">enregistrement par enregistrement</span></h2>
-      <p>Une réponse non vérifiable n'a aucune valeur en usine : lors d'un audit, la preuve est l'enregistrement, pas la conversation.</p>
-    </div>
-    <div class="trio">
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"></path></svg></span>
-        <p><span class="em">Sur vos propres données :</span> la réponse provient des incidents, des enregistrements et des documents de l'organisation, pas de sources externes.</p>
-      </div>
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h9"></path></svg></span>
-        <p><span class="em">Avec référence explicite :</span> chaque réponse cite le code du rapport ou de l'enregistrement d'origine, qui peut être ouvert en entier.</p>
-        <a class="trio__link" href="/fr/registres-et-controles/">Voir les enregistrements cités</a>
-      </div>
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5.5l3.5 2"></path></svg></span>
-        <p><span class="em">Avec consommation mesurée :</span> la plateforme fonctionne avec un système de crédits : le coût de chaque usage est connu.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ FAQ ============ -->
 <section class="section section--tight" data-screen-label="IA · FAQ">
@@ -410,6 +378,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Évaluer l'IA avec les données de votre propre usine</h2>
+      <p class="form-card__nota">Questions fréquentes à ce stade : le traitement des données du site, l'intégration avec les systèmes déjà en place et le périmètre d'une évaluation.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -108,14 +144,14 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
 </head>
 <body data-screen-label="Dashboard">
 
@@ -357,49 +393,6 @@
 </section>
 
 <!-- ============ TESTIMONIO ============ -->
-
-<!-- ============================================================
-     ESCENAS DE PLANTA — ds/scene.css (.scene[data-canvas="foto"])
-     KPIs: el cuadro de mando delante de la máquina, que es donde se decide.
-     Fotos en assets/planta/, procedencia en assets/planta/FUENTES.md.
-     Los identificadores son los mismos del tour de /incidencias/: si un
-     UTD26_… sale en dos páginas, es la misma avería.
-     ============================================================ -->
-<section class="section" data-screen-label="Dashboard · En planta">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Die Kennzahlen der Schicht – auf allen Ebenen verfügbar</h2>
-      <p>Geschäftsleitung und Linie sehen dieselbe Zahl zur selben Zeit.</p>
-    </div>
-
-    <div class="scene-grid">
-
-      <article class="scene" data-module="kpis" data-span="12" data-ratio="21:9" data-canvas="foto">
-        <img class="scene__foto" src="/assets/planta/cnc-control-operario-ancha.webp" alt="" width="1600" height="686" loading="lazy" decoding="async">
-        <span class="scene__velo" aria-hidden="true"></span>
-        <h3 class="scene__title">Aktueller Stand und gestoppte Abweichungen</h3>
-        <span class="scene__glow" aria-hidden="true"></span>
-        <div class="scene__media" data-crop="res">
-          <div class="res">
-            <div class="res__hd">
-              <span class="res__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg></span>
-              <div>
-                <p class="res__t">Störungen des Monats</p>
-                <p class="res__s">Werk Ginés · Frühschicht</p>
-              </div>
-            </div>
-            <dl class="res__rows">
-              <div class="res__kv"><dt>Offen</dt><dd>2</dd></div>
-              <div class="res__kv"><dt>Durchschnittliche Abschlusszeit</dt><dd>3,1 Tage</dd></div>
-              <div class="res__kv"><dt>Überfällige Maßnahmen</dt><dd>0</dd></div>
-            </dl>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
 <section class="section" data-screen-label="Dashboard · Testimonio">
   <div class="wrap">
     <div class="section-head"><h2>Referenzen: Teams, die bereits mit diesen Daten entscheiden</h2></div>
@@ -439,6 +432,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Kontakt zu einem Spezialisten für industrielle Abläufe</h2>
+      <p class="form-card__nota">Häufige Fragen in dieser Phase: die werkseigenen Kennzahlen, die Herkunft der zugrunde liegenden Daten und der Umfang eines Pilotprojekts.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

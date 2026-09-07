@@ -75,6 +75,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -101,12 +137,12 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
-<link rel="stylesheet" href="/ds/aiband.css?v=20260903a">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
+<link rel="stylesheet" href="/ds/aiband.css?v=20260907a">
 <link rel="stylesheet" href="/ds/ia-dark.css?v=20260903b">
 </head>
 <!-- La única página del sitio entera sobre grafito. `data-tema="ia"` es lo que
@@ -312,74 +348,6 @@
     </div>
   </div>
 </section>
-<section class="section section--tight" id="preguntas" data-screen-label="IA · Preguntas">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Consultas de uso habitual, <span class="ds-dim">las que sugiere el propio sistema</span></h2>
-      <p>No son ejemplos redactados para esta página: son las consultas que el propio sistema sugiere al abrir el chat.</p>
-    </div>
-    <div class="iaq">
-      <div class="iaq__col iaq__col--incidencias">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 3 2.5 20h19z"></path><path d="M12 10v4M12 17h.01"></path></svg> Incidencias</p>
-        <ul>
-          <li>¿Cuántas incidencias tuvimos este mes?</li>
-          <li>¿Qué planta tuvo más incidencias?</li>
-          <li>Mostrar incidencias abiertas asignadas a mí</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--registros">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l2 2 3-3M3 13l2 2 3-3M3 20l2 2 3-3M12 7h9M12 14h9M12 21h9"></path></svg> Registros</p>
-        <ul>
-          <li>¿Cuántos registros están vencidos?</li>
-          <li>¿Cuál es nuestra tasa de finalización esta semana?</li>
-          <li>¿Qué registros fallaron este mes?</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--acciones">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg> Acciones</p>
-        <ul>
-          <li>¿Cuántas acciones siguen abiertas?</li>
-          <li>¿Qué acciones están fuera de plazo?</li>
-          <li>Mostrar acciones por prioridad</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--documentos">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg> Documentos</p>
-        <ul>
-          <li>¿Qué documentos expiran pronto?</li>
-          <li>Mostrar documentos pendientes de revisión</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CÓMO ESTÁ HECHA ============
-     Los tres detalles del diálogo de IA de la home, tal cual. Son los tres
-     motivos por los que esto no es "un chat" pegado al producto. -->
-<section class="section section--tight" data-screen-label="IA · Cómo está hecha">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Trazabilidad de las respuestas, <span class="ds-dim">registro por registro</span></h2>
-      <p>Una respuesta no verificable carece de valor en planta: ante una auditoría la evidencia es el registro, no la conversación.</p>
-    </div>
-    <div class="trio">
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"></path></svg></span>
-        <p><span class="em">Sobre datos propios:</span> la respuesta procede de las incidencias, los registros y los documentos de la organización, no de fuentes externas.</p>
-      </div>
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h9"></path></svg></span>
-        <p><span class="em">Con referencia explícita:</span> cada respuesta cita el código del parte o del registro del que procede, que puede abrirse íntegro.</p>
-        <a class="trio__link" href="/auditorias/">Ver los registros que cita</a>
-      </div>
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5.5l3.5 2"></path></svg></span>
-        <p><span class="em">Con consumo medido:</span> la plataforma opera con un sistema de créditos, de modo que el coste de cada uso es conocido.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ FAQ ============ -->
 <section class="section section--tight" data-screen-label="IA · FAQ">
@@ -404,6 +372,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Evaluación de la IA con los datos de la propia planta</h2>
+      <p class="form-card__nota">Consultas habituales en esta fase: el tratamiento de los datos de la propia planta, el encaje con los sistemas ya implantados y el alcance de una evaluación.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

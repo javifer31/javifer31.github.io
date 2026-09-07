@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -107,12 +143,12 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
-<link rel="stylesheet" href="/ds/aiband.css?v=20260903a">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
+<link rel="stylesheet" href="/ds/aiband.css?v=20260907a">
 <link rel="stylesheet" href="/ds/ia-dark.css?v=20260903b">
 </head>
 <!-- La única página del sitio entera sobre grafito. `data-tema="ia"` es lo que
@@ -318,74 +354,6 @@
     </div>
   </div>
 </section>
-<section class="section section--tight" id="preguntas" data-screen-label="IA · Preguntas">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Everyday queries, <span class="ds-dim">the ones the system itself suggests</span></h2>
-      <p>These are not examples written for this page: they are the queries the system itself suggests when you open the chat.</p>
-    </div>
-    <div class="iaq">
-      <div class="iaq__col iaq__col--incidencias">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 3 2.5 20h19z"></path><path d="M12 10v4M12 17h.01"></path></svg> Incidents</p>
-        <ul>
-          <li>How many incidents did we have this month?</li>
-          <li>Which plant had the most incidents?</li>
-          <li>Show open incidents assigned to me</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--registros">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l2 2 3-3M3 13l2 2 3-3M3 20l2 2 3-3M12 7h9M12 14h9M12 21h9"></path></svg> Records</p>
-        <ul>
-          <li>How many records are overdue?</li>
-          <li>What is our completion rate this week?</li>
-          <li>Which records failed this month?</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--acciones">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.5l2.5 2.5 4.5-5"></path></svg> Actions</p>
-        <ul>
-          <li>How many actions are still open?</li>
-          <li>Which actions are overdue?</li>
-          <li>Show actions by priority</li>
-        </ul>
-      </div>
-      <div class="iaq__col iaq__col--documentos">
-        <p class="iaq__t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg> Documents</p>
-        <ul>
-          <li>Which documents expire soon?</li>
-          <li>Show documents awaiting review</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CÓMO ESTÁ HECHA ============
-     Los tres detalles del diálogo de IA de la home, tal cual. Son los tres
-     motivos por los que esto no es "un chat" pegado al producto. -->
-<section class="section section--tight" data-screen-label="IA · Cómo está hecha">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Answers you can trace, <span class="ds-dim">record by record</span></h2>
-      <p>An answer you cannot verify is worthless on the shop floor: in an audit the evidence is the record, not the conversation.</p>
-    </div>
-    <div class="trio">
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path><path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"></path></svg></span>
-        <p><span class="em">On your own data:</span> the answer comes from the organisation's incidents, records and documents, not from outside sources.</p>
-      </div>
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h9"></path></svg></span>
-        <p><span class="em">With an explicit reference:</span> every answer quotes the code of the report or record it came from, which can be opened in full.</p>
-        <a class="trio__link" href="/en/digital-checklists/">See the records it cites</a>
-      </div>
-      <div>
-        <span class="trio__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5.5l3.5 2"></path></svg></span>
-        <p><span class="em">With measured usage:</span> the platform runs on credits, so the cost of each use is known.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ FAQ ============ -->
 <section class="section section--tight" data-screen-label="IA · FAQ">
@@ -410,6 +378,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Try the AI on your own plant's data</h2>
+      <p class="form-card__nota">Common questions at this stage: how the plant's own data is handled, how it fits the systems already in place, and the scope of an evaluation.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

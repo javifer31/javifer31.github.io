@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -110,10 +146,10 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/app.css?v=20260904d">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
 </head>
 <body data-screen-label="Gestor documental">
 
@@ -375,40 +411,6 @@
   </div>
 </section>
 
-<!-- ============ CICLO DE VIDA ============
-     Escalera de pasos (ds/sections.css, patrón 8). Los cuatro pasos son los
-     cuatro estados que el módulo tiene de verdad. El cuarto NO promete
-     notificación por correo: promete lo que se ve —el calendario de
-     expiraciones y el listado de pendientes de revisión—, que es lo que se
-     comprobó en la aplicación. -->
-<section class="section" data-screen-label="Gestor documental · Ciclo de vida">
-  <div class="wrap">
-    <div class="section-head"><h2>Le cycle d'un document, de la création à l'échéance</h2></div>
-    <div class="steps steps--4">
-      <div class="step">
-        <span class="step__n" aria-hidden="true">1</span>
-        <h3>Téléverser</h3>
-        <p>Le document entre dans son dossier depuis le PC ou le téléphone, avec sa date de révision et sa date d'expiration s'il en a.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">2</span>
-        <h3>Valider</h3>
-        <p>Il reste marqué en attente de validation jusqu'à ce que la personne habilitée le valide. Tant que ce n'est pas fait, cela se voit.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">3</span>
-        <h3>En vigueur</h3>
-        <p>C'est le document qu'ouvre celui qui en a besoin, avec son numéro de version bien visible : pas deux copies en circulation sans savoir laquelle fait foi.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">4</span>
-        <h3>Expirer</h3>
-        <p>La date d'expiration apparaît dans le calendrier du module et le document entre dans la liste des éléments à réviser, sans passer les échéances une par une.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ QUÉ TRAE ============
      Rejilla de argumentos (.reasons): seis celdas, 4+4+4 dos veces. Sólo las
      tres últimas llevan enlace, porque su detalle vive en otra página; las
@@ -481,24 +483,6 @@
   </div>
 </section>
 
-<!-- ============ PARA QUIÉN ============ -->
-<section class="section section--tight section--capabilities" data-screen-label="Gestor documental · Para quién">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>À qui cela s'adresse</h2>
-      <p>Pour celui qui répond quand on demande un document précis — l'auditeur, le client ou le technicien devant la machine : qualité, sécurité alimentaire, maintenance et systèmes de management.</p>
-    </div>
-    <div class="check-grid">
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"></path><path d="M15 2v5h5"></path><path d="M9 13h6M9 17h4"></path></svg> Celui qui tient à jour le manuel qualité, les procédures et les instructions machine</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg> Celui qui surveille les échéances des certificats fournisseurs</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg> Des usines soumises à IFS, BRCGS, ISO 9001 ou FSSC 22000</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg> Des équipes qui gèrent aujourd'hui la documentation dans des dossiers serveur</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V8l9-5 9 5v13z"></path><path d="M9 21v-6h6v6"></path></svg> Des groupes qui veulent la même arborescence de dossiers dans plusieurs usines</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg> Ceux qui utilisent déjà Solved pour les enregistrements ou les incidents et dont la documentation est ailleurs</div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ TESTIMONIO ============
      NO HAY CITA EN ESTA PÁGINA, igual que en /ia/ y en /gestion-de-activos/.
      La regla es una cita por página y cada página la suya, y de las siete que
@@ -528,6 +512,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Contact avec un spécialiste des opérations industrielles</h2>
+      <p class="form-card__nota">Questions fréquentes à ce stade : la migration de la documentation en vigueur, la coexistence avec le référentiel documentaire de l'entreprise et le périmètre d'un pilote.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

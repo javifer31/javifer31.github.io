@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -110,13 +146,13 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
 <link rel="stylesheet" href="/ds/app.css?v=20260904d">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
 </head>
 <body data-screen-label="Activos">
 
@@ -693,83 +729,6 @@
   </div>
 </section>
 
-<!-- ============ CÓMO FUNCIONA ============
-     Escalera de pasos (ds/sections.css, patrón 8). Los cuatro pasos son los
-     cuatro que hay: el alta por tipo de activo, el QR que se imprime desde la
-     ficha, el registro o el aviso que se engancha al equipo y la consulta del
-     historial. Ninguno promete nada que la ficha no haga. -->
-<section class="section" data-screen-label="Activos · Cómo funciona">
-  <div class="wrap">
-    <div class="section-head"><h2>Quatre étapes, et la troisième, l'usine la fait sans le savoir</h2></div>
-    <div class="steps steps--4">
-      <div class="step">
-        <span class="step__n" aria-hidden="true">1</span>
-        <h3>Créer</h3>
-        <p>On définit un type d'actif avec les attributs à suivre — criticité, état, fabricant, modèle, type, emplacement — et on charge les machines en une fois, pas une à une.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">2</span>
-        <h3>Collez le code</h3>
-        <p>Chaque actif a son code QR. On le télécharge ou on l'imprime depuis sa fiche et on le colle sur la machine, sur l'armoire ou sur la porte de l'installation.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">3</span>
-        <h3>Travaillez comme avant</h3>
-        <p>L'opérateur ouvre l'incident et le technicien remplit l'enregistrement comme aujourd'hui, en indiquant l'équipement. Personne ne tient d'historique : il s'écrit à chaque rapport.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">4</span>
-        <h3>Consultez</h3>
-        <p>La fiche de l'équipement montre son activité complète, filtrable par incidents, enregistrements et actions, ainsi que ce qui est ouvert à cet instant.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ QUÉ QUEDA ENGANCHADO ============
-     Rejilla de argumentos (.reasons): seis celdas, 4+4+4 dos veces. Cinco de
-     las seis llevan enlace porque la respuesta completa vive en otra página;
-     la del QR no lo lleva, porque su detalle está en esta misma. -->
-<section class="section section--tight" data-screen-label="Activos · Qué engancha">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Ce qui se rattache à chaque équipement</h2>
-      <p>Le module actifs n'ajoute pas une nouvelle façon de travailler : c'est la clé qui range par machine ce que les autres modules produisent déjà.</p>
-    </div>
-    <div class="reasons" style="margin-top:var(--s-6)">
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 7h6M9 11h6M9 15h3"></path></svg></span>
-        <p><span class="em">Pannes et incidents :</span> le rapport s'ouvre depuis le téléphone devant la machine, avec photo, responsable et priorité, et il est comptabilisé sur la fiche de cet équipement.</p>
-        <a class="reasons__link" href="/fr/gestion-des-incidents/">Voir la gestion des incidents →</a>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg></span>
-        <p><span class="em">Préventif et révisions :</span> le plan se programme comme un enregistrement avec sa fréquence et son responsable, alerte avant l'échéance et un point en KO ouvre l'incident tout seul.</p>
-        <a class="reasons__link" href="/fr/registres-et-controles/">Voir enregistrements et audits →</a>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v5h5"></path><path d="m9 14 2 2 4-4"></path></svg></span>
-        <p><span class="em">Réparations avec responsable :</span> chaque panne donne lieu à une action avec responsable et date de clôture, et l'équipement montre celles qui sont ouvertes sans avoir à les réclamer.</p>
-        <a class="reasons__link" href="/fr/actions-correctives/">Voir actions et non-conformités →</a>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><path d="M14 14h3v3M20 17v3h-3"></path></svg></span>
-        <p><span class="em">Un QR par actif :</span> il s'imprime depuis la fiche et se colle sur la machine. Celui qui le scanne arrive sur cet équipement, pas sur un moteur de recherche où saisir le code.</p>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"></path></svg></span>
-        <p><span class="em">Indicateurs par équipement :</span> la récidive cesse de s'observer uniquement par service. Quelle machine concentre les pannes et laquelle retombe en panne après avoir été déclarée close.</p>
-        <a class="reasons__link" href="/fr/tableaux-de-bord/">Voir les KPI et tableaux de bord →</a>
-      </div>
-      <div data-span="4">
-        <span class="reasons__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h10M7 16h10"></path><circle cx="5" cy="8" r="2"></circle><circle cx="19" cy="16" r="2"></circle></svg></span>
-        <p><span class="em">La GMAO et l'ERP que vous avez déjà :</span> les rapports et les enregistrements partent vers le système en place, dans les deux sens, sans rien ressaisir.</p>
-        <a class="reasons__link" href="/fr/integrations/">Voir les intégrations →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ EL LÍMITE ============
      La sección que el análisis de mensajes del 1 de septiembre marcaba como
      ausente en toda la web: la diferenciación que el equipo sí usa en las
@@ -803,24 +762,6 @@
   </div>
 </section>
 
-<!-- ============ PARA QUIÉN ============ -->
-<section class="section section--tight section--capabilities" data-screen-label="Activos · Para quién">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>À qui cela s'adresse</h2>
-      <p>Surtout pour les usines où maintenance et qualité se chevauchent : la panne est vue par la production, enregistrée par la qualité et réparée par la maintenance, chacun de son côté.</p>
-    </div>
-    <div class="check-grid">
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="4" rx="1"></rect><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8"></path><path d="M10 12h4"></path></svg> Des usines dont le parc machines ne tient plus dans un Excel</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg> Des équipes de maintenance qui reçoivent aujourd'hui les avis par WhatsApp</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg> Ceux qui gèrent le plan de préventif sur un tableau annuel papier</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg> La qualité, quand l'auditeur demande l'historique d'un équipement précis</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 8h10M7 16h10"></path><circle cx="5" cy="8" r="2"></circle><circle cx="19" cy="16" r="2"></circle></svg> Des entreprises dont la GMAO ne communique pas avec le système qualité</div>
-      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V10l6 4V10l6 4V7l6 4v10z"></path><path d="M3 21h18"></path></svg> Des groupes avec plusieurs usines et le même parc répété dans chacune</div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ TESTIMONIO ============
      NO HAY CITA EN ESTA PÁGINA, y es la misma decisión que en /ia/: la regla
      del sistema es una cita por página y cada página la suya, y de las siete
@@ -849,6 +790,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Contact avec un spécialiste des opérations industrielles</h2>
+      <p class="form-card__nota">Questions fréquentes à ce stade : la coexistence avec la GMAO en place, le chargement initial de l'inventaire des équipements et le périmètre d'un pilote.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

@@ -22,16 +22,39 @@
      empresa y teléfono para ver dos minutos de vídeo es lo que hace que nadie
      los vea.
 
-     PENDIENTE: crear el segundo formulario en HubSpot y pegar aquí su id.
-     Mientras `formIdVideo` esté vacío se sirve el de contacto, para que la
-     página funcione entera —el gate abre igual—, pero el lead entra etiquetado
-     como petición de contacto, que no es lo que ha pedido el visitante. */
+     El de vídeo va por idioma: `formIdVideo` es un mapa y se elige con el lang
+     del documento. Este fichero se copia igual a /en/ /fr/ /it/ /de/ —el
+     traductor sólo toca literales con etiquetas—, así que el mapa entero viaja
+     a los cinco y cada página coge el suyo.
+
+     Los cinco son formularios independientes, no traducciones de HubSpot: su
+     «Crear traducción» pierde la casilla obligatoria de política de privacidad,
+     así que cada idioma es un clon del español con las etiquetas, el botón, el
+     mensaje y el enlace a su política traducidos a mano.
+
+     Si algún idioma se quedara sin id, cae al español: el gate abre y el lead
+     entra bien etiquetado como vídeo, sólo que el formulario se ve en español.
+     Y si `formIdVideo` quedara sin ninguno, se sirve el de contacto: la página
+     funciona entera, pero el lead entra etiquetado como petición de contacto,
+     que no es lo que ha pedido el visitante. */
   var HUBSPOT = {
     region: 'na1',
     portalId: '20010689',
     formId: 'f8dcbcf5-52c2-464d-a5b1-84824ce89992',
-    formIdVideo: ''
+    formIdVideo: {
+      es: '4043166a-b523-4b6a-bd98-6a45e494bafd',
+      en: '8cf7e45a-be2c-4abc-9c38-d859c819cc8f',
+      fr: 'fe48b6ff-8465-4ff7-831a-b118c9a66304',
+      it: '874a77f5-849b-4002-9aa3-f82b1a77715a',
+      de: 'd13de153-a6ba-4f5c-8569-2f1785dbb71e'
+    }
   };
+
+  /* El id de vídeo del idioma de la página, con el español de reserva. */
+  function formVideo() {
+    var lang = (document.documentElement.getAttribute('lang') || 'es').slice(0, 2);
+    return HUBSPOT.formIdVideo[lang] || HUBSPOT.formIdVideo.es || '';
+  }
 
   var NAV =
   '<header class="nav"><div class="wrap nav__in">' +
@@ -133,7 +156,7 @@
       window.hbspt.forms.create({
         region: HUBSPOT.region,
         portalId: HUBSPOT.portalId,
-        formId: (quiereVideo && HUBSPOT.formIdVideo) ? HUBSPOT.formIdVideo : HUBSPOT.formId,
+        formId: (quiereVideo && formVideo()) ? formVideo() : HUBSPOT.formId,
         target: '#' + holders[i].id
       });
     }

@@ -81,6 +81,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -110,14 +146,14 @@
      maquetas .hero-vis__* del <style> de aquí abajo. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260904f">
+<link rel="stylesheet" href="/ds/site.css?v=20260907a">
 <link rel="stylesheet" href="/ds/hero.css?v=20260903a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260903b">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
-<link rel="stylesheet" href="/ds/sections.css?v=20260904e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
 <link rel="stylesheet" href="/ds/celdas.css?v=20260904a">
 <style>
 /* Hero con foto + elementos flotantes (mismo patrón que la página de tareas y acciones) */
@@ -346,105 +382,7 @@
   </div>
 </section>
 
-<!-- ============ PLANIFICA ============ -->
-<section class="section" data-screen-label="Registros · Planifica">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Planification, enregistrement, revue et résolution</h2>
-      <p>La fréquence et la date de chaque procédure sont programmées, le contrôle se remplit depuis un téléphone, une tablette ou un PC, l'exécution est vérifiée dans les délais et la non-conformité donne lieu à une action avec responsable.</p>
-    </div>
-    <div class="steps steps--4">
-      <div class="step">
-        <span class="step__n" aria-hidden="true">1</span>
-        <h3>Planification</h3>
-        <p>Chaque contrôle est programmé avec sa fréquence, son responsable et sa date de clôture, et le système notifie avant l'échéance.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">2</span>
-        <h3>Enregistrement</h3>
-        <p>Le remplissage se fait sur des modèles configurés sur mesure, depuis le téléphone ou la tablette du poste et au point d'exécution du contrôle.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">3</span>
-        <h3>Revue</h3>
-        <p>Supervision en temps réel de ce qui est fait et de ce qui reste, par poste, par ligne et par responsable, sans le demander à chaque service.</p>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">4</span>
-        <h3>Résolution</h3>
-        <p>Un contrôle au résultat KO crée l'incident automatiquement, avec responsable et échéance, et son suivi se poursuit dans le même système.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ RESULTS ============ -->
-
-<!-- ============================================================
-     ESCENAS DE PLANTA — ds/scene.css (.scene[data-canvas="foto"])
-     Registros: la tablet en la línea y el archivo de marzo, que son las dos mitades del argumento de esta página.
-     Fotos en assets/planta/, procedencia en assets/planta/FUENTES.md.
-     Los identificadores son los mismos del tour de /incidencias/: si un
-     UTD26_… sale en dos páginas, es la misma avería.
-     ============================================================ -->
-<section class="section" data-screen-label="Registros · En planta">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Remplissez le contrôle là où il se fait, pas à la fin du poste</h2>
-      <p>Sur la ligne elle-même et sur la tablette du poste, pas en fin de poste et de façon rétrospective.</p>
-    </div>
-
-    <div class="scene-grid">
-
-      <article class="scene" data-module="checklists" data-span="6" data-ratio="1:1" data-canvas="foto">
-        <img class="scene__foto" src="/assets/planta/almacen-tablet-pasillo.webp" alt="" width="1100" height="1100" loading="lazy" decoding="async">
-        <span class="scene__velo" aria-hidden="true"></span>
-        <h3 class="scene__title">Le contrôle du poste, signé et à enregistrement unique</h3>
-        <span class="scene__glow" aria-hidden="true"></span>
-        <span class="res-pill" style="left:6%; top:16%" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Signé à 21:12</span></span>
-        <div class="scene__media" data-crop="res">
-          <div class="res">
-            <div class="res__hd">
-              <span class="res__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span>
-              <div>
-                <p class="res__t">Contrôle de nettoyage · Poste d'après-midi</p>
-                <p class="res__s">Réponses fermées, signature et heure</p>
-              </div>
-            </div>
-            <dl class="res__rows">
-              <div class="res__kv"><dt>Surfaces de conditionnement</dt><dd>Conforme</dd></div>
-              <div class="res__kv"><dt>Salle de découpe</dt><dd>Avec incident</dd></div>
-              <div class="res__kv"><dt>Signé</dt><dd>3 sur 3</dd></div>
-            </dl>
-          </div>
-        </div>
-      </article>
-
-      <article class="scene" data-module="checklists" data-span="6" data-ratio="1:1" data-canvas="foto">
-        <img class="scene__foto" src="/assets/planta/almacen-tablet-revision.webp" alt="" width="1100" height="1100" loading="lazy" decoding="async">
-        <span class="scene__velo" aria-hidden="true"></span>
-        <h3 class="scene__title">Un mois complet d'enregistrements et de preuves, en un filtre</h3>
-        <span class="scene__glow" aria-hidden="true"></span>
-        <div class="scene__media" data-crop="res">
-          <div class="res">
-            <div class="res__hd">
-              <span class="res__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v5h5"></path><path d="M9 13h6M9 17h4"></path></svg></span>
-              <div>
-                <p class="res__t">Mars 2026 · 214 enregistrements</p>
-                <p class="res__s">Filtrés par ligne et par poste</p>
-              </div>
-            </div>
-            <dl class="res__rows">
-              <div class="res__kv"><dt>Avec incident</dt><dd>9</dd></div>
-              <div class="res__kv"><dt>Exporter</dt><dd>PDF avec preuves</dd></div>
-            </dl>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
 <section class="section section--results-big" data-screen-label="Auditorías · Resultados">
   <div class="wrap">
     <div class="section-head section-head--split">
@@ -500,6 +438,7 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Contact avec un spécialiste des opérations industrielles</h2>
+      <p class="form-card__nota">Questions fréquentes à ce stade : la conversion des fiches et des listes de contrôle déjà utilisées, la fréquence et le périmètre de chaque inspection et la mise en place d'un pilote.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>

@@ -530,3 +530,16 @@ h4, h5, h6,
    no separan el doble: separan peor. Se quedan en una. */
 .section-head--split:has(+ .ds-stats){ margin-bottom:0; }
 .section-head--split + .ds-stats{ border-top:0; padding-top:36px; }
+
+/* Nota de contacto (7 sep 2026). Las landings de producto se acortaron a la
+   propuesta de valor y las características, así que las preguntas de encaje
+   —integración, configuración sobre procedimientos propios, alcance de un
+   piloto— dejan de responderse en la página y se enuncian aquí, encima del
+   formulario. Va en cuerpo pequeño y atenuado: nombra las consultas, no las
+   resuelve. Sin interrogaciones, que la ficha de voz sólo las admite en FAQ. */
+.form-card__nota{
+  margin:calc(var(--s-4) * -1) 0 var(--s-4);
+  color:var(--color-ink-mute);
+  font:var(--type-body-md);
+  max-width:52ch;
+}
