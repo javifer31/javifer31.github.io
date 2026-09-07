@@ -274,6 +274,23 @@
   else inject();
 })();
 
+/* ====== APARICIÓN DE SECCIONES ======================================
+   La entrada de las piezas al entrar en pantalla: opacidad y catorce píxeles
+   de subida, escalonadas dentro de su propia fila. Es lo único que se mueve a
+   nivel de página; todo lo demás que se anima en este sitio —la onda del hero,
+   la banda de IA, las pantallas de producto, el rotador— se anima solo y por
+   dentro.
+
+   VIVE AQUÍ, EN `chrome.js`, Y NO EN UN FICHERO DE `ds/`, por una razón: es el
+   único script que cargan las 702 páginas, incluidas las del blog y el
+   glosario, que se regeneran solas. Un `<script>` nuevo habría que meterlo en
+   cada HTML y en la plantilla del blog, y el de las páginas anidadas va por
+   ruta relativa. Aquí llega a todo y sobrevive a los rebuilds. Al traductor no
+   le afecta: no hay literales con etiquetas.
+
+   ¡OJO CON DÓNDE SE PEGA! `build:i18n` corta este fichero por
+   `
+
 /* ====== Selector de idioma ======
    Se construye con los <link rel="alternate" hreflang> que ya lleva la página,
    así que apunta siempre a la traducción exacta de ESTA página y no a la home
