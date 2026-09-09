@@ -129,6 +129,162 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -156,20 +312,20 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260907a">
-<link rel="stylesheet" href="/ds/hero.css?v=20260903a">
+<link rel="stylesheet" href="/ds/site.css?v=20260908a">
+<link rel="stylesheet" href="/ds/hero.css?v=20260907e">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
-<link rel="stylesheet" href="/ds/aiband.css?v=20260907a">
-<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
+<link rel="stylesheet" href="/ds/aiband.css?v=20260908b">
+<link rel="stylesheet" href="/ds/sections.css?v=20260908a">
 <!-- Las cuatro hojas del componente Escena de producto, en su orden: el tinte
      del lienzo, el marco de la tarjeta, los marcos de dispositivo y las
      pantallas de la app que van dentro. Entran el 17 de agosto con la sección
      «Detecta». -->
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260903b">
+<link rel="stylesheet" href="/ds/scene.css?v=20260908b">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
-<link rel="stylesheet" href="/ds/app.css?v=20260904d">
+<link rel="stylesheet" href="/ds/app.css?v=20260908b">
 <style>
 /* Hero con foto + 3 notificaciones que aparecen en secuencia */
 .hero-vis{position:relative;width:100%;max-width:480px;margin-inline:auto;}
@@ -211,16 +367,41 @@
 <!-- ============ HERO (Solved Design System) ============
      La misma hero que la home: el shader de ds/hero-wave.js por detrás y el
      texto dentro del encuadre. El copy es el de esta página. -->
-<section class="ds-hero ds-hero--centro" data-screen-label="Incidencias · Hero">
+<section class="ds-hero" data-screen-label="Incidencias · Hero">
   <canvas class="ds-hero__weave" aria-hidden="true" id="dsWeave"></canvas>
   <div class="frame frame--seam ds-hero__frame">
     <div class="ds-hero__txt">
-      <span class="ds-eyebrow">Störungsmanagement</span>
+      <div class="ds-hero__strip">
+        <span class="ds-eyebrow">Störungsmanagement</span>
+        <span class="ds-badge ds-badge--ia">
+          <svg class="ds-badge__star" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <linearGradient id="dsBadgeIaGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#A855F7"></stop>
+              <stop offset=".52" stop-color="#D34F9D"></stop>
+              <stop offset="1" stop-color="#1FD6F5"></stop>
+            </linearGradient>
+            <path fill="url(#dsBadgeIaGrad)" d="M12 1.4c.62 5.62 4.56 9.56 10.18 10.18v.84c-5.62.62-9.56 4.56-10.18 10.18h-.84C10.54 17 6.6 13.04.98 12.42v-.84C6.6 10.96 10.54 7.02 11.16 1.4z"></path>
+          </svg>
+          AI Powered
+        </span>
+      </div>
       <h1>Führen Sie die Störungen Ihres Werks von Anfang bis Ende, <span class="ds-dim">vom Hinweis an der Linie bis zur Abschlussdokumentation.</span></h1>
       <p class="ds-hero__sub">Ohne Schulung für den, der sie erfasst, und ohne Verwaltungsarbeit für den, der sie abschließt.</p>
       <div class="ds-hero__cta">
         <a class="ds-btn ds-btn--primary" href="#contacto">Demo anfordern</a>
-        <a class="ds-btn ds-btn--secondary" href="#contacto">Pilot vorschlagen</a>
+      </div>
+      <!-- Tira de compatibilidad MCP (ds/site.css). Los iconos son marcas de sus
+        titulares y se usan como referencia de compatibilidad: procedencia y
+        condiciones en assets/mcp/FUENTES.md. El nombre va escrito en la
+        tipografía del sitio, no en el wordmark de cada marca. -->
+      <div class="mcp">
+        <span class="mcp__lb">MCP-Server</span>
+        <span class="mcp__logos">
+        <span class="mcp__logo"><img src="/assets/mcp/claude.webp" alt="" width="96" height="96" decoding="async" loading="lazy">Claude</span>
+        <span class="mcp__logo mcp__logo--mono"><img src="/assets/mcp/chatgpt.webp" alt="" width="96" height="96" decoding="async" loading="lazy">ChatGPT</span>
+        <span class="mcp__logo"><img src="/assets/mcp/gemini.webp" alt="" width="96" height="96" decoding="async" loading="lazy">Gemini</span>
+      </span>
+        <span class="mcp__txt">Bedienen Sie Solved aus den KI-Werkzeugen, die Sie schon nutzen</span>
       </div>
     </div>
   </div>
@@ -325,12 +506,18 @@
     <div class="scene-grid">
 
       <!-- LA BANDA DE IA, LA PIEZA ANCHA DE LA PRIMERA FILA
-           No cuenta un chat: cuenta de dónde vienen las incidencias antes de
-           Solved —WhatsApp, correo, una llamada al jefe de turno, un parte a
-           mano— y en qué las convierte la IA. Es el dolor literal de las
-           llamadas de venta: «de incidencias no tenemos nada de registro:
-           correo electrónico, WhatsApp, llamada». El 22 % de los clientes
-           nombra WhatsApp o el correo como su sistema actual.
+           No cuenta un chat: cuenta que da igual por dónde entre el aviso
+           —un mensaje de Teams, un correo, una nota de voz del jefe de turno o
+           la propia plantilla de Solved— y en qué lo convierte la IA. Es el
+           dolor literal de las llamadas de venta: «de incidencias no tenemos
+           nada de registro: correo electrónico, WhatsApp, llamada». El 22 % de
+           los clientes nombra la mensajería o el correo como su sistema actual.
+
+           LOS CUATRO CANALES SON PETICIÓN DEL CLIENTE (8 sep 2026): Teams en vez
+           de WhatsApp —lo que la industria tiene puesto—, la nota de voz en vez
+           de la llamada y la plantilla de Solved en vez del parte a mano, que ya
+           es una entrada con estructura y por eso el titular no habla de formato
+           roto sino de formato cualquiera.
 
            Va DENTRO de esta sección y dentro de la rejilla (`.scene-grid > .aiband`,
            doce columnas): es el primer paso del mismo relato —por dónde entra— y
@@ -363,23 +550,30 @@
               </svg>
               AI POWERED
             </span>
-            <h3 class="cab__t">Sie kommen unstrukturiert an.<br><span>Sie gehen normiert heraus.</span></h3>
-            <p class="cab__p">Messenger, E-Mail, Zuruf oder handschriftlicher Zettel. Die KI von Solved führt jede dieser Eingaben zu einer einzigen Störung zusammen – mit Code, Kategorie, Verantwortlichem und Datum.</p>
+            <h3 class="cab__t">Melden Sie Störungen in jedem Format<br><span>und von überall.</span></h3>
+            <p class="cab__p">Eine Teams-Nachricht, eine E-Mail, eine Sprachnotiz oder die Solved-Vorlage. Die KI führt jede dieser Eingaben zu einer einzigen Störung zusammen – mit Code, Kategorie, Verantwortlichem und Datum.</p>
             <a class="cab__link" href="/de/ki/">Zur KI von Solved →</a>
           </div>
 
+          <!-- LA CONVERGENCIA
+               Tres planos y nada montado encima de nada: las cuatro entradas a la
+               izquierda, la calle de la IA en medio —hilos, núcleo y pulso, que es
+               donde pasa la generación— y la incidencia ya con forma a la derecha.
+
+               POR QUÉ LA CALLE ES UN ELEMENTO Y NO UNA CAPA (8 sep 2026)
+               Los hilos eran un SVG a `inset:0` sobre toda la convergencia, así que
+               el trazado nacía DEBAJO de las tarjetas y el pulso del núcleo llegaba
+               a tocarlas al escalar. Ahora los dos viven dentro de `.canales__paso`,
+               que es la columna del medio: la animación de la generación pasa por
+               fuera de las tarjetas y de la ficha, no sobre ellas. Si algún día se
+               estrecha la calle, hay que mirar que el anillo (×1,5 del núcleo)
+               siga cabiendo dentro. -->
           <div class="canales" aria-hidden="true">
-            <svg class="canales__hilos" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M2 18 C 30 18, 38 50, 50 50"></path>
-              <path d="M2 39 C 30 39, 40 50, 50 50"></path>
-              <path d="M2 61 C 30 61, 40 50, 50 50"></path>
-              <path d="M2 82 C 30 82, 38 50, 50 50"></path>
-            </svg>
 
             <div class="canales__ent">
               <div class="canal aiband__card" style="--w:auto">
-                <span class="canal__de"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.3A10 10 0 1 0 12 2z"></path></svg> WhatsApp <b>6:38</b></span>
-                <span class="canal__burbuja">die Verpackungsmaschine ist wieder kaputt, immer dasselbe<span class="canal__check">✓✓</span></span>
+                <span class="canal__de"><svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M11 5h11v9.6a5.5 5.5 0 0 1-11 0zm2.6 2.4v1.7h2.1V16h1.6V9.1h2.1V7.4zM6.4 4.2a2.9 2.9 0 1 1 0 5.8 2.9 2.9 0 0 1 0-5.8zM2.6 11.2h7.6v5.4a3.8 3.8 0 0 1-7.6 0z"></path></svg> Teams <b>6:38</b></span>
+                <span class="canal__burbuja canal__burbuja--teams">die Verpackungsmaschine ist wieder kaputt, immer dasselbe</span>
               </div>
 
               <div class="canal aiband__card" style="--w:auto">
@@ -389,7 +583,7 @@
               </div>
 
               <div class="canal aiband__card" style="--w:auto">
-                <span class="canal__de"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 5.2 2 2 0 0 1 6 3z"></path></svg> Anruf <b>1:12</b></span>
+                <span class="canal__de"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="9" y="2.6" width="6" height="11" rx="3"></rect><path d="M5.5 11.4a6.5 6.5 0 0 0 13 0M12 17.9V21"></path></svg> Sprachnotiz <b>0:34</b></span>
                 <div class="aiband__head">
                   <img class="aiband__ava" src="/assets/ia/avatar-pablo.webp" alt="" width="20" height="20" loading="lazy" decoding="async">
                   <div class="aiband__desc">Schichtführer</div>
@@ -398,14 +592,24 @@
               </div>
 
               <div class="canal aiband__card" style="--w:auto">
-                <span class="canal__de"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4"></path></svg> Handschriftliche Meldung <b>Nachtschicht</b></span>
-                <span class="canal__manuscrito"><i></i><i></i><i></i></span>
+                <span class="canal__de"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><path d="m7.5 9 1.8 1.8L12.5 7M7.5 15.6l1.8 1.8 3.2-3.8M15.8 10h1.7M15.8 16.6h1.7"></path></svg> Solved-Vorlage <b>6:05</b></span>
+                <div class="aiband__row"><span>Zustand des Förderbands L3</span><span class="aiband__tag aiband__tag--ko">KO</span></div>
               </div>
             </div>
 
-            <div class="canales__nucleo">
-              <span class="canales__anillo"></span>
-              <svg viewBox="0 0 24 24" fill="url(#iaCanalesStar)" aria-hidden="true"><path d="M12 1.4c.62 5.62 4.56 9.56 10.18 10.18v.84c-5.62.62-9.56 4.56-10.18 10.18h-.84C10.54 17 6.6 13.04.98 12.42v-.84C6.6 10.96 10.54 7.02 11.16 1.4z"></path></svg>
+            <div class="canales__paso">
+              <svg class="canales__hilos" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 11 C 16 11, 22 50, 33 50"></path>
+                <path d="M0 37 C 16 37, 24 50, 33 50"></path>
+                <path d="M0 63 C 16 63, 24 50, 33 50"></path>
+                <path d="M0 89 C 16 89, 22 50, 33 50"></path>
+                <path class="canales__hilo--sal" d="M67 50 L100 50"></path>
+              </svg>
+
+              <div class="canales__nucleo">
+                <span class="canales__anillo"></span>
+                <svg viewBox="0 0 24 24" fill="url(#iaCanalesStar)" aria-hidden="true"><path d="M12 1.4c.62 5.62 4.56 9.56 10.18 10.18v.84c-5.62.62-9.56 4.56-10.18 10.18h-.84C10.54 17 6.6 13.04.98 12.42v-.84C6.6 10.96 10.54 7.02 11.16 1.4z"></path></svg>
+              </div>
             </div>
 
             <div class="canales__sal">
@@ -437,367 +641,169 @@
         </div>
       </div>
 
-      <article class="scene" data-module="incidencias" data-span="4" data-ratio="fila">
-        <h3 class="scene__title">Erfassung am Ort der Feststellung, mit Nachweis und Verantwortlichem</h3>
+      <!-- ============================================================
+           LOS TRES CUADROS DE LA SECCIÓN (8 sep 2026, petición del cliente)
+           Aquí había cuatro escenas —registro en el punto de detección,
+           asignación, tendencias y sincronización con el ERP— y **eran las
+           mismas que las de la home**: el mismo listado en el móvil, la misma
+           tabla de tareas, el mismo tablero. Quien llegaba desde la portada veía
+           dos veces lo mismo y esta página no añadía nada.
+
+           Salen las cuatro y entran tres que la home NO cuenta, cada una con su
+           pantalla propia: la plantilla que se diseña por tipo de incidencia,
+           el reparto del trabajo a cualquiera del equipo y la causa raíz que
+           acaba en un registro programado. La banda de IA se queda: es el primer
+           paso del relato —por dónde entra el aviso— y no se repite en ningún
+           otro sitio.
+
+           Las cuatro escenas retiradas siguen VIVAS más abajo, dentro del
+           rotador de capacidades, que es donde tienen su sitio: allí el usuario
+           las pide una a una. Y están en git.
+           ============================================================ -->
+
+      <!-- 1 · La plantilla se diseña por tipo de incidencia. Los tres tipos se
+           relevan y con ellos cambia la lista de campos entera: es lo único que
+           demuestra «a tu medida» — una sola lista sería una plantilla, no un
+           sistema de plantillas. Los tipos de campo (Seleccionable, Número,
+           Archivos, Firma, Persona, Sí/No) son los nombres reales de la
+           interfaz, los mismos que usa la sección de IA de /auditorias/. -->
+      <article class="scene" data-module="incidencias" data-span="8" data-ratio="4:3">
+        <h3 class="scene__title">Gestalten Sie für jede Störungsart eine eigene, passgenaue Vorlage</h3>
         <span class="scene__glow" aria-hidden="true"></span>
-        <!-- El aparato ES el argumento: se reporta de pie, delante de la máquina. -->
-        <div class="scene__media" data-crop="dev-movil-c">
-          <div class="device" data-device="iphone">
-            <div class="device__screen">
-              <div class="app app--movil" aria-hidden="true">
-                <div class="app__top">
-                  <span class="app__topttl">Störungen</span>
-                  <span class="app__spacer"></span><span class="app__me">G</span>
-                </div>
-                <div class="app__mfilters">
-                  <span class="app__mchip app__mchip--on">Offen 5</span>
-                  <span class="app__mchip">In Prüfung 1</span>
-                </div>
-                <ul class="app__mlist">
-                  <!-- Arriba la que se ha registrado a mano, que es la que la
-                       tarjeta enseña: lleva su foto y su responsable. Es la
-                       misma avería que sale como acción en la tarjeta de al
-                       lado, UTD26_163_001. Debajo siguen las que entran solas
-                       por sensor, ERP o máquina, cortadas por el borde. -->
-                  <li class="app__mcard">
-                    <img class="app__thumb" src="/assets/tour/tour-fuga.webp" alt="" width="28" height="28" loading="lazy" decoding="async">
-                    <div class="app__mtxt">
-                      <span class="app__code">UTD26_163_001</span>
-                      <div class="app__mdesc">Ölleck am Förderband L3</div>
-                      <div class="app__mmeta"><span class="app__tag app__tag--media">Mittel</span> 26.06. · Ginés</div>
-                    </div>
-                  </li>
-                  <li class="app__mcard">
-                    <div class="app__mtxt">
-                      <span class="app__code">UTD26_164_PAR</span><span class="app__dot"></span>
-                      <div class="app__mdesc">Ungeplanter Stillstand an Linie 2</div>
-                      <div class="app__mmeta"><span class="app__tag app__tag--alta">Hoch</span> Maschine</div>
-                    </div>
-                  </li>
-                  <li class="app__mcard">
-                    <div class="app__mtxt">
-                      <span class="app__code">UTD26_164_EXQ</span><span class="app__dot"></span>
-                      <div class="app__mdesc">Kundenreklamation zu Auftrag 4471</div>
-                      <div class="app__mmeta"><span class="app__tag app__tag--media">Mittel</span> ERP</div>
-                    </div>
-                  </li>
-                  <li class="app__mcard">
-                    <div class="app__mtxt">
-                      <span class="app__code">UTD26_164_001</span><span class="app__dot"></span>
-                      <div class="app__mdesc">Temperatur außerhalb des Bereichs in Kühlraum 2</div>
-                      <div class="app__mmeta"><span class="app__tag app__tag--alta">Hoch</span> IoT-Sensor</div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="scene" data-module="acciones" data-span="8" data-ratio="4:3">
-        <h3 class="scene__title">Automatische Zuweisung an den Verantwortlichen, ohne manuelle Verteilung</h3>
-        <span class="scene__glow" aria-hidden="true"></span>
-        <div class="scene__media" data-crop="br">
-          <!-- La barra de filtros se queda FIJA arriba y son los botones los que
-               se encienden: primero el de departamento y después el de
-               responsable. Así se ve el gesto de filtrar —qué se pulsa y qué
-               pasa— en vez de aparecer y desaparecer chips distintos.
-               Debajo, tres vistas del listado superpuestas en la misma celda de
-               rejilla, para que la tabla no dé saltos de alto al cambiar. -->
-          <div class="app app--fragmento" aria-hidden="true">
-
-            <div class="app__filters">
-              <!-- Los filtros arrancan VACÍOS: sólo el nombre del campo y su
-                   flecha de desplegable. El valor —y el avatar, en el de
-                   persona— entra al seleccionarlo, que es el gesto que la
-                   tarjeta enseña. -->
-              <span class="app__filter app__filter--dep">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg>
-                Abteilung<span class="app__fval">&nbsp;· Instandhaltung</span>
-                <svg class="app__fcar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
-              </span>
-              <span class="app__filter app__filter--resp">
-                <span class="app__fval app__fval--ava"><span class="app__ava" style="background:#1098AD">P</span></span>
-                Verantwortlicher<span class="app__fval">&nbsp;· Pablo</span>
-                <svg class="app__fcar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
-              </span>
-              <span class="app__cntswap">
-                <span class="app__cnt">9</span><span class="app__cnt">3</span><span class="app__cnt">2</span>
-              </span>
-            </div>
-
-            <div class="app__views">
-                <div class="app__view">
-                  <div class="app__card">
-                    <table class="app__table">
-                      <thead><tr><th style="width:34px"></th><th>Aufgabe</th><th>Verantwortlicher</th><th>Frist</th><th>Status</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Dichtung am Förderband L3 tauschen</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">In Arbeit</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_162_001</span><div class="app__dtxt">Beleuchtung im Lager prüfen</div></td><td><span class="app__user"><span class="app__ava" style="background:#8B4FE0">A</span> Ana</span></td><td><span class="app__num">30/06/2026</span></td><td><span class="app__tag app__tag--abierta">Offen</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Abfüllkreislauf spülen und abdichten</div></td><td><span class="app__user"><span class="app__ava" style="background:#0E9F6E">L</span> Luis</span></td><td><span class="app__num">28/06/2026</span></td><td><span class="app__tag app__tag--curso">In Arbeit</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_157_REC</span><div class="app__dtxt">Charge beim Lieferanten reklamieren</div></td><td><span class="app__user"><span class="app__ava" style="background:#E0489B">M</span> Marta</span></td><td><span class="app__num">25/06/2026</span></td><td><span class="app__tag app__tag--curso">In Arbeit</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Lager des Förderbands wechseln</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Offen</span></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="app__view app__view--b">
-                  <div class="app__card">
-                    <table class="app__table">
-                      <thead><tr><th style="width:34px"></th><th>Aufgabe</th><th>Verantwortlicher</th><th>Frist</th><th>Status</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Dichtung am Förderband L3 tauschen</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">In Arbeit</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Abfüllkreislauf spülen und abdichten</div></td><td><span class="app__user"><span class="app__ava" style="background:#0E9F6E">L</span> Luis</span></td><td><span class="app__num">28/06/2026</span></td><td><span class="app__tag app__tag--curso">In Arbeit</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Lager des Förderbands wechseln</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Offen</span></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="app__view app__view--c">
-                  <div class="app__card">
-                    <table class="app__table">
-                      <thead><tr><th style="width:34px"></th><th>Aufgabe</th><th>Verantwortlicher</th><th>Frist</th><th>Status</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Dichtung am Förderband L3 tauschen</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">In Arbeit</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Lager des Förderbands wechseln</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Offen</span></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="scene" data-module="kpis" data-span="8" data-ratio="4:3">
-        <h3 class="scene__title">Trends und kritische Punkte, in Echtzeit aktualisiert</h3>
-        <span class="scene__glow" aria-hidden="true"></span>
-        <!-- Escritorio: la ventana, no el ordenador. Dice que es web y sin instalar. -->
         <div class="scene__media" data-crop="dev-br">
-          <div class="device" data-device="navegador" style="--device-url:'app.trysolved.com/dashboard'">
+          <div class="device" data-device="navegador" style="--device-url:'app.trysolved.com/plantillas'">
             <div class="device__screen">
-          <!-- Ventana entera: con marco, la app va con su barra y su sidebar,
-               que es como se ve al abrirla. Las cifras cuadran con las otras
-               tres tarjetas: cinco abiertas, una acción fuera de plazo. -->
-          <div class="app" aria-hidden="true">
-            <div class="app__top">
-              <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
-              <span class="app__vbar"></span>
-              <span class="app__topttl">Berichte</span>
-              <span class="app__spacer"></span>
-              <span class="app__me">G</span>
-            </div>
-            <div class="app__body">
-              <div class="app__side">
-                <div class="app__co">
-                  <img src="/assets/tour/tour-empresa.webp" alt="" width="44" height="44" loading="lazy" decoding="async">
-                  <span>PopCorn Mediterránea</span>
+              <div class="app" aria-hidden="true">
+                <div class="app__top">
+                  <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
+                  <span class="app__vbar"></span><span class="app__topttl">Störungsvorlagen</span>
+                  <span class="app__spacer"></span><span class="app__me">J</span>
                 </div>
-                <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"></path></svg> Start</div>
-                <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="4" width="14" height="17" rx="2"></rect><path d="M9 3h6v3H9zM9 12h6M9 16h4"></path></svg> Störungen</div>
-                <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v5h5"></path></svg> Maßnahmen</div>
-                <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg> Aufzeichnungen</div>
-                <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="8" width="16" height="12" rx="3"></rect><path d="M12 4v4M9 14h.01M15 14h.01"></path></svg> AI</div>
-                <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg> OpenSearch</div>
-                <div class="app__nav app__nav--on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 3v18h18"></path><rect x="7" y="11" width="3" height="6"></rect><rect x="12" y="7" width="3" height="10"></rect><rect x="17" y="13" width="3" height="4"></rect></svg> Berichte</div>
-                <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7a1 1 0 0 1 1-1h4l2 2h8a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"></path></svg> Dokumente</div>
-              </div>
-
-              <div class="app__main">
-                <div class="app__dash">
-                  <!-- El filtro. Es lo que cuenta la tarjeta: se elige un turno
-                       y el tablero entero se recalcula —las cuatro cifras, las
-                       barras del mes, el desglose y el listado—. Los tres pasos
-                       van al mismo reloj de 12 s que el filtro de la escena de
-                       Acciones, y con el mismo gesto: el chip que se pulsa se
-                       enciende con un anillo que se abre. El turno se filtra
-                       porque es la única variable que no vacía ningún panel
-                       —las cuatro categorías existen en los dos turnos—. -->
-                  <div class="app__filters app__filters--turno">
+                <div class="app__rec">
+                  <div class="app__filters app__filters--tipos">
                     <span class="app__flabel">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg>
-                      Schicht
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v5h5"></path></svg>
+                      Typ
                     </span>
-                    <span class="app__filter app__filter--t1">Alle</span>
-                    <span class="app__filter app__filter--t2">Früh</span>
-                    <span class="app__filter app__filter--t3">Spät</span>
+                    <span class="app__filter app__filter--p1">Maschinenausfall</span>
+                    <span class="app__filter app__filter--p2">Kundenreklamation</span>
+                    <span class="app__filter app__filter--p3">Produktqualität</span>
                   </div>
 
-                  <!-- Las cuatro cifras ruedan de un valor al siguiente cada vez
-                       que cambia el turno. El número no está escrito como texto:
-                       lo pinta `counter()` desde `--app-n`, que es lo que anima
-                       el keyframe. El `style` inline lleva el valor del primer
-                       paso, que es lo que se ve si el navegador no registra
-                       `@property`. El bloque entero es aria-hidden. -->
-                  <div class="app__kpis">
-                    <div class="app__kpi">
-                      <div class="app__kpil">Offene Störungen</div>
-                      <div class="app__kpiv app__kpiv--incidencias app__kpiv--count" style="--app-n:5"></div>
-                      <div class="app__delta app__delta--ok"><span class="app__sw3"><span>−3 ggü. Mai</span><span>−2 ggü. Mai</span><span>−1 ggü. Mai</span></span></div>
+                  <!-- Las tres plantillas se apilan en la misma celda de rejilla
+                       y se relevan. Superpuestas y no en secuencia: así pueden
+                       tener distinto número de campos sin que la caja salte. -->
+                  <div class="app__plantillas">
+                    <div class="app__items app__pl app__pl--a">
+                      <div class="app__item"><span class="app__itemq">Anlage oder Linie</span><span class="app__tipo">Auswahl</span></div>
+                      <div class="app__item"><span class="app__itemq">Stand die Linie still?</span><span class="app__tipo">Ja / Nein</span></div>
+                      <div class="app__item"><span class="app__itemq">Stillstandszeit</span><span class="app__tipo">Zahl · Min</span></div>
+                      <div class="app__item"><span class="app__itemq">Foto des Ausfalls</span><span class="app__tipo">Dateien</span></div>
+                      <div class="app__item"><span class="app__itemq">Verantwortlicher für die Reparatur</span><span class="app__tipo">Person</span></div>
+                      <div class="app__item"><span class="app__itemq">Unterschrift des Schichtleiters</span><span class="app__tipo">Unterschrift</span></div>
                     </div>
-                    <div class="app__kpi">
-                      <div class="app__kpil">Durchschnittliche Abschlusszeit</div>
-                      <div class="app__kpiv app__kpiv--incidencias app__kpiv--dec" style="--app-n:2;--app-d:4"><small>d</small></div>
-                      <div class="app__delta app__delta--ok"><span class="app__sw3"><span>−18 %</span><span>−22 %</span><span>−9 %</span></span></div>
+                    <div class="app__items app__pl app__pl--b">
+                      <div class="app__item"><span class="app__itemq">Kunde</span><span class="app__tipo">Auswahl</span></div>
+                      <div class="app__item"><span class="app__itemq">Auftrag und Charge</span><span class="app__tipo">Barcode</span></div>
+                      <div class="app__item"><span class="app__itemq">Grund der Reklamation</span><span class="app__tipo">Auswahl</span></div>
+                      <div class="app__item"><span class="app__itemq">Betroffene Einheiten</span><span class="app__tipo">Zahl</span></div>
+                      <div class="app__item"><span class="app__itemq">E-Mail des Kunden</span><span class="app__tipo">Dateien</span></div>
                     </div>
-                    <div class="app__kpi">
-                      <div class="app__kpil">Überfällige Maßnahmen</div>
-                      <div class="app__kpiv app__kpiv--acciones app__kpiv--count" style="--app-n:1"></div>
-                      <div class="app__delta app__delta--acciones"><span class="app__sw3"><span>UTD26_157_REC</span><span>UTD26_157_REC</span><span>keine</span></span></div>
-                    </div>
-                    <div class="app__kpi">
-                      <div class="app__kpil">Unterzeichnete Aufzeichnungen</div>
-                      <div class="app__kpiv app__kpiv--registros app__kpiv--count" style="--app-n:96"></div>
-                      <div class="app__delta app__delta--registros">Juni 2026</div>
-                    </div>
-                  </div>
-
-                  <div class="app__panels">
-                    <!-- Barras segmentadas por módulo, no monocolor: cada tramo
-                         lleva el color del módulo del que sale el dato, que es
-                         la regla del sistema. Los tramos van con `flex-grow`,
-                         así que la ALTURA TOTAL de cada barra no cambia respecto
-                         a cuando era de una sola tinta —88/69/100/75/56/75— y la
-                         silueta del gráfico se conserva; lo único nuevo es el
-                         reparto de dentro. De abajo arriba: incidencias, que es
-                         el grueso, luego acciones y encima registros. -->
-                    <div class="app__panel">
-                      <div class="app__panelt app__panelt--legend">
-                        <span>Aktivität nach Monat</span>
-                        <span class="app__legend">
-                          <span class="app__lg app__lg--incidencias">Störungen</span>
-                          <span class="app__lg app__lg--acciones">Maßnahmen</span>
-                          <span class="app__lg app__lg--registros">Aufzeichnungen</span>
-                        </span>
-                      </div>
-                      <div class="app__bars">
-                        <div class="app__bar app__bar--prev"><div class="app__barv" style="height:88%"><span class="app__bseg app__bseg--registros" style="flex:28"></span><span class="app__bseg app__bseg--acciones" style="flex:22"></span><span class="app__bseg app__bseg--incidencias" style="flex:38"></span></div><div class="app__barl">JAN</div></div>
-                        <div class="app__bar app__bar--prev"><div class="app__barv" style="height:69%"><span class="app__bseg app__bseg--registros" style="flex:23"></span><span class="app__bseg app__bseg--acciones" style="flex:16"></span><span class="app__bseg app__bseg--incidencias" style="flex:30"></span></div><div class="app__barl">FEB</div></div>
-                        <div class="app__bar app__bar--prev"><div class="app__barv" style="height:100%"><span class="app__bseg app__bseg--registros" style="flex:31"></span><span class="app__bseg app__bseg--acciones" style="flex:26"></span><span class="app__bseg app__bseg--incidencias" style="flex:43"></span></div><div class="app__barl">MÄR</div></div>
-                        <div class="app__bar app__bar--prev"><div class="app__barv" style="height:75%"><span class="app__bseg app__bseg--registros" style="flex:24"></span><span class="app__bseg app__bseg--acciones" style="flex:19"></span><span class="app__bseg app__bseg--incidencias" style="flex:32"></span></div><div class="app__barl">APR</div></div>
-                        <div class="app__bar app__bar--prev"><div class="app__barv" style="height:56%"><span class="app__bseg app__bseg--registros" style="flex:18"></span><span class="app__bseg app__bseg--acciones" style="flex:14"></span><span class="app__bseg app__bseg--incidencias" style="flex:24"></span></div><div class="app__barl">MAI</div></div>
-                        <div class="app__bar"><div class="app__barv" style="height:75%"><span class="app__bseg app__bseg--registros" style="flex:25"></span><span class="app__bseg app__bseg--acciones" style="flex:18"></span><span class="app__bseg app__bseg--incidencias" style="flex:32"></span></div><div class="app__barl">JUN</div></div>
-                      </div>
-                    </div>
-                    <div class="app__panel">
-                      <div class="app__panelt">Nach Kategorie</div>
-                      <!-- El desglose también se recalcula con el turno: el
-                           `width` inline es el del paso 1 y cada trazo se
-                           reescala a la proporción de los otros dos. La cifra de
-                           al lado va con el mismo relevo de tres. -->
-                      <div class="app__breaks">
-                        <div class="app__break">
-                          <div class="app__breakh"><span>Instandhaltung</span><span class="app__sw3"><span>5</span><span>3</span><span>2</span></span></div>
-                          <div class="app__track"><div class="app__fill app__fill--incidencias" style="width:42%"></div></div>
-                        </div>
-                        <div class="app__break">
-                          <div class="app__breakh"><span>Qualität</span><span class="app__sw3"><span>3</span><span>2</span><span>1</span></span></div>
-                          <div class="app__track"><div class="app__fill app__fill--acciones" style="width:25%"></div></div>
-                        </div>
-                        <div class="app__break">
-                          <div class="app__breakh"><span>Produktion</span><span class="app__sw3"><span>2</span><span>1</span><span>1</span></span></div>
-                          <div class="app__track"><div class="app__fill app__fill--registros" style="width:17%"></div></div>
-                        </div>
-                        <div class="app__break">
-                          <div class="app__breakh"><span>Reklamation</span><span class="app__sw3"><span>1</span><span>1</span><span>0</span></span></div>
-                          <div class="app__track"><div class="app__fill app__fill--kpis" style="width:8%"></div></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Tercera banda: sin ella la ventana se queda con un palmo
-                       de lienzo vacío abajo, y una pantalla medio vacía dice
-                       que el producto no tiene qué enseñar. -->
-                  <!-- El listado es lo que hace evidente que el filtro filtra
-                       de verdad: la lista se acorta. Tres vistas superpuestas en
-                       la misma celda de rejilla (.app__views, el mismo mecanismo
-                       de la escena de Acciones), así el panel no da saltos de
-                       alto al cambiar de turno. Ninguna incidencia es nueva:
-                       son las mismas tres, repartidas según a qué turno tocan. -->
-                  <div class="app__panel app__panel--list">
-                    <div class="app__panelt">Letzte Störungen</div>
-                    <div class="app__views app__views--lista">
-                      <div class="app__view">
-                        <table class="app__table">
-                          <tbody>
-                            <tr>
-                              <td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Ölleck am Förderband L3</div></td>
-                              <td><span class="app__tag app__tag--media">Mittel</span></td>
-                              <td><span class="app__num">26/06/2026</span></td>
-                            </tr>
-                            <tr>
-                              <td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Fremdflüssigkeit in der Verpackungsmaschine</div></td>
-                              <td><span class="app__tag app__tag--media">Mittel</span></td>
-                              <td><span class="app__num">24/06/2026</span></td>
-                            </tr>
-                            <tr>
-                              <td><span class="app__code">UTD26_157_REC</span><div class="app__dtxt">Beschädigte Charge</div></td>
-                              <td><span class="app__tag app__tag--alta">Hoch</span></td>
-                              <td><span class="app__num app__num--crit">22/06/2026</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="app__view app__view--b">
-                        <table class="app__table">
-                          <tbody>
-                            <tr>
-                              <td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Ölleck am Förderband L3</div></td>
-                              <td><span class="app__tag app__tag--media">Mittel</span></td>
-                              <td><span class="app__num">26/06/2026</span></td>
-                            </tr>
-                            <tr>
-                              <td><span class="app__code">UTD26_157_REC</span><div class="app__dtxt">Beschädigte Charge</div></td>
-                              <td><span class="app__tag app__tag--alta">Hoch</span></td>
-                              <td><span class="app__num app__num--crit">22/06/2026</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="app__view app__view--c">
-                        <table class="app__table">
-                          <tbody>
-                            <tr>
-                              <td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Fremdflüssigkeit in der Verpackungsmaschine</div></td>
-                              <td><span class="app__tag app__tag--media">Mittel</span></td>
-                              <td><span class="app__num">24/06/2026</span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                    <div class="app__items app__pl app__pl--c">
+                      <div class="app__item"><span class="app__itemq">Produkt und Format</span><span class="app__tipo">Auswahl</span></div>
+                      <div class="app__item"><span class="app__itemq">Kontrolle mit Ergebnis KO</span><span class="app__tipo">Auswahl</span></div>
+                      <div class="app__item"><span class="app__itemq">Gemessener Wert</span><span class="app__tipo">Zahl</span></div>
+                      <div class="app__item"><span class="app__itemq">Charge gesperrt</span><span class="app__tipo">Ja / Nein</span></div>
+                      <div class="app__item"><span class="app__itemq">Nachweis des Fehlers</span><span class="app__tipo">Dateien</span></div>
+                      <div class="app__item"><span class="app__itemq">Unterschrift der Qualitätssicherung</span><span class="app__tipo">Unterschrift</span></div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
             </div>
           </div>
         </div>
       </article>
 
-      <article class="scene" data-module="activos" data-span="4" data-ratio="fila">
-        <h3 class="scene__title">Meldungen synchron mit ERP, MES oder Instandhaltungssystem</h3>
+      <!-- 2 · El reparto del trabajo. La pieza es el selector abierto, no la
+           tarea ya asignada: lo que se promete es «a CUALQUIER persona del
+           equipo», y eso sólo se ve si se ven los departamentos distintos. El
+           foco baja por la lista y se queda en quien toca; debajo entra la acción
+           con su responsable y su plazo. -->
+      <article class="scene" data-module="acciones" data-span="4" data-ratio="fila">
+        <h3 class="scene__title">Weisen Sie Aufgaben jedem im Team zu, um die Störung zu lösen</h3>
         <span class="scene__glow" aria-hidden="true"></span>
-        <div class="scene__media" data-crop="br">
-          <div class="app" aria-hidden="true">
-            <div class="app__top">
-              <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
-              <span class="app__vbar"></span><span class="app__topttl">Integrationen</span>
-              <span class="app__spacer"></span><span class="app__me">G</span>
+        <div class="scene__media" data-crop="b">
+          <div class="app__asigna" aria-hidden="true">
+            <div class="app__panelt">Zuweisen <span class="app__code">UTD26_163_001</span></div>
+            <div class="app__buscar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              Im Team suchen
             </div>
-            <div class="app__integra">
-              <div class="app__int"><img src="/assets/integrations/sap.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/dynamics.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/oracle.png" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/siemens.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/tulip.png" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int app__int--solved"><img src="/assets/integrations/solved.png" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/outlook.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/gmail.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <p class="app__intcap"><b>ERP, MES und Instandhaltungssystem.</b> Meldungen und Aufzeichnungen laufen in Ihr bestehendes System – nichts wird zweimal getippt.</p>
+            <ul class="app__pick">
+              <li class="app__pickrow"><span class="app__ava" style="background:#1E6BFF">A</span><span class="app__picktxt"><b>Ana Ruiz</b><i>Qualität</i></span></li>
+              <li class="app__pickrow app__pickrow--on"><span class="app__ava" style="background:#F2700F">P</span><span class="app__picktxt"><b>Pablo Ferrer</b><i>Instandhaltung</i></span></li>
+              <li class="app__pickrow"><span class="app__ava" style="background:#12813B">M</span><span class="app__picktxt"><b>Marta Gil</b><i>Produktion · Spätschicht</i></span></li>
+              <li class="app__pickrow"><span class="app__ava" style="background:#7A3FF2">S</span><span class="app__picktxt"><b>Sergio Nieto</b><i>Lager</i></span></li>
+            </ul>
+            <div class="app__asignada">
+              <span class="app__user"><span class="app__ava" style="background:#F2700F">P</span> Pablo Ferrer</span>
+              <span class="app__num app__num--crit">fällig 28/06</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 · La causa raíz y lo que sale de ella. Las dos mitades del titular
+           van en la misma pantalla y en este orden: primero por qué se repite
+           —el reparto de causas de las cinco incidencias de la cinta L3— y
+           después el registro que se programa para que no vuelva a pasar. Sin la
+           segunda mitad esto sería otro cuadro de tendencias, que es justo lo
+           que la home ya enseña. -->
+      <article class="scene" data-module="checklists" data-span="12" data-ratio="21:9">
+        <h3 class="scene__title">Analysieren Sie die Grundursache und planen Sie die Aufzeichnungen, die eine Wiederholung verhindern</h3>
+        <span class="scene__glow" aria-hidden="true"></span>
+        <div class="scene__media" data-crop="b">
+          <div class="app__raiz" aria-hidden="true">
+            <div class="app__panel">
+              <div class="app__panelt">Wiederholung · Förderband L3</div>
+              <p class="app__raizs">5 Störungen in 6 Monaten, nach Ursache gruppiert</p>
+              <div class="app__breaks">
+                <div class="app__break">
+                  <div class="app__breakh"><span>Dichtung des Förderbands in schlechtem Zustand</span><span class="app__num">3</span></div>
+                  <div class="app__track"><div class="app__rfill app__rfill--r1"></div></div>
+                </div>
+                <div class="app__break">
+                  <div class="app__breakh"><span>Lager über die Lebensdauer hinaus</span><span class="app__num">1</span></div>
+                  <div class="app__track"><div class="app__rfill app__rfill--r2"></div></div>
+                </div>
+                <div class="app__break">
+                  <div class="app__breakh"><span>Reinigung außerhalb des Verfahrens</span><span class="app__num">1</span></div>
+                  <div class="app__track"><div class="app__rfill app__rfill--r3"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <span class="app__raizflecha" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
+            </span>
+
+            <div class="app__panel app__panel--prog">
+              <div class="app__panelt">Geplante Aufzeichnung</div>
+              <p class="app__raizs">Ergibt sich aus der häufigsten Ursache</p>
+              <div class="app__prog">
+                <div class="app__progt">Kontrolle der Dichtung · Förderband L3</div>
+                <div class="app__progm">
+                  <span class="app__tipo">Wöchentlich</span>
+                  <span class="app__tipo">Montag 06:00</span>
+                  <span class="app__tipo">Instandhaltung</span>
+                </div>
+                <div class="app__proglist">
+                  <div class="app__progrow"><span>29/06 · 06:00</span><span class="app__progok">Unterschrieben</span></div>
+                  <div class="app__progrow"><span>06/07 · 06:00</span><span class="app__progwait">Geplant</span></div>
+                  <div class="app__progrow"><span>13/07 · 06:00</span><span class="app__progwait">Geplant</span></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -849,7 +855,7 @@
         <div class="rotador__item">
           <button class="rotador__btn" id="rot-registro-b" role="tab" aria-controls="rot-registro" aria-selected="false" type="button">Erfassung am Ort der Feststellung</button>
           <div class="rotador__cuerpo">
-            <p>Jede Störung wird direkt am Arbeitsplatz angelegt – mit Kategorie, Verantwortlichem und Datum – und behält Autor, Fotonachweis, Maßnahme und Abschlussdatum zusammen mit den Kontrollnachweisen derselben Schicht.</p>
+            <p>Jede Störung wird direkt am Arbeitsplatz angelegt – mit Kategorie, Verantwortlichem und Datum – und behält Autor, Fotonachweis, Maßnahme und Abschlussdatum zusammen mit den Kontrollnachweisen derselben Schicht. Anlage oder Charge werden durch Lesen ihres Barcodes mit dem Telefon identifiziert, ohne die Referenz einzutippen.</p>
             <a href="/de/digitale-checklisten/">Zu Aufzeichnungen und Audits →</a>
           </div>
         </div>
@@ -886,7 +892,7 @@
                   <div class="app app--movil" aria-hidden="true">
                     <div class="app__top">
                       <span class="app__topttl">Störungen</span>
-                      <span class="app__spacer"></span><span class="app__me">G</span>
+                      <span class="app__spacer"></span><span class="app__me">J</span>
                     </div>
                     <div class="app__mfilters">
                       <span class="app__mchip app__mchip--on">Offen 5</span>
@@ -903,7 +909,7 @@
                         <div class="app__mtxt">
                           <span class="app__code">UTD26_163_001</span>
                           <div class="app__mdesc">Ölleck am Förderband L3</div>
-                          <div class="app__mmeta"><span class="app__tag app__tag--media">Mittel</span> 26.06. · Ginés</div>
+                          <div class="app__mmeta"><span class="app__tag app__tag--media">Mittel</span> 26.06. · Javier</div>
                         </div>
                       </li>
                       <li class="app__mcard">
@@ -1023,7 +1029,7 @@
                   <span class="app__vbar"></span>
                   <span class="app__topttl">Berichte</span>
                   <span class="app__spacer"></span>
-                  <span class="app__me">G</span>
+                  <span class="app__me">J</span>
                 </div>
                 <div class="app__body">
                   <div class="app__side">
@@ -1222,7 +1228,7 @@
                 <div class="app__top">
                   <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
                   <span class="app__vbar"></span><span class="app__topttl">Integrationen</span>
-                  <span class="app__spacer"></span><span class="app__me">G</span>
+                  <span class="app__spacer"></span><span class="app__me">J</span>
                 </div>
                 <div class="app__integra">
                   <div class="app__int"><img src="/assets/integrations/sap.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
@@ -1300,18 +1306,18 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Kontakt zu einem Spezialisten für industrielle Abläufe</h2>
-      <p class="form-card__nota">Häufige Fragen in dieser Phase: die Anbindung an vorhandene ERP-, MES- oder Instandhaltungssysteme, die Konfiguration der Zuweisungsabläufe anhand der eigenen Verfahren und der Umfang eines Pilotprojekts.</p>
+      <p class="form-card__nota">Häufige Fragen in dieser Phase: die Anbindung an vorhandene ERP-, MES- oder Instandhaltungssysteme und die Konfiguration der Zuweisungsabläufe anhand der eigenen Verfahren.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>
     <div class="contact__art">
-      <img src="/assets/contacto-tecnica-tablet.webp" alt="Eine Werkstechnikerin nutzt Solved auf dem Tablet" style="width:100%;display:block;border-radius:var(--r-3);box-shadow:var(--shadow-2);" width="1024" height="910" decoding="async" loading="lazy">
+      <video class="contact__v" data-lazy="/assets/registro-tablet-planta.mp4" poster="/assets/contacto-registro-planta.webp" muted="" loop="" playsinline="" preload="none" width="1280" height="720" aria-label="Eine Werksmitarbeiterin füllt einen Nachweis am Tablet neben der Linie aus"></video>
     </div>
   </div>
 </section>
 
 <div id="footer"></div>
-<script src="/de/chrome.js?v=20260907a"></script>
+<script src="/de/chrome.js?v=20260907f"></script>
 <!-- El halo del borde de las escenas. Sólo eso: aquí ninguna escena expande, así
      que la parte del diálogo del script no llega a engancharse. Sin JS las
      cuatro tarjetas se ven enteras. -->

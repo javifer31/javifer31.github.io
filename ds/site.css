@@ -382,9 +382,14 @@ h4, h5, h6,
    sin tarjetas de por medio. Sustituye a `.results` / `.rstat`, que eran cinco
    cuadrados de color: a esa escala el fondo pesaba más que la cifra.
 
-   La primera cifra va en tinta y el resto en gris. No es decoración: con
-   cinco números al mismo peso el ojo se reparte y no se queda con ninguno.
-   Se pone en primer lugar la que más dice.
+   TODAS LAS CIFRAS VAN EN TINTA (8 sep 2026). Hasta hoy la primera iba en
+   tinta y el resto en gris, para que el ojo se quedara con una; el problema es
+   que la regla no llegó a las siete bandas del sitio —`/incidencias/` ya iba
+   con `--iguales`, en tinta entera— y el mismo componente se leía de dos
+   colores según la página. Decisión del cliente: mismo color en todas.
+
+   Los rótulos siguen en gris de pie de foto: eso no es jerarquía entre cifras,
+   es la diferencia entre el número y lo que el número mide.
    ========================================================= */
 .ds-stats{
   display:grid;
@@ -400,7 +405,7 @@ h4, h5, h6,
   font:var(--type-display-lg);
   letter-spacing:var(--tracking-display-lg);
   font-variant-numeric:tabular-nums; font-feature-settings:"tnum";
-  color:var(--color-ink-mute);
+  color:var(--ds-text);
 }
 .ds-stat span{
   display:block;
@@ -410,19 +415,15 @@ h4, h5, h6,
   color:var(--ds-text-mute);
   text-wrap:balance;
 }
-/* La primera manda: es la que se lee. */
-.ds-stat:first-child b{ color:var(--ds-text); }
+/* — Con raíl (.ds-stats--iguales) —
+   El nombre es de cuando esta variante era la que ponía las cifras en tinta;
+   desde el 8 de septiembre de 2026 lo están todas, así que lo único que aporta
+   es el RAÍL: una línea fina en la calle entre cifra y cifra, la misma que
+   dibuja el encuadre. Con cinco números al mismo peso y sin nada en medio, la
+   fila se lee como cinco cosas sueltas; el raíl las cose.
 
-/* — Todas iguales (.ds-stats--iguales) —
-   La jerarquía de arriba supone que hay una cifra que manda. Cuando las cinco
-   son del mismo rango —cinco resultados del primer año, ninguno subordinado a
-   otro— destacar la primera no ordena la lectura: deja cuatro en segundo plano
-   sin motivo. Aquí van todas en tinta.
-
-   Lo que las separa entonces no es el color, es el raíl: una línea fina en la
-   calle entre cifra y cifra, la misma que dibuja el encuadre. Sin ella, cinco
-   números al mismo peso se leen como una fila de cinco cosas sueltas. */
-.ds-stats--iguales .ds-stat b{ color:var(--ds-text); }
+   No se renombra a `--rail` para no tocar los cinco HTML que la usan
+   —`/incidencias/` y sus cuatro idiomas, que son artefactos del build—. */
 .ds-stats--iguales{ gap:32px 0; }
 .ds-stats--iguales .ds-stat{ padding-inline:20px; }
 .ds-stats--iguales .ds-stat + .ds-stat{
@@ -542,4 +543,119 @@ h4, h5, h6,
   color:var(--color-ink-mute);
   font:var(--type-body-md);
   max-width:52ch;
+}
+
+/* Sub-encabezado dentro de una sección (7 sep 2026). Nace en /auditorias/, al
+   fundir la banda de IA y las celdas del módulo en una sola sección: el segundo
+   bloque necesita rótulo, pero el h2 de la sección ya está puesto arriba y dos
+   h2 en una sección no son una jerarquía. Entra con h3 y su párrafo.
+
+   Lo que lo separa del bloque de arriba es AIRE: 72px y ninguna regla
+   horizontal, porque una hairline entre la banda y este rótulo volvería a
+   partir la sección en dos y deshace la fusión que se acaba de hacer. La que sí
+   queda es la de debajo del rótulo, que trae `.section-head--split` y que no
+   separa dos secciones sino un encabezado de su contenido, igual que en todas
+   las demás.
+
+   30px, y la medida no es libre: el titular de la sección en /auditorias/ es el
+   de la banda (`.cab__t`, 32px), así que el sub-encabezado tiene que quedar por
+   debajo. A 38 —lo que medía primero— el capítulo pesaba más que la sección que
+   lo contiene, y eso se lee como dos secciones otra vez. */
+.section-head--sub{ margin-top:var(--s-9, 72px); }
+.section-head--sub h3{
+  font-size:30px;
+  letter-spacing:var(--tracking-display-lg);
+  font-weight:var(--font-weight-thin);
+  margin:0;
+}
+
+/* =========================================================
+   TIRA DE COMPATIBILIDAD MCP
+   Solved publica un servidor MCP, así que cualquier cliente que hable ese
+   protocolo —Claude, ChatGPT, Gemini y los que vengan— consulta y opera sobre
+   los datos de la planta sin integración a medida. Esta tira es la única pieza
+   del sitio que lo dice, y va en cuatro sitios: la hero de la home, la hero de
+   /ia/ y el pie de la banda de IA de /incidencias/ y /auditorias/.
+
+   POR QUÉ ICONO + NOMBRE ESCRITO, Y NO EL LOGOTIPO ENTERO DE CADA MARCA:
+   los tres wordmarks no comparten estilo —el de Claude es una serif y la marca
+   de Solved no usa serif— y una fila que mezcla marca dibujada con marca
+   tipográfica se lee desordenada al tamaño al que va esto. El nombre va en la
+   tipografía del sitio y el icono es lo único que se toma prestado. Procedencia
+   y condiciones, en assets/mcp/FUENTES.md.
+
+   NO LLEVA MATERIAL DE GRADIENTE. Va en dos heros que ya gastan el presupuesto
+   de la página con su onda, así que la tira es tinta, hairline y nada más.
+
+   El tamaño es de pie de hero, no de sección: si compite con el subtítulo, deja
+   de ser una nota de compatibilidad y se convierte en una segunda promesa.
+   ========================================================= */
+.mcp{
+  display:flex;
+  align-items:center;
+  gap:10px 14px;
+  flex-wrap:wrap;
+  padding-top:18px;
+  border-top:1px solid var(--color-hairline);
+  font:var(--type-caption);
+  color:var(--ds-text-mute);
+  text-wrap:pretty;
+}
+/* El rótulo es la etiqueta del protocolo, no un estado: tinta neutra y caja de
+   hairline, nunca el color de acento. */
+.mcp__lb{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  padding:3px 9px;
+  border:1px solid var(--color-hairline);
+  border-radius:999px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--ds-text-2);
+}
+.mcp__logos{ display:inline-flex; align-items:center; gap:16px; flex-wrap:wrap }
+.mcp__logo{ display:inline-flex; align-items:center; gap:7px; color:var(--ds-text) }
+.mcp__logo img{ width:19px; height:19px; display:block; flex:none }
+.mcp__txt{ flex:1 1 260px; min-width:0 }
+
+/* En la hero centrada la tira se centra con el resto del bloque. */
+.ds-hero--centro .mcp{ justify-content:center; text-align:center }
+
+@media (max-width:600px){
+  .mcp{ gap:10px }
+  .mcp__logos{ gap:14px }
+}
+
+/* El vídeo del bloque de contacto (7 sep 2026). Sustituye a la foto de banco
+   —una técnica con tablet que no era una planta— por cinco segundos de una
+   operaria cumplimentando un registro junto a la línea. Va en bucle, mudo y sin
+   controles: es ambiente, no una pieza que se reproduce.
+
+   La proporción y el encuadre son del componente: el clip es 16:9 y aquí se
+   recorta a 4:3 —el bloque necesita alto para acompañar a la tarjeta del
+   formulario—, con el foco a la izquierda, que es donde está la persona. Con el
+   recorte centrado se le cortaba el brazo y la tablet. */
+.contact__v{
+  display:block;
+  width:100%;
+  /* `height:auto` NO sobra: los atributos width/height del marcado entran como
+     hint de presentación y fijan 720px de alto, y con un alto explícito la
+     proporción no se aplica —el vídeo salía a 519×720 en vez de 519×389—. */
+  height:auto;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  object-position:28% 50%;
+  border-radius:var(--r-3, 12px);
+  box-shadow:var(--shadow-2);
+  background:var(--color-canvas-soft);
+  pointer-events:none;
+}
+
+/* El formulario de HubSpot llega en un iframe con su ancho medido por él, que
+   se queda corto dentro de la tarjeta. El alto lo sincroniza `chrome.js`. */
+.hs-contact-form .hs-form-iframe{
+  display:block;
+  width:100% !important;
+  border:0;
 }

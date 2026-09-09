@@ -208,10 +208,19 @@ button.scene{
   width:26%;
   font:var(--type-display-md);
   letter-spacing:var(--tracking-display-md);
-  -webkit-line-clamp:3;
+  /* Cuatro y no tres: el titular de la escena de causa raíz de /incidencias/
+     —«Analiza la causa raíz y programa registros para asegurarte de que no se
+     repite»— son 76 caracteres, y a tres líneas se cortaba con puntos
+     suspensivos justo antes de la promesa. El titular va centrado en vertical,
+     así que la cuarta línea no empuja nada. */
+  -webkit-line-clamp:4;
 }
 .scene[data-span="12"] .scene__media[data-crop="br"],
 .scene[data-span="12"] .scene__media[data-crop="r"]{ left:38%; top:14%; right:-10%; bottom:-12% }
+/* `b` a doce columnas: como `br` pero SIN sangrado por la derecha. Es para el
+   fragmento que no puede continuar fuera —una conversación cuya pregunta va
+   pegada al margen derecho: si sangra, lo que se corta es justo la pregunta—. */
+.scene[data-span="12"] .scene__media[data-crop="b"]{ left:38%; top:14%; right:3%; bottom:-12% }
 .scene[data-span="12"] .scene__media[data-crop="dev-br"]{ left:38%; top:12%; width:72% }
 
 /* ---------------------------------------------------------
@@ -229,6 +238,18 @@ button.scene{
    --------------------------------------------------------- */
 .scene[data-span="4"][data-ratio="fila"] .scene__media[data-crop="dev-movil-c"]{ top:26%; width:50% }
 .scene[data-span="4"][data-ratio="fila"] .scene__media[data-crop="dev-movil"]{ left:8%; top:26%; width:48% }
+/* Un aparato apaisado —tablet o ventana— en la estrecha de una fila mixta: con
+   el 104 % de la regla general se queda a media altura y deja medio lienzo
+   vacío debajo, porque la caja aquí es alta y estrecha. Se agranda y se baja:
+   entra más aparato y se sale más por la derecha, que es lo que el encuadre
+   dice de todas formas. */
+.scene[data-span="4"][data-ratio="fila"] .scene__media[data-crop="dev-br"]{ top:30%; width:132% }
+/* Un aparato apaisado en la ancha de una fila mixta (8 de 12). Con el 104 % de
+   la regla general se sale por abajo y se lleva por delante el pie de la
+   pantalla; cuando ahí abajo está lo que la tarjeta promete —la firma y el
+   informe que sale solo—, el fragmento tiene que caber. Entra entero de ancho y
+   sólo sangra por el borde inferior. */
+.scene[data-span="8"] .scene__media[data-crop="dev-br"]{ left:11%; top:15%; width:88% }
 
 /* Los recortes planos (br, bl, b, r) NO se tocan aquí, y se probó: sangrar más
    por el lado sólo ensancha el fragmento, y una rejilla como la de
@@ -265,6 +286,19 @@ button.scene{
   /* La única sombra del componente: despega el fragmento del lienzo. */
   box-shadow:rgba(12,32,64,.10) 0 8px 24px;
 }
+/* EL FRAGMENTO SIN PANEL — .scene__media--suelto
+   Quita la sombra, y con ella el rectángulo redondeado que la dibuja. Existe
+   por el puente de Integraciones: ahí dentro no hay UNA captura que despegar
+   del lienzo, hay una composición —ventana, ficha del ERP y cable— que ya trae
+   su propia elevación en la ficha. Con la sombra del contenedor, la parte del
+   encuadre que queda a la izquierda de la ventana se ve vacía y se lee como
+   una segunda pantalla blanca detrás de la escena, que es justo lo que no hay.
+
+   No es la norma: la sombra de `.scene__media` es la única del componente y en
+   una escena con captura sigue haciendo falta. Esto es la excepción para las
+   composiciones que ya se sostienen solas. */
+.scene__media--suelto{ box-shadow:none }
+
 .scene__media img,
 .scene__media picture,
 .scene__media video{ display:block; width:100%; height:auto }

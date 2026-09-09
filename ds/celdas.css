@@ -163,6 +163,10 @@
 .cel-fila--tarde{ opacity:0; animation:cel-fila 9s ease-out infinite; animation-play-state:var(--play,running) }
 .cel-fila--tarde:nth-of-type(2){ animation-delay:.5s }
 .cel-fila--tarde:nth-of-type(3){ animation-delay:1s }
+/* La cuarta es el lote que se lee del código de barras: entra la última porque
+   es la que cuenta que el campo no se teclea. Sin este escalón heredaría el
+   retardo cero y aparecería a la vez que la primera. */
+.cel-fila--tarde:nth-of-type(4){ animation-delay:1.5s }
 @keyframes cel-fila{ 0%,22%{ opacity:0 } 34%,100%{ opacity:1 } }
 
 /* Lo que se apaga cuando entra el filtro. */

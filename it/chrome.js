@@ -143,6 +143,64 @@
   '<div class="footer__legal"><div class="wrap"><p>VOLTSTONE TECHNOLOGY SERVICES S.L. ha recibido una subvención por parte de la Generalitat Valenciana, dentro de la convocatoria: "Ayuda destinada a personas emprendedoras y pymes en apoyo al inicio y consolidación de su proyecto empresarial, para el ejercicio 2025 (EMPYME)", con número de expediente EMPYME/2025/254, por un importe de 14.995,95 €.</p></div></div>' +
   '</footer>';
 
+  /* ====== El formulario de HubSpot, con la estética del sitio ======
+     HubSpot pinta el formulario DENTRO DE UN IFRAME, así que ninguna hoja de la
+     página lo alcanza: por eso se veía como HubSpot y no como Solved. Lo que sí
+     se puede es entrar, porque el iframe es `about:blank` —el embed v2 escribe
+     dentro en vez de cargar una URL— y eso lo deja en el MISMO ORIGEN. Aquí se
+     le meten dos cosas: la tipografía del sitio y `ds/hsform.css`.
+
+     Las rutas van ABSOLUTAS (`ROOT`, que sale del src de este script): dentro de
+     `about:blank` una ruta relativa no resuelve contra nada.
+
+     TRES CAUTELAS, y las tres han hecho falta:
+     · Todo va en try/catch. Si algún día HubSpot sirve el iframe desde su
+       dominio, el navegador bloquea el acceso y lanza; el formulario tiene que
+       seguir funcionando sin vestir, que es exactamente lo que había antes.
+     · La hoja se inyecta una vez por iframe (`data-vestido`): `onFormReady`
+       puede dispararse más de una vez.
+     · El alto lo lleva HubSpot midiendo su contenido, y nuestras reglas cambian
+       ese alto DESPUÉS de que él mida. Por eso se observa el cuerpo del iframe y
+       se le pone el alto que ocupa: sin esto, el botón se queda cortado por
+       abajo. */
+  function vestir(form) {
+    try {
+      var doc = (form && form.ownerDocument) || null;
+      if (!doc || !doc.head || doc.documentElement.getAttribute('data-vestido')) return;
+      doc.documentElement.setAttribute('data-vestido', '1');
+
+      var fuente = doc.createElement('link');
+      fuente.rel = 'stylesheet';
+      fuente.href = 'https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&display=swap';
+      doc.head.appendChild(fuente);
+
+      var hoja = doc.createElement('link');
+      hoja.rel = 'stylesheet';
+      hoja.href = ROOT + 'ds/hsform.css?v=20260907d';
+      doc.head.appendChild(hoja);
+
+      var marco = doc.defaultView && doc.defaultView.frameElement;
+      if (!marco) return;
+      var ajusta = function () {
+        /* Se mide el FORMULARIO, no el cuerpo del iframe: el cuerpo trae el aire
+           de HubSpot y dejaba un palmo en blanco debajo del botón, dentro de la
+           tarjeta. Si el formulario ya se ha mandado, lo que hay es el mensaje
+           de gracias, así que se mide lo que haya. */
+        var pieza = doc.querySelector('form') || doc.querySelector('.submitted-message') || doc.body;
+        var alto = pieza ? Math.ceil(pieza.getBoundingClientRect().height) : 0;
+        if (alto) marco.style.height = alto + 'px';
+      };
+      hoja.addEventListener('load', ajusta);
+      if (doc.defaultView.ResizeObserver && doc.body) {
+        new doc.defaultView.ResizeObserver(ajusta).observe(doc.body);
+        doc.defaultView.addEventListener('resize', ajusta);
+      } else {
+        setTimeout(ajusta, 300);
+        setTimeout(ajusta, 1200);
+      }
+    } catch (e) { /* iframe de otro origen: el formulario se queda sin vestir */ }
+  }
+
   function buildHsForms() {
     if (!window.hbspt || !window.hbspt.forms) return;
     var holders = document.querySelectorAll('.hs-contact-form');
@@ -157,7 +215,8 @@
         region: HUBSPOT.region,
         portalId: HUBSPOT.portalId,
         formId: (quiereVideo && formVideo()) ? formVideo() : HUBSPOT.formId,
-        target: '#' + holders[i].id
+        target: '#' + holders[i].id,
+        onFormReady: vestir
       });
     }
   }
@@ -274,6 +333,36 @@
   else inject();
 })();
 
+/* ====== VÍDEOS DE AMBIENTE, QUE NO SE DESCARGAN HASTA QUE SE VEN ======
+   El bloque de contacto lleva un vídeo en bucle en vez de una foto. Con el
+   `src` puesto de entrada, un navegador con preload agresivo se trae el fichero
+   en las 75 páginas que llevan ese bloque, y está al final de la página. Así
+   que el `src` vive en `data-lazy` y se pone al asomar.
+
+   Con `prefers-reduced-motion` no se pone nunca: se queda el póster, que es un
+   fotograma del propio vídeo y cuenta lo mismo. Es la misma regla que ya sigue
+   el vídeo de la banda de IA en ds/aiband.js. */
+(function () {
+  var videos = [].slice.call(document.querySelectorAll('video[data-lazy]'));
+  if (!videos.length) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var arranca = function (v) {
+    if (!v.src) v.src = v.getAttribute('data-lazy');
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  };
+  if (!window.IntersectionObserver) { videos.forEach(arranca); return; }
+  var ojo = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      if (!e.isIntersecting) { if (e.target.src) e.target.pause(); return; }
+      arranca(e.target);
+    });
+  }, { rootMargin: '200px' });
+  videos.forEach(function (v) { ojo.observe(v); });
+})();
+
+
 /* ====== APARICIÓN DE SECCIONES ======================================
    La entrada de las piezas al entrar en pantalla: opacidad y catorce píxeles
    de subida, escalonadas dentro de su propia fila. Es lo único que se mueve a
@@ -288,8 +377,113 @@
    ruta relativa. Aquí llega a todo y sobrevive a los rebuilds. Al traductor no
    le afecta: no hay literales con etiquetas.
 
-   ¡OJO CON DÓNDE SE PEGA! `build:i18n` corta este fichero por
-   `
+   ¡OJO CON DÓNDE SE PEGA! `build:i18n` corta este fichero por la cabecera del
+   selector de idioma —la que empieza por «Selector de idioma»— y reescribe de
+   ahí para abajo. Lo que se añada DESPUÉS de esa cabecera desaparece en el
+   siguiente build; este bloque va antes, y por eso sobrevive. Y con la cabecera
+   pasa lo mismo dentro de un comentario: escribirla entera aquí partía este
+   fichero por la mitad en el build. Se nombra, no se copia.
+
+   TRES REGLAS QUE SON EL COMPONENTE, no detalles de implementación:
+
+   1. Sólo se esconde lo que ya está fuera de pantalla. Lo que se ve al cargar
+      no se toca: ni parpadea, ni retrasa el LCP, ni depende de que este script
+      llegue. Si el JS falla, la página se ve entera —el estado oculto lo pone
+      él, no una hoja de estilos.
+   2. Se anima el contenido, no la caja. La misma distinción que el resto del
+      sistema: nada de escalas ni de rebotes; catorce píxeles y medio segundo.
+   3. Con `prefers-reduced-motion` no se hace nada en absoluto. Ni observa, ni
+      esconde: la página queda estática y completa.
+
+   Lo que NO entra, y está elegido: el hero (ya tiene su onda y es el LCP), la
+   composición de planta (su panel lleva `backdrop-filter`, y un ancestro
+   transformado lo rompe mientras dura la animación), las pantallas de producto
+   por dentro y los paneles del rotador, que tienen la suya. */
+(function () {
+  var REDUCIDO = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (REDUCIDO || !window.IntersectionObserver) return;
+
+  /* Las piezas que aparecen. Todas comprobadas contra el marcado del sitio: una
+     lista con selectores que no existen se lee como si el efecto estuviera y no
+     está. */
+  var PIEZAS = [
+    '.section-head > h2', '.section-head > p',
+    '.ds-stats > .ds-stat',
+    '.scene-grid > .scene', '.scene-grid > .aiband',
+    '.reasons > div', '.trio > div',
+    '.card', '.blog-card', '.shot', '.quote', '.faq__item', '.rotador'
+  ].join(',');
+
+  var FUERA = '.ds-hero, .compo, .rotador__vista, .app, .device, .nav, .footer';
+
+  function montar() {
+    var vistos = [];
+    var alto = window.innerHeight || 0;
+
+    [].slice.call(document.querySelectorAll(PIEZAS)).forEach(function (el) {
+      if (el.closest(FUERA)) return;
+      // Ya visible al cargar: se queda como está. Ésta es la regla 1.
+      if (el.getBoundingClientRect().top < alto * 0.92) return;
+      // El escalonado es por fila —el índice va en el padre— y se corta a los
+      // seis: en una rejilla de doce tarjetas, la última entraría casi un
+      // segundo después que la primera y eso ya no se lee como una entrada.
+      var padre = el.parentNode;
+      var i = padre.__revI || 0;
+      padre.__revI = i + 1;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(14px)';
+      el.style.transitionProperty = 'opacity, transform';
+      el.style.transitionDuration = '.52s';
+      el.style.transitionTimingFunction = 'cubic-bezier(.2,.7,.3,1)';
+      el.style.transitionDelay = (Math.min(i, 5) * 0.07) + 's';
+      el.style.willChange = 'opacity, transform';
+      vistos.push(el);
+    });
+
+    if (!vistos.length) return;
+
+    function revelar(el) {
+      ojo.unobserve(el);
+      el.style.opacity = '';
+      el.style.transform = '';
+      // Al acabar se limpia todo: la pieza vuelve a ser una pieza normal y no
+      // se queda con una capa de composición abierta para siempre.
+      setTimeout(function () {
+        el.style.transitionProperty = '';
+        el.style.transitionDuration = '';
+        el.style.transitionTimingFunction = '';
+        el.style.transitionDelay = '';
+        el.style.willChange = '';
+      }, 1000);
+    }
+
+    // `threshold: 0` a propósito: con un umbral por encima de cero, una pieza
+    // cuya imagen aún no ha cargado mide cero de alto, no llega al umbral y se
+    // queda escondida a la vista de todos. Pasó en el índice del blog.
+    var ojo = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) { if (e.isIntersecting) revelar(e.target); });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+
+    vistos.forEach(function (el) { ojo.observe(el); });
+
+    // Red de seguridad: cuando ha cargado todo —imágenes incluidas— la maqueta
+    // se ha movido, y lo que haya quedado escondido dentro de la ventana se
+    // enseña sin esperar a que el usuario baje. Una pieza invisible es peor que
+    // una pieza sin animar.
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        vistos.forEach(function (el) {
+          if (el.style.opacity !== '0') return;
+          var c = el.getBoundingClientRect();
+          if (c.top < (window.innerHeight || 0) && c.bottom > 0) revelar(el);
+        });
+      }, 300);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', montar);
+  else montar();
+})();
 
 /* ====== Selector de idioma ======
    Se construye con los <link rel="alternate" hreflang> que ya lleva la página,

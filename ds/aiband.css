@@ -25,7 +25,7 @@
 
    LOS DATOS SON LOS DEL TOUR
    UTD26_163_001 es la fuga de aceite de la cinta L3, la misma que sale en la
-   home y en /incidencias/. Pablo cierra las de la L3, Ginés firma los
+   home y en /incidencias/. Pablo cierra las de la L3, Javier firma los
    registros, y las cifras de junio son las del tablero. Coherencia de datos
    entre piezas: si aquí un código significara otra cosa, el sistema mentiría.
 
@@ -611,6 +611,22 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
   .iavideo__v{ aspect-ratio:16/10; object-fit:cover }
 }
 
+/* — El vídeo dentro del encuadre, no a sangre —
+   Venía de ds/ia-dark.css, donde estaba por accidente: es una variante del
+   componente y no del tema oscuro de /ia/. Desde el 7 de septiembre de 2026 la
+   usa también /auditorias/, que es una página de papel y no carga aquella hoja.
+   El vídeo ocupa la misma columna que el texto de arriba y la rejilla de abajo,
+   que es lo que hace que se lea como parte de la página y no como un anuncio
+   incrustado. */
+.iavideo--grid{
+  padding-block:0;
+  background:transparent;
+}
+.iavideo--grid .iavideo__v{
+  border-radius:var(--ds-radius-card);
+  border:1px solid #2A2E34;
+}
+
 /* =========================================================
    VARIANTE .aiband--canales — de dónde vienen y en qué se convierten
    ---------------------------------------------------------
@@ -636,11 +652,25 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
    ========================================================= */
 .aiband--canales .canales{
   display:grid;
-  grid-template-columns:minmax(0,4fr) 92px minmax(0,5fr);
+  grid-template-columns:minmax(0,4fr) 150px minmax(0,5fr);
   align-items:center;
   gap:0;
   position:relative;
   margin-top:38px;
+}
+
+/* — La calle —
+   La columna del medio es un elemento con nombre, y no una capa por encima de
+   todo, porque ahí es donde pasa la generación: los hilos, el núcleo y su
+   pulso. Metidos aquí dentro no pueden montarse sobre las tarjetas ni sobre la
+   ficha —el reparto de la rejilla lo impide—, que es la regla de la pieza: lo
+   que la IA hace se ve ENTRE los dos planos, no encima de ellos.
+   Se estira a lo alto (`align-self`) porque `.canales` centra sus items y los
+   hilos tienen que salir a la altura de cada tarjeta. */
+.canales__paso{
+  position:relative;
+  align-self:stretch;
+  display:grid; place-items:center;
 }
 
 /* — Las entradas —
@@ -657,10 +687,15 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
 .canal:nth-child(2){ animation-delay:.28s }
 .canal:nth-child(3){ animation-delay:.56s }
 .canal:nth-child(4){ animation-delay:.84s }
+/* LA SALIDA NO SE VA HACIA EL NÚCLEO, SE APAGA EN SU SITIO (8 sep 2026).
+   Salía con `translate3d(46px)` y esos 46 px la metían dentro de la calle: la
+   tarjeta se cruzaba con los hilos justo cuando los hilos entran, que es lo
+   contrario de lo que la pieza tiene que enseñar. El viaje al núcleo lo cuenta
+   el hilo —para eso está—; la tarjeta sólo se apaga. */
 @keyframes canal-va{
   0%      { opacity:0; transform:translate3d(-14px,0,0) }
   7%,38%  { opacity:1; transform:none }
-  52%,100%{ opacity:0; transform:translate3d(46px,0,0) scale(.94) }
+  52%,100%{ opacity:0; transform:scale(.94) }
 }
 .canal__de{
   display:flex; align-items:center; gap:7px;
@@ -685,6 +720,14 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
   font:var(--type-body-md); color:#E7E9EC;
 }
 .canal__check{ display:block; margin-top:4px; text-align:right; color:#5AC8FA; font-size:11px }
+/* Teams no es WhatsApp: ni verde ni doble check. La burbuja recibida se pinta
+   con el índigo de la marca lavado sobre grafito —relleno saturado a este
+   tamaño vibra, la misma regla que las píldoras de estado— y con el pico a la
+   izquierda, que es de donde viene el mensaje. */
+.canal__burbuja--teams{
+  background:#23264A; border-color:#3A3F73;
+  border-radius:10px 10px 10px 2px;
+}
 
 /* Dos renglones de vista previa: el correo se reconoce por la forma, no hace
    falta escribir un cuerpo entero. */
@@ -710,7 +753,6 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
 
 /* — El núcleo — */
 .canales__nucleo{
-  justify-self:center;
   position:relative; z-index:2;
   width:56px; height:56px;
   display:grid; place-items:center;
@@ -733,7 +775,10 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
   62%,100% { opacity:0; transform:scale(1.5) }
 }
 
-/* — Los hilos — */
+/* — Los hilos —
+   Absolutos DENTRO de la calle, no dentro de la convergencia: el trazado nace
+   en el borde de las tarjetas (x=0) y muere en el del núcleo (x=33), así que no
+   pasa por debajo de nada. El quinto es la salida, del núcleo a la ficha. */
 .canales__hilos{
   position:absolute; inset:0; width:100%; height:100%;
   pointer-events:none; z-index:0; overflow:visible;
@@ -749,6 +794,9 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
 .canales__hilos path:nth-child(3){ animation-delay:.56s }
 .canales__hilos path:nth-child(4){ animation-delay:.84s }
 @keyframes hilo{ 0%,34%{ opacity:0 } 40%,54%{ opacity:1 } 60%,100%{ opacity:0 } }
+/* La salida va con la ficha, no con las entradas: primero llega, luego sale. */
+.canales__hilos .canales__hilo--sal{ animation-name:hilo-sal; animation-delay:0s }
+@keyframes hilo-sal{ 0%,48%{ opacity:0 } 56%,92%{ opacity:1 } 100%{ opacity:0 } }
 
 /* — La salida: la incidencia ya con forma — */
 .canales__ficha{
@@ -791,6 +839,7 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
 }
 @media (max-width:900px){
   .aiband--canales .canales{ grid-template-columns:1fr; gap:22px }
+  .canales__paso{ align-self:center }
   .canales__hilos{ display:none }
   .canal{ animation:none; opacity:1 }
   .canales__ficha{ animation:none; opacity:1; transform:none }
@@ -867,7 +916,7 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
    las tarjetas. La proporción entre los dos planos no cambia. */
 .aiband--caja .canales{
   margin-top:0;
-  grid-template-columns:minmax(0,5fr) 72px minmax(0,6fr);
+  grid-template-columns:minmax(0,5fr) 128px minmax(0,6fr);
 }
 .aiband--caja .canales__ent{ gap:8px }
 .aiband--caja .canal{ padding:9px 10px }
@@ -881,7 +930,7 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
    deshace: encabezado arriba, convergencia abajo, ancho entero para las dos. */
 @media (max-width:1279px){
   .aiband--caja .aiband__inner{ grid-template-columns:1fr; gap:28px }
-  .aiband--caja .canales{ grid-template-columns:minmax(0,4fr) 92px minmax(0,5fr) }
+  .aiband--caja .canales{ grid-template-columns:minmax(0,4fr) 150px minmax(0,5fr) }
   .aiband--caja .canales__nucleo{ width:56px; height:56px }
   .aiband--caja .canales__nucleo svg{ width:22px; height:22px }
 }
@@ -901,3 +950,103 @@ img.aiband__ava{ object-fit:cover; background:#2A2E34 }
   padding-bottom:2px;
 }
 .aiband--caja .cab__link:hover{ color:#fff; border-bottom-color:rgba(255,255,255,.6) }
+
+/* — La variante de documentos (7 sep 2026, /auditorias/) —
+   La misma convergencia, con dos entradas en vez de cuatro: el control que la
+   planta ya tiene escrito en una hoja de cálculo o en un documento de texto. Lo
+   que sale no es una ficha, es la plantilla de registro con sus controles y sus
+   tipos, que es la función «importación automática de checklists» de /ia/.
+
+   Se apoya entera en lo que ya existe —`.canal`, `.canales__ficha`,
+   `.aiband__row`— y sólo añade dos cosas que no tenían forma: la retícula que
+   hace reconocible una hoja de cálculo y una etiqueta neutra para el tipo de
+   control, que hasta ahora sólo existía en OK, KO, media y curso. */
+/* — EL DOCUMENTO —
+   Las entradas de esta variante no son tarjetas: son los ficheros que la planta
+   ya tiene, así que tienen forma de hoja —papel claro, esquina doblada y el
+   logotipo del formato—. Papel sobre grafito y no otra tarjeta oscura, a
+   propósito: lo que entra viene de fuera de Solved, y esa distinción es la que
+   cuenta la pieza. La regla de que «todo lo de IA va sobre grafito» sigue en
+   pie; el documento no es la IA, es lo que la IA se come.
+
+   La inclinación mínima —un grado largo, alterna— es lo que los lee como dos
+   papeles encima de la mesa y no como dos cajas apiladas. Más grado y sería un
+   adorno; con éste, apenas se ve y se nota. */
+.doc{
+  position:relative;
+  background:#F5F6F8;
+  border:1px solid #D9DCE1;
+  border-radius:8px;
+  /* La esquina cortada va en el propio papel: con el triángulo pegado encima y
+     la esquina redondeada debajo asomaba el fondo por detrás y parecía un
+     defecto de pintado. Recortando la hoja, el pliegue es la hoja. */
+  clip-path:polygon(0 0, calc(100% - 17px) 0, 100% 17px, 100% 100%, 0 100%);
+  padding:12px 13px 13px;
+  display:grid;
+  grid-template-columns:26px minmax(0,1fr);
+  gap:8px 10px;
+  align-items:center;
+  box-shadow:0 14px 30px rgba(0,0,0,.34);
+}
+.doc:nth-child(1){ transform:rotate(-1.1deg) }
+.doc:nth-child(2){ transform:rotate(.9deg) }
+
+/* La esquina doblada: el triángulo del pliegue, en el papel y con su sombra.
+   Es lo que convierte un rectángulo en una hoja de un vistazo. */
+/* El pliegue va DENTRO de la hoja, pegado al corte: la esquina recortada deja
+   ver el grafito y este triángulo es el reverso del papel doblado. Puesto en la
+   mitad de fuera se lo comía el propio recorte, que es lo que pasó primero. */
+.doc__pico{
+  position:absolute; top:0; right:0;
+  width:17px; height:17px;
+  background:#D6DAE1;
+  clip-path:polygon(0 0, 100% 100%, 0 100%);
+}
+.doc__logo{ display:block; width:26px; height:26px }
+.doc__logo svg{ width:100%; height:100% }
+.doc__nom{
+  font:var(--font-weight-regular) 12px/1.25 var(--font-sans);
+  color:#2A2F36;
+  min-width:0;
+}
+.doc__nom b{ font-weight:var(--font-weight-thin); color:#6B727C }
+
+/* La vista previa ocupa las dos columnas: la retícula dice hoja de cálculo y
+   los renglones dicen documento de texto. No hay que escribir celdas ni
+   párrafos para que se reconozca la forma. */
+.doc__celdas{ grid-column:1 / -1; display:grid; grid-template-columns:repeat(4,1fr); gap:3px }
+.doc__celdas i{ height:6px; border-radius:2px; background:#DDE0E5 }
+.doc__celdas i:nth-child(4n+1){ background:#C3C8D0 }
+.doc__lineas{ grid-column:1 / -1; display:grid; gap:4px }
+.doc__lineas i{ height:5px; border-radius:3px; background:#DDE0E5 }
+.doc__lineas i:nth-child(2){ width:82% }
+.doc__lineas i:nth-child(3){ width:56% }
+
+/* El tipo de un control no es un estado —no es OK ni KO—, así que va en tinta
+   neutra: si se pintara de color, diría algo que no dice. */
+.aiband__tag--tipo{ background:rgba(231,233,236,.10); color:#B9BEC6 }
+
+/* LOS DOCUMENTOS NO DESFILAN: SE QUEDAN.
+   En /incidencias/ las entradas entran y salen en bucle porque son avisos que
+   van llegando por canales distintos —esa es la idea—. Aquí son dos ficheros
+   que alguien sube una vez, así que verlos aparecer y desaparecer contaba algo
+   que no pasa. Y con dos tarjetas en vez de cuatro el bucle además se veía
+   roto: la mitad del tiempo había una sola en pantalla y parecía un fallo de
+   carga. Lo que se mueve es el haz y la plantilla que sale de él. */
+.aiband--docs .canal{ animation:none; opacity:1; transform:none }
+
+/* — La tira de compatibilidad MCP dentro de la banda —
+   La tira vive en ds/site.css y está escrita para fondo claro. Dentro de la
+   banda el fondo es grafito, así que aquí se reasignan las tres cosas que
+   dependen del fondo —hairline, tinta y el icono monocromo de ChatGPT, que es
+   negro sobre transparente y sobre grafito no se ve— y nada más. Es la misma
+   reasignación que hace ds/ia-dark.css para la página /ia/. */
+.aiband .mcp{
+  border-top-color:rgba(231,233,236,.16);
+  color:rgba(231,233,236,.66);
+  margin-top:22px;
+}
+.aiband .mcp__lb{ border-color:rgba(231,233,236,.28); color:rgba(231,233,236,.86) }
+.aiband .mcp__logo{ color:#E7E9EC }
+.aiband .mcp__logo--mono img{ filter:invert(1) }
+

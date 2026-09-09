@@ -129,6 +129,162 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -157,14 +313,14 @@
 <!-- Solved Design System (Claude Design) — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260907a">
-<link rel="stylesheet" href="/ds/hero.css?v=20260903a">
+<link rel="stylesheet" href="/ds/site.css?v=20260908a">
+<link rel="stylesheet" href="/ds/hero.css?v=20260907e">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260903b">
+<link rel="stylesheet" href="/ds/scene.css?v=20260908b">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
-<link rel="stylesheet" href="/ds/app.css?v=20260904d">
+<link rel="stylesheet" href="/ds/app.css?v=20260908b">
 <link rel="stylesheet" href="/ds/dialog.css?v=20260816d">
-<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
+<link rel="stylesheet" href="/ds/sections.css?v=20260908a">
 </head>
 <body data-screen-label="Home">
 
@@ -208,6 +364,19 @@
         <a class="ds-btn ds-btn--primary" href="#contacto">Demander une démo</a>
         <a class="ds-btn ds-btn--secondary" href="/fr/gestion-des-incidents/">Voir le fonctionnement</a>
       </div>
+      <!-- Tira de compatibilidad MCP (ds/site.css). Los iconos son marcas de sus
+                 titulares y se usan como referencia de compatibilidad: procedencia y
+                 condiciones en assets/mcp/FUENTES.md. El nombre va escrito en la
+                 tipografía del sitio, no en el wordmark de cada marca. -->
+            <div class="mcp">
+              <span class="mcp__lb">Serveur MCP</span>
+              <span class="mcp__logos">
+                <span class="mcp__logo"><img src="/assets/mcp/claude.webp" alt="" width="96" height="96" decoding="async" loading="lazy">Claude</span>
+                <span class="mcp__logo mcp__logo--mono"><img src="/assets/mcp/chatgpt.webp" alt="" width="96" height="96" decoding="async" loading="lazy">ChatGPT</span>
+                <span class="mcp__logo"><img src="/assets/mcp/gemini.webp" alt="" width="96" height="96" decoding="async" loading="lazy">Gemini</span>
+              </span>
+              <span class="mcp__txt">Pilotez Solved depuis les outils d'IA que vous utilisez déjà</span>
+            </div>
     </div>
   </div>
 </section>
@@ -253,60 +422,6 @@
 <!-- ============ DEMO INTERACTIVA ============ -->
 
 
-<!-- ============ AUTORIDAD ============
-     Bloque 2 del orden nuevo (1 sep 2026): la home deja de ser la página del
-     responsable de calidad y pasa a ser la general de marca, así que dice quién
-     es Solved ANTES de contar qué hace. Ocupa el hueco que "STATS BAND" llevaba
-     reservado desde el principio.
-
-     Las cuatro cifras salen del propio repositorio, no de fuera: 29 son los
-     logos de la cinta de aquí arriba (assets/clients-color), 64 el catálogo de
-     assets/docs/solved-integraciones-erp-mes-gmao.pdf que ya sostiene
-     /integraciones/, las 2-3 semanas son la cifra que ya usa
-     /industria-alimentaria/ y los 3 casos los de /casos-de-exito/.
-
-     La cuarta cifra era «6 módulos en un único sistema, con implantación
-     modular» y el 7 de septiembre de 2026 se cambió por una de negocio: decía
-     el alcance del producto, no un resultado, y la sección de abajo ya lo
-     cuenta con más detalle («La implantación es modular: se activa un módulo y
-     se amplía el alcance sin migrar de sistema»). Los +70.000 € salen de la
-     franja de resultados de /incidencias/ —«indicadores registrados por
-     clientes de Solved durante su primer año de uso»—, así que la cifra no es
-     nueva: se mueve. Lo que sí se adapta es el rótulo, que allí se apoya en el
-     encabezado de la sección y aquí tiene que sostenerse solo; de ahí el «por
-     cliente». Si la cifra se revisa, hay que tocarla en los dos sitios.
-
-     PENDIENTE DE CLIENTE, y las dos cosas van juntas:
-     (a) 29 es el SUELO, no el dato. Faltan 19 logos por recuperar (pendiente 4),
-         así que la cifra real de clientes es mayor y hay que confirmarla antes
-         de publicar.
-     (b) La frase de origen sale de lo que el propio equipo comercial dice en las
-         llamadas —"una empresa de software que surgió de una consultora de
-         calidad para industria"—. Es la única pieza de autoridad que explica por
-         qué el producto se monta sobre los procedimientos del cliente, pero
-         conviene que la validen antes de darla por buena en la home. -->
-<section class="section section--tight" data-screen-label="Home · Autoridad">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Un système qui s'adapte à vos procédures, et non l'inverse</h2>
-      <p>Solved a été développé à l'intérieur d'usines industrielles, sur des processus de production en marche. Il se configure sur les procédures que vous avez déjà documentées : rien n'est à refaire pour démarrer.</p>
-    </div>
-    <div class="ds-stats">
-      <div class="ds-stat"><b>+100</b><span>entreprises industrielles travaillent déjà avec Solved</span></div>
-      <div class="ds-stat"><b>64</b><span>systèmes ERP, MES et GMAO connectés</span></div>
-      <div class="ds-stat"><b>2-3</b><span>semaines de déploiement</span></div>
-      <div class="ds-stat"><b>+70.000€</b><span>d'économies annuelles sur les coûts opérationnels par client</span></div>
-    </div>
-    <!-- Foto de ambiente del bloque de autoridad (1 sep 2026). Sustituye al
-         hueco .img-slot con su prompt: cuando la imagen existe, el hueco
-         desaparece de la página (regla del patrón 6 de ds/sections.css).
-         Sigue siendo AMBIENTE: no se le pega interfaz encima ni se da a
-         entender que es la planta de un cliente concreto. -->
-    <img src="/assets/operarios-planta-alimentaria.webp" alt="Deux opérateurs en blouse et charlotte parcourent l'allée entre deux lignes de process d'une usine agroalimentaire ; l'un consulte une tablette" width="1600" height="571" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px);margin-top:var(--s-5)">
-  </div>
-</section>
-
-
 <!-- ============ MODULES ============ -->
 <section class="section" data-screen-label="Home · Módulos">
   <div class="wrap">
@@ -314,16 +429,22 @@
          texto, al mismo tamaño y con distinto color. No se pueden apilar sin
          perder el efecto — ver .section-head--flow en ds/site.css. -->
     <div class="section-head section-head--flow">
-      <h2>Commencez par un module et étendez quand vous en avez besoin, <span class="ds-dim">sans changer de système.</span></h2>
-      <!-- El párrafo enumera los cuatro módulos a propósito. Al pasar esta
-           sección de "módulos" a "utilidades" (14 ago) las tarjetas dejaron de
-           nombrarlos y la home se quedó sin «acciones correctivas» ni
-           «plantillas», y con «no conformidades» una sola vez. Este es el sitio
-           donde se recuperan: el encabezado pinta su párrafo a tamaño display,
-           así que no admite un bloque de texto — sólo cambiar las palabras
-           genéricas por las concretas, que además responden al «todo» del
-           titular. Si se alarga más, deja de leerse de un golpe. -->
-      <p>Avec les actions correctives et les non-conformités issues de chaque écart, sur les modèles de votre propre organisation, et les indicateurs qui les résument. Le déploiement est modulaire : on active un module et on élargit le périmètre sans migrer de système ni refaire la formation.</p>
+      <h2>Captez toutes les données de l'usine et <span class="ds-dim">menez vos équipes au niveau supérieur.</span></h2>
+      <!-- Encabezado reescrito el 8 de septiembre de 2026 por el cliente. El
+           anterior vendía la implantación modular —«empieza por un módulo y
+           amplía… con las acciones correctivas y las no conformidades…»— y el
+           nuevo vende el dato: capturarlo en planta y verlo en tiempo real.
+
+           OJO CON LO QUE SE LLEVA POR DELANTE: aquel párrafo enumeraba los
+           cuatro módulos a propósito, porque al pasar esta sección de
+           «módulos» a «utilidades» (14 ago) las tarjetas dejaron de nombrarlos
+           y era el único sitio de la home donde quedaban escritas «acciones
+           correctivas» y «plantillas». Ya no están en la home; si hacen falta
+           para SEO, el sitio donde caben es el pie de las tarjetas, no aquí.
+
+           El encabezado pinta su párrafo a tamaño display, así que no admite un
+           bloque de texto: si se alarga más, deja de leerse de un golpe. -->
+      <p>Construisez un système qui vous montre en temps réel l'activité de votre usine et qui en extrait les données les plus décisives.</p>
     </div>
 
     <!-- ============================================================
@@ -346,9 +467,74 @@
          ============================================================ -->
 
     <div class="scene-grid">
+      <!-- Capa de IA: única escena sobre grafito. El tinte morado y el fondo
+           oscuro se activan con el mismo data-module, así que no se pueden
+           separar por descuido. -->
+      <button type="button" class="scene" data-module="ia" data-span="12" data-ratio="21:9">
+        <h3 class="scene__title">Interrogez les données de l'usine en langage naturel</h3>
+        <span class="scene__glow" aria-hidden="true"></span>
+        <span class="scene__expand" data-expand-target="u-ia" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"></path></svg></span>
+        <div class="scene__media" data-crop="b">
+          <div class="app app--ia" aria-hidden="true">
+            <div class="app__top">
+              <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
+              <span class="app__vbar"></span><span class="app__topttl">AI</span>
+              <span class="app__spacer"></span><span class="app__me">J</span>
+            </div>
+            <!-- LA CONVERSACIÓN, NO SU RESULTADO (8 sep 2026). Antes esta
+                 pantalla enseñaba la respuesta ya escrita, y eso podía ser
+                 cualquier cosa: un texto puesto a mano. Ahora se ve el gesto
+                 entero —se escribe la pregunta, la IA piensa, y contesta con
+                 palabras Y con un gráfico—, que es lo que distingue «un chat»
+                 de «un chat sobre tus datos».
+
+                 Los cuatro tiempos van al mismo reloj de 12 s:
+                   0–18 %   se escribe la pregunta (la burbuja crece con ella)
+                   18–30 %  los tres puntos de pensar
+                   30–40 %  las dos líneas de la respuesta
+                   42–54 %  las barras del gráfico suben
+                 Si se toca la duración hay que tocarla en los cuatro sitios, o
+                 la IA contestará antes de que acabe la pregunta.
+
+                 El gráfico no es un adorno: la función de IA que lo justifica
+                 es «generar informes con gráficos», y los datos son los de la
+                 cinta L3, la misma avería que sale en las otras escenas. -->
+            <div class="app__chat app__chat--guion">
+              <div class="app__ask app__ask--escribe"><span>Combien de fois le convoyeur L3 est-il tombé en panne ce semestre ?</span></div>
+
+              <div class="app__think" aria-hidden="true"><span></span><span></span><span></span></div>
+
+              <div class="app__answer">
+                <span class="app__aiico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10z"></path></svg></span>
+                <div>
+                  <p><span class="app__ref">14 incidents</span> sur le convoyeur L3 depuis janvier, et neuf d'entre eux sont la même fuite d'huile —<span class="app__ref">UTD26_163_001</span>—.</p>
+                  <p>En juin, il n'y en a plus qu'un : les deux actions préventives de mai sont clôturées.<span class="app__cursor"></span></p>
+
+                  <figure class="app__iachart">
+                    <figcaption>Incidents sur le convoyeur L3 · de janvier à juin</figcaption>
+                    <div class="app__iabars">
+                      <span class="app__iabar" style="--v:.72"><i></i><b>JAN</b></span>
+                      <span class="app__iabar" style="--v:1"><i></i><b>FÉV</b></span>
+                      <span class="app__iabar" style="--v:.86"><i></i><b>MAR</b></span>
+                      <span class="app__iabar" style="--v:.57"><i></i><b>AVR</b></span>
+                      <span class="app__iabar" style="--v:.43"><i></i><b>MAI</b></span>
+                      <span class="app__iabar" style="--v:.14"><i></i><b>JUIN</b></span>
+                    </div>
+                  </figure>
+                </div>
+              </div>
+
+              <div class="app__prompt">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
+                Posez une question sur les incidents, les enregistrements ou les actions…
+              </div>
+            </div>
+          </div>
+        </div>
+      </button>
 
       <!-- El aparato ES el argumento: se reporta de pie, delante de la máquina. -->
-      <button type="button" class="scene" data-module="incidencias" data-span="6" data-ratio="1:1">
+      <button type="button" class="scene" data-module="incidencias" data-span="4" data-ratio="fila">
         <h3 class="scene__title">Un journal centralisé des incidents et des réclamations, quelle qu'en soit l'origine</h3>
         <span class="scene__glow" aria-hidden="true"></span>
         <span class="scene__expand" data-expand-target="u-reportar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"></path></svg></span>
@@ -368,28 +554,42 @@
         <div class="scene__media" data-crop="b">
           <div class="hub" aria-hidden="true">
             <svg class="hub__wires" viewBox="0 0 420 320" preserveAspectRatio="none" aria-hidden="true">
-              <path class="hub__wire" d="M132 46 C132 72, 196 70, 208 92"></path>
+              <path class="hub__wire" d="M67 46 C67 76, 188 68, 207 92"></path>
               <path class="hub__wire" d="M210 46 L210 92"></path>
-              <path class="hub__wire" d="M288 46 C288 72, 224 70, 212 92"></path>
-              <path class="hub__pulse hub__pulse--a" d="M132 46 C132 72, 196 70, 208 92"></path>
-              <path class="hub__pulse hub__pulse--b" d="M210 46 L210 92"></path>
-              <path class="hub__pulse hub__pulse--c" d="M288 46 C288 72, 224 70, 212 92"></path>
+              <path class="hub__wire" d="M353 46 C353 76, 232 68, 213 92"></path>
+              <!-- `pathLength="100"` sólo en las bolitas: normaliza los tres
+                   cables para el CSS, que así los recorre en el mismo tiempo con
+                   un único juego de fotogramas. En los cables NO se pone: les
+                   cambiaría el patrón de 5 5 del trazo discontinuo. -->
+              <path class="hub__pulse hub__pulse--a" pathLength="100" d="M67 46 C67 76, 188 68, 207 92"></path>
+              <path class="hub__pulse hub__pulse--b" pathLength="100" d="M210 46 L210 92"></path>
+              <path class="hub__pulse hub__pulse--c" pathLength="100" d="M353 46 C353 76, 232 68, 213 92"></path>
             </svg>
 
-            <span class="hub__node hub__node--a" style="left:31.4%;top:14.4%">
-              <img src="/assets/hub/sensor-iot.webp" alt="" width="256" height="256" loading="lazy" decoding="async">
+            <!-- Los tres orígenes los fijó el cliente el 8 de septiembre de 2026:
+                 eran «Sensor IoT · ERP · Máquina» —dos de ellos vías por las que
+                 el dato entra solo— y ahora son los tres por los que entra de
+                 verdad hoy. Con la etiqueta cambia el icono: una foto de sensor
+                 bajo «Correo de proveedor/cliente» diría lo contrario que el
+                 rótulo. Van con `.bico`, que es la utilidad de los iconos del
+                 brandbook (máscara + currentColor), no como <img>: así toman el
+                 gris de la burbuja. El de en medio se queda con el logotipo de
+                 SAP —es un ERP real y se reconoce; la etiqueta nombra las tres
+                 familias, el icono enseña una—. -->
+            <span class="hub__node hub__node--a" style="left:16%;top:14.4%">
+              <i class="bico" style="--bico:url('/assets/iconos/mail.svg')"></i>
             </span>
-            <span class="hub__tag" style="left:31.4%;top:14.4%">Capteur IoT</span>
+            <span class="hub__tag" style="left:16%;top:14.4%">E-mail fournisseur/client</span>
 
             <span class="hub__node hub__node--b" style="left:50%;top:14.4%">
               <img src="/assets/integrations/sap.webp" alt="" width="80" height="32" loading="lazy" decoding="async">
             </span>
-            <span class="hub__tag" style="left:50%;top:14.4%">ERP</span>
+            <span class="hub__tag" style="left:50%;top:14.4%">ERP/MES/GMAO</span>
 
-            <span class="hub__node hub__node--c" style="left:68.6%;top:14.4%">
-              <img src="/assets/hub/maquina.webp" alt="" width="256" height="256" loading="lazy" decoding="async">
+            <span class="hub__node hub__node--c" style="left:84%;top:14.4%">
+              <i class="bico" style="--bico:url('/assets/iconos/lista.svg')"></i>
             </span>
-            <span class="hub__tag" style="left:68.6%;top:14.4%">Machine</span>
+            <span class="hub__tag" style="left:84%;top:14.4%">Modèles Solved</span>
 
             <!-- El destino: el mismo listado de incidencias de siempre -->
             <div class="hub__phone" style="left:50%;top:28.8%">
@@ -398,7 +598,7 @@
                   <div class="app app--movil">
                     <div class="app__top">
                       <span class="app__topttl">Incidents</span>
-                      <span class="app__spacer"></span><span class="app__me">G</span>
+                      <span class="app__spacer"></span><span class="app__me">J</span>
                     </div>
                     <div class="app__mfilters">
                       <span class="app__mchip app__mchip--on">Ouverts
@@ -410,25 +610,33 @@
                       <!-- En orden inverso a propósito: la que nace se pone ARRIBA.
                            Las que aún no han llegado miden cero de alto, así que la
                            primera visible es siempre la más nueva. -->
+                      <!-- Al cambiar los orígenes (8 sep 2026) las tres fichas
+                           ROTAN, no se reescriben: cada texto se va con la
+                           burbuja a la que pertenece. Una reclamación llega por
+                           correo, una parada la canta el MES o el GMAO y una
+                           temperatura fuera de rango sale de un control de la
+                           plantilla. Cambiar el rótulo dejando el texto habría
+                           puesto «Temperatura fuera de rango» a nombre del
+                           correo de un cliente. -->
                       <li class="app__mcard hub__new hub__new--c">
                         <div class="app__mtxt">
-                          <span class="app__code">UTD26_164_PAR</span><span class="app__dot"></span>
-                          <div class="app__mdesc">Arrêt non planifié sur la ligne 2</div>
-                          <div class="app__mmeta"><span class="app__tag app__tag--alta">Haute</span> Machine</div>
+                          <span class="app__code">UTD26_164_001</span><span class="app__dot"></span>
+                          <div class="app__mdesc">Température hors plage dans la chambre 2</div>
+                          <div class="app__mmeta"><span class="app__tag app__tag--alta">Haute</span> Modèles Solved</div>
                         </div>
                       </li>
                       <li class="app__mcard hub__new hub__new--b">
                         <div class="app__mtxt">
-                          <span class="app__code">UTD26_164_EXQ</span><span class="app__dot"></span>
-                          <div class="app__mdesc">Réclamation client sur la commande 4471</div>
-                          <div class="app__mmeta"><span class="app__tag app__tag--media">Moyenne</span> ERP</div>
+                          <span class="app__code">UTD26_164_PAR</span><span class="app__dot"></span>
+                          <div class="app__mdesc">Arrêt non planifié sur la ligne 2</div>
+                          <div class="app__mmeta"><span class="app__tag app__tag--alta">Haute</span> ERP/MES/GMAO</div>
                         </div>
                       </li>
                       <li class="app__mcard hub__new">
                         <div class="app__mtxt">
-                          <span class="app__code">UTD26_164_001</span><span class="app__dot"></span>
-                          <div class="app__mdesc">Température hors plage dans la chambre 2</div>
-                          <div class="app__mmeta"><span class="app__tag app__tag--alta">Haute</span> Capteur IoT</div>
+                          <span class="app__code">UTD26_164_EXQ</span><span class="app__dot"></span>
+                          <div class="app__mdesc">Réclamation client sur la commande 4471</div>
+                          <div class="app__mmeta"><span class="app__tag app__tag--media">Moyenne</span> E-mail fournisseur/client</div>
                         </div>
                       </li>
                       <li class="app__mcard">
@@ -436,7 +644,7 @@
                         <div class="app__mtxt">
                           <span class="app__code">UTD26_163_001</span>
                           <div class="app__mdesc">Fuite d'huile sur le convoyeur L3</div>
-                          <div class="app__mmeta"><span class="app__tag app__tag--media">Moyenne</span> 26/06 · Ginés</div>
+                          <div class="app__mmeta"><span class="app__tag app__tag--media">Moyenne</span> 26/06 · Javier</div>
                         </div>
                       </li>
                     </ul>
@@ -448,120 +656,62 @@
         </div>
       </button>
 
-      <button type="button" class="scene" data-module="acciones" data-span="6" data-ratio="1:1">
-        <h3 class="scene__title">Attribution et suivi des tâches de chaque équipe</h3>
-        <span class="scene__glow" aria-hidden="true"></span>
-        <span class="scene__expand" data-expand-target="u-accion" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"></path></svg></span>
-        <div class="scene__media" data-crop="br">
-          <!-- La barra de filtros se queda FIJA arriba y son los botones los que
-               se encienden: primero el de departamento y después el de
-               responsable. Así se ve el gesto de filtrar —qué se pulsa y qué
-               pasa— en vez de aparecer y desaparecer chips distintos.
-               Debajo, tres vistas del listado superpuestas en la misma celda de
-               rejilla, para que la tabla no dé saltos de alto al cambiar. -->
-          <div class="app app--fragmento" aria-hidden="true">
-
-            <div class="app__filters">
-              <!-- Los filtros arrancan VACÍOS: sólo el nombre del campo y su
-                   flecha de desplegable. El valor —y el avatar, en el de
-                   persona— entra al seleccionarlo, que es el gesto que la
-                   tarjeta enseña. -->
-              <span class="app__filter app__filter--dep">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg>
-                Service<span class="app__fval">&nbsp;· Maintenance</span>
-                <svg class="app__fcar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
-              </span>
-              <span class="app__filter app__filter--resp">
-                <span class="app__fval app__fval--ava"><span class="app__ava" style="background:#1098AD">P</span></span>
-                Responsable<span class="app__fval">&nbsp;· Pablo</span>
-                <svg class="app__fcar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
-              </span>
-              <span class="app__cntswap">
-                <span class="app__cnt">9</span><span class="app__cnt">3</span><span class="app__cnt">2</span>
-              </span>
-            </div>
-
-            <div class="app__views">
-                <div class="app__view">
-                  <div class="app__card">
-                    <table class="app__table">
-                      <thead><tr><th style="width:34px"></th><th>Tâche</th><th>Responsable</th><th>Échéance</th><th>Statut</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Remplacer le joint du convoyeur L3</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_162_001</span><div class="app__dtxt">Vérifier l'éclairage de l'entrepôt</div></td><td><span class="app__user"><span class="app__ava" style="background:#8B4FE0">A</span> Ana</span></td><td><span class="app__num">30/06/2026</span></td><td><span class="app__tag app__tag--abierta">Ouverte</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Purger et étancher le circuit de conditionnement</div></td><td><span class="app__user"><span class="app__ava" style="background:#0E9F6E">L</span> Luis</span></td><td><span class="app__num">28/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_157_REC</span><div class="app__dtxt">Réclamer le lot au fournisseur</div></td><td><span class="app__user"><span class="app__ava" style="background:#E0489B">M</span> Marta</span></td><td><span class="app__num">25/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Changer le roulement du convoyeur</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Ouverte</span></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="app__view app__view--b">
-                  <div class="app__card">
-                    <table class="app__table">
-                      <thead><tr><th style="width:34px"></th><th>Tâche</th><th>Responsable</th><th>Échéance</th><th>Statut</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Remplacer le joint du convoyeur L3</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Purger et étancher le circuit de conditionnement</div></td><td><span class="app__user"><span class="app__ava" style="background:#0E9F6E">L</span> Luis</span></td><td><span class="app__num">28/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Changer le roulement du convoyeur</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Ouverte</span></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="app__view app__view--c">
-                  <div class="app__card">
-                    <table class="app__table">
-                      <thead><tr><th style="width:34px"></th><th>Tâche</th><th>Responsable</th><th>Échéance</th><th>Statut</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Remplacer le joint du convoyeur L3</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
-                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Changer le roulement du convoyeur</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Ouverte</span></td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </button>
-
       <!-- El aparato ES el argumento: la ronda se firma en la tablet de línea. -->
-      <button type="button" class="scene" data-module="checklists" data-span="6" data-ratio="1:1">
-        <h3 class="scene__title">Un contrôle dont le résultat est KO crée l'incident automatiquement</h3>
+      <button type="button" class="scene" data-module="checklists" data-span="8" data-ratio="4:3">
+        <h3 class="scene__title">Remplissez vos enregistrements en numérique et générez toute la documentation automatiquement</h3>
         <span class="scene__glow" aria-hidden="true"></span>
         <span class="scene__expand" data-expand-target="u-ko" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"></path></svg></span>
         <div class="scene__media" data-crop="dev-br">
           <div class="device" data-device="ipad">
             <div class="device__screen">
-          <!-- Un registro cumplimentado, no un listado de registros: lo que
-               demuestra el módulo es el papel relleno y firmado. El KO de las
-               luminarias abrió la incidencia UTD26_162_001, que sale también en
-               la tarjeta de Acciones — es la misma. -->
+          <!-- Un registro RELLENÁNDOSE, no uno ya relleno (8 sep 2026). Antes
+               esta pantalla enseñaba la ronda terminada y firmada, y el titular
+               hablaba del KO; ahora el titular dice que el registro se hace en
+               digital y la documentación sale sola, así que lo que hay que ver
+               es el gesto: cada control tiene SUS DOS BOTONES —OK y KO, como en
+               la app— y se van pulsando uno a uno, el contador sube y, cuando
+               cierra, aparece la firma con el informe ya generado. Los dos
+               botones están puestos desde el primer fotograma: la plantilla ya
+               existe, lo que ocurre delante es que alguien la responde.
+
+               Sigue siendo un registro y no un listado: lo que demuestra el
+               módulo es el papel relleno. El KO de las luminarias abrió la
+               incidencia UTD26_162_001, que sale también en la tarjeta de
+               Acciones — es la misma. -->
           <div class="app app--tablet" aria-hidden="true">
             <div class="app__top">
               <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
               <span class="app__vbar"></span>
               <span class="app__topttl">Enregistrements</span>
               <span class="app__spacer"></span>
-              <span class="app__me">G</span>
+              <span class="app__me">J</span>
             </div>
             <div class="app__rec">
               <div class="app__rechead">
                 <span class="app__recico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 5h7a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path><path d="M9 4h6v2H9zM10 11l1.4 1.4L14 9.6"></path></svg></span>
                 <div>
                   <div class="app__rect">Contrôle entrepôts</div>
-                  <div class="app__recs">26/06/2026 · 08:42 · Ginés</div>
+                  <div class="app__recs">26/06/2026 · 08:42 · Javier</div>
                 </div>
-                <span class="app__recprog">12 sur 12</span>
+                <span class="app__recprog"><span class="app__sw3 app__sw3--ronda"><span>6 sur 12</span><span>9 sur 12</span><span>12 sur 12</span></span></span>
               </div>
               <div class="app__items">
-                <div class="app__item"><span class="app__itemq">Éclairage</span><span class="app__link">UTD26_162_001</span><span class="app__opt app__opt--ko">KO</span></div>
-                <div class="app__item"><span class="app__itemq">Ordre et propreté</span><span class="app__opt app__opt--ok">OK</span></div>
-                <div class="app__item"><span class="app__itemq">Rayonnages sans dommage</span><span class="app__opt app__opt--ok">OK</span></div>
-                <div class="app__item"><span class="app__itemq">Lutte contre les nuisibles</span><span class="app__opt app__opt--ok">OK</span></div>
-                <div class="app__item"><span class="app__itemq">Température de la chambre</span><span class="app__opt app__opt--ok">OK</span></div>
-                <div class="app__item"><span class="app__itemq">Signalisation des sorties</span><span class="app__opt app__opt--ok">OK</span></div>
+                <div class="app__item"><span class="app__itemq">Éclairage</span><span class="app__link">UTD26_162_001</span><span class="app__opts"><span class="app__opt app__opt--ok">OK</span><span class="app__opt app__opt--ko app__opt--on">KO</span></span></div>
+                <div class="app__item"><span class="app__itemq">Ordre et propreté</span><span class="app__opts"><span class="app__opt app__opt--ok app__opt--on">OK</span><span class="app__opt app__opt--ko">KO</span></span></div>
+                <div class="app__item"><span class="app__itemq">Rayonnages sans dommage</span><span class="app__opts"><span class="app__opt app__opt--ok app__opt--on">OK</span><span class="app__opt app__opt--ko">KO</span></span></div>
+                <div class="app__item"><span class="app__itemq">Lutte contre les nuisibles</span><span class="app__opts"><span class="app__opt app__opt--ok app__opt--on">OK</span><span class="app__opt app__opt--ko">KO</span></span></div>
+                <div class="app__item"><span class="app__itemq">Température de la chambre</span><span class="app__opts"><span class="app__opt app__opt--ok app__opt--on">OK</span><span class="app__opt app__opt--ko">KO</span></span></div>
+                <div class="app__item"><span class="app__itemq">Signalisation des sorties</span><span class="app__opts"><span class="app__opt app__opt--ok app__opt--on">OK</span><span class="app__opt app__opt--ko">KO</span></span></div>
               </div>
-              <div class="app__sign">Signé par Ginés · 26/06/2026 08:42</div>
+              <!-- La firma llega cuando la ronda está cerrada, no antes: es el
+                   segundo verbo del titular —«genera toda la documentación»— y
+                   sale sin que nadie lo pida. El rótulo del informe es texto,
+                   no un `content` de CSS: el catálogo de traducción sólo ve el
+                   HTML. -->
+              <div class="app__sign app__sign--tarde">
+                Signé par Javier · 26/06/2026 08:42
+                <span class="app__signdoc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z"></path><path d="M14 3v4h4"></path><path d="M9 17l2-2 2 2 3-4"></path></svg> Rapport généré</span>
+              </div>
             </div>
           </div>
             </div>
@@ -570,7 +720,7 @@
       </button>
 
       <!-- Escritorio: la ventana, no el ordenador. Dice que es web y sin instalar. -->
-      <button type="button" class="scene" data-module="kpis" data-span="6" data-ratio="1:1">
+      <button type="button" class="scene" data-module="kpis" data-span="8" data-ratio="4:3">
         <h3 class="scene__title">Tableaux de bord configurables, mis à jour en temps réel</h3>
         <span class="scene__glow" aria-hidden="true"></span>
         <span class="scene__expand" data-expand-target="u-mirar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"></path></svg></span>
@@ -579,17 +729,24 @@
             <div class="device__screen">
           <!-- Ventana entera: con marco, la app va con su barra y su sidebar,
                que es como se ve al abrirla. Las cifras cuadran con las otras
-               tres tarjetas: cinco abiertas, una acción fuera de plazo. -->
+               tres tarjetas: cinco abiertas, una acción fuera de plazo.
+
+               EL MENÚ VA CONTRAÍDO (8 sep 2026, decisión del cliente). Es un
+               estado real de la app —el que se usa cuando se mira el tablero—
+               y aquí gana 88px de ancho para el tablero, que es lo que la
+               tarjeta enseña. Los rótulos NO se borran del marcado: los tapa
+               `.app__side--min`. Si se borraran, se caerían del catálogo de
+               traducción y volverían sin traducir el día que se despliegue. -->
           <div class="app" aria-hidden="true">
             <div class="app__top">
               <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
               <span class="app__vbar"></span>
               <span class="app__topttl">Rapports</span>
               <span class="app__spacer"></span>
-              <span class="app__me">G</span>
+              <span class="app__me">J</span>
             </div>
             <div class="app__body">
-              <div class="app__side">
+              <div class="app__side app__side--min">
                 <div class="app__co">
                   <img src="/assets/tour/tour-empresa.webp" alt="" width="44" height="44" loading="lazy" decoding="async">
                   <span>PopCorn Mediterránea</span>
@@ -778,34 +935,77 @@
         </div>
       </button>
 
-      <!-- Capa de IA: única escena sobre grafito. El tinte morado y el fondo
-           oscuro se activan con el mismo data-module, así que no se pueden
-           separar por descuido. -->
-      <button type="button" class="scene" data-module="ia" data-span="6" data-ratio="1:1">
-        <h3 class="scene__title">Interrogez les données de l'usine en langage naturel</h3>
+      <button type="button" class="scene" data-module="acciones" data-span="4" data-ratio="fila">
+        <h3 class="scene__title">Attribution et suivi des tâches de chaque équipe</h3>
         <span class="scene__glow" aria-hidden="true"></span>
-        <span class="scene__expand" data-expand-target="u-ia" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"></path></svg></span>
+        <span class="scene__expand" data-expand-target="u-accion" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"></path></svg></span>
         <div class="scene__media" data-crop="br">
-          <div class="app app--ia" aria-hidden="true">
-            <div class="app__top">
-              <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
-              <span class="app__vbar"></span><span class="app__topttl">AI</span>
-              <span class="app__spacer"></span><span class="app__me">G</span>
+          <!-- La barra de filtros se queda FIJA arriba y son los botones los que
+               se encienden: primero el de departamento y después el de
+               responsable. Así se ve el gesto de filtrar —qué se pulsa y qué
+               pasa— en vez de aparecer y desaparecer chips distintos.
+               Debajo, tres vistas del listado superpuestas en la misma celda de
+               rejilla, para que la tabla no dé saltos de alto al cambiar. -->
+          <div class="app app--fragmento" aria-hidden="true">
+
+            <div class="app__filters">
+              <!-- Los filtros arrancan VACÍOS: sólo el nombre del campo y su
+                   flecha de desplegable. El valor —y el avatar, en el de
+                   persona— entra al seleccionarlo, que es el gesto que la
+                   tarjeta enseña. -->
+              <span class="app__filter app__filter--dep">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg>
+                Service<span class="app__fval">&nbsp;· Maintenance</span>
+                <svg class="app__fcar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+              </span>
+              <span class="app__filter app__filter--resp">
+                <span class="app__fval app__fval--ava"><span class="app__ava" style="background:#1098AD">P</span></span>
+                Responsable<span class="app__fval">&nbsp;· Pablo</span>
+                <svg class="app__fcar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+              </span>
+              <span class="app__cntswap">
+                <span class="app__cnt">9</span><span class="app__cnt">3</span><span class="app__cnt">2</span>
+              </span>
             </div>
-            <div class="app__chat">
-              <div class="app__ask">Pourquoi la fuite du convoyeur L3 revient-elle ?</div>
-              <div class="app__answer">
-                <span class="app__aiico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10z"></path></svg></span>
-                <div>
-                  <p>J'ai trouvé <span class="app__ref">4 incidents</span> sur le convoyeur L3 depuis mars.</p>
-                  <p>Trois ont été clôturés en remplaçant le joint —<span class="app__ref">UTD26_163_001</span>, <span class="app__ref">UTD26_154_001</span>— et aucun n'a laissé d'action préventive ouverte.</p>
-                  <p>L'enregistrement <span class="app__ref">26_158</span> a marqué le contrôle de maintenance en KO deux fois avant la première fuite.<span class="app__cursor"></span></p>
+
+            <div class="app__views">
+                <div class="app__view">
+                  <div class="app__card">
+                    <table class="app__table">
+                      <thead><tr><th style="width:34px"></th><th>Tâche</th><th>Responsable</th><th>Échéance</th><th>Statut</th></tr></thead>
+                      <tbody>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Remplacer le joint du convoyeur L3</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_162_001</span><div class="app__dtxt">Vérifier l'éclairage de l'entrepôt</div></td><td><span class="app__user"><span class="app__ava" style="background:#8B4FE0">A</span> Ana</span></td><td><span class="app__num">30/06/2026</span></td><td><span class="app__tag app__tag--abierta">Ouverte</span></td></tr>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Purger et étancher le circuit de conditionnement</div></td><td><span class="app__user"><span class="app__ava" style="background:#0E9F6E">L</span> Luis</span></td><td><span class="app__num">28/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_157_REC</span><div class="app__dtxt">Réclamer le lot au fournisseur</div></td><td><span class="app__user"><span class="app__ava" style="background:#E0489B">M</span> Marta</span></td><td><span class="app__num">25/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Changer le roulement du convoyeur</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Ouverte</span></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </div>
-              <div class="app__prompt">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
-                Posez une question sur les incidents, les enregistrements ou les actions…
-              </div>
+                <div class="app__view app__view--b">
+                  <div class="app__card">
+                    <table class="app__table">
+                      <thead><tr><th style="width:34px"></th><th>Tâche</th><th>Responsable</th><th>Échéance</th><th>Statut</th></tr></thead>
+                      <tbody>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Remplacer le joint du convoyeur L3</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Purger et étancher le circuit de conditionnement</div></td><td><span class="app__user"><span class="app__ava" style="background:#0E9F6E">L</span> Luis</span></td><td><span class="app__num">28/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Changer le roulement du convoyeur</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Ouverte</span></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="app__view app__view--c">
+                  <div class="app__card">
+                    <table class="app__table">
+                      <thead><tr><th style="width:34px"></th><th>Tâche</th><th>Responsable</th><th>Échéance</th><th>Statut</th></tr></thead>
+                      <tbody>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Remplacer le joint du convoyeur L3</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">27/06/2026</span></td><td><span class="app__tag app__tag--curso">En cours</span></td></tr>
+                        <tr><td><span class="app__chk"></span></td><td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Changer le roulement du convoyeur</div></td><td><span class="app__user"><span class="app__ava" style="background:#1098AD">P</span> Pablo</span></td><td><span class="app__num">01/07/2026</span></td><td><span class="app__tag app__tag--abierta">Ouverte</span></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
@@ -815,34 +1015,195 @@
            infraestructura, y el grafito es el neutro del sistema. Si algún día
            necesita identidad propia, hay que añadir un séptimo valor a la lista
            de data-module, y eso es una decisión de diseño, no un apaño. -->
-      <button type="button" class="scene" data-module="activos" data-span="6" data-ratio="1:1">
+      <button type="button" class="scene" data-module="activos" data-span="12" data-ratio="21:9">
         <h3 class="scene__title">Intégration avec les systèmes déjà en place</h3>
         <span class="scene__glow" aria-hidden="true"></span>
         <span class="scene__expand" data-expand-target="u-integra" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"></path></svg></span>
-        <div class="scene__media" data-crop="br">
-          <div class="app" aria-hidden="true">
-            <div class="app__top">
-              <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
-              <span class="app__vbar"></span><span class="app__topttl">Intégrations</span>
-              <span class="app__spacer"></span><span class="app__me">G</span>
-            </div>
-            <div class="app__integra">
-              <div class="app__int"><img src="/assets/integrations/sap.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/dynamics.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/oracle.png" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/siemens.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/tulip.png" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int app__int--solved"><img src="/assets/integrations/solved.png" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/outlook.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <div class="app__int"><img src="/assets/integrations/gmail.webp" alt="" width="120" height="48" loading="lazy" decoding="async"></div>
-              <p class="app__intcap"><b>ERP, MES et GMAO.</b> Les rapports et les enregistrements se synchronisent avec le système déjà en place, sans rien ressaisir.</p>
+        <!-- EL PUENTE EN LA CARÁTULA (8 sep 2026, decisión del cliente).
+             Antes había aquí una rejilla de ocho logotipos —un catálogo, no una
+             demostración— y el puente sólo se veía al abrir la tarjeta. Ahora la
+             carátula enseña lo mismo que hay dentro: la incidencia sale de
+             Solved y entra en el ERP como parte de trabajo, con el mismo
+             identificador en los dos sistemas. Los logotipos siguen estando
+             —los enseña /integraciones/, que es su sitio, con los 64—.
+
+             Es una COPIA del puente del diálogo `u-integra`, no el mismo nodo:
+             un <dialog> no puede prestar su contenido a la página. Lo único que
+             cambia son los identificadores del SVG (`…-cara`): dos máscaras con
+             el mismo id en un documento resuelven las dos a la primera, y el
+             cable se quedaría sin recortar en una de ellas. Si el puente de
+             dentro se toca, este hay que tocarlo también. -->
+        <div class="scene__media scene__media--suelto" data-crop="br">
+      <div class="bridge" aria-hidden="true">
+
+        <div class="bridge__win device-box">
+          <div class="device" data-device="navegador" style="--device-url:'app.trysolved.com/incidencias'">
+            <div class="device__screen">
+              <div class="app">
+                <div class="app__top">
+                  <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
+                  <span class="app__vbar"></span><span class="app__topttl">Incidents</span>
+                  <span class="app__spacer"></span><span class="app__me">J</span>
+                </div>
+                <div class="app__body">
+                  <div class="app__side">
+                    <div class="app__co">
+                      <img src="/assets/tour/tour-empresa.webp" alt="" width="44" height="44" loading="lazy" decoding="async">
+                      <span>PopCorn Mediterránea</span>
+                    </div>
+                    <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"></path></svg> Accueil</div>
+                    <div class="app__nav app__nav--on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="4" width="14" height="17" rx="2"></rect><path d="M9 3h6v3H9zM9 12h6M9 16h4"></path></svg> Incidents</div>
+                    <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"></path><path d="M14 4v5h5"></path></svg> Actions</div>
+                    <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m4 7 2 2 3-3M4 16l2 2 3-3M12 8h8M12 17h8"></path></svg> Enregistrements</div>
+                    <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="8" width="16" height="12" rx="3"></rect><path d="M12 4v4M9 14h.01M15 14h.01"></path></svg> AI</div>
+                    <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 3v18h18"></path><rect x="7" y="11" width="3" height="6"></rect><rect x="12" y="7" width="3" height="10"></rect><rect x="17" y="13" width="3" height="4"></rect></svg> Rapports</div>
+                    <div class="app__nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7a1 1 0 0 1 1-1h4l2 2h8a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"></path></svg> Documents</div>
+                  </div>
+                  <div class="app__main">
+                    <div class="app__panel app__panel--list">
+                      <div class="app__panelt">Ouverts</div>
+                      <table class="app__table">
+                        <tbody>
+                          <tr>
+                            <td><span class="app__code">UTD26_163_001</span><div class="app__dtxt">Fuite d'huile sur le convoyeur L3</div></td>
+                            <td><span class="app__tag app__tag--media">Moyenne</span></td>
+                            <td><span class="app__num">26/06/2026</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="app__code">UTD26_162_001</span><div class="app__dtxt">Vérifier l'éclairage de l'entrepôt</div></td>
+                            <td><span class="app__tag app__tag--media">Moyenne</span></td>
+                            <td><span class="app__num">25/06/2026</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="app__code">UTD26_160_001</span><div class="app__dtxt">Liquide étranger dans la machine de conditionnement</div></td>
+                            <td><span class="app__tag app__tag--media">Moyenne</span></td>
+                            <td><span class="app__num">24/06/2026</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="app__code">UTD26_157_REC</span><div class="app__dtxt">Lot endommagé</div></td>
+                            <td><span class="app__tag app__tag--alta">Haute</span></td>
+                            <td><span class="app__num app__num--crit">22/06/2026</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="app__code">UTD26_154_001</span><div class="app__dtxt">Changer le roulement du convoyeur</div></td>
+                            <td><span class="app__tag app__tag--media">Moyenne</span></td>
+                            <td><span class="app__num">21/06/2026</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+
+        <!-- El cable. viewBox y trazado son los de Stripe: sube, gira con
+             una esquina de radio 8,45 y sale en horizontal. -->
+        <svg class="bridge__wire bridge__wire--cara" viewBox="0 0 131 95" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="bridge-grad-cara" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="72">
+              <stop stop-color="#1E6BFF"></stop>
+              <stop offset="1" stop-color="#1E6BFF" stop-opacity="0"></stop>
+            </linearGradient>
+            <mask id="bridge-mask-cara">
+              <path class="bridge__mask" d="M1 95 L1 9.45337 C1 4.7847 4.7847 1 9.45337 1 L131 1"></path>
+            </mask>
+          </defs>
+          <g mask="url(#bridge-mask-cara)">
+            <path class="bridge__trace" d="M1 95 L1 9.45337 C1 4.7847 4.7847 1 9.45337 1 L131 1"></path>
+            <path class="bridge__pulse2" d="M1 95 L1 9.45337 C1 4.7847 4.7847 1 9.45337 1 L131 1"></path>
+          </g>
+          <!-- El conector: donde el cable toca el canto de la ventana. Fuera del
+               grupo enmascarado a propósito, para que no dependa de la máscara. -->
+          <circle class="bridge__halo" cx="131" cy="1" r="6"></circle>
+          <circle class="bridge__plug" cx="131" cy="1" r="2.6"></circle>
+        </svg>
+
+        <div class="bridge__card">
+          <div class="bridge__cardh">
+            <img class="bridge__logo" src="/assets/integrations/sap.webp" alt="" width="120" height="48" loading="lazy" decoding="async">
+            <span class="bridge__badge">Connecté</span>
+          </div>
+          <p class="bridge__cardt">Sortie vers l'ERP · juin 2026</p>
+          <ul class="bridge__log">
+            <li><span class="app__code">UTD26_163_001</span><span class="bridge__ok">Rapport créé</span></li>
+            <li><span class="app__code">UTD26_162_001</span><span class="bridge__ok">Rapport créé</span></li>
+            <li><span class="app__code">UTD26_160_001</span><span class="bridge__ok">Rapport créé</span></li>
+            <li><span class="app__code">UTD26_157_REC</span><span class="bridge__ok">Rapport créé</span></li>
+            <li><span class="app__code">UTD26_154_001</span><span class="bridge__wait">Envoi…</span></li>
+          </ul>
+          <p class="bridge__foot">Dernière synchronisation il y a 2 min</p>
+        </div>
+
+      </div>
         </div>
       </button>
 
     </div>
 
+  </div>
+</section>
+
+
+<!-- LA AUTORIDAD, DEBAJO DE LAS UTILIDADES (8 sep 2026, petición del cliente).
+     Abría la página detrás de la franja de clientes y ahora cierra el bloque de
+     producto: primero se enseña lo que el sistema hace —las cuatro filas de
+     escenas— y después se dice sobre qué está construido y con cuántas plantas.
+     El argumento «se adapta a tus procedimientos» se lee distinto delante y
+     detrás: delante era una promesa; aquí es la explicación de lo que se acaba
+     de ver. -->
+<!-- ============ AUTORIDAD ============
+     Bloque 2 del orden nuevo (1 sep 2026): la home deja de ser la página del
+     responsable de calidad y pasa a ser la general de marca, así que dice quién
+     es Solved ANTES de contar qué hace. Ocupa el hueco que "STATS BAND" llevaba
+     reservado desde el principio.
+
+     Las cuatro cifras salen del propio repositorio, no de fuera: 29 son los
+     logos de la cinta de aquí arriba (assets/clients-color), 64 el catálogo de
+     assets/docs/solved-integraciones-erp-mes-gmao.pdf que ya sostiene
+     /integraciones/, las 2-3 semanas son la cifra que ya usa
+     /industria-alimentaria/ y los 3 casos los de /casos-de-exito/.
+
+     La cuarta cifra era «6 módulos en un único sistema, con implantación
+     modular» y el 7 de septiembre de 2026 se cambió por una de negocio: decía
+     el alcance del producto, no un resultado, y la sección de abajo ya lo
+     cuenta con más detalle («La implantación es modular: se activa un módulo y
+     se amplía el alcance sin migrar de sistema»). Los +70.000 € salen de la
+     franja de resultados de /incidencias/ —«indicadores registrados por
+     clientes de Solved durante su primer año de uso»—, así que la cifra no es
+     nueva: se mueve. Lo que sí se adapta es el rótulo, que allí se apoya en el
+     encabezado de la sección y aquí tiene que sostenerse solo; de ahí el «por
+     cliente». Si la cifra se revisa, hay que tocarla en los dos sitios.
+
+     PENDIENTE DE CLIENTE, y las dos cosas van juntas:
+     (a) 29 es el SUELO, no el dato. Faltan 19 logos por recuperar (pendiente 4),
+         así que la cifra real de clientes es mayor y hay que confirmarla antes
+         de publicar.
+     (b) La frase de origen sale de lo que el propio equipo comercial dice en las
+         llamadas —"una empresa de software que surgió de una consultora de
+         calidad para industria"—. Es la única pieza de autoridad que explica por
+         qué el producto se monta sobre los procedimientos del cliente, pero
+         conviene que la validen antes de darla por buena en la home. -->
+<section class="section section--tight" data-screen-label="Home · Autoridad">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <h2>Un système qui s'adapte à vos procédures, et non l'inverse</h2>
+      <p>Solved a été développé à l'intérieur d'usines industrielles, sur des processus de production en marche. Il se configure sur les procédures que vous avez déjà documentées : rien n'est à refaire pour démarrer.</p>
+    </div>
+    <div class="ds-stats">
+      <div class="ds-stat"><b>+100</b><span>entreprises industrielles travaillent déjà avec Solved</span></div>
+      <div class="ds-stat"><b>64</b><span>systèmes ERP, MES et GMAO connectés</span></div>
+      <div class="ds-stat"><b>2-3</b><span>semaines de déploiement</span></div>
+      <div class="ds-stat"><b>+70.000€</b><span>d'économies annuelles sur les coûts opérationnels par client</span></div>
+    </div>
+    <!-- Foto de ambiente del bloque de autoridad (1 sep 2026). Sustituye al
+         hueco .img-slot con su prompt: cuando la imagen existe, el hueco
+         desaparece de la página (regla del patrón 6 de ds/sections.css).
+         Sigue siendo AMBIENTE: no se le pega interfaz encima ni se da a
+         entender que es la planta de un cliente concreto. -->
+    <img src="/assets/operarios-planta-alimentaria.webp" alt="Deux opérateurs en blouse et charlotte parcourent l'allée entre deux lignes de process d'une usine agroalimentaire ; l'un consulte une tablette" width="1600" height="571" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px);margin-top:var(--s-5)">
   </div>
 </section>
 
@@ -1138,7 +1499,7 @@
                       <div class="app__top">
                         <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
                         <span class="app__vbar"></span><span class="app__topttl">Incidents</span>
-                        <span class="app__spacer"></span><span class="app__me">G</span>
+                        <span class="app__spacer"></span><span class="app__me">J</span>
                       </div>
                       <div class="app__body">
                         <div class="app__side">
@@ -1210,6 +1571,10 @@
                   <path class="bridge__trace" d="M1 95 L1 9.45337 C1 4.7847 4.7847 1 9.45337 1 L131 1"></path>
                   <path class="bridge__pulse2" d="M1 95 L1 9.45337 C1 4.7847 4.7847 1 9.45337 1 L131 1"></path>
                 </g>
+                <!-- El conector: donde el cable toca el canto de la ventana. Fuera
+                     del grupo enmascarado a propósito, para no depender de ella. -->
+                <circle class="bridge__halo" cx="131" cy="1" r="6"></circle>
+                <circle class="bridge__plug" cx="131" cy="1" r="2.6"></circle>
               </svg>
 
               <div class="bridge__card">
@@ -1414,8 +1779,14 @@
 
 <!-- ============ CÓMO SE EMPIEZA ============
      Bloque 8, justo antes de la FAQ. Es lo que pide el 19 % de las llamadas
-     —empezar por un piloto de un caso de uso, no comprar la herramienta
+     —empezar por un área y un caso de uso, no comprar la herramienta
      entera— y hasta ahora la web sólo ofrecía "Solicita una demo".
+
+     NO SE DICE «PILOTO» EN NINGUNA PARTE, y es una corrección de negocio del
+     7 sep 2026: Solved no hace pruebas piloto. Lo que describe el paso 3 sigue
+     siendo verdad —se arranca en un área, se ajusta con lo que ve ese equipo y
+     de ahí se extiende—, pero eso es un despliegue por fases y no un piloto.
+     El CTA que decía «Plantear un piloto» pasa a ser el de siempre.
 
      Escalera de ds/sections.css (patrón 8): el riel que une los tres pasos se
      dibuja al entrar en pantalla. La numeración no es adorno, aquí hay
@@ -1444,12 +1815,12 @@
       </div>
       <div class="step">
         <span class="step__n" aria-hidden="true">3</span>
-        <h3>Pilote dans un domaine et déploiement progressif</h3>
+        <h3>Démarrage dans un secteur et déploiement progressif</h3>
         <p>L'équipe de cette ligne commence à enregistrer, la configuration est ajustée avec ses retours et le déploiement s'étend au reste de l'usine une fois validé.</p>
         <span class="step__when">Semaine 3</span>
       </div>
     </div>
-    <a class="btn btn--primary" style="margin-top:var(--s-6)" href="#contacto">Proposer un pilote</a>
+    <a class="btn btn--primary" style="margin-top:var(--s-6)" href="#contacto">Demander une démo</a>
   </div>
 </section>
 
@@ -1476,14 +1847,14 @@
       <div class="hs-contact-form"></div>
     </div>
     <div class="contact__art">
-      <img src="/assets/contacto-tecnica-tablet.webp" alt="Une technicienne d'usine consulte Solved sur la tablette" style="width:100%;display:block;border-radius:var(--r-3);box-shadow:var(--shadow-2);" width="1024" height="910" decoding="async" loading="lazy">
+      <video class="contact__v" data-lazy="/assets/registro-tablet-planta.mp4" poster="/assets/contacto-registro-planta.webp" muted="" loop="" playsinline="" preload="none" width="1280" height="720" aria-label="Une opératrice de production remplit un enregistrement sur tablette au bord de la ligne"></video>
     </div>
   </div>
 </section>
 </main>
 
 <div id="footer"></div>
-<script src="/fr/chrome.js?v=20260907a"></script>
+<script src="/fr/chrome.js?v=20260907f"></script>
 <!-- Elemento de la hero: el shader del prototipo, portado tal cual. -->
 <script src="/ds/hero-wave.js?v=20260901a" defer=""></script>
 <!-- Halo del borde y apertura de los diálogos. Sin él las escenas se ven y se

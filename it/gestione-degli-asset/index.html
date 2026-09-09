@@ -129,6 +129,162 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -158,13 +314,13 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260907a">
-<link rel="stylesheet" href="/ds/hero.css?v=20260903a">
+<link rel="stylesheet" href="/ds/site.css?v=20260908a">
+<link rel="stylesheet" href="/ds/hero.css?v=20260907e">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260903b">
+<link rel="stylesheet" href="/ds/scene.css?v=20260908b">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
-<link rel="stylesheet" href="/ds/app.css?v=20260904d">
-<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
+<link rel="stylesheet" href="/ds/app.css?v=20260908b">
+<link rel="stylesheet" href="/ds/sections.css?v=20260908a">
 </head>
 <body data-screen-label="Activos">
 
@@ -181,15 +337,39 @@
      y el cuerpo hablan de máquinas y equipos, y «activo» se reserva para
      nombrar la ficha del producto. Igual que en el resto del sitio: herramienta
      y sistema, nunca «plataforma». -->
-<section class="ds-hero ds-hero--centro" data-screen-label="Activos · Hero">
+<section class="ds-hero" data-screen-label="Activos · Hero">
   <canvas class="ds-hero__weave" aria-hidden="true" id="dsWeave"></canvas>
   <div class="frame frame--seam ds-hero__frame">
     <div class="ds-hero__txt">
-      <span class="ds-eyebrow">Asset</span>
+      <div class="ds-hero__strip">
+        <span class="ds-eyebrow">Asset</span>
+        <span class="ds-badge ds-badge--ia">
+          <svg class="ds-badge__star" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <linearGradient id="dsBadgeIaGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#A855F7"></stop>
+              <stop offset=".52" stop-color="#D34F9D"></stop>
+              <stop offset="1" stop-color="#1FD6F5"></stop>
+            </linearGradient>
+            <path fill="url(#dsBadgeIaGrad)" d="M12 1.4c.62 5.62 4.56 9.56 10.18 10.18v.84c-5.62.62-9.56 4.56-10.18 10.18h-.84C10.54 17 6.6 13.04.98 12.42v-.84C6.6 10.96 10.54 7.02 11.16 1.4z"></path>
+          </svg>
+          AI Powered
+        </span>
+      </div>
       <h1>Tieni lo storico completo di ogni macchina nella sua scheda: <span class="ds-dim">scansiona il QR della macchina e vedi tutto quello che le è successo.</span></h1>
       <p class="ds-hero__sub">Registra le tue macchine, linee e impianti e Solved vi aggancia le anomalie, le registrazioni e le azioni che li riguardano. Lo storico della macchina non va mantenuto: lo costruisce il lavoro che lo stabilimento già fa.</p>
       <div class="ds-hero__cta">
         <a class="ds-btn ds-btn--primary" href="#contacto">Richiedi una demo</a>
+      </div>
+      <!-- Tira de compatibilidad MCP (ds/site.css). Iconos = marcas de sus
+           titulares; procedencia en assets/mcp/FUENTES.md. -->
+      <div class="mcp">
+        <span class="mcp__lb">Server MCP</span>
+        <span class="mcp__logos">
+          <span class="mcp__logo"><img src="/assets/mcp/claude.webp" alt="" width="96" height="96" decoding="async" loading="lazy">Claude</span>
+          <span class="mcp__logo mcp__logo--mono"><img src="/assets/mcp/chatgpt.webp" alt="" width="96" height="96" decoding="async" loading="lazy">ChatGPT</span>
+          <span class="mcp__logo"><img src="/assets/mcp/gemini.webp" alt="" width="96" height="96" decoding="async" loading="lazy">Gemini</span>
+        </span>
+        <span class="mcp__txt">Usa Solved dagli strumenti di IA che già utilizzi</span>
       </div>
     </div>
   </div>
@@ -426,42 +606,6 @@
            tablet, la píldora del activo y el párrafo del encabezado de la
            sección. El párrafo va una vez, que es la regla del sistema. -->
     </figure>
-  </div>
-</section>
-
-<!-- ============ PAIN ============
-     Los cinco cuadros no se han elegido a ojo: son las cinco situaciones que
-     el CLIENTE —no el comercial— describe en las 955 transcripciones de
-     ~/samu-export cuando sale el mantenimiento. Frecuencia sobre las 955
-     reuniones, lado cliente (mismo recuento que la sección «Requisitos
-     habituales» de /incidencias/):
-
-       mantenimiento y averías ........ 43,0 %
-       máquinas y equipos ............. 42,9 %
-       mantenimiento preventivo ....... 12,0 %
-       QR y escaneo ...................  6,2 %
-       paradas de línea ...............  4,8 %
-       GMAO ...........................  4,3 %
-       órdenes de trabajo .............  4,2 %
-       inventario de equipos ..........  2,7 %
-       repuestos ......................  2,5 %
-
-     Las cifras se quedan en el comentario, como en /incidencias/: son de un
-     corpus de reuniones privadas y no se publican. Lo que sale a la página es
-     la situación, contada como la cuenta el cliente. -->
-<section class="section" data-screen-label="Activos · Dolor">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Lo storico di una macchina non è completo da nessuna parte</h2>
-      <p>È sparso tra lo strumento di manutenzione, l'Excel della qualità, il gruppo WhatsApp del turno e la testa del tecnico che è in casa da vent'anni.</p>
-    </div>
-    <div class="pain-grid">
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="7" height="16" rx="2"></rect><rect x="14" y="4" width="7" height="16" rx="2"></rect><path d="M10 12h4"></path></svg></span><p>La manutenzione lavora nel proprio strumento e la qualità nel suo, e nessuno dei due alimenta l'altro: lo stesso guasto si conta due volte o non si conta.</p></div>
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18M9 9v11M15 9v11"></path></svg></span><p>L'inventario di macchine e impianti vive in un foglio di calcolo che va in crisi appena lo stabilimento supera le cento macchine.</p></div>
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 8.6 8.6 0 0 1-4-.9L3 20l1.1-5.1a8.4 8.4 0 0 1 8.4-11.8 8.4 8.4 0 0 1 8.5 8.4z"></path></svg></span><p>La segnalazione di guasto arriva via WhatsApp o a voce. Al turno successivo nessuno sa se è stato fatto qualcosa, chi l'ha fatto né con cosa.</p></div>
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M3 11h18"></path></svg></span><p>Il piano di preventiva è pianificato in un quadro annuale: si sa cosa toccava, non se è stato fatto né cosa si è trovato facendolo.</p></div>
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 11h6M12 8v6"></path></svg></span><p>Quando l'auditor chiede lo storico di una macchina precisa, bisogna fabbricarlo con rapporti sparsi, mail e screenshot dal telefono di qualcuno.</p></div>
-    </div>
   </div>
 </section>
 
@@ -741,39 +885,6 @@
   </div>
 </section>
 
-<!-- ============ EL LÍMITE ============
-     La sección que el análisis de mensajes del 1 de septiembre marcaba como
-     ausente en toda la web: la diferenciación que el equipo sí usa en las
-     llamadas —«no somos ERP, GMAO ni MES: somos el detalle operativo»— y que
-     un competidor directo sí publica. Aquí es obligatoria, porque «gestión de
-     activos» es exactamente el nombre por el que se busca un GMAO, y quien
-     llegue buscando stock de repuestos tiene que saberlo en la página, no en
-     la segunda reunión.
-
-     Lo que se afirma está comprobado en el producto (ficha de activo del
-     3-sep-2026): no hay repuestos, ni costes, ni horas de mano de obra, ni
-     contadores de máquina. Lo que sí hay es lo de la columna de la izquierda. -->
-<section class="section" data-screen-label="Activos · El límite">
-  <div class="wrap">
-    <div class="section-head"><h2>Se hai già un CMMS, Solved non viene a sostituirlo</h2></div>
-    <div class="split">
-      <div class="split__txt">
-        <p style="font-weight:var(--font-weight-medium);color:var(--ink-900);font-size:16px;margin-bottom:var(--s-3);">Solved non è un CMMS, e dirlo fa risparmiare una riunione: non gestisce stock di ricambi, né costi di manutenzione, né ore di manodopera, né contatori macchina. Quello che gestisce è il dettaglio operativo della macchina, che è proprio ciò che si perde tra gli strumenti.</p>
-        <div class="feat-list">
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Chi ha dato la segnalazione, a che ora e con quale foto, dal punto in cui è stata rilevata.</p></div></div>
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Quale controllo l'ha rilevato, in quale registrazione e con quale esito, con la registrazione collegata all'anomalia.</p></div></div>
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Quale azione è rimasta aperta, con quale responsabile e quale scadenza, e quando si è chiusa davvero.</p></div></div>
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Cosa è successo prima a quella stessa macchina, in una sola schermata e senza chiederlo a nessuno.</p></div></div>
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>E il collegamento con CMMS, ERP o MES quando ci sono: 64 sistemi con integrazione disponibile, di cui 17 CMMS.</p></div></div>
-        </div>
-      </div>
-      <div class="split__art">
-        <img class="shot" src="/assets/planta/panel-control-tecnico.webp" alt="Un tecnico di manutenzione consulta il pannello di controllo di una macchina in stabilimento" width="1100" height="1100" decoding="async" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ TESTIMONIO ============
      NO HAY CITA EN ESTA PÁGINA, y es la misma decisión que en /ia/: la regla
      del sistema es una cita por página y cada página la suya, y de las siete
@@ -802,18 +913,18 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Contatto con uno specialista di operazioni industriali</h2>
-      <p class="form-card__nota">Domande frequenti in questa fase: la convivenza con il CMMS già in uso, il caricamento iniziale dell'inventario delle macchine e il perimetro di un progetto pilota.</p>
+      <p class="form-card__nota">Domande frequenti in questa fase: la convivenza con il CMMS già in uso e il caricamento iniziale dell'inventario delle macchine.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>
     <div class="contact__art">
-      <img src="/assets/contacto-tecnica-tablet.webp" alt="Una tecnica di stabilimento consulta Solved sul tablet" style="width:100%;display:block;border-radius:var(--r-3);box-shadow:var(--shadow-2);" width="1024" height="910" decoding="async" loading="lazy">
+      <video class="contact__v" data-lazy="/assets/registro-tablet-planta.mp4" poster="/assets/contacto-registro-planta.webp" muted="" loop="" playsinline="" preload="none" width="1280" height="720" aria-label="Un'operatrice di stabilimento compila una registrazione dal tablet accanto alla linea"></video>
     </div>
   </div>
 </section>
 
 <div id="footer"></div>
-<script src="/it/chrome.js?v=20260907a"></script>
+<script src="/it/chrome.js?v=20260907f"></script>
 <!-- Hero y franja de clientes: el mismo shader y la misma cinta que la home.
      sections.js es sólo para el riel de la escalera de pasos. -->
 <script src="/ds/sections.js?v=20260903a" defer=""></script>

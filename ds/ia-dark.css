@@ -184,14 +184,9 @@ body[data-tema="ia"]{ background:var(--color-graphite-900); }
    la rejilla de abajo, que es lo que hace que se lea como parte de la página y
    no como un anuncio incrustado.
    ========================================================= */
-.iavideo--grid{
-  padding-block:0;
-  background:transparent;
-}
-.iavideo--grid .iavideo__v{
-  border-radius:var(--ds-radius-card);
-  border:1px solid #2A2E34;
-}
+/* La variante `.iavideo--grid` vivía aquí y se mudó a ds/aiband.css el 7 de
+   septiembre de 2026: es una variante del componente, no del tema oscuro, y la
+   usa también /auditorias/, que no carga esta hoja. */
 
 /* =========================================================
    PREGUNTAS DE EJEMPLO
@@ -259,3 +254,12 @@ body[data-tema="ia"]{ background:var(--color-graphite-900); }
   color:var(--ds-text-mute);
 }
 .iacoste svg{ width:17px; height:17px; flex:0 0 auto; color:#C88BFA }
+
+/* ---------- Tira de compatibilidad MCP sobre grafito ----------
+   El icono de ChatGPT es un trazo negro sobre transparente: sobre el grafito de
+   esta página desaparece. Se invierte SÓLO ése —queda blanco, que es como la
+   propia marca lo publica sobre fondo oscuro—; el de Claude es naranja y el de
+   Gemini un degradado, y los dos se leen tal cual. Invertirlos a los tres
+   convertiría el naranja en azul y el degradado en su negativo, que ya no sería
+   la marca de nadie. */
+[data-tema="ia"] .mcp__logo--mono img{ filter:invert(1) }

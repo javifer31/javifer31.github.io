@@ -40,7 +40,20 @@
      </div>
    ========================================================= */
 
-.app{
+/* `.bridge` va en el mismo selector, y no es un adorno: la ficha del ERP y el
+   cable son HERMANOS de `.app`, no descendientes suyos, así que con los tokens
+   declarados sólo en `.app` todo lo que hay fuera de la ventana se quedaba sin
+   color —el punto de «Conectado» y los «Parte creado» en gris en vez de verde,
+   las separaciones del registro invisibles, los códigos sin tinta y, sobre todo,
+   la bolita del cable con `stroke:none`, porque una variable que no existe deja
+   la declaración inválida y el valor heredado es el `fill="none"` del <svg>—.
+   Se ve en el marcado de aquí arriba: `.bridge > .bridge__win > .device > … >
+   .app`, y al lado `.bridge__wire` y `.bridge__card`. Detectado el 8 de
+   septiembre de 2026 al poner el conector y no aparecer. */
+.app,
+.bridge,
+.app__asigna,
+.app__raiz{
   /* Tokens del producto, no de la web. Los valores de reserva son por si la
      pantalla se monta en una página que no cargue el paquete de _ds. */
   --app-blue:var(--blue,#1E6BFF);
@@ -60,7 +73,14 @@
      color del dashboard. Al usarlo también en las barras se le da alias, como
      tienen los demás, y el valor de reserva es el token del sistema. */
   --app-registro:var(--module-registros,#7C3AED);
+}
 
+/* Y la caja de la pantalla, que es sólo de `.app`: el puente hereda los tokens,
+   no el lienzo ni la maquetación. Compartir también esto le daba a `.bridge` el
+   fondo `--app-canvas` a toda la escena —un panel azulado detrás de la
+   composición, que es exactamente lo que no tiene que haber— además de un
+   `display:flex` y una tipografía que no le tocan. */
+.app{
   position:relative;
   width:100%;
   height:100%;
@@ -153,6 +173,29 @@
 .app__nav svg{ width:15px; height:15px; flex:0 0 auto; color:var(--app-mute) }
 .app__nav--on{ background:var(--app-blue-wash); color:var(--app-blue-deep); font-weight:500 }
 .app__nav--on svg{ color:var(--app-blue) }
+
+/* — MENÚ CONTRAÍDO (.app__side--min) —
+   El estado de la app cuando se mira el tablero: quedan los iconos y el ítem
+   activo se sigue reconociendo por su fondo. Gana 88px para la zona de trabajo,
+   que en una escena recortada es medio panel más a la vista.
+
+   Los rótulos NO se borran del marcado: se tapan. Si se borraran, se caerían
+   del catálogo de traducción —que lee el HTML— y el día que alguien despliegue
+   el menú volverían en español en los cinco idiomas. `font-size:0` en el padre
+   y su tamaño de vuelta en el hijo es la forma de esconder un nodo de texto
+   suelto, que no se puede seleccionar de otra manera. */
+.app__side--min{ flex-basis:44px; padding-inline:6px }
+.app__side--min .app__nav{
+  justify-content:center;
+  gap:0; padding-inline:0;
+  font-size:0;
+}
+.app__side--min .app__nav svg{ width:16px; height:16px }
+.app__side--min .app__co{ padding-inline:0 }
+.app__side--min .app__co img{ width:30px; height:30px }
+/* El nombre de la empresa se va con los rótulos: sin él, el logotipo hace de
+   marca y la columna se queda a un solo ancho. */
+.app__side--min .app__co span{ display:none }
 
 .app__main{
   flex:1; min-width:0;
@@ -369,14 +412,32 @@
   font-size:11px; color:var(--app-text);
 }
 .app__itemq{ flex:1; min-width:0 }
-/* Las opciones OK/KO son de las dos únicas píldoras del sistema: el resto de
-   la app usa radio de control. */
+/* — LAS DOS OPCIONES DE UN CONTROL (8 sep 2026) —
+   Antes había UNA píldora con la respuesta ya dada. Ahora está el control como
+   está en la app: **sus dos botones, OK y KO**, y el que se pulsa se rellena.
+   El cambio no es cosmético — es la diferencia entre enseñar un resultado y
+   enseñar cómo se responde, que es lo que la tarjeta promete.
+
+   Los dos estados son los del producto: sin pulsar, fondo blanco con el borde y
+   la letra del color; pulsado, el color de fondo y la letra en blanco. El color
+   vive en `--c` y no en cada regla porque el fotograma tiene que interpolar
+   entre los dos estados y necesita el mismo valor a los dos lados.
+
+   La píldora sólo existe en esta pantalla —comprobado en las 703 páginas—, así
+   que rehacerla no toca nada más. */
+.app__opts{ display:inline-flex; gap:5px; flex:0 0 auto }
 .app__opt{
-  display:inline-flex; padding:2px 9px; border-radius:999px;
+  --c:#12813B;
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:28px; padding:2px 8px;
+  border:1px solid var(--c); border-radius:999px;
+  background:#fff; color:var(--c);
   font-size:10px; font-weight:500; white-space:nowrap;
 }
-.app__opt--ok{ background:#E4F6EA; color:#12813B }
-.app__opt--ko{ background:#FBD5D5; color:#B02020 }
+.app__opt--ko{ --c:#B02020 }
+/* El estado de reposo del que va a quedar pulsado. Lo pinta el keyframe durante
+   la animación; esto es lo que se ve si el navegador no la ejecuta. */
+.app__opt--on{ background:var(--c); color:#fff }
 /* Un KO abre incidencia sola: es el argumento entero del módulo, así que el
    enlace se ve, no se cuenta. */
 .app__link{
@@ -764,22 +825,342 @@
   100%{ box-shadow:0 0 0 0 rgba(30,107,255,0) }
 }
 
-/* Los OK de la ronda se van marcando en cascada. */
-.app__opt--ok{ animation:app-ok-in 8s ease-out infinite; animation-play-state:var(--play,running) }
-.app__item:nth-child(2) .app__opt--ok{ animation-delay:.5s }
-.app__item:nth-child(3) .app__opt--ok{ animation-delay:1s }
-.app__item:nth-child(4) .app__opt--ok{ animation-delay:1.5s }
-.app__item:nth-child(5) .app__opt--ok{ animation-delay:2s }
-.app__item:nth-child(6) .app__opt--ok{ animation-delay:2.5s }
+/* La ronda se responde en cascada, un control cada medio segundo sobre un
+   reloj de 8 s. Lo que se anima es el BOTÓN ELEGIDO pasando de vacío a lleno;
+   los dos botones están puestos desde el principio, porque la plantilla ya
+   existe y lo que ocurre delante es que alguien la responde.
+
+   El saltito del 6 % es el acuse del toque: sin él, el relleno aparece y no se
+   entiende que lo ha pulsado alguien. Va antes de que cambie el color, que es
+   el orden en que ocurre de verdad —primero el dedo, después el estado—. */
+.app__opt--on{
+  animation:app-elige 8s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__item:nth-child(2) .app__opt--on{ animation-delay:.5s }
+.app__item:nth-child(3) .app__opt--on{ animation-delay:1s }
+.app__item:nth-child(4) .app__opt--on{ animation-delay:1.5s }
+.app__item:nth-child(5) .app__opt--on{ animation-delay:2s }
+.app__item:nth-child(6) .app__opt--on{ animation-delay:2.5s }
+@keyframes app-elige{
+  0%,4%   { background:#fff; color:var(--c); scale:1 }
+  6%      { background:#fff; color:var(--c); scale:1.12 }
+  9%,96%  { background:var(--c); color:#fff;  scale:1 }
+  100%    { background:#fff; color:var(--c); scale:1 }
+}
+/* `app-ok-in` sigue viva: es la que trae el código de la incidencia que abre el
+   KO, medio segundo después de que se pulse. */
 @keyframes app-ok-in{
   0%,4%   { opacity:0; scale:.9 }
   10%,96% { opacity:1; scale:1 }
   100%    { opacity:0; scale:.9 }
 }
 
+/* — EL REGISTRO RELLENÁNDOSE (8 sep 2026) —
+   La cascada de arriba ya existía y sólo marcaba los OK. Faltaban las tres
+   piezas que convierten «un registro relleno» en «un registro rellenándose»,
+   que es lo que pide el titular de la tarjeta de la home:
+
+   · el código de la incidencia que abre el KO entra DESPUÉS de que se pulse el
+     KO, no a la vez: primero se marca mal el control y entonces nace la
+     incidencia. Medio segundo basta para que se lea el orden.
+   · la firma y el informe llegan al final, cuando la ronda está cerrada.
+
+   Todo cuelga del mismo reloj de 8 s de la cascada. La ronda ocupa los 2,5
+   primeros segundos —seis controles cada medio segundo—, así que nada de esto
+   puede empezar antes del 31 %. */
+.app__items .app__link{
+  animation:app-ok-in 8s ease-out infinite;
+  animation-delay:.5s;
+  animation-play-state:var(--play,running);
+}
+
+/* El contador de la cabecera. Es el relevo de tres de la app, pero al reloj de
+   la ronda: los valores son texto en el HTML —no `content` de CSS— porque el
+   catálogo de traducción sólo ve el marcado. */
+.app__sw3--ronda > *{ animation-duration:8s }
+.app__sw3--ronda > :nth-child(1){ animation-name:app-ronda1 }
+.app__sw3--ronda > :nth-child(2){ animation-name:app-ronda2 }
+.app__sw3--ronda > :nth-child(3){ animation-name:app-ronda3 }
+@keyframes app-ronda1{ 0%,12%{opacity:1} 13%,100%{opacity:0} }
+@keyframes app-ronda2{ 0%,12%{opacity:0} 13%,25%{opacity:1} 26%,100%{opacity:0} }
+@keyframes app-ronda3{ 0%,25%{opacity:0} 26%,100%{opacity:1} }
+
+.app__sign--tarde{
+  animation:app-firma-in 8s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-firma-in{
+  0%,33%  { opacity:0; translate:0 5px }
+  41%,96% { opacity:1; translate:0 0 }
+  100%    { opacity:0; translate:0 5px }
+}
+/* El informe que sale solo. Verde de estado, no azul de enlace: no es algo que
+   se pueda pulsar en esta pantalla, es algo que ya ha ocurrido. */
+.app__signdoc{
+  margin-left:auto;
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:10px; font-weight:500; color:var(--app-ok);
+  white-space:nowrap;
+}
+.app__signdoc svg{ width:12px; height:12px; flex:0 0 auto }
+
+
+/* =========================================================
+   LOS TRES CUADROS DE /incidencias/ — 8 de septiembre de 2026
+   La sección «Detecta» enseñaba las mismas cuatro pantallas que la home. Estas
+   tres son las que la sustituyen, y ninguna existe en ningún otro sitio del
+   sitio: la plantilla que se diseña por tipo de incidencia, el reparto del
+   trabajo a cualquiera del equipo, y la causa raíz que acaba en un registro
+   programado. Si alguna se quiere reutilizar, que sea moviéndola, no copiándola.
+   ========================================================= */
+
+/* --- 1 · PLANTILLAS POR TIPO DE INCIDENCIA -----------------------------------
+   Los tres tipos se relevan en el filtro y con ellos cambia la lista de campos
+   ENTERA. Es lo único que demuestra «a tu medida»: una sola lista sería una
+   plantilla, no un sistema de plantillas.
+
+   Las tres listas se APILAN en la misma celda de rejilla en vez de ir en
+   secuencia, y no es un capricho: tienen cinco y seis campos, y en secuencia la
+   caja daría un salto de alto cada vez que cambia el tipo. Apiladas, la celda
+   mide lo que la más alta y no se mueve nada. */
+.app__filters--tipos{ margin-bottom:2px }
+/* El chip elegido. Mismo tratamiento que el ítem activo del menú lateral: en
+   esta app «seleccionado» se dice con el lavado azul, no con un relleno. */
+.app__filter--on{
+  background:var(--app-blue-wash);
+  border-color:rgba(30,107,255,.28);
+  color:var(--app-blue-deep);
+}
+.app__filter--p1,.app__filter--p2,.app__filter--p3{
+  animation-duration:15s; animation-iteration-count:infinite;
+  animation-timing-function:steps(1);
+  animation-play-state:var(--play,running);
+}
+.app__filter--p1{ animation-name:app-tipo1 }
+.app__filter--p2{ animation-name:app-tipo2 }
+.app__filter--p3{ animation-name:app-tipo3 }
+@keyframes app-tipo1{
+  0%,32%   { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep) }
+  33%,100% { background:#fff; border-color:var(--app-line); color:var(--app-text-2) }
+}
+@keyframes app-tipo2{
+  0%,32%   { background:#fff; border-color:var(--app-line); color:var(--app-text-2) }
+  33%,65%  { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep) }
+  66%,100% { background:#fff; border-color:var(--app-line); color:var(--app-text-2) }
+}
+@keyframes app-tipo3{
+  0%,65%   { background:#fff; border-color:var(--app-line); color:var(--app-text-2) }
+  66%,100% { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep) }
+}
+
+.app__plantillas{ display:grid; align-items:start }
+.app__pl{
+  grid-area:1/1;
+  animation-duration:15s; animation-iteration-count:infinite;
+  animation-timing-function:steps(1);
+  animation-play-state:var(--play,running);
+}
+.app__pl--a{ animation-name:app-tipo-a }
+.app__pl--b{ animation-name:app-tipo-b }
+.app__pl--c{ animation-name:app-tipo-c }
+@keyframes app-tipo-a{ 0%,32%{opacity:1} 33%,100%{opacity:0} }
+@keyframes app-tipo-b{ 0%,32%{opacity:0} 33%,65%{opacity:1} 66%,100%{opacity:0} }
+@keyframes app-tipo-c{ 0%,65%{opacity:0} 66%,100%{opacity:1} }
+/* La lista que no toca no se lleva el clic ni el foco, aunque la escena entera
+   sea decorativa: `opacity:0` deja el nodo en pie. */
+.app__pl{ pointer-events:none }
+
+/* El tipo de un campo. Tinta neutra a propósito: un tipo NO es un estado, y
+   pintarlo del verde de OK o del rojo de KO diría algo que no dice. */
+.app__tipo{
+  display:inline-flex; align-items:center;
+  padding:2px 8px; border-radius:5px;
+  background:var(--app-canvas); border:1px solid var(--app-line);
+  font-size:9.5px; color:var(--app-text-2); white-space:nowrap;
+}
+
+/* --- 2 · ASIGNAR A CUALQUIERA DEL EQUIPO -------------------------------------
+   La pieza es el SELECTOR ABIERTO, no la tarea ya asignada: lo que promete el
+   titular es «a cualquier persona del equipo», y eso sólo se ve si se ven los
+   departamentos distintos. Va sin marco de aparato —no es una ventana, es un
+   desplegable— y por eso lleva su propia sombra. */
+.app__asigna{
+  width:100%;
+  background:#fff;
+  border:1px solid var(--app-line);
+  border-radius:11px;
+  box-shadow:0 16px 32px rgba(50,50,93,.12);
+  padding:12px 13px 13px;
+  display:flex; flex-direction:column; gap:9px;
+  font-family:Roboto,'Helvetica Neue',Arial,sans-serif;
+  color:var(--app-text);
+  font-variant-numeric:tabular-nums;
+  text-align:left;
+}
+.app__buscar{
+  display:flex; align-items:center; gap:7px;
+  padding:6px 9px;
+  border:1px solid var(--app-line); border-radius:7px;
+  font-size:10.5px; color:var(--app-mute);
+}
+.app__buscar svg{ width:12px; height:12px; flex:0 0 auto }
+.app__pick{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px }
+.app__pickrow{
+  display:flex; align-items:center; gap:8px;
+  padding:6px 7px; border-radius:7px;
+}
+.app__picktxt{ display:flex; flex-direction:column; min-width:0 }
+.app__picktxt b{ font-size:11px; font-weight:500; color:var(--app-text) }
+.app__picktxt i{ font-size:9.5px; font-style:normal; color:var(--app-mute) }
+/* El foco baja por la lista y se para en quien toca. Se anima el FONDO de la
+   fila y no un borde: el borde metería un píxel de alto y la lista bailaría. */
+.app__pickrow{
+  animation:app-pick 9s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__pickrow:nth-child(2){ animation-delay:.45s }
+.app__pickrow:nth-child(3){ animation-delay:.9s }
+.app__pickrow:nth-child(4){ animation-delay:1.35s }
+@keyframes app-pick{
+  0%,3%   { background:transparent }
+  6%,11%  { background:var(--app-canvas) }
+  14%,100%{ background:transparent }
+}
+/* Y el elegido se queda encendido cuando el barrido ha pasado. */
+.app__pickrow--on{
+  animation:app-pick-on 9s ease-out infinite;
+  animation-delay:0s;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-pick-on{
+  0%,19%  { background:transparent }
+  22%,94% { background:var(--app-blue-wash) }
+  100%    { background:transparent }
+}
+/* La acción que sale de ahí: responsable y plazo, que es lo que convierte un
+   nombre en trabajo con fecha. Entra después de elegir. */
+.app__asignada{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  margin-top:2px; padding-top:9px;
+  border-top:1px solid var(--app-line);
+  font-size:10.5px; color:var(--app-text);
+  animation:app-asignada 9s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-asignada{
+  0%,26%  { opacity:0; translate:0 4px }
+  33%,94% { opacity:1; translate:0 0 }
+  100%    { opacity:0; translate:0 4px }
+}
+
+/* --- 3 · CAUSA RAÍZ → REGISTRO PROGRAMADO ------------------------------------
+   Las dos mitades del titular en la misma pantalla y en este orden: primero por
+   qué se repite y después lo que se programa para que no vuelva a pasar. Sin la
+   segunda mitad esto sería otro cuadro de tendencias, que es lo que la home ya
+   enseña. La flecha del medio no es adorno: es la que dice que lo de la derecha
+   SALE de lo de la izquierda. */
+.app__raiz{
+  width:100%; height:100%;
+  display:grid;
+  align-content:center;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:14px;
+  font-family:Roboto,'Helvetica Neue',Arial,sans-serif;
+  color:var(--app-text);
+  font-variant-numeric:tabular-nums;
+  text-align:left;
+}
+.app__raiz .app__panel{ box-shadow:0 10px 24px rgba(50,50,93,.08) }
+.app__raizs{ margin:3px 0 0; font-size:10px; color:var(--app-mute) }
+.app__raizflecha{
+  display:grid; place-items:center;
+  width:24px; height:24px; border-radius:50%;
+  background:var(--app-blue-wash); color:var(--app-blue);
+}
+.app__raizflecha svg{ width:13px; height:13px }
+/* Las barras del reparto de causas crecen desde la izquierda. La que manda es
+   la primera: tres de cinco cierres, y es la que justifica el registro.
+
+   CLASE PROPIA Y NO `.app__fill`, que es la barra del tablero. No es manía: el
+   tablero la anima con `.app__break:nth-child(1) .app__fill{ animation-name:… }`
+   —dos clases, más específico que cualquier `.app__fill--loquesea`— y esos
+   fotogramas animan el ANCHO con los valores del turno. Reusando la clase, las
+   tres barras de aquí se quedaban en el ancho del tablero, que resultó ser
+   cero, y el reparto de causas salía vacío sin dar ningún error. */
+.app__rfill{
+  height:100%; border-radius:999px; background:var(--app-blue);
+  transform-origin:0 50%;
+  scale:0 1;
+  animation:app-raiz-barra 9s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__rfill--r1{ width:60% }
+.app__rfill--r2{ width:20%; animation-delay:.1s }
+.app__rfill--r3{ width:20%; animation-delay:.2s }
+@keyframes app-raiz-barra{ 0%,6%{scale:0 1} 20%,94%{scale:1 1} 100%{scale:0 1} }
+
+.app__panel--prog{ background:#fff }
+.app__prog{ margin-top:9px }
+.app__progt{ font-size:11px; font-weight:500; color:var(--app-text) }
+.app__progm{ display:flex; flex-wrap:wrap; gap:5px; margin-top:6px }
+.app__proglist{ margin-top:9px; display:flex; flex-direction:column; gap:6px }
+.app__progrow{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding-top:6px; border-top:1px solid var(--app-line);
+  font-size:10px; color:var(--app-text-2);
+}
+.app__progrow:first-child{ padding-top:0; border-top:0 }
+.app__progok{ color:var(--app-ok) }
+.app__progwait{ color:var(--app-mute) }
+/* El panel entero entra DESPUÉS de las barras: primero se ve por qué, después
+   lo que se hace con ello. */
+.app__panel--prog{
+  animation:app-prog-in 9s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-prog-in{
+  0%,24%  { opacity:0; translate:0 6px }
+  34%,94% { opacity:1; translate:0 0 }
+  100%    { opacity:0; translate:0 6px }
+}
+
+@media (max-width:899px){
+  /* En una columna la flecha deja de señalar de izquierda a derecha; se queda
+     el orden vertical, que dice lo mismo. */
+  .app__raiz{ grid-template-columns:minmax(0,1fr); gap:10px }
+  .app__raizflecha{ display:none }
+}
+
 @media (prefers-reduced-motion:reduce){
-  .app__barv,.app__fill,.app__mcard--nueva,.app__dot,.app__opt--ok,
-  .app__chat p,.app__cursor{ animation:none !important; opacity:1; scale:1; translate:0 0 }
+  .app__barv,.app__fill,.app__mcard--nueva,.app__dot,.app__opt--on,
+  .app__chat p,.app__cursor,
+  .app__items .app__link,.app__sign--tarde,
+  .app__ask--escribe > span,.app__answer,.app__iabar i{
+    animation:none !important; opacity:1; scale:1; translate:0 0; width:auto;
+  }
+  /* Los tres cuadros de /incidencias/ se quedan en su primer estado, que es el
+     que ya cuenta la historia entera. Van en reglas aparte y NO con el
+     `width:auto` de arriba: las barras del reparto de causas llevan su ancho en
+     el porcentaje de la causa, y ponerlo en `auto` las igualaría las tres. */
+  .app__filter--p1,.app__filter--p2,.app__filter--p3,.app__pl,
+  .app__pickrow,.app__asignada,.app__panel--prog,
+  .app__rfill{
+    animation:none !important; opacity:1; scale:1; translate:0 0;
+  }
+  /* De las tres plantillas apiladas se ve la primera; si no, se leen las tres
+     unas sobre otras. Y el chip de su tipo, encendido a mano. */
+  .app__pl--b,.app__pl--c{ opacity:0 }
+  .app__filter--p1{
+    background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
+  }
+  /* El barrido del selector no ocurre: se queda encendido el elegido. */
+  .app__pickrow{ background:transparent }
+  .app__pickrow--on{ background:var(--app-blue-wash) }
+  /* Sin movimiento no hay nada que pensar ni cursor que parpadee: la pantalla
+     se queda en la conversación ya ocurrida, que es la que cuenta lo mismo. */
+  .app__think,.app__ask--escribe::after{ display:none }
   /* Las cifras se quedan quietas en su valor final: el `style` inline de cada
      tarjeta ya lleva ese número, así que basta con no animarlas. */
   .app__kpiv--count,.app__kpiv--dec{ animation:none !important }
@@ -845,6 +1226,143 @@
   0%,6%   { opacity:0 }
   12%,96% { opacity:1 }
   100%    { opacity:0 }
+}
+
+/* =========================================================
+   LA CONVERSACIÓN ENTERA (.app__chat--guion) — 8 sep 2026
+   La pantalla de arriba enseña la respuesta ya escrita, y eso lo puede fingir
+   cualquiera. Esta variante enseña el gesto completo, que es lo que separa «un
+   chat» de «un chat sobre tus datos»: se escribe la pregunta, la IA piensa, y
+   contesta con palabras y con un gráfico.
+
+   UN SOLO RELOJ DE 12 s PARA LOS CUATRO TIEMPOS. Está escrito en el marcado de
+   la escena y se repite aquí porque quien toque un número tiene que tocar los
+   cuatro:
+     0–18 %   se escribe la pregunta
+     18–30 %  los tres puntos de pensar
+     30–40 %  las dos líneas de la respuesta
+     42–54 %  suben las barras
+   Si la respuesta empieza antes del 18 %, la IA contesta a media pregunta.
+   ========================================================= */
+
+/* — Se escribe la pregunta —
+   La burbuja crece con el texto porque lo que se recorta es el <span> de
+   dentro, no la burbuja: `width` de 0 a 100 % con el texto en `nowrap` y
+   `overflow:hidden`. No hay `steps()` a propósito: a este cuerpo de letra los
+   saltos de carácter se ven como un tartamudeo, y lo que vende el gesto es el
+   cursor de la punta, no el escalón. */
+.app__ask--escribe{ position:relative }
+.app__ask--escribe > span{
+  display:block;
+  overflow:hidden; white-space:nowrap;
+  animation:app-ia-teclea 12s linear infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-ia-teclea{
+  0%       { width:0 }
+  18%,96%  { width:100% }
+  100%     { width:0 }
+}
+/* El cursor de escribir vive en la burbuja y sólo mientras se escribe: pasado
+   el 18 % la pregunta está mandada y ahí ya no parpadea nada. */
+.app__ask--escribe::after{
+  content:"";
+  position:absolute; top:8px; bottom:8px; right:7px; width:1.5px;
+  background:#C88BFA;
+  animation:app-ia-caret 12s steps(1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-ia-caret{
+  0%,3%    { opacity:1 }
+  4%,7%    { opacity:0 }
+  8%,11%   { opacity:1 }
+  12%,15%  { opacity:0 }
+  16%,18%  { opacity:1 }
+  19%,100% { opacity:0 }
+}
+
+/* — La IA piensa —
+   Tres puntos en la misma caja que va a ocupar la respuesta, para que al
+   relevarse no salte nada de sitio. */
+.app__think{
+  display:flex; align-items:center; gap:5px;
+  padding-left:31px;                 /* el ancho del icono de IA + su hueco */
+  animation:app-ia-piensa 12s steps(1) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__think span{
+  width:5px; height:5px; border-radius:50%;
+  background:#C88BFA;
+  animation:app-ia-punto 1.1s ease-in-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__think span:nth-child(2){ animation-delay:.15s }
+.app__think span:nth-child(3){ animation-delay:.3s }
+@keyframes app-ia-piensa{ 0%,17%{opacity:0} 18%,29%{opacity:1} 30%,100%{opacity:0} }
+@keyframes app-ia-punto{ 0%,100%{opacity:.3; translate:0 0} 50%{opacity:1; translate:0 -3px} }
+
+/* — La respuesta —
+   Entra cuando la IA deja de pensar, no antes. Reemplaza el reloj de 9 s de la
+   pantalla base; sin esto las líneas se verían durante la pregunta. */
+.app__chat--guion .app__answer{
+  animation:app-ia-contesta 12s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-ia-contesta{ 0%,29%{opacity:0} 31%,96%{opacity:1} 100%{opacity:0} }
+.app__chat--guion p{
+  animation-name:app-ia-linea;
+  animation-duration:12s;
+}
+.app__chat--guion p:nth-of-type(1){ animation-delay:0s }
+.app__chat--guion p:nth-of-type(2){ animation-delay:.7s }
+@keyframes app-ia-linea{
+  0%,30%  { opacity:0; translate:0 3px }
+  35%,96% { opacity:1; translate:0 0 }
+  100%    { opacity:0; translate:0 3px }
+}
+
+/* — El gráfico —
+   Es la segunda mitad de la respuesta, no un adorno: la función de IA que lo
+   justifica es la de generar informes con gráficos. Sube después del texto,
+   que es el orden en que sale de verdad. Las barras escalan desde abajo con
+   `transform-origin`, no cambiando el alto: así no recalculan la caja. */
+.app__iachart{
+  margin:9px 0 0;
+  border:1px solid #2A2E34; border-radius:9px;
+  padding:9px 11px 8px;
+  background:rgba(255,255,255,.02);
+}
+.app__iachart figcaption{
+  font-size:9.5px; color:#7C838C; margin-bottom:8px;
+}
+.app__iabars{ display:flex; align-items:flex-end; gap:7px; height:66px }
+/* Rejilla y no columna flexible: el alto de la barra va en % y necesita una
+   pista de alto definido contra la que medirse. En `flex-direction:column` el
+   100 % era el de la caja entera —rótulo incluido—, así que la barra más alta
+   se salía por arriba y las diferencias entre meses se aplastaban. */
+.app__iabar{ flex:1; display:grid; grid-template-rows:1fr auto; gap:4px; height:100% }
+.app__iabar i{
+  display:block; align-self:end;
+  height:calc(var(--v) * 100%);
+  border-radius:3px 3px 0 0;
+  background:linear-gradient(180deg,#C88BFA,#8B5CF6);
+  transform-origin:50% 100%;
+  scale:1 0;
+  animation:app-ia-barra 12s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__iabar:nth-child(2) i{ animation-delay:.08s }
+.app__iabar:nth-child(3) i{ animation-delay:.16s }
+.app__iabar:nth-child(4) i{ animation-delay:.24s }
+.app__iabar:nth-child(5) i{ animation-delay:.32s }
+.app__iabar:nth-child(6) i{ animation-delay:.40s }
+@keyframes app-ia-barra{
+  0%,42%  { scale:1 0 }
+  54%,96% { scale:1 1 }
+  100%    { scale:1 0 }
+}
+.app__iabar b{
+  font-size:9px; font-weight:400; color:#7C838C; text-align:center;
 }
 /* Los códigos que cita la respuesta son enlaces reales dentro de la app: es lo
    que separa "un chat" de "un chat sobre tus datos". */
@@ -1028,13 +1546,36 @@
 }
 /* El dato que baja. El dashoffset va a negativo para que avance en el sentido
    en que está trazado el path —del origen al móvil—; en positivo el patrón
-   retrocede y el dato subiría, que cuenta lo contrario. */
+   retrocede y el dato subiría, que cuenta lo contrario.
+
+   POR QUÉ `pathLength="100"` EN EL MARCADO Y NO LONGITUDES REALES (8 sep 2026,
+   dos fallos que se veían como uno solo):
+
+   1. La bolita se veía PARADA en su burbuja antes de salir. `animation-delay`
+      no pinta el fotograma 0 % mientras espera —el `fill-mode` es `none`—, así
+      que durante esos 4 y 8 segundos el cable se pintaba con el valor propio
+      del elemento, y no había ninguno: el `stroke-dashoffset:0` por defecto es
+      el guión al principio del trazo, o sea la bolita puesta en el origen sin
+      haber salido. Ahora el valor en reposo es -1000, fuera del trazo.
+   2. Y el -420 con el que la animación «apartaba» la bolita el resto del ciclo
+      TAMPOCO la apartaba: el patrón medía 14+400=414, así que a -420 el guión
+      volvía a entrar por el principio —420-414=6— y la bolita reaparecía justo
+      debajo de la burbuja. El hueco tiene que ser mayor que cualquier
+      desplazamiento que se use, de ahí el 1000.
+
+   Con `pathLength="100"` los tres cables miden lo mismo para el CSS —de verdad
+   miden 92,9 y 46—, así que un solo juego de fotogramas sirve para los tres y
+   la bolita tarda lo mismo en recorrerlos. Antes el -300 era tres veces el
+   cable: la bolita llegaba al teléfono en 0,45 s y la incidencia nacía en
+   1,32 s, casi un segundo después. Ahora llega en el 12 %, que es cuando la
+   ficha empieza a abrirse. */
 .hub__pulse{
   fill:none;
   stroke:var(--app-blue,#1E6BFF);
   stroke-width:2.6;
   stroke-linecap:round;
-  stroke-dasharray:14 400;
+  stroke-dasharray:5 1000;
+  stroke-dashoffset:-1000;
   animation:hub-pulse 12s linear infinite;
   animation-play-state:var(--play,running);
   filter:drop-shadow(0 0 3px rgba(30,107,255,.6));
@@ -1043,8 +1584,8 @@
 .hub__pulse--c{ animation-delay:8s }
 @keyframes hub-pulse{
   0%          { stroke-dashoffset:0 }
-  12%         { stroke-dashoffset:-300 }
-  12.01%,100% { stroke-dashoffset:-420 }   /* fuera del cable el resto del ciclo */
+  12%         { stroke-dashoffset:-100 }   /* el 100 es el cable entero */
+  12.01%,100% { stroke-dashoffset:-1000 }  /* fuera del cable el resto del ciclo */
 }
 
 /* --- Los orígenes -------------------------------------------------------- */
@@ -1066,6 +1607,9 @@
    logo del ERP es apaisado y se queda en 58%. */
 .hub .hub__node img{ width:72%; height:auto; object-fit:contain }
 .hub .hub__node--b img{ width:58% }
+/* Los iconos del brandbook entran por `.bico` (máscara + currentColor), no como
+   <img>: así toman el gris de la burbuja. Miden lo que un svg en línea. */
+.hub .hub__node .bico{ width:44%; height:44% }
 /* Late justo cuando suelta su dato: es lo que ata la burbuja con la bolita. */
 .hub__node{
   animation:hub-node 12s ease-out infinite;
@@ -1080,12 +1624,24 @@
 }
 /* La etiqueta se separa con la misma unidad que fija el diámetro: en % se
    despegaría en cuanto la tarjeta cambiara de proporción. */
+/* La etiqueta se separa con la misma unidad que fija el diámetro: en % se
+   despegaría en cuanto la tarjeta cambiara de proporción.
+
+   PARTE EN VARIAS LÍNEAS, y no es un descuido de `nowrap` (8 sep 2026). Los
+   rótulos pasaron de una palabra —«Máquina», «ERP»— a nombrar el canal entero
+   —«Correo de proveedor/cliente»—, y en una sola línea los tres se montaban
+   unos encima de otros hasta ser ilegibles. El ancho es el de la calle entre
+   burbuja y burbuja, así que dos etiquetas no pueden tocarse por definición.
+   El cuerpo escala con la tarjeta y va acotado por los dos lados: sin el
+   mínimo, en la escena estrecha bajaba de 8px. */
 .hub__tag{
   position:absolute;
   translate:-50% 0;
   margin-top:6.8cqw;
-  white-space:nowrap;
-  font-size:10.5px; line-height:1.2;
+  width:30cqw;
+  text-align:center;
+  text-wrap:balance;
+  font-size:clamp(8.5px, 3.2cqw, 11px); line-height:1.25;
   color:var(--app-text-2,#4A5468);
 }
 
@@ -1099,6 +1655,23 @@
   translate:-50% 0;
   width:34cqw;
   container-type:inline-size;
+}
+
+/* — EL ESQUEMA EN UNA ESCENA ESTRECHA (8 sep 2026) —
+   Al pasar la tarjeta de incidencias a cuatro columnas, el hub bajó de 616 a
+   272px y con él todo lo que mide en `cqw`: el teléfono se quedó en 92px y las
+   fichas de incidencia, ilegibles. Aquí no vale encoger proporcionalmente,
+   porque lo que hay que leer —la ficha que nace— tiene un tamaño mínimo por
+   debajo del cual la escena deja de demostrar nada. Así que el teléfono y las
+   burbujas ocupan MÁS proporción de la caja, no menos.
+
+   La consulta es sobre el propio `.hub`, que ya es contenedor de tamaño; el
+   umbral está por encima del ancho de la estrecha (272px) y por debajo del de
+   la ancha (616px). */
+@container (max-width: 400px){
+  .hub__phone{ width:68cqw }
+  .hub__node{ width:16cqw; height:16cqw }
+  .hub__tag{ margin-top:9.5cqw; width:32cqw }
 }
 
 /* Las incidencias que van naciendo. Cada una entra cuando su bolita toca el
@@ -1143,7 +1716,7 @@
 @keyframes hub-n3{ 0%,46%{opacity:0} 47%,100%{opacity:1} }
 
 @media (prefers-reduced-motion:reduce){
-  .hub__pulse{ animation:none; stroke-dashoffset:-150 }
+  .hub__pulse{ animation:none; stroke-dashoffset:-50 }
   .hub__node,.hub__new,.hub__count > *{ animation:none; opacity:1; max-height:none; margin-bottom:0 }
   .hub__count > :nth-child(1),.hub__count > :nth-child(2){ opacity:0 }
 }
@@ -1226,27 +1799,106 @@
    que es lo que hace que parezca entrar por detrás de ésta. */
 .bridge__wire{
   position:absolute; z-index:1;
-  left:10.2%; top:19.3%; width:13.1%;
+  left:10.2%; top:21%; width:11.4%;
   height:auto; overflow:visible; display:block;
 }
 .bridge__trace,.bridge__pulse2{ fill:none; stroke-linecap:round }
 /* Punto y hueco iguales, y el punto vale 1,33 veces el grosor: así se lee como
    una línea de puntos y no como una raya cortada. */
+/* — EL CABLE EN LA CARÁTULA DE LA HOME (.bridge__wire--cara) —
+   Dos arreglos, y los dos vienen de que el puente se copió a una caja con otra
+   proporción que la del diálogo:
+
+   1. El degradado se referencia POR IDENTIFICADOR. Dos <defs> con el mismo id
+      en un documento resuelven los dos al primero, así que la copia lleva los
+      suyos (`…-cara`) y aquí se le dice de dónde pinta. Sin esta línea el cable
+      se queda sin trazo: existe, ocupa su caja y no se ve.
+   2. Y se le cambia la geometría. El cable mide el alto a partir de su ANCHO
+      —`width` en % y `height:auto`, que es como se comporta un SVG—, mientras
+      que la tarjeta del ERP mide su `top` contra el ALTO del contenedor. En el
+      diálogo la caja es más alta y las dos medidas se encuentran; en la
+      carátula, más ancha y más baja, el cable creció y se hundió detrás de la
+      tarjeta hasta desaparecer entero. Sube y se ensancha para volver a salir
+      por encima de ella y morir dentro de la ventana, que es lo que cuenta la
+      pieza: el dato sale de Solved y entra en el ERP. */
+.bridge__wire--cara{ left:9%; top:19%; width:12.6% }
+.bridge__wire--cara .bridge__trace{ stroke:url(#bridge-grad-cara); stroke-width:1.5 }
+.bridge__wire--cara .bridge__pulse2{ stroke-width:2.8 }
 .bridge__trace{
   stroke:url(#bridge-grad);
   stroke-width:1.2;
   stroke-dasharray:1.6 1.6;
+  /* EL CABLE SE MUEVE, Y LO HACE DESFILANDO SUS PROPIOS PUNTOS.
+     El desplazamiento va de 0 a -3,2, que es exactamente un punto más un hueco:
+     el ciclo cierra donde empieza y no hay salto. Se anima sobre el trazado
+     VISIBLE —no dentro del <mask>, que es lo que Chrome no repinta— así que
+     esto sí se ve. El sentido es el del trazado: de la ficha del ERP hacia la
+     ventana de Solved, el mismo que recorre la bolita. */
+  animation:bridge-flow 2.4s linear infinite;
+  animation-play-state:var(--play,running);
 }
-/* El trazo se revela con una MÁSCARA —un segundo trazado, sin puntear, cuyo
-   `stroke-dashoffset` se anima— y no con el offset del propio trazo punteado:
-   animar el offset de una línea de puntos hace DESFILAR los puntos, que es
-   otra cosa. 222 es el largo del trazado, medido con getTotalLength(). */
+@keyframes bridge-flow{ to{ stroke-dashoffset:-3.2 } }
+/* EL CABLE YA NO SE DIBUJA SOLO, Y NO ES UNA DECISIÓN DE GUSTO (8 sep 2026).
+
+   Estaba montado así: el trazo punteado va dentro de un <g> enmascarado, y lo
+   que se animaba era el `stroke-dashoffset` de un segundo trazado —blanco, sin
+   puntear— dentro del <mask>. La idea era buena: animar el offset del propio
+   punteado hace DESFILAR los puntos, que cuenta otra cosa.
+
+   El problema es que no funcionaba: **Chrome no vuelve a pintar una máscara SVG
+   cuando lo que se anima está DENTRO de ella**. La máscara se quedaba en su
+   primer fotograma —offset 222, o sea nada revelado— para siempre, así que el
+   cable era invisible durante todo el ciclo. Comprobado el 8 de septiembre de
+   2026 con el cable de la carátula y con el del diálogo `u-integra`: los dos
+   llevaban meses sin verse. Con `stroke-dashoffset:0` fijo aparece entero, y
+   quitando el `mask` del <g> también.
+
+   Así que el cable se queda PUESTO y quieto —es un cable, existe— y la
+   animación la lleva la bolita que lo recorre, que es la que dice lo que hay
+   que decir: el dato sale de Solved y entra en el ERP. Esa sí se repinta,
+   porque se anima sobre el trazado visible y no dentro de una máscara.
+
+   La máscara se queda en el marcado, abierta del todo: no cuesta nada y deja
+   escrito dónde iba el efecto. Si algún día se quiere de vuelta, la salida NO
+   es reanimarla —Chrome sigue igual—, es un `clip-path` en el propio elemento,
+   que sí invalida. */
 .bridge__mask{
   fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round;
   stroke-dasharray:222;
-  animation:bridge-draw 9s ease-in-out infinite;
+  stroke-dashoffset:0;
+}
+/* EL CONECTOR — donde el cable toca la pantalla, y donde se queda.
+   El cable llegaba hasta DENTRO de la ventana, cruzando por encima de la
+   interfaz: un cable no atraviesa una pantalla, se enchufa a su borde. El ancho
+   del SVG se ajusta para que su extremo caiga sobre el canto izquierdo del
+   aparato —12,6 % en la carátula y 11,4 % en el diálogo, que son las dos cajas
+   con proporciones distintas— y aquí se remata con el conector.
+
+   Va en el extremo del trazado (131,1), que es el borde derecho del viewBox: el
+   SVG lleva `overflow:visible`, así que la mitad del punto queda por fuera y se
+   lee apoyado en el canto, no pegado por dentro.
+
+   El halo NO late todo el rato: se enciende cuando llega el dato. Comparte los
+   9 s del pulso y abre en el 46 %, que es el fotograma en el que la bolita
+   alcanza la ventana, y se apaga cuando emprende la vuelta. */
+/* Baja lo justo para que el conector caiga en el cuerpo de la ventana y no
+   sobre la banda azul de la cabecera, donde un punto azul no se ve. Y aun así
+   lleva un filo blanco: si algún día cambia el alto de la cabecera, el conector
+   se sigue leyendo sobre azul, sobre gris y sobre blanco. */
+.bridge__plug{ fill:var(--app-blue); stroke:#fff; stroke-width:1 }
+.bridge__halo{
+  fill:var(--app-blue);
+  opacity:0;
+  transform-box:fill-box; transform-origin:center;
+  animation:bridge-plug 9s ease-in-out infinite;
   animation-play-state:var(--play,running);
 }
+@keyframes bridge-plug{
+  0%,40%   { transform:scale(.5); opacity:0 }
+  46%,58%  { transform:scale(1);  opacity:.26 }
+  72%,100% { transform:scale(.5); opacity:0 }
+}
+
 /* El dato que viaja. Ida y vuelta: sube al ERP y baja a la ficha. */
 .bridge__pulse2{
   stroke:var(--app-blue);
@@ -1255,11 +1907,6 @@
   animation:bridge-pulse 9s ease-in-out infinite;
   animation-play-state:var(--play,running);
   filter:drop-shadow(0 0 3px rgba(30,107,255,.55));
-}
-@keyframes bridge-draw{
-  0%      { stroke-dashoffset:222 }
-  22%,88% { stroke-dashoffset:0 }
-  100%    { stroke-dashoffset:222 }
 }
 @keyframes bridge-pulse{
   0%,24%  { stroke-dashoffset:0 }
@@ -1270,9 +1917,12 @@
 }
 
 @media (prefers-reduced-motion:reduce){
-  .bridge__mask,.bridge__pulse2{ animation:none }
-  .bridge__mask{ stroke-dashoffset:0 }   /* el cable, entero y quieto */
+  .bridge__pulse2{ animation:none }
   .bridge__pulse2{ opacity:0 }
+  /* Ni los puntos desfilan ni el halo late. El conector se queda puesto y
+     encendido: es el estado, no el movimiento, lo que cuenta. */
+  .bridge__trace{ animation:none; stroke-dashoffset:0 }
+  .bridge__halo{ animation:none; opacity:.26 }
 }
 
 /* Por debajo de tablet el puente no cabe: la tarjeta de delante taparía media

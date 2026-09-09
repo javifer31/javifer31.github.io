@@ -1430,3 +1430,55 @@ a.rail-card:focus-visible{ outline:2px solid var(--color-primary); outline-offse
      es lo que la escena enseña. Cuadrado cabe entero. */
   .rotador__vista > .scene{ aspect-ratio:1/1 }
 }
+
+/* =========================================================
+   13 · BIBLIOTECA DE RECURSOS
+   Cuatro columnas de enlaces bajo su rótulo. Cierra una página de solución con
+   el contenido que el sitio ya tiene: los posts del blog y las fichas del
+   glosario que responden lo que la página deja abierto.
+
+   DE DÓNDE SALE
+   Del bloque de plantillas de `mitti.com/es/gestion-de-la-calidad`, que reparte
+   su biblioteca en cuatro columnas temáticas. Se copia el REPARTO, no el
+   contenido: allí son plantillas descargables y aquí son páginas del propio
+   sitio, que es lo que hay. Un enlace a un recurso que no existe cuesta más
+   confianza de la que gana — la misma regla que `.scene__expand`.
+
+   NO ES UNA REJILLA DE ARGUMENTOS. La celda de `.reasons` es una frase a dos
+   tintas con un enlace al final; ésta es un rótulo con una lista debajo. Se
+   separan porque lo que hacen es distinto: aquélla argumenta, ésta indexa.
+   ========================================================= */
+.reslib{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:36px 20px;
+}
+/* El rótulo se separa con una línea, no con un peso: los tres pesos del sistema
+   no incluyen negrita, y una columna de enlaces ya pesa por sí sola. */
+.reslib h3{
+  margin:0 0 14px;
+  padding-bottom:12px;
+  font:var(--type-body-lg);
+  letter-spacing:var(--tracking-body);
+  color:var(--ds-text);
+  border-bottom:1px solid var(--color-hairline);
+}
+.reslib ul{
+  margin:0; padding:0;
+  list-style:none;
+  display:flex; flex-direction:column; gap:10px;
+}
+/* En gris, y en tinta sólo al pasar por encima: son veinte enlaces seguidos y
+   veinte líneas en azul se leen como un error de maquetación, no como una
+   lista. Mismo criterio que la cita centrada. */
+.reslib a{
+  font:var(--type-body-md);
+  letter-spacing:var(--tracking-body);
+  color:var(--ds-text-mute);
+  text-decoration:none;
+  text-wrap:pretty;
+}
+.reslib a:hover{ color:var(--color-primary); text-decoration:underline }
+
+@media (max-width:1100px){ .reslib{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px 24px } }
+@media (max-width:719px){  .reslib{ grid-template-columns:1fr; gap:28px } }

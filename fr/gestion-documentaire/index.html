@@ -129,6 +129,162 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -158,10 +314,15 @@
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260907a">
-<link rel="stylesheet" href="/ds/hero.css?v=20260903a">
-<link rel="stylesheet" href="/ds/app.css?v=20260904d">
-<link rel="stylesheet" href="/ds/sections.css?v=20260907a">
+<link rel="stylesheet" href="/ds/site.css?v=20260908a">
+<link rel="stylesheet" href="/ds/hero.css?v=20260907e">
+<!-- `.res` —el recurso— vive en ds/scene.css, y la pila de la hero lo
+     reutiliza tal cual. Esta página no monta ninguna escena, pero sí su
+     recurso, así que la hoja hace falta igual. -->
+<link rel="stylesheet" href="/ds/scene.css?v=20260908b">
+<link rel="stylesheet" href="/ds/hero-docs.css?v=20260908a">
+<link rel="stylesheet" href="/ds/app.css?v=20260908b">
+<link rel="stylesheet" href="/ds/sections.css?v=20260908a">
 </head>
 <body data-screen-label="Gestor documental">
 
@@ -178,15 +339,104 @@
      (24,1 %), PDF (13,5 %), versión (12,1 %), procedimiento (9,3 %) y
      certificado (8,6 %); «gestor documental» sólo en el 9,0 %. Y como en el
      resto del sitio: herramienta y sistema, nunca «plataforma». -->
-<section class="ds-hero ds-hero--centro" data-screen-label="Gestor documental · Hero">
+<section class="ds-hero" data-screen-label="Gestor documental · Hero">
   <canvas class="ds-hero__weave" aria-hidden="true" id="dsWeave"></canvas>
+
+    <!-- ============ LA PILA DE DOCUMENTOS ============
+         La pieza propia de esta hero, como «Convergencia» lo es de la de
+         Integraciones. Cuatro recursos (`.res`, de ds/scene.css) en cascada
+         sobre la misma diagonal que sube el haz: entran por arriba, se ordenan
+         y salen archivados por abajo, a saltos y no en continuo.
+
+         Los cuatro documentos, sus responsables y sus fechas son los de la
+         vista de tabla de demo.trysolved.com/documents comprobada el 3 de
+         septiembre de 2026 —la misma que se monta en el bocadillo de más
+         abajo—, así que la hero y la escena cuentan la misma carpeta.
+
+         `aria-hidden`: es la ilustración del titular, no información nueva.
+         Todo lo que dice está escrito en la página. Ficha en ds/hero-docs.css.
+         ============================================ -->
+    <div class="docstack" aria-hidden="true">
+      <article class="docstack__card res" style="--i:0">
+        <div class="res__hd">
+          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+          <div>
+            <p class="res__t">PR-07 Nettoyage et désinfection</p>
+            <p class="res__s"><span class="docstack__dot"></span>Validé · Ana</p>
+          </div>
+        </div>
+        <dl class="res__rows">
+          <div class="res__kv"><dt>Revue</dt><dd>12/12/26</dd></div>
+        </dl>
+      </article>
+      <article class="docstack__card res" style="--i:1">
+        <div class="res__hd">
+          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+          <div>
+            <p class="res__t">Certificat IFS · Huile de tournesol</p>
+            <p class="res__s"><span class="docstack__dot"></span>Validé · Marta</p>
+          </div>
+        </div>
+        <dl class="res__rows">
+          <div class="res__kv"><dt>Expire</dt><dd>30/09/26</dd></div>
+        </dl>
+      </article>
+      <article class="docstack__card res" style="--i:2">
+        <div class="res__hd">
+          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+          <div>
+            <p class="res__t">Fiche technique · Pop-corn 90 g</p>
+            <p class="res__s"><span class="docstack__dot--espera"></span>En attente de validation · Marta</p>
+          </div>
+        </div>
+        <dl class="res__rows">
+          <div class="res__kv"><dt>Mis en ligne</dt><dd>02/06/26</dd></div>
+        </dl>
+      </article>
+      <article class="docstack__card res" style="--i:3">
+        <div class="res__hd">
+          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
+          <div>
+            <p class="res__t">PR-12 Détection des métaux</p>
+            <p class="res__s"><span class="docstack__dot"></span>Validé · Pablo</p>
+          </div>
+        </div>
+        <dl class="res__rows">
+          <div class="res__kv"><dt>Revue</dt><dd>20/05/27</dd></div>
+        </dl>
+      </article>
+    </div>
   <div class="frame frame--seam ds-hero__frame">
     <div class="ds-hero__txt">
-      <span class="ds-eyebrow">Gestion documentaire</span>
+      <div class="ds-hero__strip">
+        <span class="ds-eyebrow">Gestion documentaire</span>
+        <span class="ds-badge ds-badge--ia">
+          <svg class="ds-badge__star" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <linearGradient id="dsBadgeIaGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#A855F7"></stop>
+              <stop offset=".52" stop-color="#D34F9D"></stop>
+              <stop offset="1" stop-color="#1FD6F5"></stop>
+            </linearGradient>
+            <path fill="url(#dsBadgeIaGrad)" d="M12 1.4c.62 5.62 4.56 9.56 10.18 10.18v.84c-5.62.62-9.56 4.56-10.18 10.18h-.84C10.54 17 6.6 13.04.98 12.42v-.84C6.6 10.96 10.54 7.02 11.16 1.4z"></path>
+          </svg>
+          AI Powered
+        </span>
+      </div>
       <h1>Maîtrisez toute la documentation de votre usine : <span class="ds-dim">version en vigueur, validation et expirations signalées avant que l'auditeur ne les demande.</span></h1>
       <p class="ds-hero__sub">Chaque document sait quand il expire, qui l'a validé et dans quel dossier il manque. Un dossier partagé ne sait rien de tout cela.</p>
       <div class="ds-hero__cta">
         <a class="ds-btn ds-btn--primary" href="#contacto">Demander une démo</a>
+      </div>
+      <!-- Tira de compatibilidad MCP (ds/site.css). Iconos = marcas de sus
+           titulares; procedencia en assets/mcp/FUENTES.md. -->
+      <div class="mcp">
+        <span class="mcp__lb">Serveur MCP</span>
+        <span class="mcp__logos">
+          <span class="mcp__logo"><img src="/assets/mcp/claude.webp" alt="" width="96" height="96" decoding="async" loading="lazy">Claude</span>
+          <span class="mcp__logo mcp__logo--mono"><img src="/assets/mcp/chatgpt.webp" alt="" width="96" height="96" decoding="async" loading="lazy">ChatGPT</span>
+          <span class="mcp__logo"><img src="/assets/mcp/gemini.webp" alt="" width="96" height="96" decoding="async" loading="lazy">Gemini</span>
+        </span>
+        <span class="mcp__txt">Pilotez Solved depuis les outils d'IA que vous utilisez déjà</span>
       </div>
     </div>
   </div>
@@ -231,48 +481,6 @@
     </div>
   </div>
 </div>
-
-<!-- ============ PAIN ============
-     Los cinco cuadros salen de contar, en las 955 transcripciones de
-     ~/samu-export y sólo del lado cliente, qué dice quien compra cuando sale
-     la documentación. Frecuencia sobre las 955 reuniones:
-
-       documentos ..................... 38,8 %
-       el auditor ..................... 27,5 %
-       papel .......................... 24,1 %
-       PDF ............................ 13,5 %
-       versión / versiones ............ 12,1 %
-       carpetas ....................... 11,9 %
-       firma / firmar ................. 11,8 %
-       procedimientos .................  9,3 %
-       archivo (el sitio) .............  9,3 %
-       gestor / gestión documental ....  9,0 %
-       certificados ...................  8,6 %
-       caducidad / vencimiento ........  7,0 %
-       servidor / carpeta compartida ...  6,0 %
-       SharePoint, Drive o Dropbox ....  4,7 %
-       ficha técnica ..................  4,3 %
-       obsoleto / desactualizado ......  3,5 %
-
-     El rival de esta página no es otro gestor documental: es el SharePoint, la
-     carpeta del servidor y el Excel de control de caducidades. Las cifras se
-     quedan en el comentario, como en /incidencias/ y en /gestion-de-activos/:
-     el corpus es de reuniones privadas. -->
-<section class="section" data-screen-label="Gestor documental · Dolor">
-  <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Un dossier partagé stocke des fichiers ; il n'alerte ni sur ce qui expire ni sur ce qui manque</h2>
-      <p>Ni que le certificat du fournisseur a expiré le mois dernier, ni que la version qui circule dans l'usine n'est plus la version en vigueur, ni qu'il manque un document dans ce dossier.</p>
-    </div>
-    <div class="pain-grid">
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7a2 2 0 0 1 2-2h4l2 3h8a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span><p>La documentation vit dans un SharePoint ou un dossier serveur. Il stocke bien les fichiers ; ce qu'il ne fait pas, c'est alerter.</p></div>
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="13" height="16" rx="2"></rect><path d="M4 6v13a2 2 0 0 0 2 2h11"></path></svg></span><p>On téléverse la version 2 et la version 1 continue de circuler. Personne ne sait avec certitude laquelle est en vigueur ni qui l'a validée.</p></div>
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span><p>Les certificats fournisseurs expirent chacun à une date différente, et les suivre revient à passer en revue cent échéances une par une.</p></div>
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 11h6M12 8v6"></path></svg></span><p>L'auditeur demande la procédure et l'enregistrement qui l'applique. Ils sont à deux endroits différents qui ne communiquent pas.</p></div>
-      <div class="pain"><span class="pain__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v14H4z"></path><path d="M4 10h16M9 10v10"></path></svg></span><p>Personne ne sait si le dossier est complet jusqu'à ce qu'un document manque, et cela se découvre devant celui qui l'a demandé.</p></div>
-    </div>
-  </div>
-</section>
 
 <!-- ============================================================
      ESCENA CON BOCADILLO — ds/sections.css, patrón 10
@@ -466,35 +674,6 @@
   </div>
 </section>
 
-<!-- ============ EL LÍMITE ============
-     La objeción que aparece tal cual en las llamadas —«cuando trabajas con los
-     documentos en la nube también hay historial de cambios, eso está más
-     cubierto»— y que esta página tiene que responder de frente, porque el
-     rival de un gestor documental de planta es el SharePoint que la empresa
-     ya paga. Lo que se afirma de Solved está comprobado en la aplicación; lo
-     que se dice de una carpeta compartida es lo que una carpeta compartida no
-     hace, no un defecto inventado. -->
-<section class="section" data-screen-label="Gestor documental · El límite">
-  <div class="wrap">
-    <div class="section-head"><h2>Ce que SharePoint ou Drive ne couvrent pas</h2></div>
-    <div class="split">
-      <div class="split__txt">
-        <p style="font-weight:var(--font-weight-medium);color:var(--ink-900);font-size:16px;margin-bottom:var(--s-3);">Un dossier dans le cloud stocke les fichiers et conserve leur historique de modifications, et pour cela il fonctionne bien. Le problème n'est pas où se trouve le fichier : c'est qu'un fichier isolé ne sait rien de lui-même.</p>
-        <div class="feat-list">
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Il ne sait pas quels documents devraient se trouver dans son dossier, il ne peut donc pas signaler qu'il en manque un.</p></div></div>
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Il n'a pas de date d'expiration : le certificat périme et le fichier reste là, exactement pareil.</p></div></div>
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Il ne distingue pas un document validé d'un document en attente de validation, ce qui représente la moitié d'un audit.</p></div></div>
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Il n'est pas à côté de l'enregistrement qui applique la procédure ni de l'incident qui l'enfreint.</p></div></div>
-          <div class="feat"><span class="feat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><path d="M8 12l3 3 5-6"></path></svg></span><div><p>Et il ne se consulte pas depuis l'usine avec le même accès que celui utilisé pour remplir un contrôle de poste.</p></div></div>
-        </div>
-      </div>
-      <div class="split__art">
-        <img class="shot" src="/assets/planta/almacen-tablet-estanteria.webp" alt="Un responsable consulte la documentation sur la tablette près des rayonnages de l'entrepôt" width="1100" height="1100" decoding="async" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ TESTIMONIO ============
      NO HAY CITA EN ESTA PÁGINA, igual que en /ia/ y en /gestion-de-activos/.
      La regla es una cita por página y cada página la suya, y de las siete que
@@ -524,18 +703,18 @@
   <div class="wrap contact__in">
     <div class="form-card">
       <h2>Contact avec un spécialiste des opérations industrielles</h2>
-      <p class="form-card__nota">Questions fréquentes à ce stade : la migration de la documentation en vigueur, la coexistence avec le référentiel documentaire de l'entreprise et le périmètre d'un pilote.</p>
+      <p class="form-card__nota">Questions fréquentes à ce stade : la migration de la documentation en vigueur et la coexistence avec le référentiel documentaire de l'entreprise.</p>
       <!-- Formulario HubSpot (se renderiza vía chrome.js → Portal 20010689) -->
       <div class="hs-contact-form"></div>
     </div>
     <div class="contact__art">
-      <img src="/assets/contacto-tecnica-tablet.webp" alt="Une technicienne d'usine consulte Solved sur la tablette" style="width:100%;display:block;border-radius:var(--r-3);box-shadow:var(--shadow-2);" width="1024" height="910" decoding="async" loading="lazy">
+      <video class="contact__v" data-lazy="/assets/registro-tablet-planta.mp4" poster="/assets/contacto-registro-planta.webp" muted="" loop="" playsinline="" preload="none" width="1280" height="720" aria-label="Une opératrice de production remplit un enregistrement sur tablette au bord de la ligne"></video>
     </div>
   </div>
 </section>
 
 <div id="footer"></div>
-<script src="/fr/chrome.js?v=20260907a"></script>
+<script src="/fr/chrome.js?v=20260907f"></script>
 <!-- Hero y franja de clientes: el mismo shader y la misma cinta que la home.
      sections.js es sólo para el riel de la escalera de pasos. -->
 <script src="/ds/sections.js?v=20260903a" defer=""></script>
