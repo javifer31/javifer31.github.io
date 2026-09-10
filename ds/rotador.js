@@ -15,7 +15,11 @@
 
    El riel de avance lo pinta el CSS con una animación de duración
    `--rot-dur`; aquí sólo se dice cuál es el item activo y se reinicia la
-   animación quitando y devolviendo el atributo. */
+   animación quitando y devolviendo el atributo.
+
+   Duración: `data-intervalo` en el contenedor para todas, y `data-dur` en un
+   `.rotador__item` para la que necesite más —una capacidad cuya pantalla es una
+   animación larga—. Las dos en milisegundos. */
 (function () {
   var REDUCIDO = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -25,7 +29,21 @@
     if (items.length < 2 || items.length !== paneles.length) return;
 
     var espera = parseInt(raiz.getAttribute('data-intervalo'), 10) || 7000;
-    raiz.style.setProperty('--rot-dur', (espera / 1000) + 's');
+
+    /* CADA CAPACIDAD PUEDE DURAR LO SUYO (`data-dur`, en ms, en el item).
+       El intervalo común vale mientras las pantallas cuenten lo mismo en el
+       mismo tiempo, y dejó de valer en cuanto una de ellas fue una animación de
+       tres actos: el montaje de la plantilla dura 21 s y el rotador la cortaba
+       a los 7, así que de los tres caminos que promete el rótulo se veía uno.
+       Alargar el intervalo de todas habría dejado las otras tres —que se
+       resuelven en menos de siete segundos— paradas y esperando.
+       El riel de avance se pinta con la duración del item activo, no con una
+       del contenedor: si no, la barra llega al final y la capacidad sigue ahí,
+       que es peor que no tener barra. */
+    function duracion(i) {
+      var d = parseInt(items[i].getAttribute('data-dur'), 10);
+      return d > 0 ? d : espera;
+    }
 
     var actual = 0, reloj = null, visible = true, quieto = false;
 
@@ -40,7 +58,10 @@
         if (btn) btn.tabIndex = on ? 0 : -1;
         if (cuerpo) cuerpo.hidden = !on;
         paneles[j].hidden = !on;
-        if (on) { void it.offsetWidth; it.setAttribute('data-activo', 'true'); }
+        if (on) {
+          it.style.setProperty('--rot-dur', (duracion(j) / 1000) + 's');
+          void it.offsetWidth; it.setAttribute('data-activo', 'true');
+        }
       });
       if (porClic) programar();
     }
@@ -48,7 +69,7 @@
     function programar() {
       clearTimeout(reloj);
       if (REDUCIDO || !visible || quieto) return;
-      reloj = setTimeout(function () { activar((actual + 1) % items.length); programar(); }, espera);
+      reloj = setTimeout(function () { activar((actual + 1) % items.length); programar(); }, duracion(actual));
     }
 
     function pausar(v) {

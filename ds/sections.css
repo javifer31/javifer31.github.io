@@ -793,6 +793,22 @@ a.rail-card:focus-visible{ outline:2px solid var(--color-primary); outline-offse
   .switch__panel{ grid-template-columns:1fr; gap:28px }
 }
 
+/* Modificador opcional `.switch--compacto`: menos aire en la barra de
+   pestañas y foto recortada a 4:3 en vez de cuadrada — la imagen 1:1 es la
+   que fija el alto de la fila (mucho más que el texto), así que reducir sólo
+   el párrafo o la lista no bajaba nada. Recorte por CSS, sin tocar el
+   fichero; el original sigue siendo 1100×1100 por si se usa cuadrado en otro
+   sitio. Nace en /auditorias/ (9 sep 2026), petición del cliente. */
+.switch--compacto .switch__tabs{ padding-bottom:18px; margin-bottom:20px }
+.switch--compacto .switch__panel{ gap:32px }
+.switch--compacto .switch__txt{ gap:12px }
+.switch--compacto .switch__list{ gap:8px }
+.switch--compacto .switch__panel > img{
+  aspect-ratio:4/3;
+  object-fit:cover;
+  object-position:50% 30%;
+}
+
 /* =========================================================
    8 · ESCALERA DE PASOS
    ---------------------------------------------------------
@@ -1353,7 +1369,10 @@ a.rail-card:focus-visible{ outline:2px solid var(--color-primary); outline-offse
 .rotador__lista{ display:flex; flex-direction:column; }
 
 /* El riel vive en el item, no en la lista: así el tramo encendido es
-   exactamente el alto de la capacidad abierta, que es lo que lo hace legible. */
+   exactamente el alto de la capacidad abierta, que es lo que lo hace legible.
+   Y su duración también: `--rot-dur` se declara aquí de reserva, pero el script
+   la escribe en el item activo, porque una capacidad puede durar más que las
+   otras (`data-dur`) cuando su pantalla es una animación larga. */
 .rotador__item{
   position:relative;
   padding:20px 0 20px 22px;
@@ -1482,3 +1501,22 @@ a.rail-card:focus-visible{ outline:2px solid var(--color-primary); outline-offse
 
 @media (max-width:1100px){ .reslib{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px 24px } }
 @media (max-width:719px){  .reslib{ grid-template-columns:1fr; gap:28px } }
+
+/* --- EL ROTADOR COMO BLOQUE APARTE ------------------------------------------
+   `.rotador-bloque` (9 sep 2026, petición del cliente en /auditorias/): cuando
+   el rotador no abre su propia sección sino que va debajo de otra pieza —allí,
+   el vídeo de IA—, necesita más aire del que separa dos piezas de la misma
+   sección, o las dos se leen como una. Es el ritmo de sección (96px) dentro de
+   una sección, y por eso lleva además el hilo de arriba: sin él, el aire solo
+   parece un error de maquetación.
+
+   No es una sección nueva: la regla del cliente es que una landing de módulo
+   tiene dos secciones de contenido, y ésta ya es una de las dos. */
+.rotador-bloque{
+  margin-top:72px;
+  padding-top:56px;
+  border-top:1px solid var(--color-hairline);
+}
+@media (max-width:900px){
+  .rotador-bloque{ margin-top:48px; padding-top:40px }
+}

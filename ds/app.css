@@ -53,7 +53,15 @@
 .app,
 .bridge,
 .app__asigna,
-.app__raiz{
+.app__raiz,
+/* `.app__conv` es la cuarta pieza que vive FUERA de `.app` —el cajón del chat de
+   /incidencias/, panel suelto y sin marco de aparato— y le pasa lo mismo que le
+   pasó a `.bridge` el 8 de septiembre: sin esta línea,
+   `background:var(--app-blue)` es una declaración inválida y la burbuja del
+   mensaje propio salía TRANSPARENTE con la letra en blanco, o sea invisible.
+   Cuarta vez que aparece el mismo fallo: **si una pieza de producto no cuelga de
+   `.app`, entra aquí**. */
+.app__conv{
   /* Tokens del producto, no de la web. Los valores de reserva son por si la
      pantalla se monta en una página que no cargue el paquete de _ds. */
   --app-blue:var(--blue,#1E6BFF);
@@ -907,84 +915,204 @@
 
 
 /* =========================================================
-   LOS TRES CUADROS DE /incidencias/ — 8 de septiembre de 2026
+   LOS TRES CUADROS DE /incidencias/
+   8 de septiembre de 2026; rehechos el 9 con la aplicación delante.
+
    La sección «Detecta» enseñaba las mismas cuatro pantallas que la home. Estas
-   tres son las que la sustituyen, y ninguna existe en ningún otro sitio del
-   sitio: la plantilla que se diseña por tipo de incidencia, el reparto del
-   trabajo a cualquiera del equipo, y la causa raíz que acaba en un registro
-   programado. Si alguna se quiere reutilizar, que sea moviéndola, no copiándola.
+   tres son las que la sustituyen, y ninguna existe en ningún otro sitio: el
+   alta de una incidencia paso a paso, el reparto del trabajo a cualquiera del
+   equipo, y el análisis de Ishikawa que acaba en un registro programado. Si
+   alguna se quiere reutilizar, que sea moviéndola, no copiándola.
+
+   Las tres se comprobaron contra `demo.trysolved.com` el 9 de septiembre de
+   2026: el alta contra `/incidents/create-incident-byTags`, el reparto contra
+   `/actions/create` y el Ishikawa contra el panel que abre el icono de la
+   cabecera de una incidencia. Lo que se ve aquí existe.
    ========================================================= */
 
-/* --- 1 · PLANTILLAS POR TIPO DE INCIDENCIA -----------------------------------
-   Los tres tipos se relevan en el filtro y con ellos cambia la lista de campos
-   ENTERA. Es lo único que demuestra «a tu medida»: una sola lista sería una
-   plantilla, no un sistema de plantillas.
+/* --- 1 · EL ALTA DE UNA INCIDENCIA, EN TRES PASOS ----------------------------
+   Antes esta pantalla era la de AJUSTES: la lista de plantillas de incidencia,
+   con los tres tipos relevándose en el filtro y la lista de campos cambiando
+   entera. Enseñaba dónde se diseña una plantilla, no para qué sirve.
 
-   Las tres listas se APILAN en la misma celda de rejilla en vez de ir en
-   secuencia, y no es un capricho: tienen cinco y seis campos, y en secuencia la
-   caja daría un salto de alto cada vez que cambia el tipo. Apiladas, la celda
-   mide lo que la más alta y no se mueve nada. */
-.app__filters--tipos{ margin-bottom:2px }
-/* El chip elegido. Mismo tratamiento que el ítem activo del menú lateral: en
-   esta app «seleccionado» se dice con el lavado azul, no con un relleno. */
-.app__filter--on{
-  background:var(--app-blue-wash);
-  border-color:rgba(30,107,255,.28);
+   Ahora son los tres pasos del alta —Inicio → «Configura los datos iniciales»
+   → el asistente guiado—, que es donde la plantilla se nota: la categoría
+   enruta a la plantilla (`templatesMapping`) y con ella cambian los campos que
+   el asistente pregunta.
+
+   Los tres pasos se APILAN en la misma celda y se relevan, por lo mismo que se
+   apilaban las tres listas de campos: miden distinto y en secuencia la caja
+   pegaría un salto en cada cambio. El reloj es de 20 s y el reparto no es
+   libre: el paso 3 se lleva más de la mitad porque es el único que hay que
+   leer, y los dos primeros son el camino hasta él. */
+.app__flujo{ flex:1; min-height:0; display:grid; align-items:start }
+.app__paso{
+  grid-area:1/1;
+  display:flex; flex-direction:column; gap:9px;
+  animation-duration:20s; animation-iteration-count:infinite;
+  animation-timing-function:steps(1);
+  animation-play-state:var(--play,running);
+  /* El paso que no toca no se lleva el clic ni el foco, aunque la escena entera
+     sea decorativa: `opacity:0` deja el nodo en pie. */
+  pointer-events:none;
+}
+.app__paso--a{ animation-name:app-paso-a }
+.app__paso--b{ animation-name:app-paso-b }
+.app__paso--c{ animation-name:app-paso-c }
+@keyframes app-paso-a{ 0%,15%{opacity:1} 16%,100%{opacity:0} }
+@keyframes app-paso-b{ 0%,15%{opacity:0} 16%,38%{opacity:1} 39%,100%{opacity:0} }
+@keyframes app-paso-c{ 0%,38%{opacity:0} 39%,100%{opacity:1} }
+
+/* PASO 1 · Inicio. La cabecera con el saludo y los tres botones. */
+.app__hola{
+  display:flex; align-items:center; gap:9px;
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:10px 12px;
+}
+.app__ava--hola{ width:28px; height:28px; font-size:12px; background:var(--app-blue) }
+.app__holat{ font-size:12px; font-weight:500; color:var(--app-text) }
+.app__holas{ font-size:10px; color:var(--app-text-2); margin-top:1px }
+/* Los tres botones llevan el color de SU módulo, que es como los pinta la
+   aplicación: azul incidencias, naranja acciones, morado registros. Es la misma
+   regla del tinte de una escena — el color codifica módulo, no jerarquía. */
+.app__crear{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 11px; border-radius:7px;
+  border:1px solid var(--app-line); background:#fff;
+  font-size:10.5px; font-weight:500; white-space:nowrap;
+}
+.app__crear svg{ width:13px; height:13px; flex:0 0 auto }
+.app__crear--inc{ color:var(--app-blue) }
+.app__crear--acc{ color:var(--app-accion) }
+.app__crear--reg{ color:var(--app-registro) }
+/* El botón que se pulsa. El saltito del 6 % va ANTES del cambio de color, que
+   es el orden en que ocurre de verdad: primero el dedo, después el estado. Es
+   la misma decisión que la píldora OK/KO del registro. */
+.app__crear--inc{
+  animation:app-crear 20s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-crear{
+  0%,7%    { background:#fff; border-color:var(--app-line); color:var(--app-blue); scale:1 }
+  9%       { background:#fff; border-color:var(--app-line); color:var(--app-blue); scale:.94 }
+  11%,100% { background:var(--app-blue); border-color:var(--app-blue); color:#fff; scale:1 }
+}
+.app__abiertas .app__panelt{ margin-bottom:6px }
+/* La ruta que trae el paso anterior —categoría y centro— vive en la cabecera
+   del asistente. Va en tinta neutra y NO con `.app__recprog`, que es verde:
+   ese verde es el de «firmado», y aquí no hay nada firmado todavía. */
+.app__ruta{
+  margin-left:auto; font-size:10px; color:var(--app-text-2); white-space:nowrap;
+}
+
+/* PASO 2 · «Configura los datos iniciales». Dos columnas, como la aplicación:
+   el centro y la categoría. La de categoría es más ancha porque lleva seis
+   opciones y la otra dos. */
+.app__inicial{
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:10px; align-items:start;
+}
+.app__elecs{ margin-top:8px; display:flex; flex-direction:column; gap:5px }
+.app__elec{
+  padding:7px 10px;
+  border:1px solid var(--app-line); border-radius:7px; background:#fff;
+  font-size:10.5px; color:var(--app-text);
+}
+/* «Seleccionado» se dice con el lavado azul, como el ítem activo del menú
+   lateral, no con un relleno. */
+.app__elec--centro{
+  background:var(--app-blue-wash); border-color:rgba(30,107,255,.28);
   color:var(--app-blue-deep);
 }
-.app__filter--p1,.app__filter--p2,.app__filter--p3{
-  animation-duration:15s; animation-iteration-count:infinite;
-  animation-timing-function:steps(1);
+.app__elec--cat{
+  animation:app-elec 20s ease-out infinite;
   animation-play-state:var(--play,running);
 }
-.app__filter--p1{ animation-name:app-tipo1 }
-.app__filter--p2{ animation-name:app-tipo2 }
-.app__filter--p3{ animation-name:app-tipo3 }
-@keyframes app-tipo1{
-  0%,32%   { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep) }
-  33%,100% { background:#fff; border-color:var(--app-line); color:var(--app-text-2) }
-}
-@keyframes app-tipo2{
-  0%,32%   { background:#fff; border-color:var(--app-line); color:var(--app-text-2) }
-  33%,65%  { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep) }
-  66%,100% { background:#fff; border-color:var(--app-line); color:var(--app-text-2) }
-}
-@keyframes app-tipo3{
-  0%,65%   { background:#fff; border-color:var(--app-line); color:var(--app-text-2) }
-  66%,100% { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep) }
+@keyframes app-elec{
+  0%,27%   { background:#fff; border-color:var(--app-line); color:var(--app-text); scale:1 }
+  29%      { background:#fff; border-color:var(--app-line); color:var(--app-text); scale:.97 }
+  31%,100% { background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep); scale:1 }
 }
 
-.app__plantillas{ display:grid; align-items:start }
-.app__pl{
-  grid-area:1/1;
-  animation-duration:15s; animation-iteration-count:infinite;
-  animation-timing-function:steps(1);
+/* PASO 3 · El asistente guiado: la plantilla ya elegida, hecha preguntas. El
+   número y el nombre del campo van a la izquierda, como en la aplicación, y la
+   pregunta en lenguaje natural centrada en su propia caja. */
+.app__guia{ display:flex; flex-direction:column; gap:8px; min-height:0 }
+.app__preg{
+  display:grid; grid-template-columns:18px auto minmax(0,1fr);
+  align-items:start; gap:9px;
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:10px 12px;
+  animation-duration:20s; animation-iteration-count:infinite;
+  animation-timing-function:cubic-bezier(.16,1,.3,1);
   animation-play-state:var(--play,running);
 }
-.app__pl--a{ animation-name:app-tipo-a }
-.app__pl--b{ animation-name:app-tipo-b }
-.app__pl--c{ animation-name:app-tipo-c }
-@keyframes app-tipo-a{ 0%,32%{opacity:1} 33%,100%{opacity:0} }
-@keyframes app-tipo-b{ 0%,32%{opacity:0} 33%,65%{opacity:1} 66%,100%{opacity:0} }
-@keyframes app-tipo-c{ 0%,65%{opacity:0} 66%,100%{opacity:1} }
-/* La lista que no toca no se lleva el clic ni el foco, aunque la escena entera
-   sea decorativa: `opacity:0` deja el nodo en pie. */
-.app__pl{ pointer-events:none }
-
-/* El tipo de un campo. Tinta neutra a propósito: un tipo NO es un estado, y
-   pintarlo del verde de OK o del rojo de KO diría algo que no dice. */
-.app__tipo{
-  display:inline-flex; align-items:center;
-  padding:2px 8px; border-radius:5px;
-  background:var(--app-canvas); border:1px solid var(--app-line);
-  font-size:9.5px; color:var(--app-text-2); white-space:nowrap;
+.app__preg--q1{ animation-name:app-preg-1 }
+.app__preg--q2{ animation-name:app-preg-2 }
+.app__preg--q3{ animation-name:app-preg-3 }
+@keyframes app-preg-1{ 0%,39%{opacity:0; translate:0 6px} 44%,100%{opacity:1; translate:0 0} }
+@keyframes app-preg-2{ 0%,55%{opacity:0; translate:0 6px} 60%,100%{opacity:1; translate:0 0} }
+@keyframes app-preg-3{ 0%,71%{opacity:0; translate:0 6px} 76%,100%{opacity:1; translate:0 0} }
+.app__pregn{
+  width:18px; height:18px; border-radius:5px; margin-top:1px;
+  display:grid; place-items:center;
+  background:var(--app-blue); color:#fff;
+  font-size:9.5px; font-weight:500;
+}
+.app__pregl{ font-size:10.5px; font-weight:500; color:var(--app-text); padding-top:3px; white-space:nowrap }
+.app__pregc{ min-width:0; background:var(--app-canvas); border-radius:7px; padding:8px 10px }
+.app__pregq{ font-size:10.5px; color:var(--app-text-2); text-align:center }
+.app__pregr{
+  margin-top:7px; padding:6px 9px;
+  background:#fff; border:1px solid var(--app-line); border-radius:6px;
+  font-size:10.5px; color:var(--app-text); min-height:14px;
+}
+/* La respuesta se escribe DESPUÉS de que aparezca la pregunta: la caja ya está,
+   lo que entra es el texto. Sin esto la pantalla enseña un formulario relleno,
+   que lo puede fingir cualquiera. */
+.app__pregr span{
+  display:inline-block;
+  animation:app-teclea 20s steps(30) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-teclea{ 0%,45%{clip-path:inset(0 100% 0 0)} 51%,100%{clip-path:inset(0 0 0 0)} }
+/* Los atajos del asistente. No son adorno: son los valores que la aplicación
+   ofrece para no teclear, y por eso llevan el color de lo que dicen —el rojo de
+   Alta, el ámbar de Media—. Un atajo de prioridad en gris diría que la
+   prioridad no tiene estado, que es justo lo contrario. */
+.app__atajos{ margin-top:7px; display:flex; flex-wrap:wrap; gap:5px; justify-content:center }
+.app__atajo{
+  display:inline-flex; padding:4px 10px; border-radius:999px;
+  border:1px solid rgba(30,107,255,.4); background:#fff;
+  font-size:9.5px; color:var(--app-blue); white-space:nowrap;
+}
+.app__atajo--alta{ color:var(--app-crit); border-color:rgba(224,49,49,.45) }
+.app__atajo--media,.app__atajo--sel{
+  animation-duration:20s; animation-iteration-count:infinite;
+  animation-timing-function:ease-out;
+  animation-play-state:var(--play,running);
+}
+.app__atajo--media{ animation-name:app-atajo-media }
+.app__atajo--sel{ animation-name:app-atajo-sel }
+@keyframes app-atajo-media{
+  0%,63%   { background:#fff; border-color:rgba(245,159,0,.5); color:var(--app-warn) }
+  66%,100% { background:var(--app-warn); border-color:var(--app-warn); color:#fff }
+}
+@keyframes app-atajo-sel{
+  0%,79%   { background:#fff; border-color:rgba(30,107,255,.4); color:var(--app-blue) }
+  82%,100% { background:var(--app-blue); border-color:var(--app-blue); color:#fff }
 }
 
-/* --- 2 · ASIGNAR A CUALQUIERA DEL EQUIPO -------------------------------------
-   La pieza es el SELECTOR ABIERTO, no la tarea ya asignada: lo que promete el
-   titular es «a cualquier persona del equipo», y eso sólo se ve si se ven los
-   departamentos distintos. Va sin marco de aparato —no es una ventana, es un
-   desplegable— y por eso lleva su propia sombra. */
+
+/* --- 2 · CREAR LA TAREA Y ASIGNARLA A CUALQUIERA DEL EQUIPO ------------------
+   Dos mitades, y la primera se añadió el 9 de septiembre: arriba **la acción
+   que se está creando** —cabecera, incidencia enlazada y descripción
+   escribiéndose— y debajo **el desplegable de Responsable abierto**. Sin la
+   primera esto era un buscador de personas; con ella es asignar una tarea, que
+   es lo que dice el titular.
+
+   Va sin marco de aparato —no es una ventana, es un panel— y por eso lleva su
+   propia sombra. */
 .app__asigna{
   width:100%;
   background:#fff;
@@ -997,6 +1125,130 @@
   color:var(--app-text);
   font-variant-numeric:tabular-nums;
   text-align:left;
+}
+.app__panelt--nueva{ display:flex; align-items:center; justify-content:space-between; gap:8px }
+.app__vinc{ display:inline-flex; align-items:center; gap:5px; color:var(--app-mute) }
+.app__vinc svg{ width:12px; height:12px; flex:0 0 auto }
+.app__campo{ display:flex; flex-direction:column; gap:4px }
+.app__campok{ font-size:9.5px; color:var(--app-mute) }
+.app__campov{
+  padding:6px 9px; border:1px solid var(--app-line); border-radius:7px;
+  font-size:10.5px; color:var(--app-text); min-height:15px;
+  overflow:hidden; white-space:nowrap;
+}
+/* La descripción se teclea delante de quien mira. `steps()` aquí sí, al revés
+   que en la banda de IA: allí el texto se pinta a 22px y los saltos de carácter
+   se leen como un tartamudeo; a 10,5px son un cursor. */
+.app__campov--tecla span{
+  display:inline-block;
+  animation:app-tecla 12s steps(26) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-tecla{ 0%,3%{clip-path:inset(0 100% 0 0)} 19%,100%{clip-path:inset(0 0 0 0)} }
+
+/* — LOS CAMPOS QUE SE RELLENAN DELANTE: RESPONSABLE Y FECHA DE CIERRE —
+   Cada uno lleva los DOS estados apilados en la misma celda —el marcador de
+   posición y el valor—, y lo que se releva es cuál de los dos se ve. No se puede
+   cambiar un texto desde CSS, y ponerlo con `content` lo dejaría fuera del
+   catálogo de traducción, que lee el marcado. */
+.app__campov--pick{
+  display:grid; grid-template-columns:minmax(0,1fr) auto;
+  align-items:center; gap:6px;
+}
+.app__campoph,.app__campoval{ grid-column:1; grid-row:1; min-width:0; overflow:hidden }
+.app__campoph{ color:var(--app-mute) }
+.app__campoval{ display:inline-flex; align-items:center; gap:6px }
+.app__campoph,.app__campoval{
+  animation-duration:12s; animation-iteration-count:infinite;
+  animation-timing-function:ease-out;
+  animation-play-state:var(--play,running);
+}
+.app__campoval{ opacity:0 }
+.app__campoico{ width:12px; height:12px; flex:0 0 auto; color:var(--app-mute) }
+
+/* Los cuatro relevos van SECOS —el marcador se apaga antes de que el valor
+   entre—, no cruzados: con las dos capas a media opacidad a la vez se leía
+   «Pablo Ferrer» encima de «…onsable», que es un pintado roto, no una
+   transición. El reloj es de 12 s y el orden es el del formulario: descripción
+   (3-19 %), responsable (24-65 %) y fecha de cierre (66-90 %), primero el día y
+   después la hora. Si se toca un tramo hay que mirar los otros: el desplegable
+   se cierra en el 64 % y el foco de la fecha empieza en el 66; con ellos
+   solapados parece que se han tocado dos campos a la vez. */
+.app__campo--resp{ position:relative }
+.app__campo--resp .app__campov{
+  animation:app-foco 12s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+.app__campov--sel .app__campoph{ animation-name:app-ph }
+.app__campov--sel .app__campoval{ animation-name:app-val }
+@keyframes app-ph{  0%,60%{opacity:1} 62%,100%{opacity:0} }
+@keyframes app-val{ 0%,62%{opacity:0} 65%,94%{opacity:1} 100%{opacity:0} }
+/* El anillo de foco: es lo que dice que el campo se ha tocado, y va ANTES de
+   que la lista aparezca. Al revés, la lista sale de la nada. */
+@keyframes app-foco{
+  0%,24%   { border-color:var(--app-line); box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  27%,60%  { border-color:rgba(30,107,255,.45); box-shadow:0 0 0 2px var(--app-blue-wash) }
+  65%,100% { border-color:var(--app-line); box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+
+/* — LA FECHA DE CIERRE —
+   Dos casillas, día y hora, como en `/actions/create`. El reparto 1,4/1 es el de
+   la aplicación: la fecha lleva diez caracteres y la hora cinco, y a mitades la
+   fecha se cortaba. Se rellenan una detrás de otra, y el anillo va pasando de una
+   a la otra: es lo que dice que se está recorriendo el campo, no que se han
+   encendido las dos a la vez. */
+.app__campodos{ display:grid; grid-template-columns:1.4fr 1fr; gap:6px }
+.app__campov--fecha,.app__campov--hora{
+  animation-duration:12s; animation-iteration-count:infinite;
+  animation-timing-function:ease-out;
+  animation-play-state:var(--play,running);
+}
+.app__campov--fecha{ animation-name:app-foco-f }
+.app__campov--hora{ animation-name:app-foco-h }
+.app__campov--fecha .app__campoph{ animation-name:app-ph-f }
+.app__campov--fecha .app__campoval{ animation-name:app-val-f }
+.app__campov--hora .app__campoph{ animation-name:app-ph-h }
+.app__campov--hora .app__campoval{ animation-name:app-val-h }
+@keyframes app-foco-f{
+  0%,66%   { border-color:var(--app-line); box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  69%,76%  { border-color:rgba(30,107,255,.45); box-shadow:0 0 0 2px var(--app-blue-wash) }
+  80%,100% { border-color:var(--app-line); box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+@keyframes app-foco-h{
+  0%,76%   { border-color:var(--app-line); box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  79%,88%  { border-color:rgba(30,107,255,.45); box-shadow:0 0 0 2px var(--app-blue-wash) }
+  92%,100% { border-color:var(--app-line); box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+@keyframes app-ph-f{  0%,71%{opacity:1} 73%,100%{opacity:0} }
+@keyframes app-val-f{ 0%,73%{opacity:0} 76%,94%{opacity:1} 100%{opacity:0} }
+@keyframes app-ph-h{  0%,81%{opacity:1} 83%,100%{opacity:0} }
+@keyframes app-val-h{ 0%,83%{opacity:0} 86%,94%{opacity:1} 100%{opacity:0} }
+.app__campocar{ width:13px; height:13px; flex:0 0 auto; color:var(--app-mute);
+  animation:app-car 12s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-car{ 0%,25%{rotate:0deg} 29%,60%{rotate:180deg} 65%,100%{rotate:0deg} }
+
+/* EL DESPLEGABLE FLOTA, no empuja. Es lo que hace un desplegable —tapa lo que
+   hay debajo— y además es lo que evita que el panel crezca y encoja en cada
+   vuelta del bucle, que hacía saltar la escena entera. */
+.app__desple{
+  position:absolute; left:0; right:0; top:100%; z-index:3;
+  margin-top:5px;
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  box-shadow:0 14px 30px rgba(50,50,93,.16);
+  padding:8px;
+  display:flex; flex-direction:column; gap:7px;
+  transform-origin:50% 0;
+  opacity:0; translate:0 -6px; scale:1 .96;
+  animation:app-desple 12s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+  pointer-events:none;
+}
+@keyframes app-desple{
+  0%,27%   { opacity:0; translate:0 -6px; scale:1 .96 }
+  33%,58%  { opacity:1; translate:0 0;    scale:1 1 }
+  64%,100% { opacity:0; translate:0 -6px; scale:1 .96 }
 }
 .app__buscar{
   display:flex; align-items:center; gap:7px;
@@ -1013,124 +1265,279 @@
 .app__picktxt{ display:flex; flex-direction:column; min-width:0 }
 .app__picktxt b{ font-size:11px; font-weight:500; color:var(--app-text) }
 .app__picktxt i{ font-size:9.5px; font-style:normal; color:var(--app-mute) }
+/* LAS CARAS. La aplicación pinta la inicial; la foto es licencia del sitio,
+   pedida por el cliente y ya tomada en el vídeo de la banda de IA. El tamaño se
+   ancla con dos clases porque `ds/scene.css` estira al 100 % cualquier <img>
+   que haya dentro de una escena (0-1-1) y aquí hay que ganarle. */
+.app__asigna .app__ava--foto{
+  width:20px; height:20px; object-fit:cover;
+  background:var(--app-canvas);
+  box-shadow:inset 0 0 0 1px rgba(11,18,32,.08);
+}
 /* El foco baja por la lista y se para en quien toca. Se anima el FONDO de la
-   fila y no un borde: el borde metería un píxel de alto y la lista bailaría. */
+   fila y no un borde: el borde metería un píxel de alto y la lista bailaría.
+   Empieza en el 34 %, que es cuando el desplegable ya está abierto del todo. */
 .app__pickrow{
-  animation:app-pick 9s ease-out infinite;
+  animation:app-pick 12s ease-out infinite;
   animation-play-state:var(--play,running);
 }
-.app__pickrow:nth-child(2){ animation-delay:.45s }
-.app__pickrow:nth-child(3){ animation-delay:.9s }
-.app__pickrow:nth-child(4){ animation-delay:1.35s }
+.app__pickrow:nth-child(2){ animation-delay:.42s }
+.app__pickrow:nth-child(3){ animation-delay:.84s }
+.app__pickrow:nth-child(4){ animation-delay:1.26s }
 @keyframes app-pick{
-  0%,3%   { background:transparent }
-  6%,11%  { background:var(--app-canvas) }
-  14%,100%{ background:transparent }
+  0%,34%  { background:transparent }
+  36%,39% { background:var(--app-canvas) }
+  42%,100%{ background:transparent }
 }
-/* Y el elegido se queda encendido cuando el barrido ha pasado. */
+/* Y el elegido se queda encendido hasta que el desplegable se cierra. */
 .app__pickrow--on{
-  animation:app-pick-on 9s ease-out infinite;
+  animation:app-pick-on 12s ease-out infinite;
   animation-delay:0s;
   animation-play-state:var(--play,running);
 }
 @keyframes app-pick-on{
-  0%,19%  { background:transparent }
-  22%,94% { background:var(--app-blue-wash) }
-  100%    { background:transparent }
+  0%,45%   { background:transparent }
+  48%,58%  { background:var(--app-blue-wash) }
+  62%,100% { background:transparent }
 }
-/* La acción que sale de ahí: responsable y plazo, que es lo que convierte un
-   nombre en trabajo con fecha. Entra después de elegir. */
-.app__asignada{
-  display:flex; align-items:center; justify-content:space-between; gap:8px;
-  margin-top:2px; padding-top:9px;
-  border-top:1px solid var(--app-line);
-  font-size:10.5px; color:var(--app-text);
-  animation:app-asignada 9s cubic-bezier(.16,1,.3,1) infinite;
+/* El tic de «éste». Va con el mismo reloj que el fondo de su fila: es el mismo
+   gesto, no dos. */
+.app__tic{
+  margin-left:auto; display:inline-grid; place-items:center;
+  color:var(--app-blue);
+  opacity:0;
+  animation:app-tic 12s ease-out infinite;
   animation-play-state:var(--play,running);
 }
-@keyframes app-asignada{
-  0%,26%  { opacity:0; translate:0 4px }
-  33%,94% { opacity:1; translate:0 0 }
-  100%    { opacity:0; translate:0 4px }
-}
+.app__tic svg{ width:13px; height:13px; display:block }
+@keyframes app-tic{ 0%,45%{opacity:0; scale:.7} 49%,58%{opacity:1; scale:1} 62%,100%{opacity:0; scale:.7} }
 
-/* --- 3 · CAUSA RAÍZ → REGISTRO PROGRAMADO ------------------------------------
-   Las dos mitades del titular en la misma pantalla y en este orden: primero por
-   qué se repite y después lo que se programa para que no vuelva a pasar. Sin la
-   segunda mitad esto sería otro cuadro de tendencias, que es lo que la home ya
-   enseña. La flecha del medio no es adorno: es la que dice que lo de la derecha
-   SALE de lo de la izquierda. */
+/* --- 3 · EL ANÁLISIS, LA ESPINA Y EL AVISO -----------------------------------
+   Tres tiempos en una sola caja y una sola historia: el panel de Ishikawa de la
+   aplicación rellenándose, ese mismo análisis dibujado como espina de pescado, y
+   el aviso del registro programado entrando solapado encima.
+
+   ⚠️ LA ESPINA NO EXISTE EN LA APLICACIÓN. Comprobado dos veces en
+   `demo.trysolved.com` el 9 de septiembre de 2026: el panel de Ishikawa es una
+   lista de las seis emes y no hay vista de diagrama ni botón que la abra. Se
+   dibuja a petición expresa del cliente, y por eso va **encadenada al panel de
+   verdad**: primero se ve la pantalla que existe y después su lectura. Es la
+   segunda licencia consciente de esta página, junto con las caras del equipo.
+
+   Los dos primeros tiempos se apilan en la misma celda y se funden. Se funden y
+   no se relevan de golpe —al contrario que los tres pasos del alta, que van con
+   `steps(1)`— porque aquí lo que se cuenta es que una cosa **se convierte** en
+   la otra; un corte diría que son dos pantallas distintas. */
 .app__raiz{
+  position:relative;
   width:100%; height:100%;
   display:grid;
-  align-content:center;
-  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
-  align-items:center;
-  gap:14px;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-rows:minmax(0,1fr);
   font-family:Roboto,'Helvetica Neue',Arial,sans-serif;
   color:var(--app-text);
   font-variant-numeric:tabular-nums;
   text-align:left;
 }
-.app__raiz .app__panel{ box-shadow:0 10px 24px rgba(50,50,93,.08) }
 .app__raizs{ margin:3px 0 0; font-size:10px; color:var(--app-mute) }
-.app__raizflecha{
+.app__fase{
+  grid-area:1/1; min-width:0;
+  animation-duration:16s; animation-iteration-count:infinite;
+  animation-timing-function:cubic-bezier(.16,1,.3,1);
+  animation-play-state:var(--play,running);
+}
+/* El panel se centra en la caja; la espina la llena, porque su geometría es la
+   caja. Sin esto el panel se estiraba a lo alto y las seis tarjetas quedaban
+   flotando en un recuadro vacío. */
+.app__fase--panel{ align-self:center; animation-name:app-fase-panel }
+.app__fase--espina{ align-self:start; animation-name:app-fase-espina }
+@keyframes app-fase-panel{  0%,38%{opacity:1; scale:1}     47%,100%{opacity:0; scale:.985} }
+@keyframes app-fase-espina{ 0%,39%{opacity:0; scale:.985}  48%,100%{opacity:1; scale:1} }
+
+/* — TIEMPO 1 · el panel de la aplicación — */
+.app__panel--ish{
+  background:#fff;
+  box-shadow:0 10px 24px rgba(50,50,93,.08);
+}
+.app__ish{
+  margin-top:9px;
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px;
+}
+.app__ishm{
+  background:var(--app-canvas); border:1px solid var(--app-line); border-radius:8px;
+  padding:8px 9px 9px;
+}
+.app__ishmt{ font-size:10px; font-weight:500; color:var(--app-text) }
+/* La causa arranca ESCONDIDA EN EL PROPIO ELEMENTO, no sólo en el fotograma 0 %.
+   `animation-delay` no pinta el 0 % mientras espera —lo aprendimos con la bolita
+   del esquema de la home—, así que sin `opacity:0` aquí las seis causas estarían
+   puestas desde el primer instante y el escalonado no se vería. El precio es que
+   en movimiento reducido hay que encenderlas a mano. */
+.app__ishc{
+  margin-top:6px; padding:6px 8px;
+  background:#fff; border:1px solid var(--app-line); border-radius:6px;
+  font-size:9.5px; color:var(--app-text-2); line-height:1.35;
+  opacity:0;
+  animation:app-ish 16s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__ishm--m2 .app__ishc{ animation-delay:.3s }
+.app__ishm--m3 .app__ishc{ animation-delay:.6s }
+.app__ishm--m4 .app__ishc{ animation-delay:.9s }
+.app__ishm--m5 .app__ishc{ animation-delay:1.2s }
+.app__ishm--m6 .app__ishc{ animation-delay:1.5s }
+@keyframes app-ish{ 0%,2%{opacity:0; translate:0 4px} 8%,100%{opacity:1; translate:0 0} }
+/* La causa raíz, la que acaba justificando el registro. Lavado azul, que es como
+   esta aplicación dice «ésta». */
+.app__ishc--raiz{
+  background:var(--app-blue-wash); border-color:rgba(30,107,255,.3);
+  color:var(--app-blue-deep);
+}
+/* El campo vacío de la aplicación. Va punteado porque lo que dice es «aquí cabe
+   otra», y un borde continuo lo leería como un dato más. */
+.app__ishw{
+  margin-top:5px; padding:6px 8px;
+  border:1px dashed var(--app-line-2); border-radius:6px;
+  font-size:9.5px; color:var(--app-mute);
+}
+
+/* — TIEMPO 2 · la espina —
+   El esqueleto va en SVG y los rótulos en HTML encima, que es como está hecho el
+   esquema de la home: un <text> dentro de un SVG no se envuelve en varias líneas
+   ni escala con la caja, y aquí las causas son frases.
+
+   El SVG va con `preserveAspectRatio="none"` para que la espina llene la caja sea
+   cual sea su proporción; el grosor se salva con `vector-effect`, sin el cual el
+   estirado deja las raspas más gordas por un lado que por otro.
+
+   LA GEOMETRÍA NO ES LIBRE. La columna mide 72 de 100 y la cabeza se lleva el
+   resto: con la columna hasta el 86 —que fue lo primero— la cabeza se quedaba en
+   107px y la descripción de la incidencia no cabía en tres líneas. Y las raspas
+   arrancan en y=18 y y=42, no en el canto, porque los rótulos ocupan el 30 %
+   de arriba y el 30 % de abajo. */
+/* EL 88 % NO ES DECORATIVO. El encuadre `b` mete la caja 26 % por arriba y la
+   saca un 10 % por abajo, así que la última banda de la escena cae FUERA de la
+   tarjeta y la recorta su overflow. Con la espina al 100 % lo que se perdía eran
+   los tres rótulos de abajo, que es media espina. Al 88 % el dibujo entero cae
+   dentro, y lo que sangra por abajo es lienzo. Si algún día esta escena cambia de
+   encuadre, hay que rehacer esta cuenta y la del aviso. */
+.app__espina{ position:relative; width:100%; height:88% }
+.app__espinasvg{ position:absolute; inset:0; width:100%; height:100% }
+.app__espinal,.app__espinar{
+  fill:none; stroke:var(--app-line-2); stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+}
+.app__espinal{ stroke:var(--app-blue); stroke-width:1.6 }
+.app__espinar{ stroke:var(--app-line-2); stroke-width:1.3 }
+.app__raspa{
+  position:absolute; width:22%;
+  display:flex; flex-direction:column; gap:3px;
+}
+/* Los rótulos se anclan al ARRANQUE de su raspa, no al canto de la caja: las
+   raspas salen de y=14 y y=46 sobre 60, o sea del 23,3 % y del 76,7 %. Anclados
+   al canto quedaban a 120px de su propia raspa y el dibujo dejaba de leerse como
+   un dibujo. */
+.app__raspa--r1,.app__raspa--r2,.app__raspa--r3{ bottom:77% }
+.app__raspa--r4,.app__raspa--r5,.app__raspa--r6{ top:77% }
+.app__raspa--r1,.app__raspa--r4{ left:0 }
+.app__raspa--r2,.app__raspa--r5{ left:22% }
+.app__raspa--r3,.app__raspa--r6{ left:44% }
+.app__raspat{
+  align-self:flex-start;
+  padding:3px 8px; border-radius:999px;
+  background:var(--app-canvas); border:1px solid var(--app-line);
+  font-size:9.5px; font-weight:500; color:var(--app-text);
+}
+.app__raspac{ font-size:9.5px; color:var(--app-text-2); line-height:1.35 }
+/* La raíz, la misma que iba en lavado azul en el panel: es el mismo dato y tiene
+   que reconocerse al pasar de una forma a la otra. */
+.app__raspa--raiz .app__raspat{
+  background:var(--app-blue-wash); border-color:rgba(30,107,255,.3);
+  color:var(--app-blue-deep);
+}
+.app__raspa--raiz .app__raspac{ color:var(--app-blue-deep) }
+/* La cabeza: la incidencia, que es el efecto. Va en tarjeta y no en texto suelto
+   porque es lo único de la espina que ya existe como ficha en la aplicación. */
+.app__cabeza{
+  position:absolute; right:0; top:50%; translate:0 -50%;
+  width:29%;
+  display:flex; flex-direction:column; gap:3px;
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  box-shadow:0 10px 24px rgba(50,50,93,.08);
+  padding:9px 10px;
+}
+.app__cabezat{ font-size:10px; color:var(--app-text); line-height:1.35 }
+/* Las seis raspas y la cabeza entran con la espina, escalonadas: el dibujo se
+   monta, no aparece hecho. Van escondidas en el propio elemento por lo mismo que
+   las causas del panel. */
+.app__raspa,.app__cabeza{
+  opacity:0;
+  animation-duration:16s; animation-iteration-count:infinite;
+  animation-timing-function:cubic-bezier(.16,1,.3,1);
+  animation-play-state:var(--play,running);
+  animation-name:app-raspa;
+}
+.app__raspa--r2{ animation-delay:.22s }
+.app__raspa--r3{ animation-delay:.44s }
+.app__raspa--r4{ animation-delay:.11s }
+.app__raspa--r5{ animation-delay:.33s }
+.app__raspa--r6{ animation-delay:.55s }
+.app__cabeza{ animation-delay:.66s }
+@keyframes app-raspa{
+  0%,44%   { opacity:0; translate:0 4px }
+  52%,100% { opacity:1; translate:0 0 }
+}
+/* La cabeza no puede llevar el `translate` de las raspas: su sitio lo fija un
+   `translate:0 -50%` que la centra sobre la columna, y el fotograma lo pisaría.
+   Se le anima sólo la opacidad. */
+.app__cabeza{ animation-name:app-cabeza }
+@keyframes app-cabeza{ 0%,46%{opacity:0} 54%,100%{opacity:1} }
+
+/* — TIEMPO 3 · el aviso, encima de la espina —
+   Va SOLAPADO a propósito: es una notificación, y una notificación tapa lo que
+   hay debajo. Cae sobre la esquina de abajo a la derecha, que es donde menos se
+   lleva por delante —una raspa y el canto de la cabeza—.
+
+   El icono es el de Registros y va en su morado: el color codifica módulo, y lo
+   que se programa es un registro, no una incidencia. */
+.app__aviso{
+  position:absolute; right:0; bottom:15%; z-index:4;
+  width:min(62%,300px);
+  display:flex; align-items:flex-start; gap:9px;
+  background:#fff; border:1px solid var(--app-line); border-radius:10px;
+  box-shadow:0 18px 40px rgba(50,50,93,.18);
+  padding:10px 12px;
+  opacity:0; translate:0 10px;
+  animation:app-aviso 16s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-aviso{
+  0%,64%  { opacity:0; translate:0 10px }
+  70%,96% { opacity:1; translate:0 0 }
+  100%    { opacity:0; translate:0 10px }
+}
+.app__avisoico{
+  width:26px; height:26px; border-radius:7px; flex:0 0 auto;
   display:grid; place-items:center;
-  width:24px; height:24px; border-radius:50%;
-  background:var(--app-blue-wash); color:var(--app-blue);
+  background:rgba(124,58,237,.1); color:var(--app-registro);
 }
-.app__raizflecha svg{ width:13px; height:13px }
-/* Las barras del reparto de causas crecen desde la izquierda. La que manda es
-   la primera: tres de cinco cierres, y es la que justifica el registro.
-
-   CLASE PROPIA Y NO `.app__fill`, que es la barra del tablero. No es manía: el
-   tablero la anima con `.app__break:nth-child(1) .app__fill{ animation-name:… }`
-   —dos clases, más específico que cualquier `.app__fill--loquesea`— y esos
-   fotogramas animan el ANCHO con los valores del turno. Reusando la clase, las
-   tres barras de aquí se quedaban en el ancho del tablero, que resultó ser
-   cero, y el reparto de causas salía vacío sin dar ningún error. */
-.app__rfill{
-  height:100%; border-radius:999px; background:var(--app-blue);
-  transform-origin:0 50%;
-  scale:0 1;
-  animation:app-raiz-barra 9s cubic-bezier(.16,1,.3,1) infinite;
-  animation-play-state:var(--play,running);
-}
-.app__rfill--r1{ width:60% }
-.app__rfill--r2{ width:20%; animation-delay:.1s }
-.app__rfill--r3{ width:20%; animation-delay:.2s }
-@keyframes app-raiz-barra{ 0%,6%{scale:0 1} 20%,94%{scale:1 1} 100%{scale:0 1} }
-
-.app__panel--prog{ background:#fff }
-.app__prog{ margin-top:9px }
-.app__progt{ font-size:11px; font-weight:500; color:var(--app-text) }
-.app__progm{ display:flex; flex-wrap:wrap; gap:5px; margin-top:6px }
-.app__proglist{ margin-top:9px; display:flex; flex-direction:column; gap:6px }
-.app__progrow{
-  display:flex; align-items:center; justify-content:space-between; gap:8px;
-  padding-top:6px; border-top:1px solid var(--app-line);
-  font-size:10px; color:var(--app-text-2);
-}
-.app__progrow:first-child{ padding-top:0; border-top:0 }
-.app__progok{ color:var(--app-ok) }
-.app__progwait{ color:var(--app-mute) }
-/* El panel entero entra DESPUÉS de las barras: primero se ve por qué, después
-   lo que se hace con ello. */
-.app__panel--prog{
-  animation:app-prog-in 9s cubic-bezier(.16,1,.3,1) infinite;
-  animation-play-state:var(--play,running);
-}
-@keyframes app-prog-in{
-  0%,24%  { opacity:0; translate:0 6px }
-  34%,94% { opacity:1; translate:0 0 }
-  100%    { opacity:0; translate:0 6px }
-}
+.app__avisoico svg{ width:14px; height:14px; display:block }
+.app__avisotxt{ min-width:0 }
+.app__avisot{ font-size:10px; color:var(--app-mute) }
+.app__avisoq{ font-size:11px; font-weight:500; color:var(--app-text); margin-top:2px }
+.app__avisom{ font-size:10px; color:var(--app-text-2); margin-top:3px }
 
 @media (max-width:899px){
-  /* En una columna la flecha deja de señalar de izquierda a derecha; se queda
-     el orden vertical, que dice lo mismo. */
-  .app__raiz{ grid-template-columns:minmax(0,1fr); gap:10px }
-  .app__raizflecha{ display:none }
+  /* Las seis emes pasan a dos columnas: a tres, el rótulo de «Mano de obra»
+     parte en dos líneas y la tarjeta deja de leerse de un golpe. */
+  .app__ish{ grid-template-columns:repeat(2,minmax(0,1fr)) }
+  /* Los dos paneles del alta se apilan: a dos columnas, la lista de categorías
+     se queda en un dedo de ancho. */
+  .app__inicial{ grid-template-columns:minmax(0,1fr) }
+  /* La espina se queda, pero el aviso pasa a ocupar el ancho: a 300px sobre una
+     caja estrecha tapaba media espina en vez de una esquina. */
+  .app__aviso{ width:100%; right:auto; left:0 }
+  .app__raspac{ font-size:9px }
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -1140,21 +1547,50 @@
   .app__ask--escribe > span,.app__answer,.app__iabar i{
     animation:none !important; opacity:1; scale:1; translate:0 0; width:auto;
   }
-  /* Los tres cuadros de /incidencias/ se quedan en su primer estado, que es el
+  /* Los tres cuadros de /incidencias/ se quedan en su estado resuelto, que es el
      que ya cuenta la historia entera. Van en reglas aparte y NO con el
-     `width:auto` de arriba: las barras del reparto de causas llevan su ancho en
-     el porcentaje de la causa, y ponerlo en `auto` las igualaría las tres. */
-  .app__filter--p1,.app__filter--p2,.app__filter--p3,.app__pl,
-  .app__pickrow,.app__asignada,.app__panel--prog,
-  .app__rfill{
+     `width:auto` de arriba, que aquí no pinta nada y en su día igualaba las
+     barras del reparto de causas. */
+  .app__paso,.app__crear--inc,.app__elec--cat,
+  .app__preg,.app__pregr span,.app__atajo--media,.app__atajo--sel,
+  .app__campov--tecla span,
+  .app__campo--resp .app__campov,.app__campov--fecha,.app__campov--hora,
+  .app__campoph,.app__campocar,
+  .app__desple,.app__pickrow,.app__tic,
+  .app__ishc,.app__fase,.app__raspa,.app__aviso{
     animation:none !important; opacity:1; scale:1; translate:0 0;
+    clip-path:none !important;
   }
-  /* De las tres plantillas apiladas se ve la primera; si no, se leen las tres
-     unas sobre otras. Y el chip de su tipo, encendido a mano. */
-  .app__pl--b,.app__pl--c{ opacity:0 }
-  .app__filter--p1{
+  /* De los dos tiempos de la causa raíz se queda LA ESPINA, con su aviso encima:
+     es el fotograma en el que el análisis ya está hecho y el registro ya está
+     programado, que es la promesa entera del titular. El panel de la aplicación
+     se queda debajo, tapado por ella, y por eso se apaga a mano. */
+  .app__fase--panel{ opacity:0 }
+  /* La cabeza mantiene su centrado, que vive en un `translate` y no en un
+     fotograma: la regla de arriba se lo llevaría por delante. */
+  .app__cabeza{ animation:none !important; opacity:1; translate:0 -50% }
+  /* El desplegable se queda ABIERTO, que es el fotograma que más dice: lo que
+     esta escena promete es que ahí sale el equipo entero. Y si se queda abierto,
+     los campos se quedan en su marcador de posición: el de responsable con el
+     anillo de foco puesto —es el estado que le toca a un desplegable desplegado—
+     y los dos de la fecha sin él, que además caen tapados por la lista. */
+  .app__campoval{ animation:none !important; opacity:0 }
+  .app__campo--resp .app__campov{
+    border-color:rgba(30,107,255,.45); box-shadow:0 0 0 2px var(--app-blue-wash);
+  }
+  .app__campocar{ rotate:180deg }
+  /* Del alta se ve el ÚLTIMO paso —el asistente con la plantilla puesta—, que es
+     el que la tarjeta promete; los dos primeros son el camino. Si se dejara el
+     primero, la escena enseñaría un botón sin pulsar. */
+  .app__paso--a,.app__paso--b{ opacity:0 }
+  /* Y los estados que ponía el keyframe se encienden a mano: el botón pulsado,
+     la categoría elegida y los dos atajos. */
+  .app__crear--inc{ background:var(--app-blue); border-color:var(--app-blue); color:#fff }
+  .app__elec--cat{
     background:var(--app-blue-wash); border-color:rgba(30,107,255,.28); color:var(--app-blue-deep);
   }
+  .app__atajo--media{ background:var(--app-warn); border-color:var(--app-warn); color:#fff }
+  .app__atajo--sel{ background:var(--app-blue); border-color:var(--app-blue); color:#fff }
   /* El barrido del selector no ocurre: se queda encendido el elegido. */
   .app__pickrow{ background:transparent }
   .app__pickrow--on{ background:var(--app-blue-wash) }
@@ -2765,3 +3201,980 @@
    módulo y la fecha debajo. En una sola línea no cabe sin encoger el texto por
    debajo de los 10px, que es el suelo del sistema. */
 .app--ficha .app__table td:last-child{ text-align:right; white-space:nowrap }
+
+
+/* =========================================================
+   LOS TRES PANELES DE PRODUCTO DE /auditorias/ — 9 de septiembre de 2026
+   Van con el rotador de capacidades que sustituye a los tres puntos del montaje
+   y a la rejilla de seis celdas. El cuarto panel del rotador no está aquí: es
+   `.montaje`, que tiene su propia hoja (ds/plantilla.css).
+
+   Las tres pantallas se comprobaron en `demo.trysolved.com` el 9 de septiembre:
+   el editor de plantillas (`/checklist/edit/<id>`), la vista Calendario de
+   `/checklist` y la pestaña Historial de `/checklist` con el panel de Informes
+   Excel de `/reports`.
+   ========================================================= */
+
+/* --- EL CONTROL, SU TIPO Y SU FÓRMULA ---------------------------------------
+   La barra de tipos es la del editor. Se enseñan nueve de los diecisiete y el
+   resto se CUENTA (`+8`): una barra recortada por el borde diría que hay más de
+   los que hay, y una inventada, que hay tipos que no existen. */
+.app__ctrl{
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:10px 12px 11px;
+}
+.app__ctrlh{ display:flex; align-items:center; gap:9px }
+.app__ctrln{ font-size:11.5px; font-weight:500; color:var(--app-text) }
+.app__ctrlsec{ font-size:10px; color:var(--app-mute); white-space:nowrap }
+.app__tipos{ display:flex; flex-wrap:wrap; gap:5px; margin-top:9px }
+.app__tchip{
+  display:inline-flex; align-items:center;
+  padding:4px 9px; border-radius:999px;
+  border:1px solid var(--app-line); background:#fff;
+  font-size:9.5px; color:var(--app-text-2); white-space:nowrap;
+}
+/* «Seleccionado» se dice con el lavado azul, como el ítem activo del menú
+   lateral y como el chip de filtro. */
+.app__tchip--on{
+  background:var(--app-blue-wash); border-color:rgba(30,107,255,.28);
+  color:var(--app-blue-deep);
+}
+.app__tmas{ font-size:9.5px; color:var(--app-mute); align-self:center; padding-left:2px }
+.app__tipos--pest{ margin-top:0; margin-bottom:2px }
+
+/* La fórmula se monta pieza a pieza, que es como se monta en el constructor:
+   valor, operador, valor. El conector Y entra el último a propósito —en el
+   producto sólo aparece cuando la expresión previa ya es una comparación
+   completa—, y por eso su fotograma va detrás del de la primera comparación.
+
+   Las siete piezas arrancan escondidas EN EL PROPIO ELEMENTO: `animation-delay`
+   no pinta el 0 % mientras espera, así que sin `opacity:0` estarían las siete
+   puestas desde el principio. En movimiento reducido hay que encenderlas. */
+.app__formu{ display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin-top:9px }
+.app__fxv,.app__fxo,.app__fxc,.app__fxy{
+  display:inline-flex; align-items:center;
+  padding:4px 9px; border-radius:6px;
+  font-size:9.5px; white-space:nowrap;
+  opacity:0;
+  animation:app-fx 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+/* Valor, operador y constante se distinguen por color, como en el constructor:
+   la entrada local es el dato que teclea el operario y va en el azul del
+   producto; el operador es neutro; la constante, el número fijo. */
+.app__fxv{ background:var(--app-blue-wash); border:1px solid rgba(30,107,255,.28); color:var(--app-blue-deep) }
+.app__fxo{ background:var(--app-canvas);   border:1px solid var(--app-line);      color:var(--app-text-2) }
+.app__fxc{ background:#fff;                border:1px solid var(--app-line-2);    color:var(--app-text) }
+.app__fxy{ background:var(--app-text);     border:1px solid var(--app-text);      color:#fff; font-weight:500 }
+.app__fxv--e1{ animation-delay:0s }
+.app__fxo--e2{ animation-delay:.32s }
+.app__fxc--e3{ animation-delay:.64s }
+.app__fxy--e4{ animation-delay:.96s }
+.app__fxv--e5{ animation-delay:1.28s }
+.app__fxo--e6{ animation-delay:1.6s }
+.app__fxc--e7{ animation-delay:1.92s }
+@keyframes app-fx{ 0%,2%{opacity:0; scale:.94} 8%,100%{opacity:1; scale:1} }
+
+/* El panel «Ejemplo»: donde se prueba la fórmula antes de guardar. Entra cuando
+   la expresión ya está entera —a los 2 s del ciclo— porque probar una fórmula a
+   medias no es nada. */
+.app__ej{
+  display:flex; align-items:center; gap:8px;
+  margin-top:10px; padding-top:9px;
+  border-top:1px solid var(--app-line);
+  font-size:10px; color:var(--app-text-2);
+  opacity:0;
+  animation:app-ej 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-ej{ 0%,17%{opacity:0; translate:0 4px} 24%,100%{opacity:1; translate:0 0} }
+.app__ejt{ color:var(--app-mute) }
+.app__ejv{
+  padding:3px 9px; border-radius:6px;
+  background:#fff; border:1px solid var(--app-line-2);
+  font-size:10px; color:var(--app-text);
+}
+/* El resultado es un estado, así que va con el color del estado. La fórmula
+   devuelve booleano y el producto lo mapea a Verdadero (OK) / Falso (KO): el
+   rótulo dice las dos cosas porque en el constructor se leen las dos. */
+.app__ejr{
+  padding:3px 9px; border-radius:999px;
+  font-size:9.5px; font-weight:500;
+}
+.app__ejr--ko{ background:#FBD5D5; color:#B02020 }
+.app__reglap{ margin:5px 0 0; font-size:10px; color:var(--app-text-2); line-height:1.4 }
+
+/* --- EL CALENDARIO DEL MÓDULO -----------------------------------------------
+   Dos semanas y no cinco: en el panel del rotador, un mes entero deja las
+   píldoras a tres píxeles de alto y el nombre del registro ilegible. Lo que se
+   enseña es el cambio de estado —la semana que ya se cerró y la que está
+   planificada—, que es lo que cuenta la capacidad. */
+.app__calh{ display:flex; align-items:center; gap:8px }
+.app__calhoy{
+  padding:4px 10px; border-radius:6px;
+  background:var(--app-blue); color:#fff;
+  font-size:9.5px; font-weight:500;
+}
+.app__calm{ font-size:12px; font-weight:500; color:var(--app-text) }
+.app__caleg{ display:flex; flex-wrap:wrap; gap:12px; margin-top:2px }
+.app__caleyenda{ display:inline-flex; align-items:center; gap:6px; font-size:10px; color:var(--app-text-2) }
+.app__pt{ width:8px; height:8px; border-radius:50%; flex:0 0 auto }
+/* Verde lo cerrado, morado lo planificado. El morado es el de Registros: el
+   color codifica módulo, y lo planificado es del módulo. */
+.app__pt--ok{ background:var(--app-ok) }
+.app__pt--plan{ background:var(--app-registro) }
+.app__cal{
+  margin-top:2px;
+  display:grid; grid-template-columns:repeat(7,minmax(0,1fr));
+  background:var(--app-line); gap:1px;
+  border:1px solid var(--app-line); border-radius:9px; overflow:hidden;
+}
+.app__cald{
+  background:#fff; padding:7px 8px;
+  font-size:9.5px; font-weight:500; color:var(--app-text-2); text-align:center;
+}
+.app__dia{
+  background:#fff; padding:6px 6px 8px; min-height:62px;
+  display:flex; flex-direction:column; gap:3px;
+}
+.app__dia--finde{ background:var(--app-canvas) }
+.app__dian{ font-size:10px; color:var(--app-text-2) }
+.app__dia--hoy .app__dian{ color:var(--app-blue); font-weight:500 }
+.app__pill{
+  display:block; padding:3px 6px; border-radius:4px;
+  font-size:8.5px; color:#fff;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.app__pill--ok{ background:var(--app-ok) }
+.app__pill--plan{ background:var(--app-registro) }
+/* Lo planificado entra después de lo cerrado, y en cascada de izquierda a
+   derecha: es el gesto de programar la semana que viene. */
+.app__pill--plan{
+  opacity:0;
+  animation:app-pill 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__dia:nth-child(16) .app__pill--plan{ animation-delay:.1s }
+.app__dia:nth-child(17) .app__pill--plan{ animation-delay:.3s }
+.app__dia:nth-child(18) .app__pill--plan{ animation-delay:.5s }
+.app__dia:nth-child(19) .app__pill--plan{ animation-delay:.7s }
+.app__dia:nth-child(20) .app__pill--plan{ animation-delay:.9s }
+/* Las planificadas ya no entran al principio: entran cuando la tarjeta de
+   planificación se retira, que es lo que cuenta la secuencia —se programa y
+   entonces aparece en el calendario—. Con el 4 % de antes, el calendario se
+   llenaba detrás de la tarjeta y al descubrirlo ya estaba todo puesto. */
+@keyframes app-pill{ 0%,33%{opacity:0; translate:0 3px} 41%,100%{opacity:1; translate:0 0} }
+
+/* --- EL HISTÓRICO Y SU DESCARGA ---------------------------------------------
+   La lista va agrupada por día, como en la aplicación, y cada fila lleva su
+   estado y su hora de ejecución. Los tres estados son los que existen:
+   «Cerrado», «Cerrado KO» y «Cerrado Incompleto». */
+.app__hgrupo{
+  margin-top:4px; padding:5px 0 3px;
+  font-size:9.5px; color:var(--app-mute);
+}
+.app__hgrupo:first-of-type{ margin-top:0 }
+.app__hfila{
+  display:flex; align-items:center; gap:9px;
+  background:#fff; border:1px solid var(--app-line); border-radius:8px;
+  padding:8px 11px; margin-bottom:5px;
+  font-size:10.5px;
+}
+.app__hnom{
+  font-size:10.5px; color:var(--app-text);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.app__hfec{ font-size:9.5px; color:var(--app-mute); white-space:nowrap }
+.app__hest{
+  padding:3px 9px; border-radius:999px;
+  font-size:9.5px; font-weight:500; white-space:nowrap;
+}
+.app__hest--ok{ background:#E4F6EA; color:#12813B }
+.app__hest--ko{ background:#FBD5D5; color:#B02020 }
+.app__hest--inc{ background:var(--app-canvas); color:var(--app-text-2) }
+
+/* El panel de Informes, ENCIMA de la lista. Es otra pantalla del producto
+   —`/reports`— y por eso flota en vez de ir en fila: puestas una debajo de otra
+   se leerían como una sola, y son dos sitios distintos de la aplicación. */
+/* SE ANCLA A LA IZQUIERDA Y A MEDIA ALTURA, Y NO A LA ESQUINA DE ABAJO A LA
+   DERECHA. El encuadre `dev-br` mete la ventana por el 13 % y le da el 104 % de
+   ancho: de los 624 px del aparato se ven los 522 primeros, y de su alto, los
+   338 primeros. Un panel pegado a la esquina inferior derecha del aparato cae
+   entero fuera de la tarjeta —pasó—. Si esta escena cambia de encuadre, hay que
+   rehacer esta cuenta. */
+.app__informes{
+  position:absolute; left:14px; top:50%; z-index:3;
+  width:min(64%,300px);
+  background:#fff; border:1px solid var(--app-line); border-radius:10px;
+  box-shadow:0 18px 40px rgba(50,50,93,.18);
+  padding:11px 13px 12px;
+  opacity:0; translate:0 10px;
+  animation:app-informes 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+/* Entra al 40 %, no al 26 %: antes se plantaba encima justo cuando el menú del
+   registro estaba abierto, y las dos vías de descarga —el registro en PDF y el
+   histórico en Excel— se contaban a la vez. Primero una, después la otra. */
+@keyframes app-informes{
+  0%,40%  { opacity:0; translate:0 10px }
+  47%,100%{ opacity:1; translate:0 0 }
+}
+.app__ifila{ display:flex; align-items:center; gap:9px; margin-top:9px }
+/* El nombre del informe no encoge: con `text-overflow` heredado de la fila del
+   histórico, «Registros» salía «Regist…» dentro de su propio panel. */
+.app__ifila .app__hnom{ flex:0 0 auto; overflow:visible }
+.app__descarga{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 11px; border-radius:7px;
+  background:var(--app-blue); color:#fff;
+  font-size:10px; font-weight:500; white-space:nowrap;
+}
+.app__descarga svg{ width:12px; height:12px; flex:0 0 auto }
+
+/* --- EL REGISTRO SE RELLENA, UN CONTROL DE CADA TIPO ------------------------
+   Sustituye a la pantalla del editor que había en este panel: la capacidad
+   habla de los tipos de control, y un tipo de control se entiende cuando se
+   ve RELLENAR, no cuando se lee su nombre en una barra de pestañas. Cinco
+   controles, cinco tipos, uno detrás de otro:
+
+     0,8 s  Fórmula   · se teclea 3,4 y la fórmula lo resuelve en OK
+     2,0 s  OK/KO     · se pulsa KO y el par se queda macizo en rojo
+     3,2 s  Texto     · se escribe la observación que explica ese KO
+     4,4 s  Archivos  · se adjunta la foto del termómetro
+     5,6 s  Firma     · se traza la firma y queda el sello de quién y cuándo
+     6,2 s  el contador de la sección llega a 5/5
+
+   Todo cabe en los primeros siete segundos del ciclo de 14 s A PROPÓSITO: el
+   rotador cambia de capacidad cada 7 s (`data-intervalo`) y un panel oculto
+   —`hidden` es `display:none`— no anima, así que cada vez que vuelve arranca
+   de cero y de un ciclo de 14 s nunca se ve la segunda mitad. Es la misma
+   cuenta que siguen los otros tres paneles; aquí está escrita.
+
+   LA GRAMÁTICA ES LA DEL PRODUCTO, comprobada en demo.trysolved.com el 9 de
+   septiembre de 2026 (`/checklist/preview/<id>/section/<n>`): cabecera con el
+   nombre de la sección, su posición «1 / 3» y los botones «todo OK» y
+   «todo N/A»; y cada control en una tarjeta con su número, su nombre, el valor
+   debajo, el chip verde «Completado» y el avatar de quien lo rellenó. El
+   control abierto enseña el par de botones y su sello «Modificado por … el …»;
+   los resueltos se pliegan a una línea. Los colores del par —OK #16A34A sobre
+   #DCFCE7, KO #DC2626 sobre #FEE2E2— son los medidos el 1 de septiembre para
+   `.app--registro`, no se vuelven a elegir.
+
+   NO SE ETIQUETA EL TIPO DENTRO DE LA PANTALLA. En la aplicación el tipo se ve
+   en el editor, no al rellenar, así que poner un chip «Fórmula» encima de cada
+   control sería inventar interfaz. Lo que distingue a los cinco es su forma
+   —un número con su resultado, un par de botones, una línea de texto, un
+   fichero adjunto, un trazo—, que es exactamente como se distinguen delante de
+   la máquina. Quien lo nombra es el titular de la escena.
+   --------------------------------------------------------------------------- */
+.app__secb{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; max-width:560px }
+.app__secn{ font-size:12px; font-weight:500; color:var(--app-text); letter-spacing:.02em }
+.app__secp{
+  padding:3px 8px; border-radius:999px;
+  border:1px solid var(--app-line); background:#fff;
+  font-size:9px; color:var(--app-text-2); white-space:nowrap;
+}
+/* Los dos atajos de la cabecera real. Van apagados: son botones, no estados. */
+.app__secbt{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 9px; border-radius:7px;
+  border:1px solid var(--app-line); background:#fff;
+  font-size:9.5px; color:var(--app-text-2); white-space:nowrap;
+}
+.app__secbt svg{ width:11px; height:11px; flex:0 0 auto }
+.app__secbt--ok{ color:#12813B; border-color:#BBF7D0; background:#F2FBF5 }
+/* El contador de la sección: el mismo montaje de contador que .rg__num —la
+   variable, el counter() y la animación en el mismo elemento, que con
+   `inherits:false` es la única forma de que el hijo no lo pierda—. */
+@property --sec-hechos{ syntax:'<integer>'; initial-value:0; inherits:false }
+.app__seccont{
+  counter-reset:h var(--sec-hechos);
+  font-variant-numeric:tabular-nums;
+  padding:3px 9px; border-radius:999px;
+  background:#DCFCE7; color:#15803D;
+  font-size:9.5px; font-weight:500; white-space:nowrap;
+  animation:app-sec-cont 14s linear infinite;
+  animation-play-state:var(--play,running);
+}
+.app__seccont::before{ content:counter(h) " / 5" }
+@keyframes app-sec-cont{
+  0%,5%{ --sec-hechos:0 } 6%,13%{ --sec-hechos:1 } 14%,22%{ --sec-hechos:2 }
+  23%,30%{ --sec-hechos:3 } 31%,39%{ --sec-hechos:4 } 40%,100%{ --sec-hechos:5 }
+}
+
+/* EL ANCHO Y EL ALTO NO SON LIBRES: LOS DA EL RECORTE. Con `dev-br` se ven los
+   584 px de ancho y los 335 de alto primeros de una pantalla de 695x435, así que
+   la lista se limita a 560 —si ocupa los 695, el chip «Completado» y el avatar
+   caen fuera por la derecha— y las cinco tarjetas se aprietan hasta caber en esos
+   335. Es la regla del fragmento al revés: en vez de dejar fuera lo prescindible,
+   aquí no sobra nada —cada fila es un tipo de control—, así que lo que se ajusta
+   es la fila. Si esta escena cambia de encuadre, esta cuenta se rehace. */
+.app__rlista{ display:grid; gap:5px; margin-top:6px; max-width:560px }
+.app__rl{
+  background:#fff; border:1px solid var(--app-line); border-radius:9px;
+  padding:4px 10px 5px;
+  display:grid; grid-template-columns:20px 1fr auto; align-items:start; gap:9px;
+}
+.app__rln{
+  width:20px; height:20px; border-radius:6px;
+  display:grid; place-items:center;
+  background:var(--app-canvas); color:var(--app-text-2);
+  font-size:10.5px; font-weight:500;
+  /* La casilla del número se pone verde cuando el control queda resuelto, que
+     es lo que hace la aplicación. */
+  animation:app-rl-n 14s steps(1,end) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__rlt{ margin:0; font-size:10.5px; line-height:1.25; color:var(--app-text) }
+.app__rlv{ margin:3px 0 0; font-size:10.5px; color:var(--app-text-2); min-height:13px }
+.app__rlder{ display:flex; align-items:center; gap:7px }
+.app__rlest{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:3px 8px; border-radius:999px;
+  border:1px solid #BBF7D0; background:#F2FBF5; color:#15803D;
+  font-size:9px; font-weight:500; white-space:nowrap;
+}
+.app__rlest svg{ width:10px; height:10px }
+.app__rlwho{
+  width:18px; height:18px; border-radius:50%;
+  display:grid; place-items:center;
+  background:var(--app-blue); color:#fff;
+  font-size:9px; font-weight:500;
+}
+/* El chip y el avatar entran juntos, en el instante en que el control se
+   resuelve: lo que aparece no es un adorno, es el sello de que ya está. */
+.app__rlder{
+  opacity:0;
+  animation:app-rl-sello 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+
+/* Los cinco instantes. Van escritos uno a uno y no con `animation-delay` sobre
+   un keyframe común: un retardo positivo descuadra la primera pasada, que es
+   justo la que se ve al entrar el panel. */
+@keyframes app-rl-sello{ 0%,6%{opacity:0; translate:0 3px} 9%,100%{opacity:1; translate:0 0} }
+@keyframes app-rl-n{ 0%,6%{ background:var(--app-canvas); color:var(--app-text-2) } 9%,100%{ background:#DCFCE7; color:#15803D } }
+.app__rl:nth-child(2) .app__rlder{ animation-name:app-rl-sello-2 }
+.app__rl:nth-child(3) .app__rlder{ animation-name:app-rl-sello-3 }
+.app__rl:nth-child(4) .app__rlder{ animation-name:app-rl-sello-4 }
+.app__rl:nth-child(5) .app__rlder{ animation-name:app-rl-sello-5 }
+.app__rl:nth-child(2) .app__rln{ animation-name:app-rl-n-2 }
+.app__rl:nth-child(3) .app__rln{ animation-name:app-rl-n-3 }
+.app__rl:nth-child(4) .app__rln{ animation-name:app-rl-n-4 }
+.app__rl:nth-child(5) .app__rln{ animation-name:app-rl-n-5 }
+@keyframes app-rl-sello-2{ 0%,14%{opacity:0; translate:0 3px} 17%,100%{opacity:1; translate:0 0} }
+@keyframes app-rl-sello-3{ 0%,23%{opacity:0; translate:0 3px} 26%,100%{opacity:1; translate:0 0} }
+@keyframes app-rl-sello-4{ 0%,31%{opacity:0; translate:0 3px} 34%,100%{opacity:1; translate:0 0} }
+@keyframes app-rl-sello-5{ 0%,40%{opacity:0; translate:0 3px} 43%,100%{opacity:1; translate:0 0} }
+@keyframes app-rl-n-2{ 0%,14%{ background:var(--app-canvas); color:var(--app-text-2) } 17%,100%{ background:#FEE2E2; color:#DC2626 } }
+@keyframes app-rl-n-3{ 0%,23%{ background:var(--app-canvas); color:var(--app-text-2) } 26%,100%{ background:#DCFCE7; color:#15803D } }
+@keyframes app-rl-n-4{ 0%,31%{ background:var(--app-canvas); color:var(--app-text-2) } 34%,100%{ background:#DCFCE7; color:#15803D } }
+@keyframes app-rl-n-5{ 0%,40%{ background:var(--app-canvas); color:var(--app-text-2) } 43%,100%{ background:#DCFCE7; color:#15803D } }
+
+/* 1 · FÓRMULA. El valor se teclea y detrás llega el resultado, que es el orden
+   real: primero el dato, después lo que la fórmula decide con él. El rango es
+   el que ya enseñaba este mismo panel —0 a 4 °C—, así que 3,4 da OK. */
+.app__rlnum{
+  display:flex; align-items:center; gap:7px; margin-top:3px;
+  font-size:10.5px; color:var(--app-text); font-variant-numeric:tabular-nums;
+}
+.app__rlcaja{
+  padding:3px 9px; border-radius:6px;
+  border:1px solid var(--app-line-2); background:#fff;
+  min-width:52px;
+}
+.app__rlfx{
+  padding:3px 9px; border-radius:999px;
+  font-size:9px; font-weight:500;
+  background:#DCFCE7; color:#15803D;
+  opacity:0;
+  animation:app-rl-fx 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-rl-fx{ 0%,7%{opacity:0; scale:.94} 10%,100%{opacity:1; scale:1} }
+/* La regla va en la misma línea que el valor: en dos, la tarjeta crece un
+   renglón y la quinta fila se cae por debajo del recorte. */
+.app__rlregla{ margin:0 0 0 2px; font-size:9px; color:var(--app-mute) }
+
+/* 2 · OK/KO. El par del producto: KO en blanco con borde rojo y OK macizo en
+   verde hasta que se elige; al pulsar KO, el rojo se hace macizo y el verde se
+   apaga, que es como queda el control resuelto. */
+.app__rlpar{ display:flex; gap:7px; margin-top:3px }
+.app__rlbt{
+  font-size:10px; font-weight:500;
+  padding:3px 15px; border-radius:999px; border:1px solid transparent;
+}
+.app__rlbt--ko{
+  color:#DC2626; border-color:#DC2626; background:#fff;
+  animation:app-rl-ko 14s steps(1,end) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__rlbt--ok{
+  color:#DCFCE7; background:#16A34A;
+  animation:app-rl-apaga 14s steps(1,end) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-rl-ko{ 0%,14%{ background:#fff; color:#DC2626 } 17%,100%{ background:#DC2626; color:#FEE2E2 } }
+@keyframes app-rl-apaga{ 0%,14%{ opacity:1 } 17%,100%{ opacity:.32 } }
+
+/* 3 · TEXTO. Se escribe delante de quien mira. `steps()` sobre `clip-path`, que
+   es el mismo recurso que ya usa la descripción de la incidencia en esta hoja:
+   una anchura animada parte las palabras por la mitad. */
+.app__rltxt{
+  margin-top:3px; padding:4px 9px; border-radius:7px;
+  border:1px solid var(--app-line); background:var(--app-canvas);
+  font-size:10px; color:var(--app-text); line-height:1.35;
+}
+.app__rltxt span{
+  display:inline-block;
+  clip-path:inset(0 100% 0 0);
+  animation:app-rl-teclea 14s steps(38,end) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-rl-teclea{ 0%,23%{clip-path:inset(0 100% 0 0)} 30%,100%{clip-path:inset(0 0 0 0)} }
+
+/* 4 · ARCHIVOS. La zona de soltar de la aplicación, con su frase literal, y el
+   fichero que la ocupa cuando ya está subido. */
+/* La zona y el fichero comparten celda: apilados en flujo, el fichero —que
+   empieza invisible— reservaba 39px de alto vacíos y esta tarjeta medía 95px
+   cuando las demás miden 55, con lo que la quinta se salía del recorte. En la
+   misma celda, la tarjeta mide lo que mida el más alto de los dos. */
+.app__rlarch{ display:grid; margin-top:3px }
+.app__rlarch>*{ grid-area:1/1; align-self:start }
+.app__rlzona{
+  padding:6px; border-radius:8px;
+  border:1px dashed var(--app-line-2); background:var(--app-canvas);
+  font-size:9.5px; color:var(--app-mute); text-align:center;
+  overflow:hidden;
+  animation:app-rl-zona 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+/* La zona no se apaga: se CIERRA. Con sólo la opacidad deja su hueco de 40px y
+   el fichero aparece flotando debajo de un agujero; con el alto, el relleno y
+   el borde a cero, la tarjeta se recoge y el fichero ocupa su sitio. Es el
+   mismo cierre que usan las incidencias del esquema de conexión. */
+@keyframes app-rl-zona{
+  0%,31%  { opacity:1; max-height:32px; padding-block:6px; border-width:1px }
+  34%,100%{ opacity:0; max-height:0;    padding-block:0;   border-width:0 }
+}
+.app__rlfile{
+  display:inline-flex; justify-self:start; align-items:center; gap:7px;
+  padding:6px 10px; border-radius:8px;
+  border:1px solid var(--app-line); background:#fff;
+  font-size:10px; color:var(--app-text);
+  opacity:0;
+  animation:app-rl-file 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-rl-file{ 0%,31%{opacity:0; translate:0 4px} 34%,100%{opacity:1; translate:0 0} }
+.app__rlfile svg{ width:16px; height:16px; flex:0 0 auto }
+.app__rlpeso{ color:var(--app-mute); font-size:9px }
+
+/* 5 · FIRMA. El trazo se dibuja —`stroke-dashoffset`, como la luz de los cables
+   del esquema de conexión— y detrás llega el sello de quién firmó y cuándo,
+   que es el que la aplicación pone en cada control tocado. */
+/* La firma y su sello, en la misma línea: apilados se comían el alto que
+   necesita la quinta tarjeta para entrar dentro del recorte. */
+.app__rlfirmafila{ display:flex; align-items:center; gap:9px; margin-top:3px }
+.app__rlfirma{
+  padding:2px 9px; border-radius:8px;
+  border:1px solid var(--app-line); background:#fff; width:fit-content;
+}
+.app__rlfirma svg{ display:block; width:88px; height:22px }
+.app__rlfirma path{
+  fill:none; stroke:var(--app-text); stroke-width:1.6;
+  stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:220; stroke-dashoffset:220;
+  animation:app-rl-traza 14s cubic-bezier(.4,0,.4,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-rl-traza{ 0%,40%{stroke-dashoffset:220} 47%,100%{stroke-dashoffset:0} }
+.app__rlsello{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 8px; border-radius:6px;
+  background:var(--app-canvas); color:var(--app-text-2);
+  font-size:9px;
+  opacity:0;
+  /* Su propio fotograma y no `app-rl-file` con retardo: un retardo positivo
+     descuadra la primera pasada, que aquí es la única que se ve. */
+  animation:app-rl-sello5 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-rl-sello5{ 0%,47%{opacity:0; translate:0 3px} 50%,100%{opacity:1; translate:0 0} }
+/* El pie que sostiene la promesa de la capacidad sin inventar interfaz: los
+   cinco que se ven son cinco de los diecisiete tipos que hay. */
+/* El pie que decía «cinco de los diecisiete tipos» se retiró: no cabía dentro
+   del recorte y la cifra ya está escrita en el texto de la capacidad, que es
+   donde se lee sin competir con la pantalla. */
+
+/* --- PROGRAMAR EL REGISTRO: EL BOTÓN, LA FECHA Y EL CALENDARIO ---------------
+   La capacidad promete tres cosas —frecuencia, fecha y responsable— y antes se
+   enseñaba sólo el resultado: un calendario ya lleno. Aquí se enseña el gesto,
+   que es el mismo que el montaje de la plantilla usa en la escena de al lado:
+   un cursor que pincha lo que dice el texto.
+
+     0,0 s  el modelo abierto, con su barra de botones
+     1,4 s  se pincha «Planificación» y se abre el panel
+     2,8 s  se pone la fecha de inicio y entra el responsable
+     4,2 s  se guarda, y la tarjeta se retira
+     4,6 s  el calendario, con la semana que se acaba de planificar entrando
+
+   Igual que el resto de paneles del rotador: ciclo de 14 s con todo contado en
+   los primeros siete, que es lo que se ve antes de que el rotador pase de
+   capacidad.
+
+   QUÉ ESTÁ COMPROBADO Y QUÉ NO, que aquí importa más que en las otras tres
+   pantallas. Comprobado en demo.trysolved.com el 9 de septiembre de 2026: el
+   botón **«Planificación»** con su icono de reloj, en la barra del modelo junto
+   a «Publicar», «Crear copia V2» y «Guardar»; el rótulo literal del panel que
+   abre —**«Planificación - Programar generación automática de registros»**—; los
+   campos de fecha del producto, que son `dd/mm/aaaa` con su icono de calendario
+   (los de «Creado el» y «Ejecutado el» de un registro); el rótulo
+   **«Responsable»** de la franja de asignaciones; y la vista de calendario con
+   su leyenda de cerrados y planificados. NO se ha visto el panel de
+   planificación relleno —el modelo con el que se abrió estaba vacío—, así que
+   aquí van los dos campos que el producto sí tiene y que la capacidad nombra, y
+   ni un rótulo más. Si alguien lo abre sobre un modelo planificado, esta
+   pantalla se corrige con lo que salga.
+   --------------------------------------------------------------------------- */
+.app__plan{
+  position:absolute; inset:0; z-index:4;
+  background:#fff;
+  padding:11px 13px;
+  display:flex; flex-direction:column; gap:9px;
+  animation:app-plan-sale 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+/* La tarjeta se va del todo: si se queda al 0 % de opacidad pero presente, el
+   calendario que hay debajo no se puede leer con el ratón encima. */
+@keyframes app-plan-sale{ 0%,30%{opacity:1} 34%,100%{opacity:0} }
+
+.app__planhd{ display:flex; align-items:center; gap:8px }
+.app__plannom{ font-size:12px; font-weight:500; color:var(--app-text) }
+.app__planest{
+  padding:3px 8px; border-radius:999px;
+  background:#FEF3C7; color:#92600E; font-size:9px; font-weight:500;
+}
+.app__planbts{ display:flex; align-items:center; gap:7px; margin-top:1px }
+.app__planbt{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:4px 10px; border-radius:7px;
+  border:1px solid var(--app-line); background:#fff;
+  font-size:9.5px; color:var(--app-text-2); white-space:nowrap;
+}
+.app__planbt svg{ width:11px; height:11px; flex:0 0 auto }
+.app__planbt--pub{ color:#12813B; border-color:#BBF7D0 }
+.app__planbt--guarda{ background:var(--app-blue); border-color:var(--app-blue); color:#fff }
+/* El de Planificación se enciende al pulsarlo: es el que abre el panel. */
+.app__planbt--plan{
+  color:var(--app-registro); border-color:rgba(124,58,237,.42);
+  animation:app-plan-bt 14s steps(1,end) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-plan-bt{
+  0%,9%  { background:#fff }
+  10%,100%{ background:rgba(124,58,237,.10) }
+}
+
+.app__planpanel{
+  border:1px solid rgba(124,58,237,.28); border-radius:10px;
+  background:rgba(124,58,237,.045);
+  padding:10px 12px 11px;
+  opacity:0;
+  animation:app-plan-panel 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-plan-panel{ 0%,10%{opacity:0; translate:0 5px} 14%,100%{opacity:1; translate:0 0} }
+.app__plantit{
+  margin:0 0 9px; font-size:10.5px; color:var(--app-text);
+  display:flex; align-items:center; gap:6px;
+}
+.app__plantit svg{ width:12px; height:12px; color:var(--app-registro) }
+.app__plancampos{ display:flex; flex-wrap:wrap; gap:14px }
+.app__plancampo{ display:grid; gap:4px }
+.app__planlb{ font-size:9px; color:var(--app-mute) }
+/* El campo de fecha del producto: caja con el valor y el icono de calendario a
+   la derecha. Arranca en `dd/mm/aaaa`, que es lo que enseña vacío. */
+.app__plancaja{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:5px 9px; border-radius:7px;
+  border:1px solid var(--app-line-2); background:#fff;
+  font-size:10px; color:var(--app-text); min-width:118px;
+}
+.app__plancaja svg{ width:12px; height:12px; color:var(--app-mute); margin-left:auto }
+.app__planvacio,.app__planvalor{ grid-area:1/1 }
+.app__planpar{ display:grid }
+.app__planvacio{ color:var(--app-mute); animation:app-plan-vacio 14s steps(1,end) infinite; animation-play-state:var(--play,running) }
+.app__planvalor{ opacity:0; animation:app-plan-valor 14s steps(1,end) infinite; animation-play-state:var(--play,running) }
+@keyframes app-plan-vacio{ 0%,21%{opacity:1} 22%,100%{opacity:0} }
+@keyframes app-plan-valor{ 0%,21%{opacity:0} 22%,100%{opacity:1} }
+.app__planpers{ display:inline-flex; align-items:center; gap:7px }
+.app__planav{
+  width:18px; height:18px; border-radius:50%;
+  display:grid; place-items:center;
+  background:var(--app-blue); color:#fff; font-size:9px; font-weight:500;
+}
+.app__planguarda{
+  align-self:flex-start; margin-top:10px;
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 12px; border-radius:7px;
+  background:var(--app-registro); color:#fff;
+  font-size:10px; font-weight:500;
+}
+
+/* EL CURSOR, el mismo de ds/plantilla.css y por el mismo motivo: la punta de la
+   flecha está dibujada en (5, 2.5) de un viewBox de 24, así que sin el traslado
+   todo lo que señala cae medio dedo desplazado. Las paradas son porcentajes de
+   la PANTALLA, medidos con las animaciones pausadas. */
+.app__cur{
+  position:absolute; z-index:6;
+  width:17px; height:17px;
+  top:92%; left:22%;
+  transform:translate(-3.5px,-1.8px);
+  opacity:0;
+  filter:drop-shadow(rgba(12,32,64,.35) 0 2px 3px);
+  animation:app-cur 14s cubic-bezier(.4,0,.4,1) infinite;
+  animation-play-state:var(--play,running);
+  pointer-events:none;
+}
+.app__cur svg{ width:100%; height:100%; display:block }
+/* Las paradas son porcentajes de `.app` (695x434), medidas con las animaciones
+   pausadas en cada instante: el botón de Planificación, el campo de fecha —a la
+   izquierda de la caja, que es donde se escribe— y el botón de guardar. El
+   cursor se va antes de que aparezca el calendario: lo que pasa allí no lo hace
+   nadie con el ratón, se hace solo, que es justo lo que promete la capacidad. */
+@keyframes app-cur{
+  0%,2%     { opacity:0; left:22%;   top:95% }
+  4%        { opacity:1; left:22%;   top:95% }
+  9.5%      { opacity:1; left:19.9%; top:12.3% }  /* llega a «Planificación» */
+  12%       { opacity:1; left:19.9%; top:12.3% }  /* y lo pulsa: el panel se abre */
+  19%       { opacity:1; left:10%;   top:34.4% }  /* al campo de fecha */
+  23%       { opacity:1; left:10%;   top:34.4% }  /* que se rellena */
+  29%       { opacity:1; left:12.3%; top:42.9% }  /* a guardar la planificación */
+  32%       { opacity:1; left:12.3%; top:42.9% }
+  35%,100%  { opacity:0; left:12.3%; top:42.9% }
+}
+
+/* --- EL REGISTRO CERRADO SE DESCARGA: EL MENÚ, EL FORMATO Y EL ACUSE ---------
+   La capacidad promete «listo para descargar» y el panel enseñaba el resultado:
+   una lista y un botón. Ahora se enseña el gesto —lo mismo que se hizo con la
+   planificación—: se abre el menú del registro, se elige qué se descarga y el
+   fichero baja.
+
+     0,0 s  el histórico
+     1,3 s  se pulsa el menú del registro cerrado y se abre
+     3,1 s  se elige «Descargar PDF» y el menú se cierra
+     3,9 s  el acuse con el nombre del fichero
+     5,6 s  el panel de Informes Excel, que es la otra vía —el histórico entero,
+            no un registro— y por eso entra después y no a la vez
+
+   LOS CINCO RÓTULOS SON LITERALES DEL PRODUCTO. Salen del `more_vert` de un
+   registro cerrado en `demo.trysolved.com/checklist/preview/<id>`, comprobado el
+   9 de septiembre de 2026: «Descargar PDF», «Descargar PDF comprimido»,
+   «Descargar solo resultados KO», «Seleccionar secciones...» y «Enviar resumen
+   por correo». Con eso queda **resuelto el aviso** que llevaba esta capacidad
+   desde que se montó: el PDF del registro firmado existe, y además con opciones.
+   No se inventa un selector de formato —el producto no tiene uno— porque no hace
+   falta: lo que hay es un menú con cinco maneras de bajarlo, que es más de lo que
+   prometía la página.
+   --------------------------------------------------------------------------- */
+/* El botón de tres puntos, en la fila del registro cerrado. */
+.app__kebab{
+  display:inline-flex; flex-direction:column; gap:2.5px; align-items:center;
+  padding:2px 4px; border-radius:5px; flex:0 0 auto;
+  animation:app-kebab 14s steps(1,end) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__kebab i{ width:2.5px; height:2.5px; border-radius:50%; background:var(--app-mute) }
+/* Se enciende al pulsarlo, como cualquier botón de icono de la aplicación. */
+@keyframes app-kebab{
+  0%,9%   { background:transparent }
+  10%,25% { background:var(--app-blue-wash) }
+  26%,100%{ background:transparent }
+}
+
+/* EL MENÚ VIVE DENTRO DEL RECORTE. La fila del registro llega hasta el borde
+   de la pantalla (695px) pero de esa pantalla sólo se ven los 584 primeros, así
+   que un menú anclado a su derecha se queda medio fuera de la tarjeta —pasó—.
+   Las filas del histórico se limitan a 560px y el menú se ancla al 52 % de la
+   pantalla: con sus 186px acaba en el 79 %, dentro de lo que se ve. */
+.app__hgrupo,
+.app__hfila{ max-width:560px }
+.app__menu{
+  position:absolute; z-index:5;
+  left:52%; top:34%;
+  min-width:186px;
+  background:#fff; border:1px solid var(--app-line); border-radius:10px;
+  box-shadow:0 18px 40px rgba(50,50,93,.20);
+  padding:5px;
+  transform-origin:100% 0;
+  opacity:0;
+  animation:app-menu 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+/* Se abre al pulsar los tres puntos y se cierra al elegir. Un menú que se queda
+   abierto después de elegir no es un menú: es una lista. */
+@keyframes app-menu{
+  0%,9%    { opacity:0; scale:.96 }
+  11%,24%  { opacity:1; scale:1 }
+  26%,100% { opacity:0; scale:.98 }
+}
+.app__mit{
+  display:flex; align-items:center; gap:8px;
+  padding:6px 9px; border-radius:7px;
+  font-size:10px; color:var(--app-text); white-space:nowrap;
+}
+.app__mit svg{ width:13px; height:13px; flex:0 0 auto; color:var(--app-text-2) }
+/* El elegido se subraya con el lavado azul —el mismo de un ítem activo— justo
+   antes de que el menú se cierre: el orden es señalar, elegir, cerrar. */
+.app__mit--on{
+  animation:app-mit 14s steps(1,end) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-mit{
+  0%,20%  { background:transparent }
+  21%,26% { background:var(--app-blue-wash); color:var(--app-blue-deep) }
+  27%,100%{ background:transparent }
+}
+
+/* El acuse. Va DEBAJO DE DONDE ESTABA EL MENÚ, no abajo a la izquierda como lo
+   pondría el navegador: pegado al pie caía fuera del recorte —del alto de la
+   pantalla sólo se ven los 335 primeros de 435— y, además, ahí abajo se pisaba
+   con el panel de Informes. Donde está se lee como lo que ha salido de ese menú,
+   que es lo que cuenta. */
+.app__bajado{
+  position:absolute; z-index:5;
+  left:52%; top:57%;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:7px 11px; border-radius:9px;
+  background:#fff; border:1px solid var(--app-line);
+  box-shadow:0 10px 24px rgba(50,50,93,.14);
+  font-size:10px; color:var(--app-text); white-space:nowrap;
+  opacity:0;
+  animation:app-bajado 14s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__bajado svg{ width:13px; height:13px; flex:0 0 auto; color:#12813B }
+@keyframes app-bajado{ 0%,27%{opacity:0; translate:0 6px} 30%,100%{opacity:1; translate:0 0} }
+
+/* El cursor de esta pantalla. Mismas reglas que el de la planificación —la
+   punta corregida y las paradas en porcentajes de `.app`, medidas—, y se va en
+   cuanto el fichero ha bajado: lo que entra después, el panel de Informes, no lo
+   abre nadie con el ratón en esta escena. */
+@keyframes app-cur-hist{
+  0%,2%    { opacity:0; left:60%;   top:95% }
+  4%       { opacity:1; left:60%;   top:95% }
+  9%       { opacity:1; left:80.1%; top:33.3% }  /* llega a los tres puntos */
+  12%      { opacity:1; left:80.1%; top:33.3% }  /* y abre el menú */
+  20%      { opacity:1; left:65.4%; top:38.5% }  /* baja a «Descargar PDF» */
+  24%      { opacity:1; left:65.4%; top:38.5% }  /* y lo elige */
+  28%,100% { opacity:0; left:65.4%; top:38.5% }
+}
+.app__cur--hist{ animation-name:app-cur-hist }
+
+@media (prefers-reduced-motion:reduce){
+  /* Las cuatro pantallas se quedan resueltas: la fórmula entera con su ejemplo,
+     la semana planificada puesta, el panel de informes a la vista y el registro
+     con sus cinco controles rellenados. Van con `opacity:1` a mano porque
+     arrancan escondidas en el propio elemento. */
+  .app__fxv,.app__fxo,.app__fxc,.app__fxy,
+  .app__ej,.app__pill--plan,.app__informes,
+  .app__rlder,.app__rlfx,.app__rlfile,.app__rlsello{
+    animation:none !important; opacity:1; scale:1; translate:0 0;
+  }
+  /* Programar: quieto se queda el final —el calendario ya planificado—, que es
+     el estado que cuenta la capacidad. La tarjeta y el cursor se van. */
+  .app__plan,.app__cur{ animation:none !important; opacity:0 }
+  /* Descargar: quieto se queda el final —el acuse del PDF y el panel de
+     Informes—, con el menú cerrado, que es el estado en el que queda la
+     pantalla después de bajar el fichero. */
+  .app__menu{ animation:none !important; opacity:0 }
+  .app__bajado{ animation:none !important; opacity:1; translate:0 0 }
+  .app__kebab{ animation:none !important }
+  .app__rltxt span{ animation:none !important; clip-path:none }
+  .app__rlfirma path{ animation:none !important; stroke-dashoffset:0 }
+  .app__rlzona{ animation:none !important; display:none }
+  .app__seccont{ animation:none !important; --sec-hechos:5 }
+  /* Quieto, el par ya está elegido y la casilla del control ya tiene su color. */
+  .app__rlbt--ko{ animation:none !important; background:#DC2626; color:#FEE2E2 }
+  .app__rlbt--ok{ animation:none !important; opacity:.32 }
+  .app__rln{ animation:none !important; background:#DCFCE7; color:#15803D }
+  .app__rl:nth-child(2) .app__rln{ background:#FEE2E2; color:#DC2626 }
+}
+
+
+/* =========================================================
+   LA CONVERSACIÓN DE UNA INCIDENCIA — 9 de septiembre de 2026
+   El cuarto cubo de «Detecta» en /incidencias/: la ficha a la izquierda y el
+   chat abierto a la derecha, que es como se ve en la aplicación.
+
+   Comprobado en `demo.trysolved.com` el 9 de septiembre: el cajón se abre desde
+   el icono de la cabecera de la incidencia, lleva «Chat de la incidencia» con el
+   código debajo, una campana para seguir el hilo y, al fondo, el campo con
+   marcador «Mensaje» y sus dos botones —adjuntar y enviar—.
+
+   ⚠️ LA BURBUJA NO ESTÁ COMPROBADA: la incidencia que se abrió tenía el chat
+   vacío, así que autor, hora, texto y adjunto van con el patrón del resto de la
+   aplicación y no contra una captura. Hay que verlo con mensajes dentro antes de
+   publicar.
+   ========================================================= */
+
+/* Los iconos de la cabecera de la incidencia, reutilizados aquí para la campana
+   del cajón y para adjuntar y enviar. */
+.app__inchic{
+  width:22px; height:22px; border-radius:6px; flex:0 0 auto;
+  display:grid; place-items:center;
+  color:var(--app-mute);
+}
+.app__inchic svg{ width:13px; height:13px; display:block }
+.app__inchic--on{ background:var(--app-blue); color:#fff }
+.app__inchic--enviar{ color:var(--app-blue) }
+
+/* Dos columnas: la ficha y el cajón. El cajón manda —es lo que la tarjeta
+   enseña—, así que se lleva la mitad larga; y va con su propio canto y su
+   sombra, porque en la aplicación está por encima de la ficha, no al lado. */
+/* EL CAJÓN VA SOLO, sin ficha al lado y sin marco de aparato: la escena mide
+   cuatro columnas y ahí una ventana entera no cabe. Es el mismo tratamiento que
+   el panel de la acción nueva dos cuadros más arriba —panel suelto, su propia
+   sombra, `--suelto` en la escena— y por eso comparte medidas con él. */
+.app__conv{
+  width:100%;
+  display:flex; flex-direction:column; gap:7px;
+  background:#fff; border:1px solid var(--app-line); border-radius:11px;
+  box-shadow:0 16px 32px rgba(50,50,93,.12);
+  padding:11px 12px 12px;
+  font-family:Roboto,'Helvetica Neue',Arial,sans-serif;
+  color:var(--app-text);
+  font-variant-numeric:tabular-nums;
+  text-align:left;
+}
+.app__convh{ display:flex; align-items:flex-start; gap:8px; padding-bottom:8px; border-bottom:1px solid var(--app-line) }
+.app__convt{ font-size:11.5px; font-weight:500; color:var(--app-text) }
+.app__convs{ font-size:9.5px; color:var(--app-mute); margin-top:1px }
+
+/* Los mensajes llegan de uno en uno, que es lo que hace que se lea como una
+   conversación y no como un acta. Van escondidos en el propio elemento por lo
+   de siempre: `animation-delay` no pinta el 0 % mientras espera. */
+.app__msg{
+  display:flex; align-items:flex-start; gap:8px;
+  opacity:0;
+  animation:app-msg 13s cubic-bezier(.16,1,.3,1) infinite;
+  animation-play-state:var(--play,running);
+}
+.app__msg--m2{ animation-delay:.9s }
+.app__msg--m3{ animation-delay:1.8s }
+@keyframes app-msg{ 0%,3%{opacity:0; translate:0 6px} 11%,100%{opacity:1; translate:0 0} }
+
+/* — LO MÍO A LA DERECHA, LO DEL RESTO A LA IZQUIERDA —
+   Es la gramática de cualquier conversación, y aquí además hace un trabajo: sin
+   ella los cuatro mensajes se leen como un listado de notas y no se distingue
+   quién habla desde fuera y quién desde la propia pantalla. El mío va **sin
+   foto** —la aplicación pinta la inicial del usuario, y en una columna de cuatro
+   no cabe una cara más— y con el pico del bocadillo en el lado que le toca. */
+.app__msg--mio{ flex-direction:row-reverse }
+.app__msg--mio .app__msgc{ align-items:flex-end }
+.app__msg--mio .app__msgh{ flex-direction:row-reverse }
+.app__msg--mio .app__msgb{
+  background:var(--app-blue); color:#fff;
+  border-top-left-radius:8px; border-top-right-radius:3px;
+}
+/* Y entra cuando se pulsa enviar, no antes: es el mensaje que se acaba de
+   escribir abajo. Sin retardo, con sus propios fotogramas. */
+.app__msg--m4{
+  animation-name:app-msg-mio; animation-delay:0s;
+}
+@keyframes app-msg-mio{
+  0%,53%   { opacity:0; translate:0 8px; scale:.96 }
+  60%,100% { opacity:1; translate:0 0; scale:1 }
+}
+.app__conv .app__ava--foto{
+  width:20px; height:20px; object-fit:cover; margin-top:1px;
+  background:var(--app-canvas);
+  box-shadow:inset 0 0 0 1px rgba(11,18,32,.08);
+}
+.app__msgc{ min-width:0; display:flex; flex-direction:column; gap:3px }
+.app__msgh{ display:flex; align-items:baseline; gap:7px }
+.app__msgh b{ font-size:10px; font-weight:500; color:var(--app-text) }
+.app__msgh i{ font-size:9px; font-style:normal; color:var(--app-mute) }
+.app__msgb{
+  padding:7px 9px; border-radius:8px; border-top-left-radius:3px;
+  background:var(--app-canvas);
+  font-size:10px; color:var(--app-text); line-height:1.4;
+}
+/* El adjunto es lo que convierte «alguien lo contó» en evidencia, así que se ve
+   como lo que es —un fichero— y no como una palabra subrayada. */
+.app__msgadj{
+  display:inline-flex; align-items:center; gap:5px; align-self:flex-start;
+  padding:4px 8px; border-radius:6px;
+  border:1px solid var(--app-line); background:#fff;
+  font-size:9px; color:var(--app-blue-deep);
+}
+.app__msgadj svg{ width:11px; height:11px; flex:0 0 auto }
+
+/* El campo de escribir, pegado al fondo del cajón. El marcador es el literal de
+   la aplicación, «Mensaje»; el texto se teclea encima con el mismo relevo seco
+   que el campo de responsable de la escena de al lado. */
+.app__comp{
+  margin-top:auto; padding-top:9px;
+  border-top:1px solid var(--app-line);
+  display:flex; align-items:center; gap:7px;
+}
+.app__compi{
+  flex:1; min-width:0;
+  display:grid;
+  padding:6px 9px; border:1px solid var(--app-line); border-radius:7px;
+  font-size:10px; min-height:14px; overflow:hidden; white-space:nowrap;
+  animation:app-compfoco 13s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+/* El anillo de foco dice que se está escribiendo AHÍ, y se apaga al enviar. */
+@keyframes app-compfoco{
+  0%,26%   { border-color:var(--app-line); box-shadow:0 0 0 0 rgba(30,107,255,0) }
+  29%,51%  { border-color:rgba(30,107,255,.45); box-shadow:0 0 0 2px var(--app-blue-wash) }
+  55%,100% { border-color:var(--app-line); box-shadow:0 0 0 0 rgba(30,107,255,0) }
+}
+.app__compph,.app__compval{
+  grid-area:1/1; min-width:0; overflow:hidden;
+  animation-duration:13s; animation-iteration-count:infinite;
+  animation-timing-function:ease-out;
+  animation-play-state:var(--play,running);
+}
+.app__compph{ color:var(--app-mute); animation-name:app-compph }
+.app__compval{ color:var(--app-text); opacity:0; animation-name:app-compval }
+/* Se escribe y SE ENVÍA: el texto entra en el campo, el campo se vacía al pulsar
+   y lo que aparece arriba es el mensaje. Los tres relojes van pegados —tecleo
+   hasta el 46 %, envío en el 52 %, burbuja en el 53 %— y si se toca uno hay que
+   mirar los otros dos, o el mensaje sale antes de mandarse. */
+@keyframes app-compph{  0%,26%{opacity:1} 28%,52%{opacity:0} 55%,100%{opacity:1} }
+@keyframes app-compval{ 0%,28%{opacity:0} 30%,51%{opacity:1} 53%,100%{opacity:0} }
+.app__compval span{
+  display:inline-block;
+  animation:app-comptec 13s steps(28) infinite;
+  animation-play-state:var(--play,running);
+}
+@keyframes app-comptec{ 0%,30%{clip-path:inset(0 100% 0 0)} 46%,100%{clip-path:inset(0 0 0 0)} }
+/* Y el botón de enviar se enciende cuando ya hay algo que enviar. */
+.app__inchic--enviar{
+  animation:app-enviar 13s ease-out infinite;
+  animation-play-state:var(--play,running);
+}
+/* El botón se enciende cuando ya hay algo que enviar, se hunde al pulsarlo y se
+   apaga con el campo. El saltito va ANTES de que el mensaje aparezca arriba, que
+   es el orden en que ocurre: primero el dedo, después el envío. */
+@keyframes app-enviar{
+  0%,31%   { background:transparent; color:var(--app-mute); scale:1 }
+  34%,50%  { background:var(--app-blue); color:#fff; scale:1 }
+  52%      { background:var(--app-blue); color:#fff; scale:.86 }
+  55%,100% { background:transparent; color:var(--app-mute); scale:1 }
+}
+
+@media (prefers-reduced-motion:reduce){
+  /* La conversación se queda ENVIADA: los cuatro mensajes puestos —el mío a la
+     derecha— y el campo otra vez en su marcador, que es el estado en el que
+     queda un chat después de mandar. Con el texto en el campo y el mensaje
+     arriba a la vez, parecería que se ha escrito dos veces. */
+  .app__msg,.app__compph,.app__inchic--enviar,.app__compi{
+    animation:none !important; opacity:1; scale:1; translate:0 0;
+  }
+  .app__compval,.app__compval span{ animation:none !important; opacity:0 }
+}

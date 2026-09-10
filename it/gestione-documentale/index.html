@@ -285,6 +285,129 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -303,34 +426,33 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://trysolved.com/#organization","name":"Solved","legalName":"VOLTSTONE TECHNOLOGY SERVICES S.L.","url":"https://trysolved.com/it/","logo":{"@type":"ImageObject","url":"https://trysolved.com/assets/logotipo-solved.webp"},"sameAs":["https://www.linkedin.com/company/trysolved","https://www.youtube.com/@trysolved"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Solved","applicationCategory":"BusinessApplication","operatingSystem":"Web, iOS, Android","url":"https://trysolved.com/it/gestione-documentale/","description":"Controlla la versione vigente, la validazione e la scadenza di ogni documento di stabilimento, e individua la cartella incompleta prima dell'audit, non durante.","publisher":{"@id":"https://trysolved.com/#organization"}}</script>
 <!-- SEO:end -->
-<!-- Roboto es la fuente real de la app: la usa la pantalla de ds/app.css que
-     va dentro del bocadillo de la escena. -->
+<!-- Roboto es la fuente real de la app, y dentro de una pieza de producto manda
+     ella. Aquí la piden las cuatro de ds/documentos.css; la escena con bocadillo
+     que la traía —y con ella ds/app.css— se retiró el 9 de septiembre de 2026. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Roboto:wght@400;500&amp;display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="preload" as="font" type="font/woff2" crossorigin="" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/fonts/DMSans-VariableFont_opsz_wght.woff2">
-<link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260803a">
-<link rel="stylesheet" href="/solved.css?v=20260817a">
+<link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260909a">
+<link rel="stylesheet" href="/solved.css?v=20260909a">
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
 <link rel="stylesheet" href="/ds/site.css?v=20260908a">
-<link rel="stylesheet" href="/ds/hero.css?v=20260907e">
-<!-- `.res` —el recurso— vive en ds/scene.css, y la pila de la hero lo
-     reutiliza tal cual. Esta página no monta ninguna escena, pero sí su
-     recurso, así que la hoja hace falta igual. -->
+<link rel="stylesheet" href="/ds/hero.css?v=20260909a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260908b">
-<link rel="stylesheet" href="/ds/hero-docs.css?v=20260908a">
-<link rel="stylesheet" href="/ds/app.css?v=20260908b">
-<link rel="stylesheet" href="/ds/sections.css?v=20260908a">
+<link rel="stylesheet" href="/ds/sections.css?v=20260909e">
+<link rel="stylesheet" href="/ds/device.css?v=20260814a">
+<link rel="stylesheet" href="/ds/documentos.css?v=20260909a">
 </head>
 <body data-screen-label="Gestor documental">
 
 <div id="nav"></div>
 
 <!-- ============ HERO ============ -->
-<!-- La misma hero que el resto del sitio: el shader de ds/hero-wave.js por
-     detrás y el texto dentro del encuadre. El copy es el de esta página.
+<!-- La hero del sitio con la forma propia de esta página: el shader de
+     ds/hero-wave.js por detrás —entrada `documentos`, la pila de hojas— y el
+     texto dentro del encuadre. El copy es el de esta página.
 
      VOCABULARIO. El módulo se llama Documentos y el equipo lo vende como «el
      gestor documental» —de ahí la URL—, pero el titular no lidera con la
@@ -342,70 +464,6 @@
 <section class="ds-hero" data-screen-label="Gestor documental · Hero">
   <canvas class="ds-hero__weave" aria-hidden="true" id="dsWeave"></canvas>
 
-    <!-- ============ LA PILA DE DOCUMENTOS ============
-         La pieza propia de esta hero, como «Convergencia» lo es de la de
-         Integraciones. Cuatro recursos (`.res`, de ds/scene.css) en cascada
-         sobre la misma diagonal que sube el haz: entran por arriba, se ordenan
-         y salen archivados por abajo, a saltos y no en continuo.
-
-         Los cuatro documentos, sus responsables y sus fechas son los de la
-         vista de tabla de demo.trysolved.com/documents comprobada el 3 de
-         septiembre de 2026 —la misma que se monta en el bocadillo de más
-         abajo—, así que la hero y la escena cuentan la misma carpeta.
-
-         `aria-hidden`: es la ilustración del titular, no información nueva.
-         Todo lo que dice está escrito en la página. Ficha en ds/hero-docs.css.
-         ============================================ -->
-    <div class="docstack" aria-hidden="true">
-      <article class="docstack__card res" style="--i:0">
-        <div class="res__hd">
-          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-          <div>
-            <p class="res__t">PR-07 Pulizia e disinfezione</p>
-            <p class="res__s"><span class="docstack__dot"></span>Validato · Ana</p>
-          </div>
-        </div>
-        <dl class="res__rows">
-          <div class="res__kv"><dt>Revisione</dt><dd>12/12/26</dd></div>
-        </dl>
-      </article>
-      <article class="docstack__card res" style="--i:1">
-        <div class="res__hd">
-          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-          <div>
-            <p class="res__t">Certificato IFS · Olio di girasole</p>
-            <p class="res__s"><span class="docstack__dot"></span>Validato · Marta</p>
-          </div>
-        </div>
-        <dl class="res__rows">
-          <div class="res__kv"><dt>Scade</dt><dd>30/09/26</dd></div>
-        </dl>
-      </article>
-      <article class="docstack__card res" style="--i:2">
-        <div class="res__hd">
-          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-          <div>
-            <p class="res__t">Scheda tecnica · Popcorn 90 g</p>
-            <p class="res__s"><span class="docstack__dot--espera"></span>In attesa di validazione · Marta</p>
-          </div>
-        </div>
-        <dl class="res__rows">
-          <div class="res__kv"><dt>Caricato</dt><dd>02/06/26</dd></div>
-        </dl>
-      </article>
-      <article class="docstack__card res" style="--i:3">
-        <div class="res__hd">
-          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-          <div>
-            <p class="res__t">PR-12 Rilevamento metalli</p>
-            <p class="res__s"><span class="docstack__dot"></span>Validato · Pablo</p>
-          </div>
-        </div>
-        <dl class="res__rows">
-          <div class="res__kv"><dt>Revisione</dt><dd>20/05/27</dd></div>
-        </dl>
-      </article>
-    </div>
   <div class="frame frame--seam ds-hero__frame">
     <div class="ds-hero__txt">
       <div class="ds-hero__strip">
@@ -483,150 +541,304 @@
 </div>
 
 <!-- ============================================================
-     ESCENA CON BOCADILLO — ds/sections.css, patrón 10
-     La foto es ambiente y la interfaz va en el bocadillo, que es la pantalla
-     de ds/app.css montada en HTML. Aquí encaja mejor que una escena de
-     producto por una razón concreta: **el sistema no tiene tinte de módulo
-     para Documentos** —los seis valores de `.scene[data-module]` son
-     incidencias, acciones, checklists, activos, kpis e ia— y teñir el lienzo
-     con el color de otro módulo sería justo lo que la regla del tinte
-     prohíbe. La escena con bocadillo no pide módulo. Anotado como pendiente
-     de decisión en CLAUDE.md.
+     LAS CUATRO CAPACIDADES DEL GESTOR, EN UNA SOLA SECCIÓN (9 sep 2026)
+     Segunda poda del cliente sobre la réplica de mitti.com/es/documentos: las
+     cinco secciones que salieron de ella —en planta, versiones, IA, el documento
+     en el flujo y los tipos de papel— se condensan en el ROTADOR DE CAPACIDADES,
+     que es el mismo recurso con el que /auditorias/ resolvió lo mismo el mismo
+     día. La página vuelve a dos secciones de contenido, que es la regla.
 
-     La pantalla es la VISTA DE TABLA de una carpeta, comprobada en
-     demo.trysolved.com/documents el 3 de septiembre de 2026: la franja de
-     «Documentos requeridos» con su frase literal, y las columnas NOMBRE,
-     SUBIDO EL, FECHA DE REVISIÓN, FECHA DE EXPIRACIÓN y ESTADO, con los dos
-     estados que existen. El bocadillo se ensancha a 640px —la base son 460—
-     porque a 460 la columna de estado caía fuera, y el estado es el argumento.
+     LO QUE SE CONSERVA de las cinco: las cuatro piezas animadas, que pasan a ser
+     los cuatro paneles, y el texto de sus puntos, condensado a uno o dos
+     párrafos por capacidad. Los seis tipos de papel de una planta se quedan en
+     una línea dentro de la primera capacidad; tenían sección propia y no la
+     necesitaban.
 
-     Los datos son los del resto del sitio: PopCorn Mediterránea, junio de
-     2026, y las personas del listado de acciones —Ana, Marta, Pablo—.
+     LOS PANELES SON `.scene` SIN `data-module`, y es deliberado: el rotador
+     busca sus paneles así, y el sistema no tiene tinte para Documentos. Una
+     escena sin módulo no rompe la regla del tinte —deja el lienzo sin teñir, que
+     es lo que le toca a un módulo sin color—; teñirla con el violeta de otro sí
+     la rompería. Detalle en ds/documentos.css.
+
+     LAS TRES MARCAS ⚠ SIGUEN EN PIE, ahora dentro de su capacidad: el acceso sin
+     conexión y la lectura del código (capacidad 1), la IA sobre el contenido de
+     los documentos (capacidad 3) y la copia única en los tres destinos
+     (capacidad 4). Quitar una es borrar su `.rotador__item` y su `.scene`.
+
+     `data-dur` vale 12000 en las cuatro porque el ciclo de las piezas dentro del
+     rotador es de 12 s (`--ciclo` en la variante de panel). Si se cambia allí,
+     se cambia aquí.
      ============================================================ -->
-<section class="section" data-screen-label="Gestor documental · La carpeta">
+<section class="section section--tight" data-screen-label="Gestor documental · Capacidades">
   <div class="wrap">
+    <div class="rotador-bloque">
     <div class="section-head section-head--split">
-      <h2>La cartella, con ciò che c'è e ciò che manca</h2>
-      <p>Ogni documento con la sua data di revisione, la sua data di scadenza e il suo stato di validazione. E in alto, l'elenco dei documenti che quella cartella deve contenere.</p>
+      <h2>Carica la procedura, convalida la sua versione e trovala dalla linea, nello stesso modulo</h2>
+      <p>Quattro funzioni del modulo, ognuna sullo schermo che la risolve.</p>
     </div>
 
-    <div class="stage" style="--stage-ar:16/9">
-      <div class="stage__media">
-        <!-- Foto propia de esta página: ninguna imagen del sitio se reutiliza
-             entre páginas (regla en assets/planta/FUENTES.md). Sustituye al
-             hueco de imagen que marcaba su sitio.
+    <div class="rotador" data-intervalo="12000">
+      <div class="rotador__lista" role="tablist" aria-orientation="vertical" aria-label="Funzionalità del gestore documentale">
 
-             EL ENCUADRE ES PARTE DEL COMPONENTE: la persona y la carpeta de
-             anillas caen en la mitad izquierda porque el bocadillo con la
-             pantalla ocupa el 58 % derecho. Si algún día se cambia la foto,
-             hay que mantener ese reparto o la escena se tapa a sí misma.
-
-             La tablet sale con la pantalla apagada, que es lo que pide el
-             componente: la interfaz de verdad es la del bocadillo, montada en
-             HTML, y no hay ni un píxel de producto inventado en la fotografía. -->
-        <img src="/assets/procedimiento-carpeta-tablet.webp" alt="Un tecnico della qualità nel capannone di uno stabilimento alimentare consulta una procedura in un raccoglitore ad anelli, con un tablet nell'altra mano" width="1920" height="1080" loading="lazy" decoding="async">
-      </div>
-      <div class="stage__bocadillo" style="width:min(58%,640px)">
-        <div class="app app--docs" aria-hidden="true">
-          <div class="app__top">
-            <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
-            <span class="app__vbar"></span>
-            <span class="app__topttl">Documenti</span>
-            <span class="app__spacer"></span>
-            <span class="app__me">G</span>
+        <!-- ⚠ SIN COMPROBAR dentro de esta capacidad: el acceso sin conexión y
+             que el código del equipo abra su documentación. Si caen, se quita el
+             segundo párrafo y las dos píldoras del panel. -->
+        <div class="rotador__item" data-dur="12000">
+          <button class="rotador__btn" id="rot-doc-planta-b" role="tab" aria-controls="rot-doc-planta" aria-selected="false" type="button">Trova il documento dalla linea, non dall'ufficio</button>
+          <div class="rotador__cuerpo">
+            <p>La cartella si apre dallo stesso telefono o dallo stesso tablet con cui si compila la registrazione. I documenti si organizzano in cartelle e sottocartelle, portano etichette e si segnano come preferiti; l'elenco si filtra, si ordina e si cerca per nome.</p>
+            <p>Dentro ci stanno le procedure e le istruzioni, i certificati di norma, le schede tecniche, i manuali e gli schemi delle attrezzature, le schede di sicurezza e il fascicolo di ogni fornitore. Si apre offline —la cella e la banchina sono dove la rete arriva peggio— e il codice della macchina porta alla sua documentazione senza cercarla.</p>
           </div>
-
-          <div class="app__docbc">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"></path></svg>
-            Tutti i documenti
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>
-            <b>PIANO DI ASSICURAZIONE DELLA QUALITÀ</b>
-          </div>
-
-          <div class="app__req">
-            <div>
-              <div class="app__reqt">Documenti richiesti</div>
-              <div class="app__reqs">Tiene traccia di quali documenti devono esistere in questa cartella.</div>
-            </div>
-            <span class="app__reqavi">A 1 elenco mancano documenti</span>
-          </div>
-
-          <table class="app__table">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Caricato il</th>
-                <th>Revisione</th>
-                <th>Scadenza</th>
-                <th>Stato</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="app__docn">
-                    <span class="app__docico">PDF</span>
-                    <div style="min-width:0">
-                      <div class="app__doct">PR-07 Pulizia e disinfezione</div>
-                      <div class="app__docby"><span class="app__ava" style="background:#8B4FE0">A</span> Ana</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="app__num">12/06/26</span></td>
-                <td><span class="app__num">12/12/26</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__est app__est--val">Validato</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="app__docn">
-                    <span class="app__docico">PDF</span>
-                    <div style="min-width:0">
-                      <div class="app__doct">Scheda tecnica · Popcorn 90 g</div>
-                      <div class="app__docby"><span class="app__ava" style="background:#E0489B">M</span> Marta</div>
-                    </div>
-                    <span class="app__docwarn">!</span>
-                  </div>
-                </td>
-                <td><span class="app__num">02/06/26</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__est app__est--pend">In attesa di validazione</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="app__docn">
-                    <span class="app__docico">PDF</span>
-                    <div style="min-width:0">
-                      <div class="app__doct">Certificato IFS · Olio di girasole</div>
-                      <div class="app__docby"><span class="app__ava" style="background:#E0489B">M</span> Marta</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="app__num">28/05/26</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__num">30/09/26</span></td>
-                <td><span class="app__est app__est--val">Validato</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="app__docn">
-                    <span class="app__docico">PDF</span>
-                    <div style="min-width:0">
-                      <div class="app__doct">PR-12 Rilevamento metalli</div>
-                      <div class="app__docby"><span class="app__ava" style="background:#1098AD">P</span> Pablo</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="app__num">20/05/26</span></td>
-                <td><span class="app__num">20/05/27</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__est app__est--val">Validato</span></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
+
+        <div class="rotador__item" data-dur="12000">
+          <button class="rotador__btn" id="rot-doc-version-b" role="tab" aria-controls="rot-doc-version" aria-selected="false" type="button">La nuova versione non è quella vigente finché qualcuno non la convalida</button>
+          <div class="rotador__cuerpo">
+            <p>La versione caricata entra come in attesa e non sostituisce quella vigente finché non viene convalidata; può anche essere rifiutata. I due stati si vedono nell'elenco, un filtro raccoglie tutto ciò che è in attesa di revisione e ogni movimento resta nell'attività del documento con nome e data.</p>
+            <p>Ogni documento porta la sua data di revisione e la sua data di scadenza —con vista calendario per mese, settimana, giorno e agenda—, il suo responsabile, il suo ambito per stabilimento e le persone assegnate.</p>
+          </div>
+        </div>
+
+        <!-- ⚠ SIN COMPROBAR: la capacidad entera. La IA de Solved tiene
+             «preguntar a tus datos», pero no se verificó que entre en el texto de
+             los documentos ni que cite la fuente. -->
+        <div class="rotador__item" data-dur="12000">
+          <button class="rotador__btn" id="rot-doc-ia-b" role="tab" aria-controls="rot-doc-ia" aria-selected="false" type="button">Le si chiede in lingua corrente e risponde citando il documento</button>
+          <div class="rotador__cuerpo">
+            <p>L'operatore non cerca nella cartella: chiede quello che deve sapere e la risposta arriva con il documento da cui esce, la sua versione e la sua pagina. Basta aprire quattro cartelle o chiedere a chi sta accanto.</p>
+            <a href="/it/ia/">Vedi l'IA di Solved →</a>
+          </div>
+        </div>
+
+        <!-- ⚠ SIN COMPROBAR en parte: que sea el MISMO documento en los tres
+             sitios —una sola copia— y no tres adjuntos. El enganche existe: la
+             ficha de activo tiene pestaña de documentos y el gestor tiene
+             «documentos con enlaces». -->
+        <div class="rotador__item" data-dur="12000">
+          <button class="rotador__btn" id="rot-doc-flujo-b" role="tab" aria-controls="rot-doc-flujo" aria-selected="false" type="button">Lo stesso documento, dentro la registrazione, l'asset e l'anomalia</button>
+          <div class="rotador__cuerpo">
+            <p>Un documento che bisogna andare a cercare in una cartella non si legge. La registrazione che applica la procedura la porta dentro, la scheda dell'attrezzatura porta il suo manuale e i suoi certificati, e l'anomalia cita quello che la spiega.</p>
+            <p>Il file non si duplica in ogni posto: è lo stesso documento, quindi convalidare una nuova versione lo cambia in tutti e tre insieme. È esattamente ciò che una cartella condivisa non fa.</p>
+          </div>
+        </div>
+
       </div>
+
+      <div class="rotador__vista">
+
+        <article class="scene" id="rot-doc-planta" role="tabpanel" aria-labelledby="rot-doc-planta-b">
+          <h3 class="scene__title">La cartella sul telefono di stabilimento</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+        <div class="docmovil docmovil--panel" aria-hidden="true">
+                <span class="docmovil__pill docmovil__pill--red">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17.5a3.8 3.8 0 0 1 .5-7.6 5 5 0 0 1 9.6-1.2A3.7 3.7 0 0 1 17.4 17.5"></path><path d="M3 3l18 18"></path></svg>
+                  Disponibile offline
+                </span>
+
+                <!-- El contenedor tiene que ser el PADRE del aparato: `.device` no
+                     resuelve sus propias unidades de contenedor y el marco sale
+                     deforme —bisel y muesca calculados contra la ventana—. Lo dice
+                     ds/device.css y se comprobó saltándoselo. -->
+                <div class="device-box">
+                 <div class="device" data-device="iphone">
+                  <div class="device__screen">
+                    <div class="docmovil__pant">
+                      <div class="docmovil__top">Documenti</div>
+                      <div class="docmovil__buscar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.3-4.3"></path></svg>
+                        <span class="docmovil__q">confezionatrice</span>
+                      </div>
+                      <div class="docmovil__lista">
+                        <div class="docmovil__doc docmovil__doc--queda">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">PR-07 Pulizia e disinfezione della confezionatrice</div>
+                            <div class="docmovil__sub">v3 · Convalidato</div>
+                          </div>
+                        </div>
+                        <div class="docmovil__doc docmovil__doc--queda">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">Manuale della confezionatrice L3</div>
+                            <div class="docmovil__sub">v4 · Convalidato</div>
+                          </div>
+                        </div>
+                        <div class="docmovil__doc docmovil__doc--fuera">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">Certificato IFS Food</div>
+                            <div class="docmovil__sub">v1 · Scade il 30/11/26</div>
+                          </div>
+                        </div>
+                        <div class="docmovil__doc docmovil__doc--fuera">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">Scheda tecnica · Popcorn 90 g</div>
+                            <div class="docmovil__sub">v2 · Convalidato</div>
+                          </div>
+                        </div>
+                        <div class="docmovil__doc docmovil__doc--fuera">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">PR-12 Controllo degli allergeni</div>
+                            <div class="docmovil__sub">v1 · In attesa di convalida</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+                </div>
+
+                <span class="docmovil__pill docmovil__pill--codigo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"></path><path d="M8 12h8"></path></svg>
+                  Codice letto · Confezionatrice L3
+                </span>
+              </div>
+        </article>
+
+        <article class="scene" id="rot-doc-version" role="tabpanel" aria-labelledby="rot-doc-version-b">
+          <h3 class="scene__title">La versione che entra in attesa e viene convalidata</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+        <div class="docver docver--panel" aria-hidden="true">
+                <div class="docver__panel">
+                  <div class="docver__hd">
+                    <span class="docver__pdf">PDF</span>
+                    <div style="min-width:0">
+                      <div class="docver__t">PR-07 Pulizia e disinfezione</div>
+                      <div class="docver__chips">
+                        <span class="docver__chip">PDF</span>
+                        <span class="docver__chip">v<span class="docver__vnum"><b>1</b><b>2</b></span></span>
+                        <span class="docver__chip">1,2 MB</span>
+                        <span class="docver__est docver__est--cab"><span class="docver__estxt"><span>Validato</span><span>In attesa di validazione</span></span></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="docver__tabs">
+                    <span class="docver__tab">Informazioni</span>
+                    <span class="docver__tab docver__tab--on">Versioni</span>
+                    <span class="docver__tab docver__tab--act">Attività</span>
+                  </div>
+
+                  <div class="docver__cuerpo">
+                    <div class="docver__v docver__v--nueva">
+                      <div class="docver__vhd">
+                        <span class="docver__vn">v2</span>
+                        <span class="docver__est"><span class="docver__estxt"><span>In attesa di validazione</span><span>Validato</span></span></span>
+                      </div>
+                      <div class="docver__vf">PR-07_pulizia_confezionatrice_rev2.pdf</div>
+                      <div class="docver__vm">Caricato il 12/06/26 · da Marta</div>
+                      <div class="docver__vbtns">
+                        <span class="docver__btn docver__btn--ok">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px"><path d="m5 12 5 5 9-10"></path></svg>
+                          Convalida versione
+                        </span>
+                        <span class="docver__btn docver__btn--no">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="width:11px;height:11px"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+                          Rifiuta versione
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="docver__v docver__v--vieja">
+                      <div class="docver__vhd">
+                        <span class="docver__vn">v1</span>
+                        <span class="docver__est" style="color:var(--app-ok)">Validato</span>
+                      </div>
+                      <div class="docver__vf">PR-07_pulizia_confezionatrice.pdf</div>
+                      <div class="docver__vm">Caricato il 04/02/26 · da Ana</div>
+                    </div>
+
+                    <div class="docver__act">
+                      <span class="docver__punto">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg>
+                      </span>
+                      <p class="docver__actxt"><b>Marta</b> ha convalidato la versione 2 · 12/06/2026</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </article>
+
+        <article class="scene" id="rot-doc-ia" role="tabpanel" aria-labelledby="rot-doc-ia-b">
+          <h3 class="scene__title">La risposta, con il documento da cui esce</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+        <div class="docia" aria-hidden="true" style="margin-top:var(--s-6)">
+              <div class="docia__bar">
+                <span class="docia__spark">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l1.9 5.1 5.1 1.9-5.1 1.9L12 16.6l-1.9-5.1L5 9.6l5.1-1.9z"></path></svg>
+                </span>
+                <p class="docia__q"><span class="docia__teclea">Ogni quanto va disinfettata la confezionatrice L3?</span></p>
+              </div>
+
+              <div class="docia__resp">
+                <p class="docia__linea">Disinfezione completa <b>alla fine di ogni turno</b>, e pulizia intermedia ogni quattro ore se si cambia formato.</p>
+                <span class="docia__cita">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                  <span class="docia__citxt">PR-07 Pulizia e disinfezione<span>v3 · convalidato il 12/06/26 · pagina 4</span></span>
+                </span>
+              </div>
+            </div>
+        </article>
+
+        <article class="scene" id="rot-doc-flujo" role="tabpanel" aria-labelledby="rot-doc-flujo-b">
+          <h3 class="scene__title">Un documento e tre destinazioni</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+        <div class="docengancha docengancha--panel" aria-hidden="true">
+                <div class="docengancha__ficha">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                  <div>
+                    <div class="docengancha__nom">PR-07 Pulizia e disinfezione</div>
+                    <div class="docengancha__ver">v3 · convalidato · una sola copia</div>
+                  </div>
+                </div>
+
+                <div class="docengancha__destinos">
+                  <div class="docengancha__dest">
+                    <div class="docengancha__dt">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h10M9 12h10M9 19h10"></path><path d="M3 5l1.6 1.6L7 4"></path></svg>
+                      Registrazione
+                    </div>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__doc" style="--i:0">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                      PR-07 · v3
+                    </span>
+                  </div>
+
+                  <div class="docengancha__dest">
+                    <div class="docengancha__dt">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M8 7V5h8v2"></path></svg>
+                      Asset
+                    </div>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__doc" style="--i:1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                      PR-07 · v3
+                    </span>
+                  </div>
+
+                  <div class="docengancha__dest">
+                    <div class="docengancha__dt">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l9 16H3z"></path><path d="M12 10v4M12 17h.01"></path></svg>
+                      Anomalia
+                    </div>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__doc" style="--i:2">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                      PR-07 · v3
+                    </span>
+                  </div>
+                </div>
+              </div>
+        </article>
+
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -692,6 +904,15 @@
       <details class="faq__item" name="faq"><summary>Controlla le versioni?</summary><div class="faq__a"><p>Sì. Ogni documento porta il numero di versione bene in vista, così chi lo apre sa quale sta guardando e non ci sono due copie in giro senza sapere quale valga.</p></div></details>
       <details class="faq__item" name="faq"><summary>Come si controllano le scadenze?</summary><div class="faq__a"><p>Ogni documento ha una data di revisione e una data di scadenza. Il modulo offre una vista calendario — mese, settimana, giorno e agenda — ordinabile per data di scadenza o di modifica, e un elenco di tutto ciò che è da rivedere. Il controllo delle scadenze smette di essere un foglio con cento date.</p></div></details>
       <details class="faq__item" name="faq"><summary>Che cosa sono gli elenchi di documenti richiesti?</summary><div class="faq__a"><p>Sono l'elenco dei documenti che una cartella deve contenere. Si definiscono per cartella e il modulo stesso avvisa quando a un elenco mancano documenti, così la cartella incompleta si individua prima dell'audit e non durante.</p></div></details>
+      <details class="faq__item" name="faq"><summary>È un vero sistema di gestione documentale o un archivio di file?</summary><div class="faq__a"><p>Un archivio conserva file. Qui ogni documento ha numero di versione, responsabile, ambito per stabilimento, persone assegnate, etichette, data di revisione e di scadenza, e uno stato che distingue il convalidato da ciò che è in attesa. La versione caricata non sostituisce quella vigente finché qualcuno non la convalida —o la rifiuta—, e quel gesto resta registrato con nome e data. Questo è controllo documentale.</p></div></details>
+      <!-- ⚠ SIN COMPROBAR en parte: el ALCANCE por planta y los ASIGNADOS por
+           documento sí están comprobados; que se pueda separar quién lee de
+           quién edita, no. La respuesta está redactada sobre lo que se vio. -->
+      <details class="faq__item" name="faq"><summary>Si può controllare chi vede ogni documento?</summary><div class="faq__a"><p>Ogni documento ha il suo responsabile, il suo ambito —gli stabilimenti a cui si applica— e le sue persone assegnate, così l'elenco di ogni squadra è il suo e non quello di tutta l'azienda.</p></div></details>
+      <!-- ⚠ SIN COMPROBAR: las respuestas de la IA sobre el CONTENIDO de los
+           documentos. Va con la sección de IA; si esa cae, esta pregunta cae con
+           ella. -->
+      <details class="faq__item" name="faq"><summary>L'IA risponde a partire dai documenti?</summary><div class="faq__a"><p>L'idea è che l'operatore chieda in lingua corrente —«ogni quanto si disinfetta la confezionatrice?»— e la risposta arrivi con il documento da cui esce, la sua versione e la sua pagina, invece di dover aprire la cartella e cercare. L'IA di Solved ha altre cinque funzioni sui dati di stabilimento.</p></div></details>
       <details class="faq__item" name="faq"><summary>È un modulo a parte?</summary><div class="faq__a"><p>Documenti è un modulo del sistema, con la sua voce di menu, e si attiva come gli altri. La qualifica fornitori, invece, non è un modulo diverso: è questa stessa gestione documentale applicata al fornitore, insieme alle sue anomalie di ricevimento.</p></div></details>
       <details class="faq__item" name="faq"><summary>Bisogna riorganizzare tutta la documentazione per iniziare?</summary><div class="faq__a"><p>No. L'albero di cartelle e sottocartelle si crea come conviene, quindi puoi riprodurre quello che già usi e caricare ciò che è vigente. Ciò che cambia non è l'organizzazione: è che ogni documento ora ha data, stato e responsabile.</p></div></details>
     </div>
@@ -717,12 +938,16 @@
 <script src="/it/chrome.js?v=20260907f"></script>
 <!-- Hero y franja de clientes: el mismo shader y la misma cinta que la home.
      sections.js es sólo para el riel de la escalera de pasos. -->
+<script src="/ds/rotador.js?v=20260909a" defer=""></script>
 <script src="/ds/sections.js?v=20260903a" defer=""></script>
-<script src="/ds/hero-wave.js?v=20260901a" defer=""></script>
+<script src="/ds/hero-wave.js?v=20260909b" defer=""></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   function mount() {
-    if (window.SolvedHeroWave) window.SolvedHeroWave.mount(document.getElementById('dsWeave'));
+    /* Forma propia de la página: la pila de hojas. El color es el de marca —el
+       sistema no tiene tinte para Documentos—. Ver la entrada `documentos` de
+       ds/hero-wave.js. */
+    if (window.SolvedHeroWave) window.SolvedHeroWave.mount(document.getElementById('dsWeave'), { tema: 'documentos' });
   }
   if (window.SolvedHeroWave) mount();
   else document.querySelector('script[src*="ds/hero-wave.js"]').addEventListener('load', mount);

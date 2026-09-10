@@ -491,7 +491,7 @@
    del idioma, que es el error clásico y el que hace que Google trate las
    versiones como duplicados sueltos. */
 (function () {
-  var NOMBRES = {"es":"Español","en":"English","fr":"Français","it":"Italiano","de":"Deutsch"};
+  var NOMBRES = {"es":"Español","en":"English","fr":"Français","it":"Italiano","de":"Deutsch","pt-PT":"Português"};
 
 /* El resto de chrome.js pinta la nav en DOMContentLoaded, así que esto tiene
    que esperar igual: montado a la primera no encontraba .nav__links y salía sin

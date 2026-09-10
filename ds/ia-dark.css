@@ -169,7 +169,7 @@ body[data-tema="ia"]{ background:var(--color-graphite-900); }
   --hero-velo-borde:rgba(17,18,20,0);
 }
 [data-tema="ia"] .ds-hero__txt{ gap:22px; }
-[data-tema="ia"] .ds-hero h1{ max-width:20ch; }
+[data-tema="ia"] .ds-hero h1{ max-width:25ch; }
 
 /* El marco del vídeo pega con la hero: el aire de sección entero (96-128px)
    entre los dos volvía a echar el vídeo fuera de pantalla. */

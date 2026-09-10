@@ -160,6 +160,48 @@
       papel: "vec3(1.0)",
       velo: "0.09",
       caida: "linear-gradient(90deg,#0F68F4 0%,#F97316 20%,#7C3AED 40%,#3FAFD6 60%,#A855F7 80%,#3B434C 100%)"
+    },
+    /* ---------------------------------------------------------------------
+       DOCUMENTOS — la rampa de marca, y la forma es una pila de hojas
+       LA ÚNICA DE LAS CINCO QUE NO LLEVA COLOR DE MÓDULO, y no es un olvido:
+       el sistema **no tiene tinte para Documentos** —los seis valores de
+       `.scene[data-module]` son incidencias, acciones, checklists, activos,
+       kpis e ia—, y teñir la hero con el color de otro módulo es justo lo que
+       prohíbe la regla del tinte. Lo mismo que ya obligó a que el icono del
+       recurso fuera en tinta y a que la escena de la página vaya con bocadillo.
+
+       Así que lleva la rampa de marca, la misma de la home, con sus números
+       exactos. Lo que distingue a la página es la forma. Si algún día se
+       decide un color propio para Documentos —está anotado como pendiente en
+       CLAUDE.md—, se cambia aquí `c` y no hace falta tocar nada más.
+
+       LA FORMA (ver "pila" en hacerFS). Trece hojas apiladas: bandas planas y
+       cortadas por los extremos, cada una un escalón más arriba y más a la
+       izquierda que la de debajo. Es la figura que dejó la pila de recursos
+       que vivía en esta hero hasta el 9 de septiembre de 2026 —cascada en
+       diagonal, escalón hacia arriba y a la izquierda, que es como se reconoce
+       un archivador—: se retiran las fichas y la figura se queda, hecha
+       material. Por eso las hojas tienen PRINCIPIO Y FINAL, que es lo que
+       ninguna de las otras cuatro formas tiene: un haz, unos anillos o una
+       trama son patrones y siguen fuera del cuadro; una pila se cuenta con sus
+       cantos, y son los cantos escalonados los que dicen que hay orden y no un
+       montón.
+
+       Y el color viaja POR LA PILA, no a lo largo de cada hoja: la de abajo es
+       el azul de presión y la de arriba el naranja del final de la rampa, cada
+       una de un tono y con su luz. En la home la rampa la recorre cada cinta
+       —el haz va de un sitio a otro—; aquí no hay recorrido que contar, hay
+       orden, y trece hojas de un tono cada una se leen como trece cosas
+       distintas archivadas, que es de lo que va la página.
+       --------------------------------------------------------------------- */
+    documentos: {
+      forma: "pila",
+      /* Los números de `marca`, sin tocar: es la rampa del prototipo. */
+      c: ["vec3(0.043,0.329,0.784)", "vec3(0.059,0.408,0.957)", "vec3(0.353,0.588,1.0)",
+          "vec3(0.486,0.227,0.929)", "vec3(0.827,0.310,0.616)", "vec3(0.976,0.451,0.086)"],
+      papel: "vec3(1.0)",
+      velo: "0.09",
+      caida: "repeating-linear-gradient(9deg,rgba(255,255,255,0) 0 26px,rgba(15,104,244,.10) 26px 30px),linear-gradient(9deg,rgba(255,255,255,0) 40%,#5A96FF 60%,#7C3AED 80%,#F97316 100%)"
     }
   };
 
@@ -469,10 +511,101 @@
     "gl_FragColor=vec4(col,clamp(alp,0.0,1.0));}"
   ].join("\n"); }
 
+  /* ---------------------------------------------------------------------------
+     FORMA "PILA" — trece hojas cortadas por los cantos
+     El filamento es el mismo de siempre —medio ancho variable, normal falsa,
+     la misma luz y el mismo brillo—, con dos cambios que lo convierten en una
+     hoja de papel:
+
+       · ONDULA MUCHO MENOS. La cinta del haz oscila 0.070; aquí, 0.020. Una
+         hoja de papel apoyada en una pila no hace olas: se comba. Con la
+         amplitud del haz la pila parecía trece cintas puestas en horizontal.
+       · TIENE PRINCIPIO Y FINAL (`mlon`). Los otros cuatro dibujos son
+         patrones y se salen del cuadro por los cuatro lados; aquí el corte es
+         el argumento, porque una pila se reconoce por los cantos escalonados y
+         no por las hojas. Los extremos van suavizados —0.055 y 0.075— para que
+         el canto sea papel y no un corte de tijera.
+
+     EL ESCALÓN, LOS MISMOS 74 Y 14 PX DE LA PILA QUE HABÍA, en proporción: hacia
+     arriba mucho, hacia la izquierda poco. Con el escalón a la derecha la pila
+     crece contra el borde de la ventana; hacia la izquierda crece hacia el
+     hueco de la hero, y lo que asoma de cada hoja es su principio.
+
+     LA PILA SE ABANICA, y es lo único que se mueve además de la comba: el
+     escalón horizontal respira con un seno muy lento (0.13 rad/s), así que el
+     conjunto se abre y se cierra como una baraja que se hojea. No se desplaza
+     ninguna hoja: nada nace ni muere en el cuadro, que es lo que obligaba a los
+     anillos de `/incidencias/` a no crecer.
+
+     LA PILA VIVE A LA DERECHA (`cx0`). Esta hero tiene el texto a la izquierda
+     —no es de las centradas—, así que el lavado abre el papel por ahí, como en
+     el haz de la home, y la pila se desplaza al hueco que queda libre. Si algún
+     día la hero pasa a centrada, hay que mover las dos cosas a la vez.
+     --------------------------------------------------------------------------- */
+  function fsPila(p) { return [
+    "precision highp float;uniform vec2 uRes;uniform float uT;",
+    rampa(p),
+    "void main(){vec2 uv=gl_FragCoord.xy/uRes;float asp=uRes.x/uRes.y;",
+    "vec2 p0=(uv-0.5)*vec2(asp,1.0);",
+    /* El mismo `k` que la onda, el abanico y las barras: en una pantalla alta
+       la pila se sale por arriba y las hojas se pisan. Encoge el escalón, el
+       grosor, la comba y el largo —el dibujo entero— y con él la escala. */
+    "float k=clamp(asp/2.2,0.46,1.0);",
+    /* El plano de la pila: una sola inclinación para las trece hojas. Es la de
+       la cascada de recursos que había aquí, no un ángulo nuevo. */
+    "float ca=cos(0.15),sa=sin(0.15);",
+    "vec2 q=vec2(p0.x*ca+p0.y*sa,-p0.x*sa+p0.y*ca);",
+    /* El abanico de la baraja: el escalón horizontal se abre y se cierra.
+       Va en unidades de ANCHO (`asp`) y no de `k`, que es la única cuenta de
+       esta forma que no se copia de las otras cuatro: el escalón reparte trece
+       hojas de lado a lado, así que lo que tiene que caber es la pantalla. Con
+       `k` —que es una corrección de escala, no de reparto— en un teléfono la
+       pila se abría más de lo que mide el cuadro y las tres o cuatro hojas de
+       abajo se quedaban fuera por la derecha. */
+    "float sep=(0.047+0.010*sin(uT*0.13))*asp;",
+    "vec3 col=" + p.papel + ";float alp=0.0;",
+    "for(int i=0;i<13;i++){float fi=float(i);",
+    "float ph=fi*0.72;",
+    "float esc=fi-6.0;",
+    /* Arriba, el escalón entero; a la izquierda, la pestaña. El vertical
+       encoge a medias (0.62+0.38k) y no del todo: en una pantalla alta sobra
+       sitio por arriba y por abajo, y una pila encogida entera se quedaba en
+       una franja fina en el medio. */
+    "float cy=esc*0.058*(0.62+0.38*k)-0.075*k;",
+    "float cx=0.26*asp-esc*sep;",
+    /* La comba del papel, no la onda de la cinta. */
+    "float c=cy+0.020*k*sin(q.x*0.78+uT*0.16+ph)+0.009*k*sin(q.x*0.36-uT*0.11+ph*1.7);",
+    "float hw=(0.021+0.005*sin(q.x*0.62+uT*0.18+ph*1.3))*k;",
+    "float d=(q.y-c)/hw;",
+    "float m=1.0-clamp(abs(d),0.0,1.0);",
+    "float rnd=sqrt(max(m*(2.0-m),0.0));",
+    "vec2 n=normalize(vec2(clamp(d,-1.0,1.0),max(rnd,0.05)));",
+    "float lam=clamp(dot(n,normalize(vec2(-0.40,0.92))),0.0,1.0);",
+    /* Los cantos. `largo` va con el ancho de la pantalla para que en cualquier
+       proporción la hoja cruce lo mismo. */
+    "float largo=0.20*asp+0.10*k;",
+    "float mlon=smoothstep(0.0,0.055,q.x-(cx-largo))*smoothstep(0.0,0.075,(cx+largo)-q.x);",
+    /* El tono lo pone la ALTURA EN LA PILA, no el recorrido de la hoja. Un
+       apunte de x para que una hoja no sea una barra de color plano. */
+    "float ht=0.03+(fi/12.0)*0.88+q.x*0.055+0.030*sin(q.x*0.40+uT*0.11);",
+    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22;",
+    "float a=smoothstep(0.0,0.55,m)*mlon*(0.72+0.20*sin(fi*2.1+uT*0.2));",
+    "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
+    /* El lavado, como en el haz de la home: el papel se abre a la izquierda,
+       que es donde vive el texto de esta hero. */
+    "float wash=smoothstep(-0.62,0.30,p0.x+p0.y*0.10);",
+    "col=mix(" + p.papel + ",col,0.30+0.70*wash);",
+    "alp*=0.26+0.74*wash;",
+    "col=mix(col," + p.papel + "," + p.velo + ");",
+    "if(alp<0.004)discard;",
+    "gl_FragColor=vec4(col,clamp(alp,0.0,1.0));}"
+  ].join("\n"); }
+
   function hacerFS(p) { if (p.forma === "onda") return fsOnda(p);
                         if (p.forma === "trama") return fsTrama(p);
                         if (p.forma === "abanico") return fsAbanico(p);
-                        if (p.forma === "barras") return fsBarras(p); return [
+                        if (p.forma === "barras") return fsBarras(p);
+                        if (p.forma === "pila") return fsPila(p); return [
     "precision highp float;uniform vec2 uRes;uniform float uT;",
     "vec3 ramp(float t){t=clamp(t,0.0,1.0);",
     "vec3 c=mix(" + p.c[0] + "," + p.c[1] + ",smoothstep(0.0,0.20,t));",

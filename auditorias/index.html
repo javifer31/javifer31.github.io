@@ -279,6 +279,128 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -300,24 +422,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="preload" as="font" type="font/woff2" crossorigin="" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/fonts/DMSans-VariableFont_opsz_wght.woff2">
-<link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260803a">
-<link rel="stylesheet" href="/solved.css?v=20260817a">
+<link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260909a">
+<link rel="stylesheet" href="/solved.css?v=20260909a">
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
-<!-- Roboto NO es para ds/app.css —esta página ya no lo carga—: lo piden las
-     maquetas .hero-vis__* del <style> de aquí abajo. -->
+<!-- Roboto es la tipografía de las pantallas de producto: la piden las maquetas
+     .hero-vis__* del <style> de aquí abajo, el montaje de la plantilla y, desde el
+     9 de septiembre de 2026, ds/app.css, que esta página vuelve a cargar por los
+     tres paneles de producto del rotador. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
 <link rel="stylesheet" href="/ds/site.css?v=20260908a">
-<link rel="stylesheet" href="/ds/hero.css?v=20260907e">
+<link rel="stylesheet" href="/ds/hero.css?v=20260909a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260908b">
+<link rel="stylesheet" href="/ds/scene.css?v=20260909a">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
-<link rel="stylesheet" href="/ds/sections.css?v=20260908a">
-<link rel="stylesheet" href="/ds/celdas.css?v=20260907a">
+<link rel="stylesheet" href="/ds/sections.css?v=20260909e">
+<link rel="stylesheet" href="/ds/app.css?v=20260909d">
 <link rel="stylesheet" href="/ds/aiband.css?v=20260908b">
+<link rel="stylesheet" href="/ds/plantilla.css?v=20260909d">
 <style>
 /* Hero con foto + elementos flotantes (mismo patrón que la página de tareas y acciones) */
 .hero-vis{position:relative;width:100%;max-width:480px;margin-inline:auto;}
@@ -476,94 +601,755 @@
      ============================================================ -->
 <section class="section" data-screen-label="Registros · IA">
   <div class="wrap">
-    <div class="section-head section-head--split">
-      <h2>Entra el control que ya usas. <span class="ds-dim">Sale la plantilla lista para rellenar.</span></h2>
-      <p>La IA de Solved importa el documento y lo estructura como plantilla de registro, acepta los cambios
-      que se le piden sobre ella y contesta a lo que se le pregunta del contenido de los registros.
-      <a href="/ia/">Ver la IA de Solved →</a></p>
-    </div>
-
     <div class="iavideo iavideo--grid">
       <video class="iavideo__v" data-src="/assets/ia/registros-reel.mp4" poster="/assets/ia/registros-reel-poster.webp" muted="" loop="" playsinline="" preload="none" aria-hidden="true"></video>
     </div>
 
-    <!-- El encabezado de lo que era la sección «Qué hace» baja a h3: aquí
-         dentro el h2 ya es el de arriba, y dos h2 en una sección no son una
-         jerarquía. Los rótulos de las celdas bajan con él a h4. -->
-    <div class="section-head section-head--split section-head--sub">
-      <h3>Rellena, firma y cierra cada control desde donde se hace</h3>
-      <p>Seis cosas que hace el módulo de registros, funcionando.</p>
+    <!-- ============ LAS CUATRO CAPACIDADES, EN ROTADOR (9 sep 2026) ============
+         Petición del cliente, y son tres cambios en el mismo sitio:
+
+         1 · SE VA EL ENCABEZADO DE LA SECCIÓN. Decía «Entra el control que ya
+             usas. Sale la plantilla lista para rellenar.» con su párrafo sobre la
+             IA, y contaba lo mismo que el vídeo que hay justo debajo. El h2 de la
+             sección pasa a ser el del rotador. **El enlace a /ia/ no se pierde**:
+             se muda al pie de la primera capacidad, que es la que enseña la
+             importación —el mismo criterio con el que el 7 de septiembre se mudó
+             al pie de la banda—.
+
+         2 · LOS TRES PUNTOS DEL MONTAJE Y LAS SEIS CELDAS SE FUNDEN EN CUATRO
+             CAPACIDADES. La rejilla «Rellena, firma y cierra cada control desde
+             donde se hace» sale entera —está en git— porque tres de sus seis
+             celdas decían ya lo que dicen las capacidades 3 y 4, y una página que
+             promete lo mismo dos veces se lee como si no tuviera nada más que
+             enseñar. Es exactamente lo que se hizo en /incidencias/ el 7 de
+             septiembre: seis cuadros fuera, rotador de cuatro dentro.
+
+             Los textos de los tres puntos NO se reescriben: el de la biblioteca y
+             el de la importación se quedan en la capacidad 1, y el del editor
+             —«diecisiete tipos de respuesta»— se va a la 2, que es de lo que
+             habla. Lo que se pierde de las celdas son las tres que ninguna
+             capacidad recoge: respuestas acotadas, firma con hora y autor, y el
+             KO que abre la incidencia. Las tres siguen contadas en la FAQ.
+
+         3 · SEPARADO DEL VÍDEO. El rotador abre capítulo —de dónde sale la
+             plantilla y qué se hace con ella—, así que lleva su propio aire por
+             arriba (`.rotador-bloque`), y no el hueco normal entre piezas.
+
+         Componente: patrón 12 de ds/sections.css + ds/rotador.js. Sin JS se ven
+         las cuatro capacidades abiertas y los cuatro paneles apilados.
+
+         ESTA PÁGINA VUELVE A CARGAR ds/app.css. La retiró el 7 de septiembre, y
+         `ds/plantilla.css` declara sus propios `--app-*` por eso mismo; con las
+         dos hojas montadas no hay conflicto —mismos nombres, mismos valores, y
+         plantilla.css va después—. Vuelve porque tres de los cuatro paneles son
+         pantallas de producto y ésa es su hoja. Con ella se va `ds/celdas.css`,
+         que ya no la usa nadie aquí.
+         ==================================================================== -->
+    <div class="rotador-bloque">
+    <div class="section-head section-head--split">
+      <h2>Monta la plantilla, programa el registro y descarga el histórico en el mismo módulo</h2>
+      <p>Cuatro capacidades del módulo, cada una sobre la pantalla que la resuelve.</p>
     </div>
 
-    <div class="celdas" data-module="checklists">
+    <div class="rotador" data-intervalo="7000">
+      <div class="rotador__lista" role="tablist" aria-orientation="vertical" aria-label="Capacidades del módulo de registros">
 
-      <article class="celda">
-        <span class="celda__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path><path d="M9 12h6M9 16h4"></path></svg></span>
-        <h4 class="celda__t">Tus plantillas, campo por campo</h4>
-        <p class="celda__p">El parte que ya usas se replica con sus mismos campos, sus límites y su orden. El lote y el activo se rellenan leyendo su código de barras.</p>
-        <div class="celda__demo" aria-hidden="true">
-          <div style="width:100%">
-            <div class="cel-fila cel-fila--tarde"><span>Temperatura cámara 3</span><span class="cel-chip cel-chip--ok">4,1 °C</span></div>
-            <div class="cel-fila cel-fila--tarde"><span>Estado de la junta</span><span class="cel-chip cel-chip--ok">OK</span></div>
-            <div class="cel-fila cel-fila--tarde"><span>Responsable</span><span class="cel-codigo">Javier</span></div>
-            <div class="cel-fila cel-fila--tarde"><span>Lote</span><span class="cel-codigo">L-24471</span></div>
+        <!-- 21 s, y no los 7 del resto: es lo que dura el ciclo del montaje
+             —tres actos de siete—, y con el intervalo común el rotador lo
+             cortaba en el primero. Si se cambia `--ciclo` en ds/plantilla.css,
+             este número se cambia con él. -->
+        <div class="rotador__item" data-dur="21000">
+          <button class="rotador__btn" id="rot-monta-b" role="tab" aria-controls="rot-monta" aria-selected="false" type="button">Duplica un modelo, edítalo o importa el parte que ya tienes</button>
+          <div class="rotador__cuerpo">
+            <p>La biblioteca guarda cada modelo con sus secciones, sus controles y sus tipos. Se duplica el
+            que más se parece al procedimiento y se ajusta lo que cambia.</p>
+            <p>Se sube el Excel, el PDF o el Word y Solved devuelve la plantilla editable. Cómo leer
+            el documento —qué es sección y qué es control— se le escribe en lenguaje llano.</p>
+            <a href="/ia/">Ver la IA de Solved →</a>
           </div>
         </div>
-      </article>
 
-      <article class="celda">
-        <span class="celda__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12.5 2.5 2.5 4.5-5"></path></svg></span>
-        <h4 class="celda__t">Respuestas acotadas, no texto libre</h4>
-        <p class="celda__p">OK, KO o no aplica. Lo que se responde se puede contar; un campo libre, no.</p>
-        <div class="celda__demo" aria-hidden="true">
-          <span class="cel-chip cel-chip--ok cel-tarde">OK</span>
-          <span class="cel-chip">KO</span>
-          <span class="cel-chip">N.A.</span>
-        </div>
-      </article>
-
-      <article class="celda">
-        <span class="celda__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M3 11h18"></path></svg></span>
-        <h4 class="celda__t">Frecuencia programada, con aviso</h4>
-        <p class="celda__p">Cada control tiene su periodicidad y su responsable, y avisa antes de vencer.</p>
-        <div class="celda__demo" aria-hidden="true">
-          <span class="cel-chip cel-chip--acento">Cada turno · 06:00</span>
-          <span class="cel-chip cel-chip--vence cel-tarde">Vence en 2 h</span>
-        </div>
-      </article>
-
-      <article class="celda">
-        <span class="celda__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17c3-1 4-8 7-8s2 6 5 6 3-3 6-3"></path><path d="M3 21h18"></path></svg></span>
-        <h4 class="celda__t">Firmado, con hora y autor</h4>
-        <p class="celda__p">Quién ejecuta, quién supervisa y quién verifica, cada uno con su nombre y su hora.</p>
-        <div class="celda__demo" aria-hidden="true">
-          <svg class="cel-firma" viewBox="0 0 120 22" preserveAspectRatio="none" aria-hidden="true"><path d="M2 16c6-10 10-13 13-9s-2 12 1 13 8-9 12-13 7 1 10 3 6-2 9-5 6 0 9 3 7 2 11-2 8-4 12 0 7 2 12-2 8-3 12-1"></path></svg>
-          <span class="cel-chip cel-tarde">Javier · 06:41</span>
-        </div>
-      </article>
-
-      <article class="celda">
-        <span class="celda__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2.5 20h19z"></path><path d="M12 10v4M12 17h.01"></path></svg></span>
-        <h4 class="celda__t">Un KO abre la incidencia solo</h4>
-        <p class="celda__p">El control fuera de límites genera la incidencia con su responsable y su plazo.</p>
-        <div class="celda__demo" aria-hidden="true">
-          <span class="cel-chip cel-chip--ko">KO</span>
-          <span class="cel-chip cel-chip--acento cel-tarde"><span class="cel-codigo">UTD26_163_001</span></span>
-        </div>
-      </article>
-
-      <article class="celda">
-        <span class="celda__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"></path></svg></span>
-        <h4 class="celda__t">Histórico filtrable y exportable</h4>
-        <p class="celda__p">Un mes entero por línea, turno o producto, con sus evidencias, en un filtro.</p>
-        <div class="celda__demo" aria-hidden="true">
-          <div style="width:100%">
-            <div class="cel-fila"><span>Línea 3 · turno mañana</span><span class="cel-chip cel-chip--ok">214</span></div>
-            <div class="cel-fila cel-fuera"><span>Línea 1 · turno noche</span><span class="cel-chip">96</span></div>
+        <div class="rotador__item">
+          <button class="rotador__btn" id="rot-controles-b" role="tab" aria-controls="rot-controles" aria-selected="false" type="button">Elige entre multitud de controles, con fórmulas y reglas</button>
+          <div class="rotador__cuerpo">
+            <p>Cada control se lleva a su sitio arrastrándolo por su asa y elige entre diecisiete tipos de
+            respuesta: número, seleccionable, fecha, cálculo, fórmula, firma o escaneo de código.</p>
+            <p>Una fórmula decide si el valor medido está dentro de rango y lo resuelve en OK o KO sin que
+            nadie lo interprete; una regla de visibilidad enseña el control sólo cuando toca.</p>
           </div>
         </div>
-      </article>
 
+        <div class="rotador__item">
+          <button class="rotador__btn" id="rot-programa-b" role="tab" aria-controls="rot-programa" aria-selected="false" type="button">Programa los registros para tu equipo</button>
+          <div class="rotador__cuerpo">
+            <p>Cada modelo se planifica con su frecuencia, su fecha y su responsable, y el calendario del
+            módulo enseña a la vez lo que queda por hacer y lo que se cerró. El aviso sale antes de que el
+            control venza, no cuando ya ha vencido.</p>
+          </div>
+        </div>
+
+        <div class="rotador__item">
+          <button class="rotador__btn" id="rot-historico-b" role="tab" aria-controls="rot-historico" aria-selected="false" type="button">Todo el histórico disponible, listo para descargar</button>
+          <div class="rotador__cuerpo">
+            <p>Cada registro cerrado guarda su fecha de ejecución, su estado y sus evidencias, y el histórico
+            se filtra por línea, turno o producto. De ahí sale el informe de registros en Excel, y cada
+            registro firmado, en PDF.</p>
+            <a href="/dashboard/">Ver KPIs y dashboards →</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="rotador__vista">
+
+        <!-- 1 · EL MONTAJE. La pieza trae su propio lienzo teñido y su propio
+             marco, así que dentro de una escena serían dos: `--panel` se los
+             quita y deja que los ponga la escena, que además es del mismo módulo
+             y por tanto del mismo violeta. -->
+        <article class="scene" id="rot-monta" role="tabpanel" aria-labelledby="rot-monta-b" data-module="checklists">
+          <h3 class="scene__title">Los tres caminos para tener la plantilla montada</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+      <div class="montaje montaje--panel" aria-hidden="true">
+
+        <p class="montaje__rot">
+          <span class="montaje__pill" style="--i:0">Duplicar un modelo</span>
+          <span class="montaje__pill" style="--i:1">Importar el parte que ya existe</span>
+          <span class="montaje__pill" style="--i:2">Decirle cómo estructurarlo</span>
+        </p>
+
+        <!-- ---------- ACTO 1 · la biblioteca y el editor ---------- -->
+        <div class="montaje__esc montaje__esc--modelo">
+
+          <div class="montaje__hd">
+            <span class="montaje__ht">Modelos de registros</span>
+            <span class="montaje__hsp"></span>
+            <span class="montaje__btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M8 8l4-4 4 4"></path><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"></path></svg>Importar desde archivo</span>
+          </div>
+
+          <div class="montaje__cuerpo">
+            <div class="montaje__busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.3-4.3"></path></svg>Nombre del registro</div>
+
+            <div class="montaje__cards">
+              <article class="montaje__card montaje__card--diana" style="--i:0">
+                <div class="montaje__port">
+                  <img class="montaje__foto" src="/assets/registros/camara-frio.webp" alt="" width="304" height="104" loading="lazy" decoding="async">
+                  <span class="montaje__sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>3</span>
+                </div>
+                <div class="montaje__cbody">
+                  <p class="montaje__cnom">Control de temperaturas</p>
+                  <div class="montaje__chips">
+                    <span class="montaje__chip montaje__chip--dep">Calidad</span>
+                    <span class="montaje__chip montaje__chip--pro">Alimentación</span>
+                  </div>
+                </div>
+              </article>
+              <article class="montaje__card" style="--i:1">
+                <div class="montaje__port">
+                  <img class="montaje__foto" src="/assets/registros/limpieza-linea.webp" alt="" width="304" height="104" loading="lazy" decoding="async">
+                  <span class="montaje__sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>5</span>
+                </div>
+                <div class="montaje__cbody">
+                  <p class="montaje__cnom">Auditoría de limpieza TPM</p>
+                  <div class="montaje__chips">
+                    <span class="montaje__chip montaje__chip--dep">Calidad, Mantenimiento</span>
+                  </div>
+                </div>
+              </article>
+              <article class="montaje__card" style="--i:2">
+                <div class="montaje__port">
+                  <img class="montaje__foto" src="/assets/registros/pasteurizacion-tanques.webp" alt="" width="304" height="104" loading="lazy" decoding="async">
+                  <span class="montaje__sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>4</span>
+                </div>
+                <div class="montaje__cbody">
+                  <p class="montaje__cnom">Registro de pasteurización</p>
+                  <div class="montaje__chips">
+                    <span class="montaje__chip montaje__chip--dep">Producción</span>
+                  </div>
+                </div>
+              </article>
+              <article class="montaje__card" style="--i:3">
+                <div class="montaje__port">
+                  <img class="montaje__foto" src="/assets/registros/almacen-estanterias.webp" alt="" width="304" height="104" loading="lazy" decoding="async">
+                  <span class="montaje__sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>7</span>
+                </div>
+                <div class="montaje__cbody">
+                  <p class="montaje__cnom">Control de almacenes</p>
+                  <div class="montaje__chips">
+                    <span class="montaje__chip montaje__chip--dep">Producción</span>
+                  </div>
+                </div>
+              </article>
+              <article class="montaje__card" style="--i:4">
+                <div class="montaje__port">
+                  <img class="montaje__foto" src="/assets/registros/lavamanos-ducha.webp" alt="" width="304" height="104" loading="lazy" decoding="async">
+                  <span class="montaje__sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>1</span>
+                </div>
+                <div class="montaje__cbody">
+                  <p class="montaje__cnom">Apertura de grifos y duchas</p>
+                  <div class="montaje__chips">
+                    <span class="montaje__chip montaje__chip--dep">Mantenimiento</span>
+                  </div>
+                </div>
+              </article>
+              <article class="montaje__card" style="--i:5">
+                <div class="montaje__port">
+                  <img class="montaje__foto" src="/assets/registros/maquina-mantenimiento.webp" alt="" width="304" height="104" loading="lazy" decoding="async">
+                  <span class="montaje__sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>1</span>
+                </div>
+                <div class="montaje__cbody">
+                  <p class="montaje__cnom">Registros de mantenimientos</p>
+                  <div class="montaje__chips">
+                    <span class="montaje__chip montaje__chip--dep">Mantenimiento</span>
+                  </div>
+                </div>
+              </article>
+              <article class="montaje__card" style="--i:6">
+                <div class="montaje__port">
+                  <img class="montaje__foto" src="/assets/registros/envasado-etiqueta.webp" alt="" width="304" height="104" loading="lazy" decoding="async">
+                  <span class="montaje__sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>3</span>
+                </div>
+                <div class="montaje__cbody">
+                  <p class="montaje__cnom">Trazabilidad del producto</p>
+                  <div class="montaje__chips">
+                    <span class="montaje__chip montaje__chip--dep">Calidad</span>
+                    <span class="montaje__chip montaje__chip--pro">Cárnicas</span>
+                  </div>
+                </div>
+              </article>
+              <article class="montaje__card" style="--i:7">
+                <div class="montaje__port">
+                  <img class="montaje__foto" src="/assets/registros/instalaciones-techo.webp" alt="" width="304" height="104" loading="lazy" decoding="async">
+                  <span class="montaje__sec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>5</span>
+                </div>
+                <div class="montaje__cbody">
+                  <p class="montaje__cnom">Inspección visual de instalaciones</p>
+                  <div class="montaje__chips">
+                    <span class="montaje__chip montaje__chip--dep">Calidad</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- El editor, que entra cuando la biblioteca sale: en la app es una
+               navegación dentro de la misma pantalla, no un diálogo nuevo. -->
+          <div class="montaje__capa">
+            <div class="montaje__hd">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>
+              <span class="montaje__ht">Control de temperaturas</span>
+              <span class="montaje__hsp"></span>
+              <span class="montaje__btn montaje__btn--full">Guardar</span>
+            </div>
+
+            <!-- La sección desplegada, que es como se edita de verdad: la app abre
+                 `/checklist/edit/<id>/section/<n>` con sus controles y su «1 / 3».
+                 La lista de secciones queda detrás, y no hace falta enseñarla para
+                 contar que un control se lleva a su sitio arrastrándolo. -->
+            <div class="montaje__sub">
+              <span class="montaje__sect">Sección 1 · Cámaras de frío</span>
+              <span class="montaje__paso">1 / 3</span>
+            </div>
+
+            <div class="montaje__cuerpo">
+              <div class="montaje__fila">
+                <svg class="montaje__asa" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.8"></circle><circle cx="15" cy="6" r="1.8"></circle><circle cx="9" cy="12" r="1.8"></circle><circle cx="15" cy="12" r="1.8"></circle><circle cx="9" cy="18" r="1.8"></circle><circle cx="15" cy="18" r="1.8"></circle></svg>
+                <span class="montaje__n">1</span>
+                <span class="montaje__fnom">Fecha del control</span>
+                <span class="montaje__tipo">Fecha</span>
+              </div>
+              <div class="montaje__fila montaje__fila--baja">
+                <svg class="montaje__asa" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.8"></circle><circle cx="15" cy="6" r="1.8"></circle><circle cx="9" cy="12" r="1.8"></circle><circle cx="15" cy="12" r="1.8"></circle><circle cx="9" cy="18" r="1.8"></circle><circle cx="15" cy="18" r="1.8"></circle></svg>
+                <span class="montaje__n montaje__n--cambia"><b>2</b><b>3</b></span>
+                <span class="montaje__fnom">Estado de la junta</span>
+                <span class="montaje__tipo">Seleccionable</span>
+              </div>
+              <div class="montaje__fila montaje__fila--sube">
+                <svg class="montaje__asa" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.8"></circle><circle cx="15" cy="6" r="1.8"></circle><circle cx="9" cy="12" r="1.8"></circle><circle cx="15" cy="12" r="1.8"></circle><circle cx="9" cy="18" r="1.8"></circle><circle cx="15" cy="18" r="1.8"></circle></svg>
+                <span class="montaje__n montaje__n--cambia"><b>3</b><b>2</b></span>
+                <span class="montaje__fnom">Temperatura cámara 3</span>
+                <span class="montaje__tipo">Número</span>
+              </div>
+              <div class="montaje__fila">
+                <svg class="montaje__asa" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.8"></circle><circle cx="15" cy="6" r="1.8"></circle><circle cx="9" cy="12" r="1.8"></circle><circle cx="15" cy="12" r="1.8"></circle><circle cx="9" cy="18" r="1.8"></circle><circle cx="15" cy="18" r="1.8"></circle></svg>
+                <span class="montaje__n">4</span>
+                <span class="montaje__fnom">Foto del termómetro</span>
+                <span class="montaje__tipo">Archivos</span>
+              </div>
+              <div class="montaje__fila">
+                <svg class="montaje__asa" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.8"></circle><circle cx="15" cy="6" r="1.8"></circle><circle cx="9" cy="12" r="1.8"></circle><circle cx="15" cy="12" r="1.8"></circle><circle cx="9" cy="18" r="1.8"></circle><circle cx="15" cy="18" r="1.8"></circle></svg>
+                <span class="montaje__n">5</span>
+                <span class="montaje__fnom">Firma del responsable</span>
+                <span class="montaje__tipo">Firma</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- ACTOS 2 y 3 · la importación ---------- -->
+        <div class="montaje__esc montaje__esc--importa">
+          <div class="montaje__hd">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M8 8l4-4 4 4"></path><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"></path></svg>
+            <span class="montaje__ht">Importar Checklist Automáticamente</span>
+          </div>
+
+          <div class="montaje__cuerpo">
+            <p class="montaje__intro">Sube un archivo Excel, PDF o Word con tu checklist y lo convertiremos
+            automáticamente en una plantilla editable.</p>
+
+            <div class="montaje__zona">
+              <!-- El fichero que cae. Cae uno solo: los tres formatos se anuncian en
+                   el pie de la zona, y en el gesto sólo cae uno. -->
+              <span class="montaje__cae">
+                <span class="montaje__file">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5" fill="#1D7044"></rect><path d="M8.4 8.2l3.2 7.6M11.6 8.2l-3.2 7.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round"></path><path d="M14 8.2h3.4M14 12h3.4M14 15.8h3.4" stroke="#9BD8B4" stroke-width="1.4" stroke-linecap="round"></path></svg>
+                  Control-temperaturas.xlsx
+                </span>
+              </span>
+
+              <span class="montaje__zvacia">
+                <svg class="montaje__nube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17.5a3.8 3.8 0 0 1 .5-7.6 5 5 0 0 1 9.6-1.2A3.7 3.7 0 0 1 17.4 17.5"></path><path d="M12 20V10.5M9 13.2l3-3 3 3"></path></svg>
+                <span class="montaje__zt">Haz clic para seleccionar un archivo</span>
+                <span class="montaje__zs">Formatos soportados: Excel (.xlsx, .xls), PDF (.pdf), Word (.doc, .docx)</span>
+              </span>
+
+              <span class="montaje__zllena">
+                <span class="montaje__file">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5" fill="#1D7044"></rect><path d="M8.4 8.2l3.2 7.6M11.6 8.2l-3.2 7.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round"></path><path d="M14 8.2h3.4M14 12h3.4M14 15.8h3.4" stroke="#9BD8B4" stroke-width="1.4" stroke-linecap="round"></path></svg>
+                  Control-temperaturas.xlsx
+                  <span class="montaje__fpeso">48 KB</span>
+                </span>
+              </span>
+            </div>
+
+            <div class="montaje__ia">
+              <div class="montaje__iahd">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"></path><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5.9 1.2.9 1.9v.2h5.2v-.2c0-.7.3-1.4.9-1.9A6 6 0 0 0 12 3z"></path></svg>
+                <span class="montaje__iat">Contexto para la IA (Opcional)</span>
+              </div>
+              <div class="montaje__campo"><span class="montaje__teclea">Las MAYÚSCULAS son secciones y las preguntas, controles.</span></div>
+              <p class="montaje__ejemplo">Ejemplo: agrupa controles relacionados por tema (agua, temperatura, limpieza).</p>
+            </div>
+
+            <div class="montaje__pie">
+              <span class="montaje__prog"><i></i></span>
+              <span class="montaje__btn montaje__btn--proc">Procesar archivo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- El cursor, uno solo y con el mismo reloj. -->
+        <span class="montaje__cursor">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5l13.2 8.1-5.9.9 3.2 6.4-2.6 1.3-3.2-6.4-4.2 4.2z" fill="#fff" stroke="#111214" stroke-width="1.2" stroke-linejoin="round"></path></svg>
+        </span>
+      </div>
+        </article>
+
+        <!-- 2 · EL CONTROL, SU TIPO Y SU FÓRMULA. Pantalla del editor de
+             plantillas (`/checklist/edit/<id>`), comprobada el 9 de septiembre de
+             2026. Los diecisiete tipos son los de la barra real —TEXTO, ARCHIVOS,
+             SELECCIONABLE, SELECCIONABLE MÚLTIPLE, USUARIO, USUARIO MÚLTIPLE,
+             FECHA, CÁLCULO, AUTOCOMPLETAR (+MÚLTIPLE), NÚMERO, MUESTRAS
+             NUMÉRICAS, RADIO, FÓRMULA, DIFERENCIA DE FECHAS, FIRMA— y en la
+             pantalla caben ocho: el resto se cuenta, no se inventa.
+
+             LA FÓRMULA ES LA DEL PRODUCTO, PIEZA A PIEZA. El constructor alterna
+             valores y operadores, empieza y acaba en valor, y el conector Y sólo
+             aparece cuando la expresión previa ya es una comparación completa.
+             `TEMPERATURA` es una **entrada local**, que es el hueco donde el
+             operario teclea el dato dentro del propio control. Y el panel
+             «Ejemplo» existe: es donde se prueba la fórmula antes de guardar.
+             **No hay paréntesis** en el constructor, así que la expresión que se
+             enseña no los lleva.
+
+             POR QUÉ UNA FÓRMULA Y NO UN MÍNIMO Y UN MÁXIMO: ni NÚMERO ni MUESTRAS
+             NUMÉRICAS tienen mínimo/máximo en el producto. Validar un rango es
+             exactamente esto, y por eso la capacidad se llama así.
+
+             Y POR QUÉ ES OTRO CONTROL Y NO EL DE LA PANTALLA DE AL LADO: en el
+             montaje, «Temperatura cámara 3» es de tipo **Número** —se apunta el
+             valor y ya— y aquí «Temperatura de la cámara 1» es de tipo
+             **Fórmula**, que resuelve sola en OK o KO. Es el mismo modelo y son
+             dos controles distintos configurados distinto, que es exactamente lo
+             que promete la capacidad. Si se le pusiera el mismo nombre a los dos,
+             la página diría que un control tiene dos tipos. -->
+        <!-- 2 · UN CONTROL DE CADA TIPO, RELLENÁNDOSE. Sustituye a la pantalla del
+             editor con la barra de tipos y el constructor de fórmulas: la
+             capacidad habla de los tipos de control, y un tipo se entiende
+             viéndolo rellenar. Cinco controles, cinco tipos —fórmula, OK/KO,
+             texto, archivos y firma—, con la gramática de
+             `/checklist/preview/<id>/section/<n>` comprobada en
+             demo.trysolved.com el 9 de septiembre de 2026. Fichas y tiempos en
+             ds/app.css. Los datos son los del registro que la página ya usa: la
+             cámara 1, su rango de 0 a 4 °C y las personas del listado. -->
+        <article class="scene" id="rot-controles" role="tabpanel" aria-labelledby="rot-controles-b" data-module="checklists">
+          <h3 class="scene__title">Un control de cada tipo, y la fórmula que lo resuelve en OK o KO</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+          <!-- EL ENCUADRE SUBE al 18 %. El recorte general (`top:25%`) está
+               calculado para pantallas de dos o tres piezas; ésta tiene cinco
+               tarjetas apiladas y la quinta —la firma, que es el remate de la
+               secuencia— caía por debajo del borde de la tarjeta. Se sube el
+               aparato, no se recorta la pantalla: lo que se enseña son los
+               cinco tipos, y con cuatro la escena no dice lo que promete. -->
+          <div class="scene__media" data-crop="dev-br" style="top:18%">
+            <div class="device" data-device="navegador" style="--device-url:'app.trysolved.com/checklist'">
+              <div class="device__screen">
+                <div class="app" aria-hidden="true">
+                  <div class="app__top">
+                    <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
+                    <span class="app__vbar"></span><span class="app__topttl">Control de temperaturas</span>
+                    <span class="app__spacer"></span><span class="app__me">J</span>
+                  </div>
+                  <div class="app__rec">
+
+                    <div class="app__secb">
+                      <span class="app__secn">Sección 1 · Cámaras de frío</span>
+                      <span class="app__secp">1 / 3</span>
+                      <span class="app__seccont"></span>
+                      <span class="app__spacer"></span>
+                      <span class="app__secbt app__secbt--ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12.4l2.4 2.4 4.6-5"></path></svg>todo OK</span>
+                      <span class="app__secbt">todo N/A</span>
+                    </div>
+
+                    <div class="app__rlista">
+
+                      <!-- 1 · FÓRMULA -->
+                      <div class="app__rl">
+                        <span class="app__rln">1</span>
+                        <div>
+                          <p class="app__rlt">Temperatura de la cámara 1</p>
+                          <div class="app__rlnum">
+                            <span class="app__rlcaja">3,4 °C</span>
+                            <span class="app__rlfx">OK</span>
+                            <span class="app__rlregla">La fórmula la resuelve: entre 0 y 4 °C</span>
+                          </div>
+                        </div>
+                        <span class="app__rlder">
+                          <span class="app__rlest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Completado</span>
+                          <span class="app__rlwho">A</span>
+                        </span>
+                      </div>
+
+                      <!-- 2 · OK/KO -->
+                      <div class="app__rl">
+                        <span class="app__rln">2</span>
+                        <div>
+                          <p class="app__rlt">Estado de la junta de la puerta</p>
+                          <div class="app__rlpar">
+                            <span class="app__rlbt app__rlbt--ko">KO</span>
+                            <span class="app__rlbt app__rlbt--ok">OK</span>
+                          </div>
+                        </div>
+                        <span class="app__rlder">
+                          <span class="app__rlest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Completado</span>
+                          <span class="app__rlwho">A</span>
+                        </span>
+                      </div>
+
+                      <!-- 3 · TEXTO -->
+                      <div class="app__rl">
+                        <span class="app__rln">3</span>
+                        <div>
+                          <p class="app__rlt">Observaciones</p>
+                          <div class="app__rltxt"><span>Junta con hielo en el lateral izquierdo.</span></div>
+                        </div>
+                        <span class="app__rlder">
+                          <span class="app__rlest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Completado</span>
+                          <span class="app__rlwho">A</span>
+                        </span>
+                      </div>
+
+                      <!-- 4 · ARCHIVOS -->
+                      <div class="app__rl">
+                        <span class="app__rln">4</span>
+                        <div>
+                          <p class="app__rlt">Foto del termómetro</p>
+                          <div class="app__rlarch">
+                          <div class="app__rlzona">Arrastra archivos o haz click aquí para subirlos</div>
+                          <span class="app__rlfile">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5" fill="#EAF1FF" stroke="#1E6BFF" stroke-width="1.3"></rect><circle cx="8.6" cy="9.4" r="1.5" fill="#1E6BFF"></circle><path d="M4.6 17.2l4.6-4.4 3.2 3 2.6-2.2 4.4 3.6" fill="none" stroke="#1E6BFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                            IMG-4021.jpg
+                            <span class="app__rlpeso">1,2 MB</span>
+                          </span>
+                          </div>
+                        </div>
+                        <span class="app__rlder">
+                          <span class="app__rlest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Completado</span>
+                          <span class="app__rlwho">A</span>
+                        </span>
+                      </div>
+
+                      <!-- 5 · FIRMA -->
+                      <div class="app__rl">
+                        <span class="app__rln">5</span>
+                        <div>
+                          <p class="app__rlt">Firma del responsable</p>
+                          <div class="app__rlfirmafila">
+                          <div class="app__rlfirma">
+                            <svg viewBox="0 0 118 38" aria-hidden="true"><path d="M6 28c7-1 10-6 12-11 2-5 1-9-1-9-3 0-4 6-3 11 1 6 4 9 7 9 4 0 6-4 8-8 1-2 3-2 3 1 0 4 2 6 5 6 4 0 6-4 8-8 1-2 3-2 3 1 0 4 2 6 5 6 5 0 9-5 12-9 2-3 4-6 6-6 3 0 2 5 0 8-3 4-8 6-13 7 8 0 16-1 24-3"></path></svg>
+                          </div>
+                          <span class="app__rlsello">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:10px;height:10px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg>
+                            Ana · 22/06/26, 09:14
+                          </span>
+                          </div>
+                        </div>
+                        <span class="app__rlder">
+                          <span class="app__rlest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Completado</span>
+                          <span class="app__rlwho">A</span>
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 · EL CALENDARIO DEL MÓDULO. Vista Calendario de `/checklist`,
+             comprobada el 9 de septiembre de 2026: cabecera de mes con Hoy y las
+             flechas, los cuatro modos —Mes · Semana · Día · Agenda—, la leyenda
+             con los totales y las píldoras por día. Los dos colores son los de la
+             aplicación: verde lo cerrado, morado —el de Registros— lo planificado.
+             Las cifras de la leyenda son las de las píldoras que se ven, no un
+             total inventado. -->
+        <article class="scene" id="rot-programa" role="tabpanel" aria-labelledby="rot-programa-b" data-module="checklists">
+          <h3 class="scene__title">La planificación del modelo, y el calendario que la recoge</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+          <div class="scene__media" data-crop="dev-br">
+            <div class="device" data-device="navegador" style="--device-url:'app.trysolved.com/checklist'">
+              <div class="device__screen">
+                <div class="app" aria-hidden="true">
+                  <div class="app__top">
+                    <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
+                    <span class="app__vbar"></span><span class="app__topttl">Registros</span>
+                    <span class="app__spacer"></span><span class="app__me">J</span>
+                  </div>
+                  <div class="app__rec">
+
+                    <!-- ACTOS 1 Y 2 · el modelo, su botón de planificación y la
+                         fecha. Va encima del calendario y se retira cuando la
+                         planificación está guardada: lo que queda debajo es el
+                         acto 3. Ficha, tiempos y qué está comprobado del
+                         producto, en ds/app.css. -->
+                    <div class="app__plan">
+                      <div class="app__planhd">
+                        <span class="app__plannom">Control de temperaturas</span>
+                        <span class="app__planest">Borrador</span>
+                      </div>
+                      <div class="app__planbts">
+                        <span class="app__planbt app__planbt--pub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V6M7 11l5-5 5 5"></path></svg>Publicar</span>
+                        <span class="app__planbt app__planbt--plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg>Planificación</span>
+                        <span class="app__planbt app__planbt--guarda">Guardar</span>
+                      </div>
+
+                      <div class="app__planpanel">
+                        <p class="app__plantit">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 2"></path></svg>
+                          <b style="font-weight:500">Planificación</b> — Programar generación automática de registros
+                        </p>
+                        <div class="app__plancampos">
+                          <span class="app__plancampo">
+                            <span class="app__planlb">Fecha de inicio</span>
+                            <span class="app__plancaja">
+                              <span class="app__planpar">
+                                <span class="app__planvacio">dd/mm/aaaa</span>
+                                <span class="app__planvalor">23/06/2026</span>
+                              </span>
+                              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2.5"></rect><path d="M3.5 10h17M8 3.5v3M16 3.5v3"></path></svg>
+                            </span>
+                          </span>
+                          <span class="app__plancampo">
+                            <span class="app__planlb">Responsable</span>
+                            <span class="app__plancaja">
+                              <span class="app__planpers"><span class="app__planav">A</span>Ana</span>
+                            </span>
+                          </span>
+                        </div>
+                        <span class="app__planguarda">Guardar planificación</span>
+                      </div>
+                    </div>
+
+                    <!-- ACTO 3 · el calendario del módulo -->
+                    <div class="app__calh">
+                      <span class="app__calhoy">Hoy</span>
+                      <span class="app__calm">Junio 2026</span>
+                      <span class="app__spacer"></span>
+                      <span class="app__tchip app__tchip--on">Mes</span>
+                      <span class="app__tchip">Semana</span>
+                      <span class="app__tchip">Día</span>
+                      <span class="app__tchip">Agenda</span>
+                    </div>
+                    <div class="app__caleg">
+                      <span class="app__caleyenda"><i class="app__pt app__pt--ok"></i>Registros cerrados 14</span>
+                      <span class="app__caleyenda"><i class="app__pt app__pt--plan"></i>Registros planificados 16</span>
+                    </div>
+                    <div class="app__cal">
+                      <span class="app__cald">Lun</span><span class="app__cald">Mar</span><span class="app__cald">Mié</span><span class="app__cald">Jue</span><span class="app__cald">Vie</span><span class="app__cald">Sáb</span><span class="app__cald">Dom</span>
+
+                      <div class="app__dia"><span class="app__dian">15</span><span class="app__pill app__pill--ok">Temperaturas · mañana</span><span class="app__pill app__pill--ok">Limpieza TPM</span></div>
+                      <div class="app__dia"><span class="app__dian">16</span><span class="app__pill app__pill--ok">Temperaturas · mañana</span><span class="app__pill app__pill--ok">Pasteurización</span></div>
+                      <div class="app__dia"><span class="app__dian">17</span><span class="app__pill app__pill--ok">Temperaturas · mañana</span><span class="app__pill app__pill--ok">Control almacenes</span></div>
+                      <div class="app__dia"><span class="app__dian">18</span><span class="app__pill app__pill--ok">Temperaturas · mañana</span><span class="app__pill app__pill--ok">Limpieza TPM</span></div>
+                      <div class="app__dia"><span class="app__dian">19</span><span class="app__pill app__pill--ok">Temperaturas · mañana</span><span class="app__pill app__pill--ok">Trazabilidad</span></div>
+                      <div class="app__dia app__dia--finde"><span class="app__dian">20</span></div>
+                      <div class="app__dia app__dia--finde"><span class="app__dian">21</span></div>
+
+                      <div class="app__dia app__dia--hoy"><span class="app__dian">22</span><span class="app__pill app__pill--ok">Temperaturas · mañana</span><span class="app__pill app__pill--plan">Limpieza TPM</span></div>
+                      <div class="app__dia"><span class="app__dian">23</span><span class="app__pill app__pill--plan">Temperaturas · mañana</span><span class="app__pill app__pill--plan">Pasteurización</span></div>
+                      <div class="app__dia"><span class="app__dian">24</span><span class="app__pill app__pill--plan">Temperaturas · mañana</span><span class="app__pill app__pill--plan">Control almacenes</span></div>
+                      <div class="app__dia"><span class="app__dian">25</span><span class="app__pill app__pill--plan">Temperaturas · mañana</span><span class="app__pill app__pill--plan">Limpieza TPM</span></div>
+                      <div class="app__dia"><span class="app__dian">26</span><span class="app__pill app__pill--plan">Temperaturas · mañana</span><span class="app__pill app__pill--plan">Trazabilidad</span></div>
+                      <div class="app__dia app__dia--finde"><span class="app__dian">27</span></div>
+                      <div class="app__dia app__dia--finde"><span class="app__dian">28</span></div>
+                    </div>
+
+                    <!-- El cursor, uno solo y con el mismo reloj que la tarjeta. -->
+                    <span class="app__cur">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5l13.2 8.1-5.9.9 3.2 6.4-2.6 1.3-3.2-6.4-4.2 4.2z" fill="#fff" stroke="#111214" stroke-width="1.2" stroke-linejoin="round"></path></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 · EL HISTÓRICO Y LA DESCARGA. Dos pantallas de la aplicación, la
+             segunda encima de la primera: la pestaña **Historial** de `/checklist`
+             —con sus grupos por día, sus estados «Cerrado KO» y «Cerrado
+             Incompleto» y su «Ejecutado el:»— y el panel de **Informes Excel** de
+             `/reports`, con la fila «Registros · Checklists completados» y su
+             botón Descargar. Las dos comprobadas el 9 de septiembre de 2026.
+
+             EL RÓTULO DE LA CAPACIDAD NO ES EL QUE PIDIÓ EL CLIENTE, y no por
+             gusto: decía «Ten a mano todo el histórico» y `check:voz` lo tumba
+             —«a mano» está en la lista de coloquialismos de guidelines/voz.md—.
+             Se cambia lo justo, «Todo el histórico disponible», y promete lo
+             mismo.
+
+             ⚠️ LO QUE NO SE PUDO COMPROBAR ES EL PDF. El informe en Excel está
+             visto en `/reports`; que un registro firmado se descargue en PDF lo
+             afirma el texto de la capacidad —lo pidió el cliente— pero no se llegó
+             a abrir una instancia cerrada para verlo. **Antes de publicar: o se
+             comprueba, o la capacidad se queda sólo en Excel.** Es el mismo aviso
+             que llevan las cuatro piezas de la ficha de /gestion-de-activos/. -->
+        <article class="scene" id="rot-historico" role="tabpanel" aria-labelledby="rot-historico-b" data-module="checklists">
+          <h3 class="scene__title">Cada registro cerrado, descargado en PDF, y el histórico en Excel</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+          <div class="scene__media" data-crop="dev-br">
+            <div class="device" data-device="navegador" style="--device-url:'app.trysolved.com/checklist'">
+              <div class="device__screen">
+                <div class="app" aria-hidden="true">
+                  <div class="app__top">
+                    <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
+                    <span class="app__vbar"></span><span class="app__topttl">Registros</span>
+                    <span class="app__spacer"></span><span class="app__me">J</span>
+                  </div>
+                  <div class="app__rec">
+                    <div class="app__tipos app__tipos--pest">
+                      <span class="app__tchip">Pendientes 12</span>
+                      <span class="app__tchip">Planificados 16</span>
+                      <span class="app__tchip app__tchip--on">Historial 183</span>
+                    </div>
+
+                    <div class="app__hgrupo">26 de junio de 2026</div>
+                    <div class="app__hfila">
+                      <span class="app__code">26_158</span>
+                      <span class="app__hnom">Control de mantenimiento</span>
+                      <span class="app__spacer"></span>
+                      <span class="app__hest app__hest--ko">Cerrado KO</span>
+                      <span class="app__hfec">Ejecutado el: 26/06/26 06:41</span>
+                      <!-- El menú del registro cerrado vive aquí, en su fila. -->
+                      <span class="app__kebab" aria-hidden="true"><i></i><i></i><i></i></span>
+                    </div>
+                    <div class="app__hfila">
+                      <span class="app__code">26_157</span>
+                      <span class="app__hnom">Control de temperaturas</span>
+                      <span class="app__spacer"></span>
+                      <span class="app__hest app__hest--ok">Cerrado</span>
+                      <span class="app__hfec">Ejecutado el: 26/06/26 06:12</span>
+                    </div>
+                    <div class="app__hgrupo">25 de junio de 2026</div>
+                    <div class="app__hfila">
+                      <span class="app__code">26_155</span>
+                      <span class="app__hnom">Auditoría de limpieza TPM</span>
+                      <span class="app__spacer"></span>
+                      <span class="app__hest app__hest--inc">Cerrado Incompleto</span>
+                      <span class="app__hfec">Ejecutado el: 25/06/26 14:03</span>
+                    </div>
+                    <div class="app__hfila">
+                      <span class="app__code">26_154</span>
+                      <span class="app__hnom">Registro de pasteurización</span>
+                      <span class="app__spacer"></span>
+                      <span class="app__hest app__hest--ok">Cerrado</span>
+                      <span class="app__hfec">Ejecutado el: 25/06/26 06:20</span>
+                    </div>
+
+                    <!-- EL MENÚ DEL REGISTRO CERRADO. Los cinco rótulos son
+                         literales del producto —el `more_vert` de
+                         `/checklist/preview/<id>`, comprobado el 9 de septiembre
+                         de 2026—, y de ahí sale el PDF que la capacidad promete.
+                         El que se elige va marcado con `--on`. -->
+                    <div class="app__menu">
+                      <span class="app__mit app__mit--on">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg>
+                        Descargar PDF
+                      </span>
+                      <span class="app__mit">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path><path d="M9.5 12.5h5M9.5 16h3"></path></svg>
+                        Descargar PDF comprimido
+                      </span>
+                      <span class="app__mit">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5M12 16.2v.1"></path></svg>
+                        Descargar solo resultados KO
+                      </span>
+                      <span class="app__mit">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l2 2 3-3M4 14l2 2 3-3M13 8h7M13 15h7"></path></svg>
+                        Seleccionar secciones...
+                      </span>
+                      <span class="app__mit">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"></rect><path d="M4 7l8 6 8-6"></path></svg>
+                        Enviar resumen por correo
+                      </span>
+                    </div>
+
+                    <!-- El acuse: el fichero que acaba de bajar, con el nombre y
+                         el identificador del registro del que sale. -->
+                    <span class="app__bajado">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v10M8.4 10.6L12 14l3.6-3.4"></path><path d="M4.5 16.5V19a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-2.5"></path></svg>
+                      26_158 Control de mantenimiento.pdf
+                    </span>
+
+                    <div class="app__informes">
+                      <div class="app__panelt">Informes Excel</div>
+                      <p class="app__reglap">Genera y descarga informes en formato Excel con los datos de tu organización.</p>
+                      <div class="app__ifila">
+                        <span class="app__hnom">Registros</span>
+                        <span class="app__hfec">Checklists completados</span>
+                        <span class="app__spacer"></span>
+                        <span class="app__descarga">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M8 11l4 4 4-4"></path><path d="M4 17v2.5h16V17"></path></svg>
+                          Descargar
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- El cursor de esta pantalla, con el mismo reloj. -->
+                    <span class="app__cur app__cur--hist">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5l13.2 8.1-5.9.9 3.2 6.4-2.6 1.3-3.2-6.4-4.2 4.2z" fill="#fff" stroke="#111214" stroke-width="1.2" stroke-linejoin="round"></path></svg>
+                    </span>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
     </div>
   </div>
   
@@ -592,6 +1378,43 @@
 
      Patrón `[data-switch]` de ds/sections.css + ds/sections.js, el mismo de
      /dashboard/. Sin JS se ven los cuatro paneles apilados y no se pierde nada.
+
+     CADA ÁMBITO CON SU FOTO, como la sección «Ámbitos de aplicación» de la home
+     (petición del cliente, 9 sep 2026): el panel pasa a ser texto + imagen en el
+     reparto 5fr/7fr que el componente ya tenía, con la lista dentro de
+     `.switch__txt` —fuera de ella el reparto la trata como una tercera columna—.
+
+     ESTADO A 9 SEP 2026 (8): las cuatro fotos son propias, generadas con nano
+     banana pro (`assets/planta/`): `cuadro-tablet-tecnico.webp` (Mantenimiento),
+     `estacion-seguridad-movil.webp` (Seguridad), `mesa-calidad-movil.webp`
+     (Calidad) y `linea-tablet-supervisora.webp` (Producción). Las que llevaban
+     Calidad y Producción antes —`almacen-tablet-revision` y
+     `almacen-tablet-pasillo`— quedan sin usar en esta página; el primer intento
+     de Calidad («inspection gauge») salía con relojes raros y se repitió con la
+     báscula digital en su sitio. No queda ningún `.img-slot` en esta sección.
+
+     Y CADA FOTO CON SU PROPIO ÁNGULO Y LUZ, porque las cuatro primeras salían
+     con el mismo esquema —perfil, luz alta uniforme desde claraboyas, 50mm
+     f/1.8— y se leían como la misma foto repetida cuatro veces. Producción y
+     Seguridad se regeneraron con eso explícito en el prompt: Producción en plano
+     bajo con luz dura de ventana lateral, Seguridad de espaldas/hombro a
+     contraluz difuso. Calidad se queda con el esquema original —perfil, luz
+     alta—, que es el que no se ha tocado. **Si se sustituye alguna, no se le
+     pone el mismo ángulo y luz que a las otras tres.**
+
+     ESTADO A 9 SEP 2026 (9): SECCIÓN MÁS BAJA, petición del cliente. Medido en
+     el navegador antes de tocar nada: la foto cuadrada (1100×1100) fija el alto
+     de la fila —608px en escritorio, más del doble que el texto (294px)—, así
+     que acortar sólo el párrafo o la lista no bajaba ni un píxel. Se recorta la
+     foto a 4:3 por CSS (`.switch--compacto`, `ds/sections.css`), sin tocar los
+     ficheros, y se aprieta el aire de la barra de pestañas. Y sí se acorta el
+     texto —un párrafo por ámbito y la lista de 4 a 3 puntos, quitando en cada
+     una el punto que ya cuenta el párrafo—, que era el otro encargo y evita que
+     el texto se convierta en el nuevo tope de alto ahora que la foto ha bajado.
+     Las cuatro páginas traducidas se parchearon a mano con el mismo cambio y su
+     texto ya traducido: no se lanzó `build:i18n` porque a esta hora hay una
+     traducción de contenido en marcha (`translate-contenido.mjs --lang pt`) y
+     ese build regenera las 22 páginas comerciales de los cinco idiomas enteras.
      ============================================================ -->
 <section class="section section--tight" data-screen-label="Registros · Ámbitos">
   <div class="wrap">
@@ -600,7 +1423,7 @@
       <p>Un mismo módulo de registros, con la frecuencia y el responsable de cada área.</p>
     </div>
 
-    <div data-switch="">
+    <div data-switch="" class="switch--compacto">
       <div class="switch__tabs" role="tablist" aria-label="Ámbitos de planta que registran en Solved">
         <button class="switch__tab" type="button" role="tab" id="am-calidad" aria-controls="pa-calidad" aria-selected="false">Calidad</button>
         <button class="switch__tab" type="button" role="tab" id="am-mant" aria-controls="pa-mant" aria-selected="false">Mantenimiento</button>
@@ -611,53 +1434,53 @@
       <div class="switch__panel" role="tabpanel" id="pa-calidad" aria-labelledby="am-calidad">
         <div class="switch__txt">
           <h3>El control de proceso, documentado antes de la auditoría</h3>
-          <p>Los prerrequisitos, los controles de producto y la recepción de materia prima se cumplimentan en la línea y quedan disponibles para la auditoría de IFS, BRC o ISO 9001 sin preparación previa.</p>
+          <p>Los prerrequisitos y los controles de producto quedan disponibles para la auditoría de IFS, BRC o ISO 9001 sin preparación previa.</p>
+          <ul class="switch__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Temperaturas de cámara y de proceso, con su límite</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Controles de calidad de producto, con su evidencia</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Recepción de mercancías y homologación de proveedores</span></li>
+          </ul>
         </div>
-        <ul class="switch__list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Temperaturas de cámara y de proceso, con su límite</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Controles de calidad de producto, con su evidencia</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Recepción de mercancías y homologación de proveedores</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Auditorías internas y de certificación</span></li>
-        </ul>
+        <img src="/assets/planta/mesa-calidad-movil.webp" alt="Operaria con móvil revisa una muestra de producto en la mesa de control de calidad de una planta industrial" width="1100" height="1100" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px)">
       </div>
 
       <div class="switch__panel" role="tabpanel" id="pa-mant" aria-labelledby="am-mant">
         <div class="switch__txt">
           <h3>El preventivo es un registro con frecuencia y responsable</h3>
-          <p>La rutina de mantenimiento se programa como registro periódico sobre el activo. La desviación detectada durante la revisión abre la incidencia sobre ese mismo equipo, con su responsable y su plazo.</p>
+          <p>La rutina de mantenimiento se programa como registro periódico sobre el activo, y la desviación detectada abre la incidencia sobre ese mismo equipo.</p>
+          <ul class="switch__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Mantenimiento rutinario por equipo y periodicidad</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Control de cámaras y equipos de frío</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Cada activo con su ficha, su QR y su historial</span></li>
+          </ul>
         </div>
-        <ul class="switch__list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Mantenimiento rutinario por equipo y periodicidad</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Evaluación del estado de las instalaciones</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Control de cámaras y equipos de frío</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Cada activo con su ficha, su QR y su historial</span></li>
-        </ul>
+        <img src="/assets/planta/cuadro-tablet-tecnico.webp" alt="Técnico con tablet revisa el cuadro eléctrico de una máquina en una planta industrial" width="1100" height="1100" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px)">
       </div>
 
       <div class="switch__panel" role="tabpanel" id="pa-prod" aria-labelledby="am-prod">
         <div class="switch__txt">
           <h3>El parte del turno, firmado por quien lo ejecuta</h3>
-          <p>Los controles de línea se registran en el puesto y no al terminar la jornada, con el responsable del turno identificado en cada uno y la hora en la que se cumplimentó.</p>
+          <p>Los controles de línea se registran en el puesto y no al terminar la jornada, con el responsable del turno identificado en cada uno.</p>
+          <ul class="switch__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Inspección de líneas de producción</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Pesos y controles de proceso de la línea</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Firma del responsable del turno, con su hora</span></li>
+          </ul>
         </div>
-        <ul class="switch__list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Inspección de líneas de producción</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Pesos y controles de proceso de la línea</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Control de apertura y cierre</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Firma del responsable del turno, con su hora</span></li>
-        </ul>
+        <img src="/assets/planta/linea-tablet-supervisora.webp" alt="Supervisor con tablet camina junto a la línea de producción de una planta industrial" width="1100" height="1100" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px)">
       </div>
 
       <div class="switch__panel" role="tabpanel" id="pa-seg" aria-labelledby="am-seg">
         <div class="switch__txt">
           <h3>Las revisiones de seguridad y ambientales, con la misma trazabilidad</h3>
-          <p>Siguen el circuito de cualquier otro registro: frecuencia programada, evidencia adjunta y desviación derivada a su responsable, sin un sistema aparte para cada norma.</p>
+          <p>Siguen el circuito de cualquier otro registro: frecuencia programada y desviación derivada a su responsable, sin un sistema aparte para cada norma.</p>
+          <ul class="switch__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Controles de prevención de riesgos laborales</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Muestreo del agua</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Controles de limpieza y prerrequisitos de higiene</span></li>
+          </ul>
         </div>
-        <ul class="switch__list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Controles de prevención de riesgos laborales</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Muestreo del agua</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Control de residuos y sostenibilidad</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Controles de limpieza y prerrequisitos de higiene</span></li>
-        </ul>
+        <img src="/assets/planta/estacion-seguridad-movil.webp" alt="Operaria con móvil revisa la estación de seguridad e higiene de una planta industrial" width="1100" height="1100" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px)">
       </div>
     </div>
   </div>
@@ -737,6 +1560,7 @@
 <!-- Hero y franja de clientes: el mismo shader y la misma cinta que la home. -->
 <script src="/ds/sections.js?v=20260903a" defer=""></script>
 <script src="/ds/aiband.js?v=20260901a" defer=""></script>
+<script src="/ds/rotador.js?v=20260909b" defer=""></script>
 <script src="/ds/hero-wave.js?v=20260903e" defer=""></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {

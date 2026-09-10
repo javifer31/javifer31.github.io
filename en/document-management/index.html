@@ -285,6 +285,129 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -303,34 +426,33 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://trysolved.com/#organization","name":"Solved","legalName":"VOLTSTONE TECHNOLOGY SERVICES S.L.","url":"https://trysolved.com/en/","logo":{"@type":"ImageObject","url":"https://trysolved.com/assets/logotipo-solved.webp"},"sameAs":["https://www.linkedin.com/company/trysolved","https://www.youtube.com/@trysolved"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Solved","applicationCategory":"BusinessApplication","operatingSystem":"Web, iOS, Android","url":"https://trysolved.com/en/document-management/","description":"Keep track of the current version, the approval and the expiry date of every plant document, and spot the incomplete folder before the audit, not during it.","publisher":{"@id":"https://trysolved.com/#organization"}}</script>
 <!-- SEO:end -->
-<!-- Roboto es la fuente real de la app: la usa la pantalla de ds/app.css que
-     va dentro del bocadillo de la escena. -->
+<!-- Roboto es la fuente real de la app, y dentro de una pieza de producto manda
+     ella. Aquí la piden las cuatro de ds/documentos.css; la escena con bocadillo
+     que la traía —y con ella ds/app.css— se retiró el 9 de septiembre de 2026. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Roboto:wght@400;500&amp;display=swap">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="preload" as="font" type="font/woff2" crossorigin="" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/fonts/DMSans-VariableFont_opsz_wght.woff2">
-<link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260803a">
-<link rel="stylesheet" href="/solved.css?v=20260817a">
+<link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260909a">
+<link rel="stylesheet" href="/solved.css?v=20260909a">
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
 <link rel="stylesheet" href="/ds/site.css?v=20260908a">
-<link rel="stylesheet" href="/ds/hero.css?v=20260907e">
-<!-- `.res` —el recurso— vive en ds/scene.css, y la pila de la hero lo
-     reutiliza tal cual. Esta página no monta ninguna escena, pero sí su
-     recurso, así que la hoja hace falta igual. -->
+<link rel="stylesheet" href="/ds/hero.css?v=20260909a">
 <link rel="stylesheet" href="/ds/scene.css?v=20260908b">
-<link rel="stylesheet" href="/ds/hero-docs.css?v=20260908a">
-<link rel="stylesheet" href="/ds/app.css?v=20260908b">
-<link rel="stylesheet" href="/ds/sections.css?v=20260908a">
+<link rel="stylesheet" href="/ds/sections.css?v=20260909e">
+<link rel="stylesheet" href="/ds/device.css?v=20260814a">
+<link rel="stylesheet" href="/ds/documentos.css?v=20260909a">
 </head>
 <body data-screen-label="Gestor documental">
 
 <div id="nav"></div>
 
 <!-- ============ HERO ============ -->
-<!-- La misma hero que el resto del sitio: el shader de ds/hero-wave.js por
-     detrás y el texto dentro del encuadre. El copy es el de esta página.
+<!-- La hero del sitio con la forma propia de esta página: el shader de
+     ds/hero-wave.js por detrás —entrada `documentos`, la pila de hojas— y el
+     texto dentro del encuadre. El copy es el de esta página.
 
      VOCABULARIO. El módulo se llama Documentos y el equipo lo vende como «el
      gestor documental» —de ahí la URL—, pero el titular no lidera con la
@@ -342,70 +464,6 @@
 <section class="ds-hero" data-screen-label="Gestor documental · Hero">
   <canvas class="ds-hero__weave" aria-hidden="true" id="dsWeave"></canvas>
 
-    <!-- ============ LA PILA DE DOCUMENTOS ============
-         La pieza propia de esta hero, como «Convergencia» lo es de la de
-         Integraciones. Cuatro recursos (`.res`, de ds/scene.css) en cascada
-         sobre la misma diagonal que sube el haz: entran por arriba, se ordenan
-         y salen archivados por abajo, a saltos y no en continuo.
-
-         Los cuatro documentos, sus responsables y sus fechas son los de la
-         vista de tabla de demo.trysolved.com/documents comprobada el 3 de
-         septiembre de 2026 —la misma que se monta en el bocadillo de más
-         abajo—, así que la hero y la escena cuentan la misma carpeta.
-
-         `aria-hidden`: es la ilustración del titular, no información nueva.
-         Todo lo que dice está escrito en la página. Ficha en ds/hero-docs.css.
-         ============================================ -->
-    <div class="docstack" aria-hidden="true">
-      <article class="docstack__card res" style="--i:0">
-        <div class="res__hd">
-          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-          <div>
-            <p class="res__t">PR-07 Cleaning and disinfection</p>
-            <p class="res__s"><span class="docstack__dot"></span>Approved · Ana</p>
-          </div>
-        </div>
-        <dl class="res__rows">
-          <div class="res__kv"><dt>Review</dt><dd>12/12/26</dd></div>
-        </dl>
-      </article>
-      <article class="docstack__card res" style="--i:1">
-        <div class="res__hd">
-          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-          <div>
-            <p class="res__t">IFS certificate · Sunflower oil</p>
-            <p class="res__s"><span class="docstack__dot"></span>Approved · Marta</p>
-          </div>
-        </div>
-        <dl class="res__rows">
-          <div class="res__kv"><dt>Expires</dt><dd>30/09/26</dd></div>
-        </dl>
-      </article>
-      <article class="docstack__card res" style="--i:2">
-        <div class="res__hd">
-          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-          <div>
-            <p class="res__t">Spec sheet · Popcorn 90 g</p>
-            <p class="res__s"><span class="docstack__dot--espera"></span>Awaiting approval · Marta</p>
-          </div>
-        </div>
-        <dl class="res__rows">
-          <div class="res__kv"><dt>Uploaded</dt><dd>02/06/26</dd></div>
-        </dl>
-      </article>
-      <article class="docstack__card res" style="--i:3">
-        <div class="res__hd">
-          <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path></svg></span>
-          <div>
-            <p class="res__t">PR-12 Metal detection</p>
-            <p class="res__s"><span class="docstack__dot"></span>Approved · Pablo</p>
-          </div>
-        </div>
-        <dl class="res__rows">
-          <div class="res__kv"><dt>Review</dt><dd>20/05/27</dd></div>
-        </dl>
-      </article>
-    </div>
   <div class="frame frame--seam ds-hero__frame">
     <div class="ds-hero__txt">
       <div class="ds-hero__strip">
@@ -483,150 +541,304 @@
 </div>
 
 <!-- ============================================================
-     ESCENA CON BOCADILLO — ds/sections.css, patrón 10
-     La foto es ambiente y la interfaz va en el bocadillo, que es la pantalla
-     de ds/app.css montada en HTML. Aquí encaja mejor que una escena de
-     producto por una razón concreta: **el sistema no tiene tinte de módulo
-     para Documentos** —los seis valores de `.scene[data-module]` son
-     incidencias, acciones, checklists, activos, kpis e ia— y teñir el lienzo
-     con el color de otro módulo sería justo lo que la regla del tinte
-     prohíbe. La escena con bocadillo no pide módulo. Anotado como pendiente
-     de decisión en CLAUDE.md.
+     LAS CUATRO CAPACIDADES DEL GESTOR, EN UNA SOLA SECCIÓN (9 sep 2026)
+     Segunda poda del cliente sobre la réplica de mitti.com/es/documentos: las
+     cinco secciones que salieron de ella —en planta, versiones, IA, el documento
+     en el flujo y los tipos de papel— se condensan en el ROTADOR DE CAPACIDADES,
+     que es el mismo recurso con el que /auditorias/ resolvió lo mismo el mismo
+     día. La página vuelve a dos secciones de contenido, que es la regla.
 
-     La pantalla es la VISTA DE TABLA de una carpeta, comprobada en
-     demo.trysolved.com/documents el 3 de septiembre de 2026: la franja de
-     «Documentos requeridos» con su frase literal, y las columnas NOMBRE,
-     SUBIDO EL, FECHA DE REVISIÓN, FECHA DE EXPIRACIÓN y ESTADO, con los dos
-     estados que existen. El bocadillo se ensancha a 640px —la base son 460—
-     porque a 460 la columna de estado caía fuera, y el estado es el argumento.
+     LO QUE SE CONSERVA de las cinco: las cuatro piezas animadas, que pasan a ser
+     los cuatro paneles, y el texto de sus puntos, condensado a uno o dos
+     párrafos por capacidad. Los seis tipos de papel de una planta se quedan en
+     una línea dentro de la primera capacidad; tenían sección propia y no la
+     necesitaban.
 
-     Los datos son los del resto del sitio: PopCorn Mediterránea, junio de
-     2026, y las personas del listado de acciones —Ana, Marta, Pablo—.
+     LOS PANELES SON `.scene` SIN `data-module`, y es deliberado: el rotador
+     busca sus paneles así, y el sistema no tiene tinte para Documentos. Una
+     escena sin módulo no rompe la regla del tinte —deja el lienzo sin teñir, que
+     es lo que le toca a un módulo sin color—; teñirla con el violeta de otro sí
+     la rompería. Detalle en ds/documentos.css.
+
+     LAS TRES MARCAS ⚠ SIGUEN EN PIE, ahora dentro de su capacidad: el acceso sin
+     conexión y la lectura del código (capacidad 1), la IA sobre el contenido de
+     los documentos (capacidad 3) y la copia única en los tres destinos
+     (capacidad 4). Quitar una es borrar su `.rotador__item` y su `.scene`.
+
+     `data-dur` vale 12000 en las cuatro porque el ciclo de las piezas dentro del
+     rotador es de 12 s (`--ciclo` en la variante de panel). Si se cambia allí,
+     se cambia aquí.
      ============================================================ -->
-<section class="section" data-screen-label="Gestor documental · La carpeta">
+<section class="section section--tight" data-screen-label="Gestor documental · Capacidades">
   <div class="wrap">
+    <div class="rotador-bloque">
     <div class="section-head section-head--split">
-      <h2>The folder, with what is there and what is missing</h2>
-      <p>Every document with its review date, its expiry date and its approval status. And at the top, the list of documents that folder is supposed to hold.</p>
+      <h2>Upload the procedure, approve its version and find it from the line, all in the same module</h2>
+      <p>Four capabilities of the module, each on the screen that delivers it.</p>
     </div>
 
-    <div class="stage" style="--stage-ar:16/9">
-      <div class="stage__media">
-        <!-- Foto propia de esta página: ninguna imagen del sitio se reutiliza
-             entre páginas (regla en assets/planta/FUENTES.md). Sustituye al
-             hueco de imagen que marcaba su sitio.
+    <div class="rotador" data-intervalo="12000">
+      <div class="rotador__lista" role="tablist" aria-orientation="vertical" aria-label="Document manager capabilities">
 
-             EL ENCUADRE ES PARTE DEL COMPONENTE: la persona y la carpeta de
-             anillas caen en la mitad izquierda porque el bocadillo con la
-             pantalla ocupa el 58 % derecho. Si algún día se cambia la foto,
-             hay que mantener ese reparto o la escena se tapa a sí misma.
-
-             La tablet sale con la pantalla apagada, que es lo que pide el
-             componente: la interfaz de verdad es la del bocadillo, montada en
-             HTML, y no hay ni un píxel de producto inventado en la fotografía. -->
-        <img src="/assets/procedimiento-carpeta-tablet.webp" alt="A quality technician in a food factory hall reading a procedure in a ring binder, a tablet in the other hand" width="1920" height="1080" loading="lazy" decoding="async">
-      </div>
-      <div class="stage__bocadillo" style="width:min(58%,640px)">
-        <div class="app app--docs" aria-hidden="true">
-          <div class="app__top">
-            <img class="app__logo" src="/assets/logotipo-solved.webp" alt="" width="72" height="17" loading="lazy" decoding="async">
-            <span class="app__vbar"></span>
-            <span class="app__topttl">Documents</span>
-            <span class="app__spacer"></span>
-            <span class="app__me">G</span>
+        <!-- ⚠ SIN COMPROBAR dentro de esta capacidad: el acceso sin conexión y
+             que el código del equipo abra su documentación. Si caen, se quita el
+             segundo párrafo y las dos píldoras del panel. -->
+        <div class="rotador__item" data-dur="12000">
+          <button class="rotador__btn" id="rot-doc-planta-b" role="tab" aria-controls="rot-doc-planta" aria-selected="false" type="button">Find the document from the line, not from the office</button>
+          <div class="rotador__cuerpo">
+            <p>The folder opens on the same phone or tablet used to fill in the record. Documents are organised in folders and subfolders, carry tags and can be marked as favourites; the list filters, sorts and searches by name.</p>
+            <p>Inside fit the procedures and work instructions, the standard certificates, the specification sheets, the equipment manuals and diagrams, the safety data sheets and each supplier's file. It opens offline — the cold room and the loading bay are where the network is worst — and the machine's code leads to its documentation without searching for it.</p>
           </div>
-
-          <div class="app__docbc">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"></path></svg>
-            All documents
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>
-            <b>QUALITY ASSURANCE PLAN</b>
-          </div>
-
-          <div class="app__req">
-            <div>
-              <div class="app__reqt">Required documents</div>
-              <div class="app__reqs">It keeps track of which documents must exist in this folder.</div>
-            </div>
-            <span class="app__reqavi">1 list is missing documents</span>
-          </div>
-
-          <table class="app__table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Uploaded on</th>
-                <th>Review</th>
-                <th>Expiry</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="app__docn">
-                    <span class="app__docico">PDF</span>
-                    <div style="min-width:0">
-                      <div class="app__doct">PR-07 Cleaning and disinfection</div>
-                      <div class="app__docby"><span class="app__ava" style="background:#8B4FE0">A</span> Ana</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="app__num">12/06/26</span></td>
-                <td><span class="app__num">12/12/26</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__est app__est--val">Approved</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="app__docn">
-                    <span class="app__docico">PDF</span>
-                    <div style="min-width:0">
-                      <div class="app__doct">Spec sheet · Popcorn 90 g</div>
-                      <div class="app__docby"><span class="app__ava" style="background:#E0489B">M</span> Marta</div>
-                    </div>
-                    <span class="app__docwarn">!</span>
-                  </div>
-                </td>
-                <td><span class="app__num">02/06/26</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__est app__est--pend">Awaiting approval</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="app__docn">
-                    <span class="app__docico">PDF</span>
-                    <div style="min-width:0">
-                      <div class="app__doct">IFS certificate · Sunflower oil</div>
-                      <div class="app__docby"><span class="app__ava" style="background:#E0489B">M</span> Marta</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="app__num">28/05/26</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__num">30/09/26</span></td>
-                <td><span class="app__est app__est--val">Approved</span></td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="app__docn">
-                    <span class="app__docico">PDF</span>
-                    <div style="min-width:0">
-                      <div class="app__doct">PR-12 Metal detection</div>
-                      <div class="app__docby"><span class="app__ava" style="background:#1098AD">P</span> Pablo</div>
-                    </div>
-                  </div>
-                </td>
-                <td><span class="app__num">20/05/26</span></td>
-                <td><span class="app__num">20/05/27</span></td>
-                <td><span class="app__vacio">—</span></td>
-                <td><span class="app__est app__est--val">Approved</span></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
+
+        <div class="rotador__item" data-dur="12000">
+          <button class="rotador__btn" id="rot-doc-version-b" role="tab" aria-controls="rot-doc-version" aria-selected="false" type="button">The new version is not the current one until somebody approves it</button>
+          <div class="rotador__cuerpo">
+            <p>A version that is uploaded comes in as pending and does not replace the current one until it is approved; it can also be rejected. Both statuses show in the list, a filter gathers everything awaiting review, and every movement stays in the document's activity log with a name and a date.</p>
+            <p>Every document carries its review date and its expiry date — with a calendar view by month, week, day and agenda —, its owner, its scope by plant and the people assigned to it.</p>
+          </div>
+        </div>
+
+        <!-- ⚠ SIN COMPROBAR: la capacidad entera. La IA de Solved tiene
+             «preguntar a tus datos», pero no se verificó que entre en el texto de
+             los documentos ni que cite la fuente. -->
+        <div class="rotador__item" data-dur="12000">
+          <button class="rotador__btn" id="rot-doc-ia-b" role="tab" aria-controls="rot-doc-ia" aria-selected="false" type="button">It is asked in plain language and it answers citing the document</button>
+          <div class="rotador__cuerpo">
+            <p>The operator does not search the folder: they ask what they need to know and the answer arrives with the document it comes from, its version and its page. No more opening four folders or asking the person next to you.</p>
+            <a href="/en/ai/">See Solved's AI →</a>
+          </div>
+        </div>
+
+        <!-- ⚠ SIN COMPROBAR en parte: que sea el MISMO documento en los tres
+             sitios —una sola copia— y no tres adjuntos. El enganche existe: la
+             ficha de activo tiene pestaña de documentos y el gestor tiene
+             «documentos con enlaces». -->
+        <div class="rotador__item" data-dur="12000">
+          <button class="rotador__btn" id="rot-doc-flujo-b" role="tab" aria-controls="rot-doc-flujo" aria-selected="false" type="button">The same document, inside the record, the asset and the incident</button>
+          <div class="rotador__cuerpo">
+            <p>A document you have to go and look for in a folder does not get read. The record that applies the procedure carries it inside, the equipment file brings its manual and its certificates, and the incident cites the one that explains it.</p>
+            <p>The file is not duplicated in each place: it is the same document, so approving a new version changes it in all three at once. That is exactly what a shared folder does not do.</p>
+          </div>
+        </div>
+
       </div>
+
+      <div class="rotador__vista">
+
+        <article class="scene" id="rot-doc-planta" role="tabpanel" aria-labelledby="rot-doc-planta-b">
+          <h3 class="scene__title">The folder on the plant floor phone</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+        <div class="docmovil docmovil--panel" aria-hidden="true">
+                <span class="docmovil__pill docmovil__pill--red">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17.5a3.8 3.8 0 0 1 .5-7.6 5 5 0 0 1 9.6-1.2A3.7 3.7 0 0 1 17.4 17.5"></path><path d="M3 3l18 18"></path></svg>
+                  Available offline
+                </span>
+
+                <!-- El contenedor tiene que ser el PADRE del aparato: `.device` no
+                     resuelve sus propias unidades de contenedor y el marco sale
+                     deforme —bisel y muesca calculados contra la ventana—. Lo dice
+                     ds/device.css y se comprobó saltándoselo. -->
+                <div class="device-box">
+                 <div class="device" data-device="iphone">
+                  <div class="device__screen">
+                    <div class="docmovil__pant">
+                      <div class="docmovil__top">Documents</div>
+                      <div class="docmovil__buscar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6"></circle><path d="M20 20l-4.3-4.3"></path></svg>
+                        <span class="docmovil__q">packing</span>
+                      </div>
+                      <div class="docmovil__lista">
+                        <div class="docmovil__doc docmovil__doc--queda">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">PR-07 Cleaning and disinfection of the packing machine</div>
+                            <div class="docmovil__sub">v3 · Approved</div>
+                          </div>
+                        </div>
+                        <div class="docmovil__doc docmovil__doc--queda">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">Manual for packing machine L3</div>
+                            <div class="docmovil__sub">v4 · Approved</div>
+                          </div>
+                        </div>
+                        <div class="docmovil__doc docmovil__doc--fuera">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">IFS Food certificate</div>
+                            <div class="docmovil__sub">v1 · Expires 30/11/26</div>
+                          </div>
+                        </div>
+                        <div class="docmovil__doc docmovil__doc--fuera">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">Spec sheet · Popcorn 90 g</div>
+                            <div class="docmovil__sub">v2 · Approved</div>
+                          </div>
+                        </div>
+                        <div class="docmovil__doc docmovil__doc--fuera">
+                          <svg class="docmovil__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                          <div>
+                            <div class="docmovil__nom">PR-12 Allergen control</div>
+                            <div class="docmovil__sub">v1 · Pending approval</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+                </div>
+
+                <span class="docmovil__pill docmovil__pill--codigo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"></path><path d="M8 12h8"></path></svg>
+                  Code scanned · Packing machine L3
+                </span>
+              </div>
+        </article>
+
+        <article class="scene" id="rot-doc-version" role="tabpanel" aria-labelledby="rot-doc-version-b">
+          <h3 class="scene__title">The version that comes in pending and gets approved</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+        <div class="docver docver--panel" aria-hidden="true">
+                <div class="docver__panel">
+                  <div class="docver__hd">
+                    <span class="docver__pdf">PDF</span>
+                    <div style="min-width:0">
+                      <div class="docver__t">PR-07 Cleaning and disinfection</div>
+                      <div class="docver__chips">
+                        <span class="docver__chip">PDF</span>
+                        <span class="docver__chip">v<span class="docver__vnum"><b>1</b><b>2</b></span></span>
+                        <span class="docver__chip">1.2 MB</span>
+                        <span class="docver__est docver__est--cab"><span class="docver__estxt"><span>Approved</span><span>Awaiting approval</span></span></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="docver__tabs">
+                    <span class="docver__tab">Information</span>
+                    <span class="docver__tab docver__tab--on">Versions</span>
+                    <span class="docver__tab docver__tab--act">Activity</span>
+                  </div>
+
+                  <div class="docver__cuerpo">
+                    <div class="docver__v docver__v--nueva">
+                      <div class="docver__vhd">
+                        <span class="docver__vn">v2</span>
+                        <span class="docver__est"><span class="docver__estxt"><span>Awaiting approval</span><span>Approved</span></span></span>
+                      </div>
+                      <div class="docver__vf">PR-07_cleaning_packing_machine_rev2.pdf</div>
+                      <div class="docver__vm">Uploaded 12/06/26 · by Marta</div>
+                      <div class="docver__vbtns">
+                        <span class="docver__btn docver__btn--ok">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px"><path d="m5 12 5 5 9-10"></path></svg>
+                          Approve version
+                        </span>
+                        <span class="docver__btn docver__btn--no">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="width:11px;height:11px"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+                          Reject version
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="docver__v docver__v--vieja">
+                      <div class="docver__vhd">
+                        <span class="docver__vn">v1</span>
+                        <span class="docver__est" style="color:var(--app-ok)">Approved</span>
+                      </div>
+                      <div class="docver__vf">PR-07_cleaning_packing_machine.pdf</div>
+                      <div class="docver__vm">Uploaded 04/02/26 · by Ana</div>
+                    </div>
+
+                    <div class="docver__act">
+                      <span class="docver__punto">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg>
+                      </span>
+                      <p class="docver__actxt"><b>Marta</b> approved version 2 · 12/06/2026</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </article>
+
+        <article class="scene" id="rot-doc-ia" role="tabpanel" aria-labelledby="rot-doc-ia-b">
+          <h3 class="scene__title">The answer, with the document it comes from</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+        <div class="docia" aria-hidden="true" style="margin-top:var(--s-6)">
+              <div class="docia__bar">
+                <span class="docia__spark">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l1.9 5.1 5.1 1.9-5.1 1.9L12 16.6l-1.9-5.1L5 9.6l5.1-1.9z"></path></svg>
+                </span>
+                <p class="docia__q"><span class="docia__teclea">How often does packing machine L3 need disinfecting?</span></p>
+              </div>
+
+              <div class="docia__resp">
+                <p class="docia__linea">Full disinfection <b>at the end of every shift</b>, and an intermediate clean every four hours if the format changes.</p>
+                <span class="docia__cita">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                  <span class="docia__citxt">PR-07 Cleaning and disinfection<span>v3 · approved on 12/06/26 · page 4</span></span>
+                </span>
+              </div>
+            </div>
+        </article>
+
+        <article class="scene" id="rot-doc-flujo" role="tabpanel" aria-labelledby="rot-doc-flujo-b">
+          <h3 class="scene__title">One document and three destinations</h3>
+          <span class="scene__glow" aria-hidden="true"></span>
+        <div class="docengancha docengancha--panel" aria-hidden="true">
+                <div class="docengancha__ficha">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                  <div>
+                    <div class="docengancha__nom">PR-07 Cleaning and disinfection</div>
+                    <div class="docengancha__ver">v3 · approved · one single copy</div>
+                  </div>
+                </div>
+
+                <div class="docengancha__destinos">
+                  <div class="docengancha__dest">
+                    <div class="docengancha__dt">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h10M9 12h10M9 19h10"></path><path d="M3 5l1.6 1.6L7 4"></path></svg>
+                      Recording
+                    </div>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__doc" style="--i:0">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                      PR-07 · v3
+                    </span>
+                  </div>
+
+                  <div class="docengancha__dest">
+                    <div class="docengancha__dt">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M8 7V5h8v2"></path></svg>
+                      Asset
+                    </div>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__doc" style="--i:1">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                      PR-07 · v3
+                    </span>
+                  </div>
+
+                  <div class="docengancha__dest">
+                    <div class="docengancha__dt">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l9 16H3z"></path><path d="M12 10v4M12 17h.01"></path></svg>
+                      Incident
+                    </div>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__fila"></span>
+                    <span class="docengancha__doc" style="--i:2">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path></svg>
+                      PR-07 · v3
+                    </span>
+                  </div>
+                </div>
+              </div>
+        </article>
+
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -692,6 +904,15 @@
       <details class="faq__item" name="faq"><summary>Does it control versions?</summary><div class="faq__a"><p>Yes. Every document shows its version number, so whoever opens it knows which one they are looking at and there are never two copies going round with nobody sure which rules.</p></div></details>
       <details class="faq__item" name="faq"><summary>How are expiry dates controlled?</summary><div class="faq__a"><p>Every document has a review date and an expiry date. The module comes with a calendar view — month, week, day and agenda — that can be sorted by expiry or by modification date, plus a list of everything awaiting review. Tracking due dates stops being a sheet with a hundred dates on it.</p></div></details>
       <details class="faq__item" name="faq"><summary>What are required-document lists?</summary><div class="faq__a"><p>They are the list of documents a folder must hold. They are defined per folder and the module itself warns when a list is short, so the incomplete folder is spotted before the audit rather than during it.</p></div></details>
+      <details class="faq__item" name="faq"><summary>Is this a real document management system or a file store?</summary><div class="faq__a"><p>A store keeps files. Here every document has a version number, an owner, a scope by plant, assigned people, tags, a review date and an expiry date, and a status that tells the approved apart from the pending. The version uploaded does not replace the current one until somebody approves it — or rejects it — and that act is recorded with their name and the date. That is document control.</p></div></details>
+      <!-- ⚠ SIN COMPROBAR en parte: el ALCANCE por planta y los ASIGNADOS por
+           documento sí están comprobados; que se pueda separar quién lee de
+           quién edita, no. La respuesta está redactada sobre lo que se vio. -->
+      <details class="faq__item" name="faq"><summary>Can we control who sees each document?</summary><div class="faq__a"><p>Every document has its owner, its scope — the plants it applies to — and the people assigned to it, so each team's list is their own and not the whole company's.</p></div></details>
+      <!-- ⚠ SIN COMPROBAR: las respuestas de la IA sobre el CONTENIDO de los
+           documentos. Va con la sección de IA; si esa cae, esta pregunta cae con
+           ella. -->
+      <details class="faq__item" name="faq"><summary>Does the AI answer from the documents?</summary><div class="faq__a"><p>The idea is that the operator asks in plain language — «how often is the packing machine disinfected?» — and the answer arrives with the document it comes from, its version and its page, instead of having to open the folder and search. Solved's AI has five further functions over plant data.</p></div></details>
       <details class="faq__item" name="faq"><summary>Is it a separate module?</summary><div class="faq__a"><p>Documents is a module of the system, with its own menu entry, and it is switched on like the rest. Supplier approval, on the other hand, is not a separate module: it is this same document manager applied to the supplier, alongside their goods-in incidents.</p></div></details>
       <details class="faq__item" name="faq"><summary>Do we have to reorganise all the documents to start?</summary><div class="faq__a"><p>No. The tree of folders and subfolders is built however suits you, so you can reproduce the one you already use and upload what is current. What changes is not the organisation: it is that each document now has a date, a status and an owner.</p></div></details>
     </div>
@@ -717,12 +938,16 @@
 <script src="/en/chrome.js?v=20260907f"></script>
 <!-- Hero y franja de clientes: el mismo shader y la misma cinta que la home.
      sections.js es sólo para el riel de la escalera de pasos. -->
+<script src="/ds/rotador.js?v=20260909a" defer=""></script>
 <script src="/ds/sections.js?v=20260903a" defer=""></script>
-<script src="/ds/hero-wave.js?v=20260901a" defer=""></script>
+<script src="/ds/hero-wave.js?v=20260909b" defer=""></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   function mount() {
-    if (window.SolvedHeroWave) window.SolvedHeroWave.mount(document.getElementById('dsWeave'));
+    /* Forma propia de la página: la pila de hojas. El color es el de marca —el
+       sistema no tiene tinte para Documentos—. Ver la entrada `documentos` de
+       ds/hero-wave.js. */
+    if (window.SolvedHeroWave) window.SolvedHeroWave.mount(document.getElementById('dsWeave'), { tema: 'documentos' });
   }
   if (window.SolvedHeroWave) mount();
   else document.querySelector('script[src*="ds/hero-wave.js"]').addEventListener('load', mount);

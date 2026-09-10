@@ -287,16 +287,25 @@ button.scene{
   box-shadow:rgba(12,32,64,.10) 0 8px 24px;
 }
 /* EL FRAGMENTO SIN PANEL — .scene__media--suelto
-   Quita la sombra, y con ella el rectángulo redondeado que la dibuja. Existe
-   por el puente de Integraciones: ahí dentro no hay UNA captura que despegar
-   del lienzo, hay una composición —ventana, ficha del ERP y cable— que ya trae
-   su propia elevación en la ficha. Con la sombra del contenedor, la parte del
+   Quita la sombra, y con ella el rectángulo redondeado que la dibuja. Nació por
+   el puente de Integraciones: ahí dentro no hay UNA captura que despegar del
+   lienzo, hay una composición —ventana, ficha del ERP y cable— que ya trae su
+   propia elevación en la ficha. Con la sombra del contenedor, la parte del
    encuadre que queda a la izquierda de la ventana se ve vacía y se lee como
    una segunda pantalla blanca detrás de la escena, que es justo lo que no hay.
 
-   No es la norma: la sombra de `.scene__media` es la única del componente y en
-   una escena con captura sigue haciendo falta. Esto es la excepción para las
-   composiciones que ya se sostienen solas. */
+   **LA REGLA, escrita el 9 de septiembre de 2026 a petición del cliente: en una
+   animación no va una pantalla de fondo sin forma.** Si lo que hay dentro del
+   encuadre no llena el encuadre —un panel más pequeño que la caja, un dibujo
+   sobre el lienzo, una composición de piezas sueltas—, el rectángulo del
+   contenedor asoma por los lados y se lee como una pantalla que no existe. Lo
+   llevan ya el puente de la home y los dos cuadros de `/incidencias/` que van
+   sin aparato: el selector de responsable y el Ishikawa con su espina.
+
+   Sigue sin ser la norma: la sombra de `.scene__media` es la única del
+   componente, y en una escena con captura, con marco de dispositivo o con
+   fragmento que llena la caja sigue haciendo falta. La excepción es para lo que
+   ya se sostiene solo. */
 .scene__media--suelto{ box-shadow:none }
 
 .scene__media img,
