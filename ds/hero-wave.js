@@ -640,14 +640,17 @@
     "vec2 n=normalize(vec2(clamp(d,-1.0,1.0),max(rnd,0.05)));",
     "float lam=clamp(dot(n,normalize(vec2(-0.40,0.92))),0.0,1.0);",
     "float ht=0.06+q.x*0.68+fi*0.024+0.05*sin(q.x*0.45+uT*0.11);",
-    /* El brillo especular (el blanco y el cian) va MULTIPLICADO por `k`, y el
-       color de la rampa no: en un cable ya fino por la corrección de arriba,
-       ese blanco aditivo — pensado para una banda ancha de escritorio — se
-       comía casi todo el ancho y el cable se leía como una raya blanca con
-       un borde de color, no como un cable teñido. Con `k` el brillo se
-       atempera a la vez que el cable adelgaza, y en escritorio (k=1) no
-       cambia nada. */
-    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22*k;",
+    /* El brillo especular (el blanco y el cian) va multiplicado por `k*k`, no
+       por `k` a secas: en un cable ya fino, el blanco aditivo —pensado para
+       una banda ancha de escritorio— seguía leyéndose como un hilo blanco
+       pegado al cable y no como un tono de luz DENTRO del cable, aunque ya
+       atemperado a la mitad. La corrección lineal no bastaba porque en un
+       cable delgado el ojo separa el brillo del color en cuanto ocupa una
+       fracción visible del ancho, por poco intenso que sea; con el cuadrado
+       de `k` el recorte es mucho más fuerte cuanto más estrecha la pantalla
+       (0.21 del original en el móvil más comprimido, frente al 0.46 de
+       antes) y en escritorio (k=1) sigue sin cambiar nada. */
+    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20*k*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22*k*k;",
     "float a=smoothstep(0.0,0.55,m)*(0.72+0.20*sin(fi*2.1+uT*0.2));",
     "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
     "alp*=smoothstep(-1.35,-0.34,p.x*0.90+p.y*0.48);",
