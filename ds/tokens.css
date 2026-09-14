@@ -9,6 +9,12 @@
    ========================================================= */
 
 :root{
+/* El sitio es de un solo tema (claro); sin esto, Chrome en Android puede
+   aplicarle su oscurecimiento automático a lo que no lo declara, y lo que
+   se ve no es un tema oscuro cuidado sino los azules y violetas del hero
+   apagados hacia un gris sucio — la paleta entera está pensada sobre
+   papel blanco y no sobrevive a esa heurística. */
+color-scheme:light;
 /* — Paleta base — */
 --color-primary:#0F68F4;          /* Solved Blue */
 --color-primary-deep:#0B54C8;
