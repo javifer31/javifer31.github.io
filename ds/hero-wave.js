@@ -277,7 +277,7 @@
     /* El color va con la distancia al origen: dentro, el azul de presión;
        fuera, el hielo. */
     "float ht=0.01+(r/k)*0.34+fi*0.014+0.05*sin(ang*0.8+uT*0.11);",
-    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22;",
+    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20*k*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22*k*k;",
     "float a=smoothstep(0.0,0.55,m)*(0.72+0.20*sin(fi*2.1+uT*0.2));",
     "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
     /* Los anillos se deshacen al alejarse, que es lo que hace el borde de una
@@ -315,6 +315,13 @@
     rampa(p),
     "void main(){vec2 uv=gl_FragCoord.xy/uRes;float asp=uRes.x/uRes.y;",
     "vec2 p0=(uv-0.5)*vec2(asp,1.0);",
+    /* El mismo `k` que las otras cuatro formas corregidas. Ésta era la única
+       de las seis que se había quedado sin él por completo: ni la geometría
+       ni —hasta este mismo commit— el brillo lo tenían en cuenta. Sin `k`,
+       en un móvil en vertical los catorce hilos de la trama, calibrados a
+       un ancho de escritorio, se apretaban hasta solaparse igual que le
+       pasaba al haz antes de arreglarlo. */
+    "float k=clamp(asp/2.2,0.46,1.0);",
     "vec3 col=" + p.papel + ";float alp=0.0;",
     "for(int i=0;i<14;i++){float fi=float(i);",
     /* Par → urdimbre; impar → trama. La alternancia es lo que teje. */
@@ -324,16 +331,16 @@
     "vec2 q=vec2(p0.x*ca+p0.y*sa,-p0.x*sa+p0.y*ca);",
     "q.y-=0.06;",
     "float ph=fj*0.94+fam*0.62;",
-    "float amp=(0.078+0.030*sin(fj*1.3))*(1.0-0.28*fam);",
-    "float c=amp*sin(q.x*1.15+uT*0.24+ph)+0.050*sin(q.x*0.52-uT*0.16+ph*1.6)+(fj-3.0)*0.098;",
-    "float hw=(0.048+0.026*sin(q.x*0.80+uT*0.20+ph*1.4)+0.002*fj)*(1.0-0.22*fam);",
+    "float amp=(0.078+0.030*sin(fj*1.3))*(1.0-0.28*fam)*k;",
+    "float c=amp*sin(q.x*1.15+uT*0.24+ph)+0.050*k*sin(q.x*0.52-uT*0.16+ph*1.6)+(fj-3.0)*0.098*k;",
+    "float hw=(0.048+0.026*sin(q.x*0.80+uT*0.20+ph*1.4)+0.002*fj)*(1.0-0.22*fam)*k;",
     "float d=(q.y-c)/hw;",
     "float m=1.0-clamp(abs(d),0.0,1.0);",
     "float rnd=sqrt(max(m*(2.0-m),0.0));",
     "vec2 n=normalize(vec2(clamp(d,-1.0,1.0),max(rnd,0.05)));",
     "float lam=clamp(dot(n,normalize(vec2(-0.40,0.92))),0.0,1.0);",
     "float ht=0.20+q.x*0.30+fj*0.022+0.06*fam+0.05*sin(q.x*0.45+uT*0.11);",
-    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.13+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.16;",
+    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.13*k*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.16*k*k;",
     "float a=smoothstep(0.0,0.55,m)*(0.72+0.20*sin(fi*2.1+uT*0.2));",
     "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
     /* La tela se deshila por el borde de abajo a la izquierda, que es por donde
@@ -399,7 +406,7 @@
     "vec2 n=normalize(vec2(clamp(d,-1.0,1.0),max(rnd,0.05)));",
     "float lam=clamp(dot(n,normalize(vec2(-0.40,0.92))),0.0,1.0);",
     "float ht=0.02+dist*0.26+fi*0.014+0.05*sin(q.x*0.42+uT*0.11);",
-    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.16+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.10;",
+    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.16*k*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.10*k*k;",
     "float a=smoothstep(0.0,0.55,m)*(0.72+0.20*sin(fi*2.1+uT*0.2));",
     /* Nada por detrás del origen, y arranque suave para que el punto de salida
        no se lea como un vértice. */
@@ -484,7 +491,7 @@
     "float rel=clamp((q.y-base)/max(alt,0.001),0.0,1.0);",
     "vec3 tin=tinta(fi);",
     "vec3 tono=mix(tin*0.82,mix(tin," + p.papel + ",0.18),pow(rel,0.92));",
-    "vec3 cc=tono*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22;",
+    "vec3 cc=tono*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20*k*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22*k*k;",
     "float a=smoothstep(0.0,0.50,m)*(0.84+0.12*sin(fi*2.1+uT*0.2));",
     "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
     /* La línea de base, que es lo que convierte trece manchas en un gráfico.
@@ -588,7 +595,7 @@
     /* El tono lo pone la ALTURA EN LA PILA, no el recorrido de la hoja. Un
        apunte de x para que una hoja no sea una barra de color plano. */
     "float ht=0.03+(fi/12.0)*0.88+q.x*0.055+0.030*sin(q.x*0.40+uT*0.11);",
-    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22;",
+    "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20*k*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22*k*k;",
     "float a=smoothstep(0.0,0.55,m)*mlon*(0.72+0.20*sin(fi*2.1+uT*0.2));",
     "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
     /* El lavado, como en el haz de la home: el papel se abre a la izquierda,
