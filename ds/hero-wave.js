@@ -615,15 +615,25 @@
     "return mix(c," + p.c[5] + ",smoothstep(0.80,1.0,t));}",
     "void main(){vec2 uv=gl_FragCoord.xy/uRes;float asp=uRes.x/uRes.y;",
     "vec2 p=(uv-0.5)*vec2(asp,1.0);",
+    /* El mismo `k` que onda/trama/abanico/barras/pila (más abajo en este
+       fichero): en un teléfono en vertical `asp` cae muy por debajo del 2.2:1
+       de escritorio sobre el que está calibrado el haz, y trece filamentos
+       con la misma separación y el mismo grosor absolutos se apretaban en el
+       ancho estrecho hasta solaparse — el «cable» se leía como una mancha, no
+       como trece hilos. Éste era el único de los seis dibujos sin esta
+       corrección: las otras cinco formas la llevan desde que se hicieron para
+       páginas de módulo con la hero ya probada en móvil; el haz es el más
+       antiguo del prototipo y no la había recibido nunca. */
+    "float k=clamp(asp/2.2,0.46,1.0);",
     "float ca=cos(0.44),sa=sin(0.44);",
     "vec2 q=vec2(p.x*ca+p.y*sa,-p.x*sa+p.y*ca);",
     "q.y-=0.06;",
     "vec3 col=" + p.papel + ";float alp=0.0;",
     "for(int i=0;i<13;i++){float fi=float(i);",
     "float ph=fi*0.72;",
-    "float amp=0.070+0.028*sin(fi*1.3);",
-    "float c=amp*sin(q.x*1.15+uT*0.24+ph)+0.046*sin(q.x*0.52-uT*0.16+ph*1.6)+(fi-6.0)*0.046;",
-    "float hw=0.034+0.024*sin(q.x*0.80+uT*0.20+ph*1.4)+0.002*fi;",
+    "float amp=(0.070+0.028*sin(fi*1.3))*k;",
+    "float c=amp*sin(q.x*1.15+uT*0.24+ph)+0.046*k*sin(q.x*0.52-uT*0.16+ph*1.6)+(fi-6.0)*0.046*k;",
+    "float hw=(0.034+0.024*sin(q.x*0.80+uT*0.20+ph*1.4)+0.002*fi)*k;",
     "float d=(q.y-c)/hw;",
     "float m=1.0-clamp(abs(d),0.0,1.0);",
     "float rnd=sqrt(max(m*(2.0-m),0.0));",
