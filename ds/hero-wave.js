@@ -598,11 +598,25 @@
     "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20*k*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22*k*k;",
     "float a=smoothstep(0.0,0.55,m)*mlon*(0.72+0.20*sin(fi*2.1+uT*0.2));",
     "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
-    /* El lavado, como en el haz de la home: el papel se abre a la izquierda,
-       que es donde vive el texto de esta hero. */
-    "float wash=smoothstep(-0.62,0.30,p0.x+p0.y*0.10);",
+    /* El lavado abre el papel a la izquierda, que es donde vive el texto de
+       esta hero. Los dos umbrales van por `k`: sin escalar, en un móvil
+       estrecho `p0.x` nunca baja de un valor bajo el que el lavado cierre
+       del todo. */
+    "float wash=smoothstep(-0.62*k,0.30*k,p0.x+p0.y*0.10);",
     "col=mix(" + p.papel + ",col,0.30+0.70*wash);",
     "alp*=0.26+0.74*wash;",
+    /* Y NO BASTA CON ESCALAR EL LAVADO, PORQUE ESTA HERO NO TIENE HUECO QUE
+       ABRIR. `.ds-hero__txt` pasa a `width:100%` por debajo de 900px
+       (ds/hero.css), así que en móvil el párrafo ocupa TODO el ancho del
+       encuadre y no queda ninguna franja limpia a la que desplazar la pila
+       —al revés que en escritorio, donde el texto se queda en el 76 % y la
+       pila vive en el resto—. Reportado por el usuario: la pila entera por
+       debajo del párrafo en `/gestor-documental/`. La salida no es mover la
+       pila —no hay sitio al que moverla—, es que pese menos: un segundo
+       atenuador baja el conjunto a un cuarto de su opacidad en el móvil más
+       estrecho y no toca nada en escritorio (k=1 → atten=1). */
+    "float atten=mix(0.22,1.0,clamp((k-0.46)/0.54,0.0,1.0));",
+    "alp*=atten;",
     "col=mix(col," + p.papel + "," + p.velo + ");",
     "if(alp<0.004)discard;",
     "gl_FragColor=vec4(col,clamp(alp,0.0,1.0));}"
@@ -660,6 +674,12 @@
     "vec3 cc=ramp(ht)*(0.50+0.64*lam)+vec3(1.0)*pow(lam,26.0)*0.20*k*k+vec3(0.121,0.839,0.960)*pow(lam,44.0)*0.22*k*k;",
     "float a=smoothstep(0.0,0.55,m)*(0.72+0.20*sin(fi*2.1+uT*0.2));",
     "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
+    /* El lavado NO va por `k` aquí: el usuario ya confirmó que la home se ve
+       bien tal cual, y tocar este umbral es lo que rompió el texto en
+       /gestor-documental/ (ver `wash` de la pila, más abajo) sin que nadie
+       hubiera reportado un problema aquí. No se arregla lo que no está roto
+       a base de una analogía; si algún día se reporta que el haz también
+       tapa texto en móvil, el arreglo es el mismo que el de la pila. */
     "alp*=smoothstep(-1.35,-0.34,p.x*0.90+p.y*0.48);",
     "float wash=smoothstep(-0.66,0.28,p.x+p.y*0.10);",
     "col=mix(" + p.papel + ",col,0.30+0.70*wash);",
