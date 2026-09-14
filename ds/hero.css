@@ -93,6 +93,38 @@
 @media (max-width:900px){
   .ds-hero__txt{ width:100%; }
   .ds-hero h1{ max-width:none; }
+
+  /* EN MÓVIL EL SHADER VA EN UNA BANDA ENCIMA DEL TEXTO, NO DEBAJO (14 sep 2026).
+     Aquí mismo el texto pasa a ocupar el 100 % del ancho, así que ya no queda
+     ninguna franja limpia en la que pueda vivir el material: las seis formas de
+     ds/hero-wave.js —haz, anillos, trama, abanico, barras, pila— están
+     calibradas para una hero apaisada de ~2.2:1 con el texto en el 76 % de la
+     izquierda y el color a la derecha. Con la hero superpuesta en un teléfono
+     (0.5:1, texto de lado a lado) pasaban dos cosas a la vez, y las dos las
+     reportó el cliente con capturas: el color diluido bajo el texto se leía
+     como un gris sucio, y las hojas de la pila cruzaban el párrafo de
+     /gestor-documental/. Tres rondas de corrección en el shader (escala,
+     brillo, lavado) mejoraron cada síntoma sin quitar la causa, porque la
+     causa no era el shader: era que texto y material compartían el mismo
+     sitio.
+
+     Así que se apila en vez de superponer: el canvas deja de ser absoluto y
+     pasa a ser un bloque en flujo, delante del encuadre, con una altura que
+     va con el ancho (52vw) para que su proporción se quede cerca del 2:1 en
+     cualquier teléfono. Con esa proporción `k` (ds/hero-wave.js) vuelve a
+     estar cerca de 1 y las formas se dibujan como en escritorio, sin ninguna
+     de las atenuaciones de móvil. Y el texto va debajo, sobre papel limpio,
+     con la altura mínima del encuadre rebajada en lo que mide la banda para
+     que hero + banda sigan sumando el 90 % de la pantalla. */
+  .ds-hero{ --hero-band:clamp(160px, 52vw, 240px); }
+  .ds-hero__weave{
+    position:static; inset:auto;
+    width:100%; height:var(--hero-band);
+  }
+  .ds-hero__frame{
+    min-height:calc(90vh - var(--nav-h) - var(--hero-band));
+    min-height:calc(90svh - var(--nav-h) - var(--hero-band));
+  }
 }
 /* En teléfono los dos botones no caben en una línea y quedaban partidos y de
    anchos distintos, uno debajo de otro. Se dan por vencidos antes: cada uno

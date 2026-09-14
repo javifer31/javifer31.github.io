@@ -605,18 +605,13 @@
     "float wash=smoothstep(-0.62*k,0.30*k,p0.x+p0.y*0.10);",
     "col=mix(" + p.papel + ",col,0.30+0.70*wash);",
     "alp*=0.26+0.74*wash;",
-    /* Y NO BASTA CON ESCALAR EL LAVADO, PORQUE ESTA HERO NO TIENE HUECO QUE
-       ABRIR. `.ds-hero__txt` pasa a `width:100%` por debajo de 900px
-       (ds/hero.css), así que en móvil el párrafo ocupa TODO el ancho del
-       encuadre y no queda ninguna franja limpia a la que desplazar la pila
-       —al revés que en escritorio, donde el texto se queda en el 76 % y la
-       pila vive en el resto—. Reportado por el usuario: la pila entera por
-       debajo del párrafo en `/gestor-documental/`. La salida no es mover la
-       pila —no hay sitio al que moverla—, es que pese menos: un segundo
-       atenuador baja el conjunto a un cuarto de su opacidad en el móvil más
-       estrecho y no toca nada en escritorio (k=1 → atten=1). */
-    "float atten=mix(0.22,1.0,clamp((k-0.46)/0.54,0.0,1.0));",
-    "alp*=atten;",
+    /* Hubo aquí, durante unas horas del 14 de septiembre de 2026, un segundo
+       atenuador que bajaba la pila a un cuarto de opacidad en móvil, porque
+       el párrafo la cruzaba. Se quitó el mismo día: la causa no era la pila,
+       era que en móvil texto y material compartían el mismo sitio, y eso lo
+       resuelve ds/hero.css apilando el canvas en una banda encima del texto.
+       Con la banda la proporción vuelve a estar cerca del 2:1 y `k` cerca de
+       1, así que aquí no hace falta atenuar nada. */
     "col=mix(col," + p.papel + "," + p.velo + ");",
     "if(alp<0.004)discard;",
     "gl_FragColor=vec4(col,clamp(alp,0.0,1.0));}"
