@@ -65,11 +65,11 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin="" href="../../_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/fonts/DMSans-VariableFont_opsz_wght.woff2">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;display=swap">
 <link rel="stylesheet" href="../../_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260909a">
-<link rel="stylesheet" href="../../solved.css?v=20260909a">
+<link rel="stylesheet" href="../../solved.css?v=20260910f">
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="../../ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="../../ds/site.css?v=20260908a">
+<link rel="stylesheet" href="../../ds/site.css?v=20260911k">
 </head>
 <body data-screen-label="Blog · Post">
 
@@ -88,6 +88,19 @@
       <h1>Cuadro de mando de calidad en tiempo real</h1>
       <p class="post__meta">Por Claudia · <time datetime="2026-08-03T00:00:00Z">3 de agosto de 2026</time> · 6 min de lectura</p>
     </header>
+
+    <!-- banner-arriba:inicio -->
+    <div class="blog-banner" data-modulo="kpis">
+    <div class="blog-banner__in">
+      <div class="blog-banner__icon-wrap">
+        <span class="blog-banner__halo" aria-hidden="true"></span>
+        <span class="blog-banner__icon" aria-hidden="true"><i class="bico" style="--bico:url('/assets/iconos/grafico-torta.svg')"></i></span>
+      </div>
+      <p class="blog-banner__text"><span class="blog-banner__title">Mide la calidad en tiempo real</span>KPIs, mermas y reincidencias en un cuadro de mando que se actualiza solo.</p>
+      <a class="btn btn--primary blog-banner__btn" href="../../dashboard/">Ver el dashboard</a>
+    </div>
+  </div>
+    <!-- banner-arriba:fin -->
 
     <figure class="post__cover"><picture><source type="image/avif" srcset="../assets/811efd37d729-480.avif 480w, ../assets/811efd37d729-768.avif 768w, ../assets/811efd37d729-1200.avif 1200w" sizes="(max-width: 760px) 100vw, 760px"><source type="image/webp" srcset="../assets/811efd37d729-480.webp 480w, ../assets/811efd37d729-768.webp 768w, ../assets/811efd37d729-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 760px"><img src="../assets/811efd37d729-1200.jpg" width="1200" height="655" alt="Pantallas con gráficos e indicadores de un cuadro de mando de calidad en tiempo real" loading="eager" decoding="async" fetchpriority="high"></picture></figure>
 
@@ -122,6 +135,21 @@
 <h2>Del registro al KPI sin hojas de cálculo</h2>
 <p>El gran cuello de botella en la mayoría de las empresas agroalimentarias no es la falta de datos, sino la dificultad de convertirlos en información útil. El ciclo habitual suele ser: el operario registra en papel o en un Excel, alguien lo transcribe a otro documento, el responsable de calidad consolida y calcula manualmente, y el informe llega dos días después de que el problema ocurrió.</p>
 <p>Este modelo tiene tres problemas estructurales: introduce errores en cada traspaso, consume horas de trabajo que podrían dedicarse a analizar en lugar de a copiar, y genera información siempre en pasado.</p>
+
+      <!-- banner-medio:inicio -->
+      <div class="blog-banner" data-modulo="kpis">
+    <div class="blog-banner__in">
+      <div class="blog-banner__icon-wrap">
+        <span class="blog-banner__halo" aria-hidden="true"></span>
+        <span class="blog-banner__icon" aria-hidden="true"><i class="bico" style="--bico:url('/assets/iconos/grafico-torta.svg')"></i></span>
+      </div>
+      <p class="blog-banner__text"><span class="blog-banner__title">Mide la calidad en tiempo real</span>KPIs, mermas y reincidencias en un cuadro de mando que se actualiza solo.</p>
+      <a class="btn btn--primary blog-banner__btn" href="../../dashboard/">Ver el dashboard</a>
+    </div>
+  </div>
+      <!-- banner-medio:fin -->
+
+      
 <p>La alternativa es <a href="../appcc-digital-como-pasar-del-papel-al-software-en-tu-empresa/">digitalizar</a> el registro en el origen. Cuando el dato se introduce directamente en el sistema —desde una tablet en línea, desde un sensor conectado o desde un equipo de medición integrado— el KPI se calcula automáticamente y el dashboard se actualiza al instante. No hay intermediarios, no hay esperas y no hay errores de transcripción.</p>
 <p>Además, un sistema digital permite configurar alertas automáticas: si una temperatura supera el límite crítico, el responsable recibe una notificación en tiempo real, no cuando hace la ronda de revisión de datos. Esto es especialmente relevante en el contexto de la <a href="https://eur-lex.europa.eu/eli/reg/2002/178/oj?locale=es" target="_blank" rel="noopener noreferrer">legislación alimentaria general europea</a> (Reglamento [CE] 178/2002, 2002), que establece la obligación de los operadores de retirar del mercado cualquier alimento que no sea seguro y de notificarlo a las autoridades competentes. Detectar antes implica reaccionar antes y, en el mejor de los casos, evitar que el problema llegue al consumidor.</p>
 <h2>Cómo montar dashboards automáticos en Solved</h2>
@@ -152,11 +180,16 @@
       </ul>
     </aside>
 
-    <aside class="post__cta">
-            <h2 class="post__cta-title">Mide la calidad en tiempo real</h2>
-            <p>KPIs, mermas y reincidencias en un cuadro de mando que se actualiza solo.</p>
-            <p><a class="btn btn--primary" href="../../dashboard/">Ver el dashboard</a></p>
-          </aside>
+    <div class="blog-banner" data-modulo="kpis">
+    <div class="blog-banner__in">
+      <div class="blog-banner__icon-wrap">
+        <span class="blog-banner__halo" aria-hidden="true"></span>
+        <span class="blog-banner__icon" aria-hidden="true"><i class="bico" style="--bico:url('/assets/iconos/grafico-torta.svg')"></i></span>
+      </div>
+      <p class="blog-banner__text"><span class="blog-banner__title">Mide la calidad en tiempo real</span>KPIs, mermas y reincidencias en un cuadro de mando que se actualiza solo.</p>
+      <a class="btn btn--primary blog-banner__btn" href="../../dashboard/">Ver el dashboard</a>
+    </div>
+  </div>
     <!-- enlazado:fin -->
 
     <footer class="post__foot">
@@ -199,6 +232,6 @@
 </article>
 
 <div id="footer"></div>
-<script src="../../chrome.js?v=20260907f"></script>
+<script src="../../chrome.js?v=20260911e"></script>
 
 </body></html>

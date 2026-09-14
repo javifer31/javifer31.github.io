@@ -809,6 +809,57 @@ a.rail-card:focus-visible{ outline:2px solid var(--color-primary); outline-offse
   object-position:50% 30%;
 }
 
+/* — .section--ambitos-compacto —
+   Petición del cliente el 11 de septiembre de 2026, tercera vuelta: el tope
+   pasa del 80% al 90% del alto de la ventana, y esta vez se pide REESTRUCTURAR
+   la sección, no sólo apretar valores. Las dos pasadas anteriores llegaron a
+   apretar tanto (pestañas, foto y aire al mínimo) que la sección se leía
+   comprimida; con 10 puntos más de margen no hace falta ese aprieto.
+
+   Lo que se mantiene de la reestructuración real —no es aire, es maquetación—:
+   el titular sigue en una columna más ancha (1.5fr/.5fr en vez de la 1.05/.85
+   del patrón general, SÓLO en esta sección) para entrar en tres líneas en vez
+   de cuatro. Ésa es la pieza que no escala con `vh` —depende del ancho, no del
+   alto— y la que de verdad decide si la sección cabe en una ventana baja.
+
+   Lo que se devuelve a un aire normal: las pestañas vuelven al aire de
+   `.switch--compacto` sin apretar más, y la foto y el padding de la sección
+   suben de tope — siguen en `vh` para comprimirse solos en una ventana baja,
+   pero con un mínimo y un máximo más generosos. Comprobado contra una ventana
+   de 903px: la sección queda en ~640px (71%), con margen de sobra hasta el
+   90% en una ventana bastante más baja. */
+.section--ambitos-compacto > .wrap{ padding-block:clamp(32px, 6vh, 72px); }
+.section--ambitos-compacto .section-head--split{
+  padding-bottom:24px;
+  /* margin-bottom:0 porque si no, el margen heredado de `.section-head` en
+     solved.css (48px, la 2.0) se cuela detrás del padding-bottom de este
+     patrón — `.section-head--split` nunca lo anula, sólo toca margin-inline.
+     Sin esto quedaban 48px de aire fantasma entre el titular y las pestañas
+     que ninguna regla de aquí explicaba. */
+  margin-bottom:0;
+}
+/* El 1.5fr/.5fr sólo por encima de los 900px, que es donde `.section-head
+   --split` deja de apilarse en una columna (ds/site.css). Sin el min-width,
+   0-2-0 le gana en especificidad al 1fr de `@media (max-width:899px)` —que
+   también es 0-1-0, la media query no suma nada— y el titular se quedaba en
+   dos columnas estrechas en el móvil, partiendo cada palabra. */
+@media (min-width:900px){
+  .section--ambitos-compacto .section-head--split{
+    grid-template-columns:minmax(0,1.5fr) minmax(0,.5fr);
+  }
+}
+/* !important en la altura, y no es gusto: las cuatro fotos del panel llevan
+   `style="height:auto"` en el propio HTML —herencia de antes de este
+   componente—, y un inline siempre gana a una regla externa por mucha clase
+   que lleve delante. Sin el !important, esta regla no hacía nada: la foto se
+   quedaba en su alto natural (1100×1100, cuadrada) en cuanto cargaba, que es
+   más alta que el recorte 4:3 que decía sustituir. Costó una comprobación
+   con la imagen a medio cargar, que enmascaraba el fallo. */
+.section--ambitos-compacto .switch__panel > img{
+  aspect-ratio:auto;
+  height:clamp(220px, 34vh, 340px) !important;
+}
+
 /* =========================================================
    8 · ESCALERA DE PASOS
    ---------------------------------------------------------
@@ -1519,4 +1570,169 @@ a.rail-card:focus-visible{ outline:2px solid var(--color-primary); outline-offse
 }
 @media (max-width:900px){
   .rotador-bloque{ margin-top:48px; padding-top:40px }
+}
+
+/* =========================================================
+   14 · TARJETA DE CASO EN CARRIL — «con la confianza de…»
+   ---------------------------------------------------------
+   DE DÓNDE SALE
+   La sección «Con la confianza de 80.000 organizaciones» de mitti.com/es:
+   una foto de la industria del cliente con su logo encima, dos KPIs y un
+   botón redondo al caso completo anclados sobre la propia foto; la cita y
+   la firma debajo, ya fuera de ella. El carril que las mueve es el patrón 3
+   (.rail) de esta misma hoja — misma mecánica, sólo cambia la tarjeta.
+
+   Sólo entran los clientes con caso en vídeo — hoy Carnavi, Panificadora
+   Alcalá y Prilux (ver .pull-quote__caso más arriba): son los únicos con
+   foto de industria propia, dos KPIs verificados y un sitio adonde llevar
+   el botón. Los que sólo tienen cita sin vídeo (Fritoper, Lácteos Romar) no
+   encajan en esta tarjeta — les falta la mitad de lo que pide el patrón, y
+   forzarlos habría sido inventar un KPI o un enlace que no existe. */
+.rail__track--cases{ grid-auto-columns:minmax(320px,82%); gap:24px; }
+@media (min-width:640px){
+  .rail__track--cases{ grid-auto-columns:minmax(420px,78%); }
+}
+/* En pantalla de ordenador el corte deja de tener sentido: sólo hay tres
+   casos, y una tercera tarjeta a medio enseñar no dice «hay más», dice que
+   falta encontrar el borde. Petición del cliente el 11 de septiembre de
+   2026: las dos primeras se ven ENTERAS y, al avanzar un clic —que mueve
+   exactamente una tarjeta, ds/sections.js—, la tercera entra entera también.
+   Se quita también el sangrado a la derecha del carril genérico (patrón 3):
+   ese margen negativo existe para que la tarjeta cortada llegue justo al
+   borde de la ventana, y aquí ya no hay tarjeta cortada que alinear. */
+@media (min-width:1100px){
+  .rail__track--cases{
+    grid-auto-columns:calc((100% - 24px) / 2);
+    margin-right:0;
+    padding-right:0;
+  }
+}
+
+.case-card{ display:block; color:inherit; text-decoration:none; }
+.case-card__photo{
+  position:relative; aspect-ratio:16/9; border-radius:var(--ds-radius-panel);
+  overflow:hidden; background:var(--color-canvas-steel);
+}
+/* :not(.case-card__logo) y no sólo .case-card__photo img: el logo es OTRO
+   <img> dentro de la misma caja, y sin la exclusión esta regla le ganaba en
+   especificidad a .case-card__logo y lo estiraba a los cuatro bordes. */
+.case-card__photo img:not(.case-card__logo){
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+}
+/* El velo sostiene el contraste de los KPIs abajo y del logo arriba a la
+   izquierda: la foto es el argumento (industria del cliente), no un fondo a
+   oscurecer del todo, así que el degradado izquierdo se apaga antes de
+   llegar a la mitad de la tarjeta. */
+.case-card__photo::after{
+  content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(11,18,32,.06) 0%, rgba(11,18,32,.82) 76%),
+    linear-gradient(90deg, rgba(11,18,32,.5) 0%, rgba(11,18,32,0) 42%);
+}
+/* Fondo blanco, no chip oscuro: los tres logos de cliente (`clients-color`)
+   llevan tinta y marca en oscuro sobre transparente — pensados para asentar
+   sobre blanco, como en la franja de arriba — y sobre un chip negro
+   translúcido se leían apagados. box-sizing:content-box a propósito: el
+   sistema pone *{box-sizing:border-box} y con eso el padding se come la
+   altura declarada — a 24px con 10px arriba y abajo quedaban 4px de imagen
+   de verdad, invisible. Con content-box los 24px son del logo y el padding
+   se suma fuera, que es lo que pide el chip. */
+.case-card__logo{
+  position:absolute; z-index:1; top:20px; left:20px; box-sizing:content-box;
+  height:24px; width:auto; max-width:130px; object-fit:contain;
+  background:rgba(255,255,255,.94); padding:10px 14px; border-radius:var(--ds-radius-control);
+  box-shadow:0 2px 10px rgba(11,18,32,.28);
+}
+.case-card__kpis{
+  position:absolute; z-index:1; left:20px; right:64px; bottom:20px;
+  display:flex; gap:20px;
+}
+.case-card__kpi{ padding-left:16px; border-left:1px solid rgba(255,255,255,.35); }
+.case-card__kpi:first-child{ padding-left:0; border-left:0; }
+.case-card__kpi b{
+  display:block; font:var(--type-heading-md); font-weight:var(--font-weight-medium); color:#fff;
+}
+.case-card__kpi span{
+  display:block; margin-top:2px; font:var(--type-caption); color:rgba(255,255,255,.78);
+}
+.case-card__go{
+  position:absolute; z-index:1; right:20px; bottom:20px;
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(17,18,20,.6); display:flex; align-items:center; justify-content:center;
+  color:#fff; transition:background var(--ds-motion);
+}
+.case-card__go svg{ width:16px; height:16px; }
+.case-card:hover .case-card__go{ background:var(--color-primary); }
+
+.case-card__foot{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:32px;
+  margin-top:20px;
+}
+.case-card__quote{
+  flex:1 1 auto; margin:0; font-size:18px; line-height:1.5;
+  font-weight:var(--font-weight-regular); color:var(--ds-text); text-wrap:balance;
+}
+.case-card__by{
+  flex:0 0 auto; max-width:220px; margin:0; font:var(--type-caption);
+  letter-spacing:var(--tracking-caption); color:var(--ds-text-mute); text-align:right;
+}
+.case-card__by b{ display:block; margin-bottom:2px; font-weight:var(--font-weight-medium); color:var(--ds-text); }
+
+@media (max-width:680px){
+  .case-card__kpis{ right:20px; gap:14px; }
+  .case-card__kpi b{ font-size:17px; }
+  .case-card__foot{ flex-direction:column; gap:12px; }
+  .case-card__by{ max-width:none; text-align:left; }
+}
+
+/* — .case-card--banda —
+   La misma tarjeta del carril (arriba), sin KPIs y en formato ancho y bajo:
+   /incidencias/, 11 sep 2026, segunda vuelta sobre la primera petición del
+   cliente. Aquí sólo hace falta EL TESTIMONIO —cita, firma y logo—, no las
+   cifras del caso: eso ya está en la propia sección, un piso más arriba.
+   Cita y firma se suben a la foto en vez de ir debajo, que es lo que permite
+   bajar el alto: sin un bloque de texto aparte, la tarjeta mide lo que mide
+   su foto. El botón redondo (`.case-card__go`) sí se queda —es lo único que
+   dice «esto se puede abrir» sin un texto de por medio—, así que el bloque de
+   texto deja su esquina libre. */
+.case-card--banda{ max-width:900px; margin-inline:auto; }
+.case-card--banda .case-card__photo{ aspect-ratio:28/9; }
+.case-card--banda .case-card__banda-txt{
+  position:absolute; z-index:1; left:28px; right:76px; bottom:24px;
+}
+.case-card--banda .case-card__quote{
+  margin:0 0 10px; color:#fff; font-size:17px; line-height:1.45; text-wrap:balance;
+}
+.case-card--banda .case-card__by{
+  max-width:none; text-align:left; color:rgba(255,255,255,.78);
+}
+.case-card--banda .case-card__by b{ color:#fff; }
+
+@media (max-width:680px){
+  .case-card--banda .case-card__photo{ aspect-ratio:4/3; }
+  .case-card--banda .case-card__banda-txt{ left:20px; right:64px; bottom:20px; }
+  .case-card--banda .case-card__quote{ font-size:15px; }
+}
+
+/* — .section--confianza-compacta —
+   Petición del cliente el 11 de septiembre de 2026: el encabezado «Con la
+   confianza…» y el carril de casos son la MISMA sección y juntos no pueden
+   pasar del 80% del alto de la ventana. El aire y la foto se miden en vh, no
+   en px, para que la sección se comprima sola en una pantalla baja en vez de
+   depender de un valor que sólo cuadra en un tamaño — comprobado en el
+   navegador contra una ventana de 852px de alto, queda en ~650px (76%). */
+.section--confianza-compacta > .wrap{ padding-block:clamp(28px, 5vh, 56px); }
+.section--confianza-compacta .section-head--split{ padding-bottom:14px; }
+.section--confianza-compacta .section-head--split .ds-btn{ margin-top:10px !important; }
+.section--confianza-compacta .case-card__photo{
+  aspect-ratio:auto;
+  height:clamp(170px, 28vh, 280px);
+}
+.section--confianza-compacta .case-card__foot{ margin-top:12px; }
+/* Dos líneas y se corta con puntos suspensivos: con la foto ya recortada a
+   28vh, una cita de tres líneas volvía a empujar la tarjeta por encima del
+   80%. */
+.section--confianza-compacta .case-card__quote{
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  overflow:hidden; font-size:16px; line-height:1.45;
 }

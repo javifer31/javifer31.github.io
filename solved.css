@@ -72,6 +72,52 @@ body { padding-top: 88px; overflow-x: clip; }
 .nav__menu a:hover { background: var(--ink-50); }
 .nav__menu b { font-size: 18px; font-weight:var(--font-weight-medium); color: var(--ink-900); }
 .nav__menu span { font-size: 15.3px; color: var(--ink-400); }
+
+/* ---------- Mega-menú (Productos, Casos de uso) ----------
+   Estructura calcada de mitti.com/es: la lista de enlaces sigue siendo la
+   lista, y lo que cambia es lo que se le añade sin mezclarse con ella —
+   en Mitti, «IA de Mitti» y «Ver todas las integraciones» son un bloque
+   destacado debajo de la lista de «Plataforma», y los casos de cliente van
+   al lateral del menú «Soluciones», no dentro de su lista. */
+.nav__menu--mega { min-width: 460px; }
+.nav__mega-cols { display: flex; flex-direction: column; }
+
+.nav__mega-blocks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border-1); }
+.nav__menu .nav__mega-block { flex-direction: row; align-items: center; gap: 10px; padding: 12px; }
+.nav__menu .nav__mega-block:hover { background: var(--blue-50); }
+.nav__mega-block__ico { flex: 0 0 auto; width: 32px; height: 32px; border-radius: 50%;
+  background: #fff; border: 1px solid var(--border-1); display: flex; align-items: center; justify-content: center; }
+.nav__mega-block__ico svg { width: 18px; height: 18px; color: var(--blue); }
+.nav__mega-block__txt { flex: 1 1 auto; display: flex; flex-direction: column; gap: 1px; }
+.nav__menu .nav__mega-block__txt b { font-size: 14.5px; }
+.nav__menu .nav__mega-block__txt span { font-size: 12.3px; }
+.nav__mega-block__go { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid var(--ink-200); display: flex; align-items: center; justify-content: center; color: var(--ink-600); }
+.nav__mega-block__go svg { width: 14px; height: 14px; }
+
+.nav__menu--split { display: flex; align-items: stretch; gap: 20px; min-width: 700px; }
+.nav__menu--split .nav__mega-cols { flex: 1 1 auto; min-width: 320px; }
+.nav__mega-side { flex: 0 0 220px; display: flex; flex-direction: column; gap: 10px;
+  padding-left: 20px; border-left: 1px solid var(--border-1); }
+.nav__menu .nav__mega-case { position: relative; flex: 1; padding: 12px; border-radius: var(--r-2);
+  background-size: cover; background-position: center; overflow: hidden;
+  justify-content: flex-end; min-height: 130px; }
+.nav__menu .nav__mega-case:hover { background-color: transparent; }
+/* Foto de ambiente de la industria del cliente, no su cara: el velo solo
+   tiene que sostener el contraste del texto de abajo, no tapar nada. */
+.nav__mega-case::before { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11,18,32,.1) 0%, rgba(11,18,32,.88) 85%); }
+/* box-sizing:content-box: con el border-box del sistema, el padding se come
+   la altura declarada y el logo queda casi invisible (mismo fallo que
+   .case-card__logo en ds/sections.css). */
+.nav__mega-case__logo { position: absolute; z-index: 1; top: 10px; left: 10px; box-sizing: content-box;
+  height: 20px; width: auto; max-width: 84px; object-fit: contain;
+  background: #fff; padding: 5px 8px; border-radius: var(--r-1); }
+.nav__menu .nav__mega-case__tag { position: relative; z-index: 1; font-size: 10.5px; letter-spacing: .5px;
+  text-transform: uppercase; color: rgba(255,255,255,.85); }
+.nav__menu .nav__mega-case__title { position: relative; z-index: 1; color: #fff; font-size: 13px; line-height: 1.35; }
+
 /* hamburguesa y CTA móvil: ocultos en escritorio */
 .nav__toggle { display: none; }
 .nav__cta-mobile { display: none; }
@@ -613,6 +659,14 @@ img.quote__av { object-fit: cover; object-position: center 20%; }
   .nav__menu b { font-size: 15.3px; }
   .nav__menu span { font-size: 12.6px; }
 
+  /* Mega-menú en móvil: todo apilado en una sola columna, sin lateral ni
+     grilla de dos — es un acordeón, no tiene sitio para un reparto ancho. */
+  .nav__menu--mega, .nav__menu--split { min-width: 0; }
+  .nav__menu--split { flex-direction: column; gap: 0; }
+  .nav__mega-side { flex: 1 1 auto; padding-left: 0; border-left: 0; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-1); }
+  .nav__mega-blocks { grid-template-columns: 1fr; }
+  .nav__menu .nav__mega-case { min-height: 96px; }
+
   /* CTA dentro del panel */
   .nav__cta-mobile { display: block; margin-top: var(--s-2); }
   .nav__cta-mobile .btn { width: 100%; text-align: center; justify-content: center; }
@@ -845,6 +899,61 @@ img.quote__av { object-fit: cover; object-position: center 20%; }
   .post__body { font-size: 17px; }
   .post__body h2 { font-size: 24px; }
   .post__body blockquote { font-size: 19px; }
+}
+
+/* ---------- Banner de producto del blog ----------
+   Tarjeta EN EL FLUJO del texto, no fija: aparece tres veces en cada post
+   —entre el título y el cuerpo, a mitad del cuerpo y al final, antes del pie—
+   así que tiene que leerse como parte del artículo, no como una interrupción
+   flotante. Reutiliza el mismo texto de producto que el CTA de cierre.
+
+   El color lo dicta el módulo del producto al que enlaza —mismo criterio y
+   mismos tintes que .scene[data-module] (ver ds/tint.css)—, no un azul fijo:
+   `data-modulo` trae el tinte de fondo y el color del icono, que es también
+   lo que pulsa. Documentos no tiene color en el sistema, así que su variante
+   se queda en tinta neutra en vez de un color de módulo. */
+.blog-banner { margin: var(--s-6) 0; padding: 18px 22px; border-radius: var(--r-3);
+  border: 1px solid var(--border-1); border-left: 3px solid var(--banner-c, var(--blue));
+  background-color: #fff; background-image: var(--banner-tinte, none); }
+.blog-banner__in { display: flex; align-items: center; gap: 16px; }
+.blog-banner__text { flex: 1 1 auto; margin: 0; font-size: 15px; line-height: 1.5; color: var(--fg-2); }
+.blog-banner__title { display: block; color: var(--ink-900); font-weight: var(--font-weight-medium); font-size: 16px; margin-bottom: 2px; }
+.blog-banner__btn { flex: 0 0 auto; white-space: nowrap; }
+/* El banner de en medio cae DENTRO de .post__body, y .post__body a (subrayado,
+   azul de enlace) tiene más especificidad que .btn--primary y le gana el color
+   y el subrayado al botón. Dos clases superan esa regla sin tocarla. */
+.blog-banner .btn { color: #fff; text-decoration: none; }
+
+.blog-banner__icon-wrap { position: relative; flex: 0 0 auto; width: 44px; height: 44px; }
+.blog-banner__halo { position: absolute; inset: 0; border-radius: 50%; background: var(--banner-c, var(--blue));
+  animation: blogBannerHalo 2.6s cubic-bezier(.25,.6,.4,1) infinite; }
+.blog-banner__icon { position: relative; display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%; background: var(--banner-c, var(--blue)); color: #fff; }
+.blog-banner__icon .bico { width: 20px; height: 20px; }
+
+@keyframes blogBannerHalo {
+  0% { transform: scale(.85); opacity: .45; }
+  75%, 100% { transform: scale(1.6); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .blog-banner__halo { animation: none; opacity: 0; }
+}
+
+.blog-banner[data-modulo="incidencias"] { --banner-c: var(--module-incidencias); --banner-tinte: var(--tint-incidencias); }
+.blog-banner[data-modulo="acciones"]    { --banner-c: var(--module-acciones);    --banner-tinte: var(--tint-acciones); }
+.blog-banner[data-modulo="registros"]   { --banner-c: var(--module-registros);   --banner-tinte: var(--tint-checklists); }
+.blog-banner[data-modulo="activos"]     { --banner-c: var(--module-activos);     --banner-tinte: var(--tint-activos); }
+.blog-banner[data-modulo="kpis"]        { --banner-c: var(--module-kpis);        --banner-tinte: var(--tint-kpis); }
+.blog-banner[data-modulo="marca"]       { --banner-c: var(--module-incidencias); --banner-tinte: var(--tint-incidencias); }
+.blog-banner[data-modulo="documentos"]  { --banner-c: var(--ink-600);
+  --banner-tinte: linear-gradient(145deg, rgba(74,84,104,.07) 0%, rgba(74,84,104,0) 78%); }
+
+@media (max-width: 600px) {
+  .blog-banner { padding: 16px 18px; }
+  .blog-banner__in { flex-wrap: wrap; }
+  .blog-banner__text { flex: 1 1 100%; order: 2; }
+  .blog-banner__icon-wrap { order: 1; }
+  .blog-banner__btn { order: 3; flex: 1 1 100%; text-align: center; justify-content: center; }
 }
 
 /* ==== Home hero animada (portado de feat/home-reposicionamiento) ==== */

@@ -194,6 +194,35 @@ button.scene{
 .scene[data-module="ia"] .scene__title{ color:#fff }
 
 /* ---------------------------------------------------------
+   ENLACE BAJO EL TÍTULO — excepción declarada, no API del componente
+   (10 sep 2026). El componente no trae hueco para enlace, a propósito («Sin
+   descripción dentro de la tarjeta» arriba): esto es un `.scene__link` suelto
+   que sólo se pinta donde el marcado lo añade, para las escenas que la propia
+   documentación del sitio señaló como recuperables — ver la nota del 9 de
+   septiembre sobre el rotador de capacidades retirado de `/incidencias/`.
+
+   Se posiciona debajo del título asumiendo sus dos líneas (20px + 2×21px de
+   `--type-body-md` + aire): si el título de una escena concreta cabe en una
+   sola línea, el enlace sube más de lo necesario y no de menos, que es el
+   error que no se ve. Mismo idioma visual que `.cab__link` (ds/aiband.css) —
+   subrayado fino, sin negrita— pero en tinta clara: esa variante vive sobre
+   grafito y aquí el lienzo es el tinte plano de `.scene[data-module]`.
+   --------------------------------------------------------- */
+.scene__link{
+  position:absolute;
+  top:70px; left:20px; right:52px;
+  z-index:2;
+  width:fit-content;
+  font:var(--type-caption);
+  letter-spacing:var(--tracking-caption);
+  color:var(--color-ink-secondary);
+  text-decoration:none;
+  border-bottom:1px solid rgba(17,18,20,.24);
+  padding-bottom:1px;
+}
+.scene__link:hover{ color:var(--color-ink); border-bottom-color:rgba(17,18,20,.5) }
+
+/* ---------------------------------------------------------
    ESCENA ANCHA: el título en columna
    A 12 columnas el título arriba a la izquierda deja un tercio de lienzo
    muerto —la línea de texto mide lo que mide y el resto de la banda queda

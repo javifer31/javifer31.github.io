@@ -408,6 +408,20 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -432,18 +446,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="preload" as="font" type="font/woff2" crossorigin="" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/fonts/DMSans-VariableFont_opsz_wght.woff2">
 <link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260909a">
-<link rel="stylesheet" href="/solved.css?v=20260909a">
+<link rel="stylesheet" href="/solved.css?v=20260910f">
 <!-- Solved Design System (Claude Design) — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260908a">
+<link rel="stylesheet" href="/ds/site.css?v=20260911k">
 <link rel="stylesheet" href="/ds/hero.css?v=20260909a">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260909a">
+<link rel="stylesheet" href="/ds/scene.css?v=20260910a">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
 <link rel="stylesheet" href="/ds/app.css?v=20260909d">
 <link rel="stylesheet" href="/ds/dialog.css?v=20260816d">
-<link rel="stylesheet" href="/ds/sections.css?v=20260909e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260911j">
 </head>
 <body data-screen-label="Home">
 
@@ -1873,77 +1887,81 @@
 
 
 <!-- ============ TESTIMONIALS ============
-     Cita centrada de ds/sections.css, UNA por página. Antes había una rejilla
-     con los tres testimonios que hay, repetida igual en /industria-alimentaria/
-     y en /industria-general/: los mismos tres clientes tres veces. Ahora cada
-     página lleva la voz que le toca —aquí Fritoper, que es la que trae
-     resultado— y las otras dos viven en las páginas de sector. -->
+     Carril de casos, patrón 14 de ds/sections.css — calcado de «Con la
+     confianza de 80.000 organizaciones» en mitti.com/es: foto de la
+     industria del cliente con su logo, dos KPIs y el acceso al caso sobre
+     la propia foto; la cita y la firma debajo. Sustituye a la cita única de
+     Fritoper (que sigue citada en el diálogo de KPIs y en /auditorias/):
+     aquí sólo entran los tres clientes con caso en vídeo, que son los que
+     tienen foto de industria, KPIs propios y un sitio adonde llevar el
+     botón — Fritoper no tiene landing de vídeo y no encaja en la tarjeta. -->
 <section class="section" data-screen-label="Home · Testimonios">
   <div class="wrap">
-    <div class="section-head"><h2>Ce que disent les équipes qui utilisent déjà Solved</h2></div>
-    <figure class="pull-quote">
-      <img class="pull-quote__logo" src="/assets/testimonios/logo-fritoper.webp" alt="Fritoper" width="307" height="112" decoding="async" loading="lazy">
-      <blockquote><p>« Avec Solved, nous avons désormais une visibilité en temps réel de tout ce qui se passe dans nos sites de production. Cela nous a permis d'améliorer le contrôle des pertes et de réduire énormément les temps de communication et les doublons de tâches. »</p></blockquote>
-      <figcaption>
-        <img class="pull-quote__av" src="/assets/testimonios/sergio-perez.webp" alt="" width="168" height="168" decoding="async" loading="lazy">
-        <span class="pull-quote__by"><b>Sergio Pérez</b>Directeur général · Fritoper</span>
-      </figcaption>
-    </figure>
-    <!-- Fritoper no tiene landing de vídeo, así que la cita no lleva enlace de
-         caso (regla: sólo enlazan las que tienen vídeo). Este enlace es de
-         sección, no de la cita, y va al índice: era la única salida de la home
-         hacia las landings de caso y se la llevaba por delante la banda que
-         estaba aquí. -->
-    <div style="text-align:center">
-      <a class="ds-btn ds-btn--secondary" style="margin-top:var(--s-6)" href="/fr/etudes-de-cas/">Voir les cas en vidéo</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CÓMO SE EMPIEZA ============
-     Bloque 8, justo antes de la FAQ. Es lo que pide el 19 % de las llamadas
-     —empezar por un área y un caso de uso, no comprar la herramienta
-     entera— y hasta ahora la web sólo ofrecía "Solicita una demo".
-
-     NO SE DICE «PILOTO» EN NINGUNA PARTE, y es una corrección de negocio del
-     7 sep 2026: Solved no hace pruebas piloto. Lo que describe el paso 3 sigue
-     siendo verdad —se arranca en un área, se ajusta con lo que ve ese equipo y
-     de ahí se extiende—, pero eso es un despliegue por fases y no un piloto.
-     El CTA que decía «Plantear un piloto» pasa a ser el de siempre.
-
-     Escalera de ds/sections.css (patrón 8): el riel que une los tres pasos se
-     dibuja al entrar en pantalla. La numeración no es adorno, aquí hay
-     secuencia real, que es la única condición del sistema para numerar.
-
-     Las 2-3 semanas no son una promesa nueva: ya estaban en la banda de cifras
-     de aquí arriba y en /industria-alimentaria/. -->
-<section class="section" data-screen-label="Home · Proceso de implantación">
-  <div class="wrap">
     <div class="section-head section-head--split">
-      <h2>Déroulement du déploiement</h2>
-      <p>Par un domaine et un cas d'usage définis, pas par l'ensemble de l'usine.</p>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <span class="step__n" aria-hidden="true">1</span>
-        <h3>Analyse du fonctionnement actuel</h3>
-        <p>Ce qui est enregistré, sur quel support et par qui. Le cas d'usage initial découle de cette analyse.</p>
-        <span class="step__when">Une demi-heure</span>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">2</span>
-        <h3>Configuration sur les formats existants</h3>
-        <p>Vos propres modèles, champs et catégories. Inutile de refaire les procédures : le système se configure sur celles déjà documentées.</p>
-        <span class="step__when">Semaines 1 et 2</span>
-      </div>
-      <div class="step">
-        <span class="step__n" aria-hidden="true">3</span>
-        <h3>Démarrage dans un secteur et déploiement progressif</h3>
-        <p>L'équipe de cette ligne commence à enregistrer, la configuration est ajustée avec ses retours et le déploiement s'étend au reste de l'usine une fois validé.</p>
-        <span class="step__when">Semaine 3</span>
+      <h2>Con la confianza de más de 100 empresas industriales</h2>
+      <div>
+        <p>De la industria cárnica a la panificación y la iluminación, los equipos de calidad y mantenimiento registran, resuelven y demuestran resultados con Solved.</p>
+        <a class="ds-btn ds-btn--secondary" style="margin-top:16px" href="/fr/etudes-de-cas/">Ver todos los casos de éxito</a>
       </div>
     </div>
-    <a class="btn btn--primary" style="margin-top:var(--s-6)" href="#contacto">Demander une démo</a>
+
+    <div class="rail">
+      <div class="rail__controls" hidden="">
+        <button class="rail__btn" type="button" aria-label="Anterior" disabled=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
+        <button class="rail__btn" type="button" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 5l7 7-7 7"></path></svg></button>
+      </div>
+      <div class="rail__track rail__track--cases">
+
+        <a class="case-card rail__item" href="/fr/etudes-de-cas/carnavi/">
+          <div class="case-card__photo">
+            <img src="/assets/operarios-planta-alimentaria.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+            <img class="case-card__logo" src="/assets/clients-color/carnavi.webp" alt="Carnavi" width="120" height="46" loading="lazy" decoding="async">
+            <div class="case-card__kpis">
+              <div class="case-card__kpi"><b>2 horas</b><span>ahorradas al día en registro manual</span></div>
+              <div class="case-card__kpi"><b>+40 años</b><span>de la planta, hoy con Solved</span></div>
+            </div>
+            <span class="case-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+          </div>
+          <div class="case-card__foot">
+            <p class="case-card__quote">« C'est tellement intuitif qu'on l'installe sur le téléphone d'un livreur sans même avoir à lui expliquer comment enregistrer un incident. Nous sommes opérationnels dès le jour zéro. »</p>
+            <p class="case-card__by"><b>Ana Domínguez</b>Responsable qualité · Carnavi</p>
+          </div>
+        </a>
+
+        <a class="case-card rail__item" href="/fr/etudes-de-cas/panificadora-alcala/">
+          <div class="case-card__photo">
+            <img src="/assets/tablet-fabrica-pan.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+            <img class="case-card__logo" src="/assets/clients-color/panificadora-alcala.webp" alt="Panificadora Alcalá" width="120" height="46" loading="lazy" decoding="async">
+            <div class="case-card__kpis">
+              <div class="case-card__kpi"><b>De 2 a 5</b><span>plantas con el mismo sistema</span></div>
+              <div class="case-card__kpi"><b>+500</b><span>personas, desde las 200 iniciales</span></div>
+            </div>
+            <span class="case-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+          </div>
+          <div class="case-card__foot">
+            <p class="case-card__quote">«Lo utilizo como cuadro de mando: ver dónde estábamos, dónde estamos ahora y qué hemos cambiado. Y ver dónde tenemos que incidir más cuando algo se ha atascado.»</p>
+            <p class="case-card__by"><b>Samuel Pardo</b>Coordinateur du service technique · Panificadora Alcalá</p>
+          </div>
+        </a>
+
+        <a class="case-card rail__item" href="/fr/etudes-de-cas/prilux/">
+          <div class="case-card__photo">
+            <img src="/assets/planta/cnc-control-operario-ancha.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+            <img class="case-card__logo" src="/assets/clients-color/prilux.webp" alt="Prilux" width="120" height="46" loading="lazy" decoding="async">
+            <div class="case-card__kpis">
+              <div class="case-card__kpi"><b>+1.000</b><span>inspecciones de material al año</span></div>
+              <div class="case-card__kpi"><b>4</b><span>unidades de negocio, un solo sistema</span></div>
+            </div>
+            <span class="case-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+          </div>
+          <div class="case-card__foot">
+            <p class="case-card__quote">« Ce que nous apprécions le plus, c'est la facilité d'adaptation de l'équipe : Solved est très intuitif. »</p>
+            <p class="case-card__by"><b>Álvaro Sobrino</b>Directeur qualité · Prilux</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1977,7 +1995,7 @@
 </main>
 
 <div id="footer"></div>
-<script src="/fr/chrome.js?v=20260907f"></script>
+<script src="/fr/chrome.js?v=20260911e"></script>
 <!-- Elemento de la hero: el shader del prototipo, portado tal cual. -->
 <script src="/ds/hero-wave.js?v=20260901a" defer=""></script>
 <!-- Halo del borde y apertura de los diálogos. Sin él las escenas se ven y se

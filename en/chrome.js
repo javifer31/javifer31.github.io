@@ -60,36 +60,77 @@
   '<header class="nav"><div class="wrap nav__in">' +
     '<a class="nav__logo" href="' + ROOT + '"><img src="' + '/assets/logotipo-solved.webp" alt="Solved" width="1975" height="713" decoding="async"/></a>' +
     '<ul class="nav__links">' +
+      // Productos: estructura de mega-menú calcada de mitti.com/es (menú
+      // «Plataforma») — la lista de módulos arriba y, debajo, IA e
+      // Integraciones como bloque destacado con icono y flecha, no como dos
+      // filas más de la lista. Es la pieza que en Mitti son «IA de Mitti» y
+      // «Ver todas las integraciones».
       '<li class="nav__item">' +
         '<button class="nav__link" type="button">Products <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>' +
-        '<div class="nav__menu">' +
-          '<a href="' + ROOT + 'incident-management/"><b>Incidents</b><span>Log, assign and resolve with documented closure</span></a>' +
-          '<a href="' + ROOT + 'digital-checklists/"><b>Records and audits</b><span>Digital checks, checklists and audits</span></a>' +
-          '<a href="' + ROOT + 'document-management/"><b>Document manager</b><span>Current version, expiry dates and validation</span></a>' +
-          '<a href="' + ROOT + 'corrective-actions/"><b>Tasks, actions and non-conformities</b><span>Corrective actions and follow-up through to closure</span></a>' +
-          '<a href="' + ROOT + 'asset-management/"><b>Assets</b><span>Every machine with its record, its QR code and its history</span></a>' +
-          '<a href="' + ROOT + 'dashboards/"><b>KPIs and dashboards</b><span>Real-time 360º view and automatic reports</span></a>' +
-          '<a href="' + ROOT + 'ai/"><b>AI</b><span>Ask your data and get an answer that cites the report</span></a>' +
+        '<div class="nav__menu nav__menu--mega">' +
+          '<div class="nav__mega-cols">' +
+            '<a href="' + ROOT + 'incident-management/"><b>Incidents</b></a>' +
+            '<a href="' + ROOT + 'digital-checklists/"><b>Records</b></a>' +
+            '<a href="' + ROOT + 'corrective-actions/"><b>Tareas</b></a>' +
+            '<a href="' + ROOT + 'dashboards/"><b>KPIs</b></a>' +
+            '<a href="' + ROOT + 'document-management/"><b>Document manager</b></a>' +
+            '<a href="' + ROOT + 'asset-management/"><b>Asset management</b></a>' +
+          '</div>' +
+          '<div class="nav__mega-blocks">' +
+            '<a class="nav__mega-block" href="' + ROOT + 'ai/">' +
+              '<span class="nav__mega-block__ico" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false">' +
+                '<linearGradient id="navIaGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A855F7"/><stop offset=".52" stop-color="#D34F9D"/><stop offset="1" stop-color="#1FD6F5"/></linearGradient>' +
+                '<path fill="url(#navIaGrad)" d="M12 1.4c.62 5.62 4.56 9.56 10.18 10.18v.84c-5.62.62-9.56 4.56-10.18 10.18h-.84C10.54 17 6.6 13.04.98 12.42v-.84C6.6 10.96 10.54 7.02 11.16 1.4z"/>' +
+              '</svg></span>' +
+              '<span class="nav__mega-block__txt"><b>AI</b></span>' +
+              '<span class="nav__mega-block__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
+            '</a>' +
+            '<a class="nav__mega-block" href="' + ROOT + 'integrations/">' +
+              '<span class="nav__mega-block__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M9.1 9.1l5.8 5.8"/></svg></span>' +
+              '<span class="nav__mega-block__txt"><b>Integrations</b></span>' +
+              '<span class="nav__mega-block__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
+            '</a>' +
+          '</div>' +
         '</div>' +
       '</li>' +
+      // Casos de uso: la lista de sectores y normas a la izquierda, y a la
+      // derecha dos fichas de caso de éxito con foto — el mismo reparto que
+      // el menú «Soluciones» de Mitti, que lleva sus casos de cliente al
+      // lateral en vez de mezclarlos con la lista. El fondo es una foto de
+      // ambiente de la industria de cada cliente (no su cara, que es la del
+      // vídeo) más su logo, para que se lea la industria de un vistazo.
       '<li class="nav__item">' +
-        '<button class="nav__link" type="button">Industries <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>' +
-        '<div class="nav__menu">' +
-          '<a href="' + ROOT + 'manufacturing/"><b>Manufacturing</b><span>Manufacturing and processes</span></a>' +
-          '<a href="' + ROOT + 'food-industry/"><b>Food industry</b><span>Food safety and quality</span></a>' +
+        '<button class="nav__link" type="button">Casos de uso <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>' +
+        '<div class="nav__menu nav__menu--mega nav__menu--split">' +
+          '<div class="nav__mega-cols">' +
+            '<a href="' + ROOT + 'manufacturing/"><b>Manufacturing</b></a>' +
+            '<a href="' + ROOT + 'food-industry/"><b>Food industry</b></a>' +
+            '<a href="' + ROOT + 'haccp-software/"><b>APPCC</b></a>' +
+            '<a href="' + ROOT + 'iso-22000-software/"><b>ISO 22000</b></a>' +
+            '<a href="' + ROOT + 'certification-software/"><b>Certifications</b></a>' +
+            '<a href="' + ROOT + 'supplier-approval/"><b>Supplier approval</b></a>' +
+            '<a href="' + ROOT + 'software-gmao/"><b>Maintenance</b></a>' +
+          '</div>' +
+          '<div class="nav__mega-side">' +
+            '<a class="nav__mega-case" href="' + ROOT + 'case-studies/carnavi/" style="background-image:url(\'' + '/assets/operarios-planta-alimentaria.webp\')">' +
+              '<img class="nav__mega-case__logo" src="' + '/assets/clients-color/carnavi.webp" alt="Carnavi" width="120" height="46" loading="lazy" decoding="async">' +
+              '<span class="nav__mega-case__tag">Caso de éxito</span>' +
+              '<span class="nav__mega-case__title">Dos horas diarias dedicadas al registro manual de incidencias</span>' +
+            '</a>' +
+            '<a class="nav__mega-case" href="' + ROOT + 'case-studies/panificadora-alcala/" style="background-image:url(\'' + '/assets/tablet-fabrica-pan.webp\')">' +
+              '<img class="nav__mega-case__logo" src="' + '/assets/clients-color/panificadora-alcala.webp" alt="Panificadora de Alcalá" width="120" height="46" loading="lazy" decoding="async">' +
+              '<span class="nav__mega-case__tag">Caso de éxito</span>' +
+              '<span class="nav__mega-case__title">De dos plantas a cinco, con el registro todavía en papel</span>' +
+            '</a>' +
+          '</div>' +
         '</div>' +
-      '</li>' +
-      // Integraciones va sin submenú a propósito: sólo hay una página y el
-      // acordeón móvil se engancha a `button.nav__link`, no a los enlaces.
-      '<li class="nav__item">' +
-        '<a class="nav__link" href="' + ROOT + 'integrations/">Integrations</a>' +
       '</li>' +
       '<li class="nav__item">' +
         '<button class="nav__link" type="button">Resources <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>' +
         '<div class="nav__menu">' +
-          '<a href="' + ROOT + 'case-studies/"><b>Case studies</b><span>How they work with Solved, in their own words</span></a>' +
-          '<a href="' + ROOT + 'blog/"><b>Blog</b><span>Articles and guides on quality and industry</span></a>' +
-          '<a href="' + ROOT + 'glossary/"><b>Glossary</b><span>Industry terms explained</span></a>' +
+          '<a href="' + ROOT + 'case-studies/"><b>Case studies</b></a>' +
+          '<a href="' + ROOT + 'blog/"><b>Blog</b></a>' +
+          '<a href="' + ROOT + 'glossary/"><b>Glossary</b></a>' +
         '</div>' +
       '</li>' +
       '<li class="nav__cta-mobile"><a class="btn btn--primary" href="' + demo + '">Book a demo</a></li>' +
@@ -176,7 +217,7 @@
 
       var hoja = doc.createElement('link');
       hoja.rel = 'stylesheet';
-      hoja.href = ROOT + 'ds/hsform.css?v=20260907d';
+      hoja.href = ROOT + 'ds/hsform.css?v=20260910a';
       doc.head.appendChild(hoja);
 
       var marco = doc.defaultView && doc.defaultView.frameElement;

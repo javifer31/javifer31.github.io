@@ -401,6 +401,20 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -424,22 +438,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="preload" as="font" type="font/woff2" crossorigin="" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/fonts/DMSans-VariableFont_opsz_wght.woff2">
 <link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260909a">
-<link rel="stylesheet" href="/solved.css?v=20260909a">
+<link rel="stylesheet" href="/solved.css?v=20260910f">
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260908a">
+<link rel="stylesheet" href="/ds/site.css?v=20260911k">
 <link rel="stylesheet" href="/ds/hero.css?v=20260909a">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
 <link rel="stylesheet" href="/ds/aiband.css?v=20260908b">
-<link rel="stylesheet" href="/ds/sections.css?v=20260909e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260911j">
 <!-- Las cuatro hojas del componente Escena de producto, en su orden: el tinte
      del lienzo, el marco de la tarjeta, los marcos de dispositivo y las
      pantallas de la app que van dentro. Entran el 17 de agosto con la sección
      «Detecta». -->
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260909a">
+<link rel="stylesheet" href="/ds/scene.css?v=20260910a">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
 <link rel="stylesheet" href="/ds/app.css?v=20260909d">
 <style>
@@ -1019,6 +1033,14 @@
            de mantenimiento y nada más. -->
       <article class="scene" data-module="acciones" data-span="4" data-ratio="fila">
         <h3 class="scene__title">Asigna tareas a cualquier persona del equipo para solucionar la incidencia</h3>
+        <!-- ENLACE DE VUELTA A /no-conformidades/ (10 sep 2026, petición del cliente). Es uno de
+             los cinco que vivían en el rotador de capacidades retirado el 9 de septiembre — ver la
+             nota de esa fecha, unas líneas más abajo en este fichero: «el sitio natural es el pie de
+             la banda o una línea en las respuestas de la FAQ». Aquí se opta por la tercera vía, pegado
+             a la escena que lo motiva: `.scene` no trae hueco para enlace (ver `ds/scene.css`, «Sin
+             descripción dentro de la tarjeta»), así que `.scene__link` es una excepción declarada y
+             sólo se usa donde el marcado la pide, no una clase nueva del componente. -->
+        <a class="scene__link" href="/no-conformidades/">Ver las acciones de Solved →</a>
         <span class="scene__glow" aria-hidden="true"></span>
         <!-- SIN PANEL (`--suelto`). El formulario trae su propia sombra y su propio
              canto, así que con la del contenedor detrás lo que se veía era un
@@ -1398,7 +1420,13 @@
      existía. Si se quieren de vuelta, el sitio natural es el pie de la banda o
      una línea en las respuestas de la FAQ. -->
 
-<!-- ============ RESULTS ============ -->
+<!-- ============ RESULTS + TESTIMONIO ============
+     Fusionadas en una sola sección el 11 de septiembre de 2026, a petición
+     del cliente: la prueba con cifras y la cita de un cliente real son el
+     mismo argumento —esto ya lo usan y funciona—, no dos temas que necesiten
+     su propio encuadre. Con la fusión se retira el título «Referencias:
+     equipos que ya registran aquí sus incidencias»: el titular de las cifras
+     ya abre el bloque entero y un segundo título encima de la cita sobraba. -->
 <section class="section section--results-big" data-screen-label="Incidencias · Resultados">
   <div class="wrap">
     <div class="section-head section-head--split">
@@ -1412,27 +1440,24 @@
       <div class="ds-stat"><b>90%</b><span>De las incidencias se resuelven antes de 48 hs</span></div>
       <div class="ds-stat"><b>100%</b><span>Compatible con sistemas ERP, MES y GMAO</span></div>
     </div>
-  </div>
-</section>
-
-<!-- ============ TESTIMONIALS ============ -->
-<section class="section" data-screen-label="Incidencias · Testimonios">
-  <div class="wrap">
-    <div class="section-head"><h2>Referencias: equipos que ya registran aquí sus incidencias</h2></div>
-    <!-- Cita centrada de ds/sections.css, UNA por página. Carnavi va en esta
-         página y no en una de sector porque su cita argumenta justo lo de aquí:
-         registrar una incidencia desde el móvil sin formación previa. Sale del
-         webinar del 26 de mayo de 2026 (transcripción en
-         ~/Vídeos/casos-exito-solved/), no de una reunión de trabajo. -->
-    <figure class="pull-quote">
-      <img class="pull-quote__logo" src="/assets/testimonios/logo-carnavi.webp" alt="Carnavi" width="217" height="112" decoding="async" loading="lazy">
-      <blockquote><p>«Es tan intuitiva que se la instalas en el móvil a un repartidor y no tienes ni que explicarle cómo registrar una incidencia. Somos operativos desde el día cero.»</p></blockquote>
-      <figcaption>
-        <img class="pull-quote__av" src="/assets/testimonios/ana-dominguez.webp" alt="" width="168" height="168" decoding="async" loading="lazy">
-        <span class="pull-quote__by"><b>Ana Domínguez</b>Responsable de calidad · Carnavi</span>
-      </figcaption>
-      <a class="pull-quote__caso" href="/casos-de-exito/carnavi/">Ver el caso de Carnavi en vídeo →</a>
-    </figure>
+    <!-- La tarjeta de Carnavi, variante ancha (case-card--banda, ds/sections.css):
+         petición del cliente el 11 de septiembre de 2026 sobre la primera
+         versión —calcada de la de la home—, que aquí resultaba demasiado alta
+         y con datos de más. En esta página sólo hace falta el testimonio: se
+         quitan los KPIs, y la cita con la firma se suben a la propia foto,
+         junto al logo, en vez de ir debajo. El botón redondo sí se queda
+         —sin él, nada en la tarjeta dice que se puede abrir—. -->
+    <a class="case-card case-card--banda" href="/casos-de-exito/carnavi/">
+      <div class="case-card__photo">
+        <img src="/assets/sala-despiece-cerdo.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+        <img class="case-card__logo" src="/assets/clients-color/carnavi.webp" alt="Carnavi" width="120" height="46" loading="lazy" decoding="async">
+        <div class="case-card__banda-txt">
+          <p class="case-card__quote">«Es tan intuitiva que se la instalas en el móvil a un repartidor y no tienes ni que explicarle cómo registrar una incidencia. Somos operativos desde el día cero.»</p>
+          <p class="case-card__by"><b>Ana Domínguez</b>Responsable de calidad · Carnavi</p>
+        </div>
+        <span class="case-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -1466,7 +1491,7 @@
 </section>
 
 <div id="footer"></div>
-<script src="/chrome.js?v=20260907f"></script>
+<script src="/chrome.js?v=20260911e"></script>
 <!-- El halo del borde de las escenas. Sólo eso: aquí ninguna escena expande, así
      que la parte del diálogo del script no llega a engancharse. Sin JS las
      cuatro tarjetas se ven enteras. -->

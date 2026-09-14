@@ -108,8 +108,19 @@ body,
 }
 
 /* Dos columnas con la calle del sistema. HubSpot las reparte con porcentajes y
-   márgenes; aquí es una rejilla y el hueco es real. */
-@media (min-width:520px){
+   márgenes; aquí es una rejilla y el hueco es real.
+
+   EL UMBRAL SE MIDE CONTRA EL ANCHO DEL IFRAME, no de la ventana: la marca
+   estaba en 520px porque así se escribió cuando el formulario vivía a todo el
+   ancho de la página. Desde que el contacto reparte tarjeta + foto a dos
+   columnas, el iframe mide ~390-450px SIEMPRE —comprobado en `/software-gmao/`
+   con el iframe en vivo—, así que el umbral no se cruzaba nunca y Nombre y
+   Apellidos caían al `float:left` de HubSpot: sin `display:grid` de por
+   medio, el segundo campo queda descuadrado respecto al primero. Bajado a
+   320px, que es lo que cabe sin problema para dos etiquetas cortas y sigue
+   dejando el estado apilado como red de seguridad en un iframe todavía más
+   estrecho. */
+@media (min-width:320px){
   .hs-form fieldset.form-columns-2{
     display:grid; grid-template-columns:1fr 1fr; gap:16px;
   }

@@ -44,6 +44,75 @@
 .nav__menu--lang a[aria-current="true"]{ color:var(--color-primary); }
 .nav__item--lang .nav__link{ display:inline-flex; align-items:center; gap:6px; }
 
+/* Bloques destacados del mega-menú de Productos (IA · Integraciones) —
+   fondo de malla de gradiente, referencia instantly.ai: una superficie
+   continua que va de una esquina oscura a un acento brillante, sin bordes
+   de mancha visibles, que respira despacio y lleva un reflejo diagonal que
+   la cruza muy de vez en cuando. Nada de manchas sueltas ni de bordes que
+   se funden entre sí — aquí no hay borde que ver.
+   El texto y los iconos van en blanco sobre el fondo oscuro, igual en los
+   dos bloques. */
+.nav__mega-block--ia,
+.nav__mega-block--int{ position:relative; overflow:hidden; isolation:isolate; }
+.nav__mega-block--ia .nav__mega-block__txt b,
+.nav__mega-block--int .nav__mega-block__txt b{ color:#fff; }
+.nav__mega-block--ia .nav__mega-block__go,
+.nav__mega-block--int .nav__mega-block__go{ border-color:rgba(255,255,255,.35); color:#fff; }
+.nav__mega-block--ia .nav__mega-block__ico,
+.nav__mega-block--int .nav__mega-block__ico{ background:rgba(255,255,255,.92); }
+.nav__menu .nav__mega-block--ia:hover,
+.nav__menu .nav__mega-block--int:hover{ background:inherit; }
+
+/* La malla: un fondo con tres capas —la base y dos acentos— más grande que
+   la caja, así el recorte del bloque nunca enseña un canto recto de
+   gradiente. Anima sólo `background-position`, que es lo que da la deriva
+   lenta sin mover ninguna forma reconocible. */
+.nav__mega-block--ia .nav__mega-block__lava,
+.nav__mega-block--int .nav__mega-block__lava{ position:absolute; inset:-30% -20%; z-index:0;
+  background-repeat:no-repeat; animation:mega-mesh-drift 5s linear infinite alternate; }
+.nav__mega-block--ia .nav__mega-block__lava{
+  background-image:
+    radial-gradient(48% 56% at 85% 18%, #ffd699 0%, transparent 60%),
+    radial-gradient(48% 56% at 14% 82%, #ff42d6 0%, transparent 60%),
+    linear-gradient(125deg, #1c0a2b 0%, #d926c9 40%, #ff8a1f 100%);
+  background-size:150% 150%, 150% 150%, 130% 130%; }
+.nav__mega-block--int .nav__mega-block__lava{
+  background-image:
+    radial-gradient(48% 56% at 85% 18%, #d4fff5 0%, transparent 60%),
+    radial-gradient(48% 56% at 14% 82%, #1fd6f5 0%, transparent 60%),
+    linear-gradient(125deg, #04101f 0%, #0a6fd1 40%, #1fd6f5 100%);
+  background-size:150% 150%, 150% 150%, 130% 130%; }
+
+/* El reflejo: una franja diagonal y estrecha que barre el bloque de esquina
+   a esquina, clara como el brillo que en instantly.ai recorre el fondo —
+   aquí más marcada porque el recuadro es pequeño y una franja ancha no se
+   lee como algo que se mueve. */
+.nav__mega-block--ia::before,
+.nav__mega-block--int::before{ content:''; position:absolute; z-index:1; pointer-events:none;
+  inset:-60% -30%;
+  background:linear-gradient(115deg, transparent 44%, rgba(255,255,255,.5) 50%, transparent 56%);
+  mix-blend-mode:screen; animation:mega-mesh-sheen 2.6s linear infinite; }
+
+.nav__mega-block--ia .nav__mega-block__ico,
+.nav__mega-block--ia .nav__mega-block__txt,
+.nav__mega-block--ia .nav__mega-block__go,
+.nav__mega-block--int .nav__mega-block__ico,
+.nav__mega-block--int .nav__mega-block__txt,
+.nav__mega-block--int .nav__mega-block__go{ position:relative; z-index:2; }
+
+@keyframes mega-mesh-drift{
+  0%,100%{ background-position:0% 0%, 100% 100%, 0% 0%; }
+  50%{ background-position:55% 45%, 45% 55%, 34% 26%; }
+}
+@keyframes mega-mesh-sheen{
+  0%{ transform:translate(-70%,-25%); }
+  100%{ transform:translate(70%,25%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .nav__mega-block--ia .nav__mega-block__lava, .nav__mega-block--int .nav__mega-block__lava,
+  .nav__mega-block--ia::before, .nav__mega-block--int::before{ animation:none; }
+}
+
 /* El hueco que deja el nav fijo. La altura vive en una variable porque no la
    usa sólo la barra: la hero la resta para ocupar el 90 % de la pantalla
    (ds/hero.css) y el desplegable de móvil la usa para colgar de ella. */
@@ -531,6 +600,18 @@ h4, h5, h6,
    no separan el doble: separan peor. Se quedan en una. */
 .section-head--split:has(+ .ds-stats){ margin-bottom:0; }
 .section-head--split + .ds-stats{ border-top:0; padding-top:36px; }
+
+/* Cifras + cita (o tarjeta de caso) en la misma sección (11 sep 2026,
+   /incidencias/): la banda de `.ds-stats` ya cierra con su propio hairline
+   inferior, así que lo que va debajo no necesita otra línea encima — sólo el
+   aire que antes ponía el hueco entre dos secciones. Sin esto se queda
+   pegado al raíl de las cifras. */
+.ds-stats + .pull-quote,
+.ds-stats + .case-card--banda{ margin-top:56px; }
+@media (max-width:600px){
+  .ds-stats + .pull-quote,
+  .ds-stats + .case-card--banda{ margin-top:40px; }
+}
 
 /* Nota de contacto (7 sep 2026). Las landings de producto se acortaron a la
    propuesta de valor y las características, así que las preguntas de encaje

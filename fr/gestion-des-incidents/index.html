@@ -408,6 +408,20 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -431,22 +445,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="preload" as="font" type="font/woff2" crossorigin="" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/fonts/DMSans-VariableFont_opsz_wght.woff2">
 <link rel="stylesheet" href="/_ds/solved-design-system-019dd861-f654-7208-a0d9-ce01d38606b8/colors-and-type.css?v=20260909a">
-<link rel="stylesheet" href="/solved.css?v=20260909a">
+<link rel="stylesheet" href="/solved.css?v=20260910f">
 <!-- Solved Design System — va después de solved.css para que mande -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
-<link rel="stylesheet" href="/ds/site.css?v=20260908a">
+<link rel="stylesheet" href="/ds/site.css?v=20260911k">
 <link rel="stylesheet" href="/ds/hero.css?v=20260909a">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
 <link rel="stylesheet" href="/ds/aiband.css?v=20260908b">
-<link rel="stylesheet" href="/ds/sections.css?v=20260909e">
+<link rel="stylesheet" href="/ds/sections.css?v=20260911j">
 <!-- Las cuatro hojas del componente Escena de producto, en su orden: el tinte
      del lienzo, el marco de la tarjeta, los marcos de dispositivo y las
      pantallas de la app que van dentro. Entran el 17 de agosto con la sección
      «Detecta». -->
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260909a">
+<link rel="stylesheet" href="/ds/scene.css?v=20260910a">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
 <link rel="stylesheet" href="/ds/app.css?v=20260909d">
 <style>
@@ -1025,6 +1039,14 @@
            de mantenimiento y nada más. -->
       <article class="scene" data-module="acciones" data-span="4" data-ratio="fila">
         <h3 class="scene__title">Attribuez les tâches à n'importe qui dans l'équipe pour résoudre l'incident</h3>
+        <!-- ENLACE DE VUELTA A /no-conformidades/ (10 sep 2026, petición del cliente). Es uno de
+             los cinco que vivían en el rotador de capacidades retirado el 9 de septiembre — ver la
+             nota de esa fecha, unas líneas más abajo en este fichero: «el sitio natural es el pie de
+             la banda o una línea en las respuestas de la FAQ». Aquí se opta por la tercera vía, pegado
+             a la escena que lo motiva: `.scene` no trae hueco para enlace (ver `ds/scene.css`, «Sin
+             descripción dentro de la tarjeta»), así que `.scene__link` es una excepción declarada y
+             sólo se usa donde el marcado la pide, no una clase nueva del componente. -->
+        <a class="scene__link" href="/fr/actions-correctives/">Voir les actions de Solved →</a>
         <span class="scene__glow" aria-hidden="true"></span>
         <!-- SIN PANEL (`--suelto`). El formulario trae su propia sombra y su propio
              canto, así que con la del contenedor detrás lo que se veía era un
@@ -1472,7 +1494,7 @@
 </section>
 
 <div id="footer"></div>
-<script src="/fr/chrome.js?v=20260907f"></script>
+<script src="/fr/chrome.js?v=20260911e"></script>
 <!-- El halo del borde de las escenas. Sólo eso: aquí ninguna escena expande, así
      que la parte del diálogo del script no llega a engancharse. Sin JS las
      cuatro tarjetas se ven enteras. -->
