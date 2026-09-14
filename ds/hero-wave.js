@@ -578,8 +578,23 @@
        encoge a medias (0.62+0.38k) y no del todo: en una pantalla alta sobra
        sitio por arriba y por abajo, y una pila encogida entera se quedaba en
        una franja fina en el medio. */
-    "float cy=esc*0.058*(0.62+0.38*k)-0.075*k;",
-    "float cx=0.26*asp-esc*sep;",
+    /* EN MÓVIL LA PILA SE VA ARRIBA Y A LA DERECHA (14 sep 2026). En
+       escritorio vive a la derecha del texto, que ocupa el 76 %. Por debajo
+       de 900px el texto pasa a 100 % de ancho y la pila, centrada en el
+       lienzo, cruzaba el párrafo de /gestor-documental/ —captura del
+       cliente—. Se probaron dos salidas y las dos se descartaron el mismo
+       día: atenuarla a un cuarto de opacidad (dejaba de parecerse a la de
+       escritorio) y sacarla a una banda encima del texto (rechazada
+       expresamente: «quiero que sea como en PC y esté en el fondo»). Lo
+       que sí vale es lo que hace el haz de la home, que el cliente dio por
+       bueno: el material queda detrás del texto pero en la esquina
+       superior derecha, donde el lavado lo deja vivo y bajo el titular sólo
+       asoma su borde lavado. `mov` es 0 en escritorio (k=1), así que allí
+       no cambia nada, y en el móvil más estrecho desplaza la pila un 42 %
+       del ancho a la derecha y 0.45 del alto hacia arriba. */
+    "float mov=1.0-k;",
+    "float cy=esc*0.058*(0.62+0.38*k)-0.075*k+mov*0.45;",
+    "float cx=0.26*asp-esc*sep+mov*0.42*asp;",
     /* La comba del papel, no la onda de la cinta. */
     "float c=cy+0.020*k*sin(q.x*0.78+uT*0.16+ph)+0.009*k*sin(q.x*0.36-uT*0.11+ph*1.7);",
     "float hw=(0.021+0.005*sin(q.x*0.62+uT*0.18+ph*1.3))*k;",
@@ -606,12 +621,10 @@
     "col=mix(" + p.papel + ",col,0.30+0.70*wash);",
     "alp*=0.26+0.74*wash;",
     /* Hubo aquí, durante unas horas del 14 de septiembre de 2026, un segundo
-       atenuador que bajaba la pila a un cuarto de opacidad en móvil, porque
-       el párrafo la cruzaba. Se quitó el mismo día: la causa no era la pila,
-       era que en móvil texto y material compartían el mismo sitio, y eso lo
-       resuelve ds/hero.css apilando el canvas en una banda encima del texto.
-       Con la banda la proporción vuelve a estar cerca del 2:1 y `k` cerca de
-       1, así que aquí no hace falta atenuar nada. */
+       atenuador que bajaba la pila a un cuarto de opacidad en móvil porque el
+       párrafo la cruzaba. Se quitó el mismo día: la pila tiene que verse como
+       en escritorio, y lo que la saca de debajo del párrafo es `mov` (arriba,
+       en cx/cy), no la opacidad. */
     "col=mix(col," + p.papel + "," + p.velo + ");",
     "if(alp<0.004)discard;",
     "gl_FragColor=vec4(col,clamp(alp,0.0,1.0));}"
