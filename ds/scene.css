@@ -295,6 +295,16 @@ button.scene{
   .scene[data-span="12"] .scene__media[data-crop="br"],
   .scene[data-span="12"] .scene__media[data-crop="r"]{ left:11%; top:26%; right:-14%; bottom:-10% }
   .scene[data-span="12"] .scene__media[data-crop="dev-br"]{ left:13%; top:25%; width:104% }
+  /* FALTABA "b" EN ESTE RESET (14 sep 2026, tercera vuelta), y es lo que
+     dejaba la escena de IA de la home con el fragmento subido encima del
+     título. `b` no estaba en la lista de arriba, así que por debajo de
+     900px se quedaba con la regla de la ancha —`top:14%`, pensada para un
+     título en columna a la izquierda que en móvil ya no existe—: la
+     ventana del chat quedaba a 14% de una tarjeta cuyo título había vuelto
+     arriba, y una tapaba a la otra. Mismo valor que la `b` de cualquier
+     escena normal: sin sangrado por la derecha, que es lo que pide esta
+     forma —la pregunta va pegada a ese margen y sangrar la cortaría—. */
+  .scene[data-span="12"] .scene__media[data-crop="b"]{ left:11%; right:11%; top:26%; bottom:-10% }
 }
 
 /* ---------------------------------------------------------
@@ -521,10 +531,58 @@ button.scene{
 @media (max-width:600px){
   .scene-grid{ grid-template-columns:1fr; gap:16px }
   .scene[data-span]{ grid-column:auto }
+  /* 4:3 SE QUEDABA CORTO (14 sep 2026, segunda vuelta). A una columna la
+     escena mide el ancho de la pantalla —358px en un iPhone de gama media—
+     y a 4:3 eso da 268px de alto. El título ocupa hasta el 63 (dos líneas,
+     `top:20px` fijo) y el primer encuadre del fragmento (`top:25-26%`)
+     empezaba a los 67-70px: cuatro píxeles de margen, y con un título de una
+     palabra más en otro idioma, ninguno — el cliente lo vio solapado. El
+     cuadrado da un tercio más de alto y separa las dos cosas de verdad; de
+     paso el fragmento recortado se ve más entero, que era la otra queja
+     («se corta»). */
   .scene[data-ratio="4:3"],
   .scene[data-ratio="1:1"],
   .scene[data-ratio="21:9"],
-  .scene[data-ratio="fila"]{ aspect-ratio:4/3 }
+  .scene[data-ratio="fila"]{ aspect-ratio:1/1 }
+}
+
+/* ---------------------------------------------------------
+   CARRUSEL EN MÓVIL — modificador `.scene-grid--carrusel`
+   Sólo lo lleva la rejilla de escenas de la home (petición del cliente, 14
+   sep 2026): ahí las seis tarjetas en columna hacían la página kilométrica.
+   En carril se llegan igual —deslizando— y cada una se ve entera en vez de
+   a media pantalla al hacer scroll. El resto de páginas con `.scene-grid`
+   (incidencias, activos, las de industria…) NO lo llevan: para ellas basta
+   el cuadrado de arriba.
+
+   Sin JS: scroll nativo con scroll-snap, como el carril recortado de
+   ds/sections.js pero sin flechas —aquí no hacen falta, es táctil, y el
+   propio componente ya dice «en táctil se arrastra»—. No se reutiliza
+   `.rail` tal cual porque ésa es carril también en escritorio; aquí la
+   rejilla de la home tiene que seguir siendo rejilla por encima de 600px.
+   --------------------------------------------------------- */
+@media (max-width:600px){
+  .scene-grid--carrusel{
+    display:grid;
+    /* `.scene-grid` de base declara `grid-template-columns:1fr` a este ancho
+       (la regla de arriba, para cuando NO es carrusel). Dejarla puesta aquí
+       competía con las columnas implícitas de abajo: un `1fr` explícito se
+       reparte lo que quede DESPUÉS de las `86%` fijas, y cinco columnas al
+       86% ya suman más que el contenedor — al primer hijo no le tocaba casi
+       nada (2px de ancho). `none` deja las seis columnas por igual, todas
+       implícitas. */
+    grid-template-columns:none;
+    grid-auto-flow:column;
+    grid-auto-columns:86%;
+    gap:14px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    padding-bottom:6px;
+  }
+  .scene-grid--carrusel::-webkit-scrollbar{ display:none }
+  .scene-grid--carrusel > .scene[data-span]{ grid-column:auto; scroll-snap-align:start }
 }
 
 /* El móvil es el encuadre que peor aguanta el estrechamiento: su ancho es un

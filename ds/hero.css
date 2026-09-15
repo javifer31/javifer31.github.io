@@ -93,16 +93,20 @@
 @media (max-width:900px){
   .ds-hero__txt{ width:100%; }
   .ds-hero h1{ max-width:none; }
-
+  /* LA CREATIVIDAD DE LA HERO SE QUITA EN MÓVIL (14 sep 2026, tercera vuelta).
+     Se probó primero como banda encima del texto (rechazado ese mismo día:
+     «no lo quiero encima del texto, quiero que sea como en PC») y luego se
+     retocó `ds/hero-wave.js` para que cada forma tuviera más presencia sin
+     mover nada en escritorio. El cliente vio el resultado y pidió quitarla
+     directamente: con el titular al 100 % de ancho no hay franja limpia en
+     la que el material viva sin competir con el texto. Se oculta el canvas,
+     no se desmonta: `ds/hero-wave.js` sigue montándose y pintando igual que
+     en escritorio, sólo que aquí no se ve. Queda el fondo liso —papel o
+     grafito, según `--ds-surface`— y el texto solo. Si algún día se decide
+     recuperar el material en móvil, es quitar esta regla; el ajuste de
+     grosor del commit anterior se queda intacto para cuando eso pase. */
+  .ds-hero__weave{ display:none; }
 }
-/* PROBADO Y DESCARTADO (14 sep 2026): el shader como banda ENCIMA del texto
-   en móvil. Se montó porque aquí el texto pasa a 100 % de ancho y las formas
-   del shader no tienen franja limpia en la que vivir; el cliente lo rechazó
-   el mismo día con captura —«no lo quiero encima del texto, quiero que sea
-   como en PC y esté en el fondo»— y además dejaba un hueco blanco entre banda
-   y titular. El material se queda DETRÁS del texto, como en escritorio; lo
-   que se ajusta para móvil es dónde se coloca cada forma dentro del lienzo
-   (ds/hero-wave.js, `k`), no la maqueta de la hero. */
 /* En teléfono los dos botones no caben en una línea y quedaban partidos y de
    anchos distintos, uno debajo de otro. Se dan por vencidos antes: cada uno
    ocupa la línea entera, que además es la única forma de que el área de toque

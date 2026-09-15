@@ -77,7 +77,8 @@
             '<a href="' + ROOT + 'gestion-des-actifs/"><b>Gestion des actifs</b></a>' +
           '</div>' +
           '<div class="nav__mega-blocks">' +
-            '<a class="nav__mega-block" href="' + ROOT + 'ia/">' +
+            '<a class="nav__mega-block nav__mega-block--ia" href="' + ROOT + 'ia/">' +
+              '<span class="nav__mega-block__lava" aria-hidden="true"></span>' +
               '<span class="nav__mega-block__ico" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false">' +
                 '<linearGradient id="navIaGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A855F7"/><stop offset=".52" stop-color="#D34F9D"/><stop offset="1" stop-color="#1FD6F5"/></linearGradient>' +
                 '<path fill="url(#navIaGrad)" d="M12 1.4c.62 5.62 4.56 9.56 10.18 10.18v.84c-5.62.62-9.56 4.56-10.18 10.18h-.84C10.54 17 6.6 13.04.98 12.42v-.84C6.6 10.96 10.54 7.02 11.16 1.4z"/>' +
@@ -85,7 +86,8 @@
               '<span class="nav__mega-block__txt"><b>IA</b></span>' +
               '<span class="nav__mega-block__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
             '</a>' +
-            '<a class="nav__mega-block" href="' + ROOT + 'integrations/">' +
+            '<a class="nav__mega-block nav__mega-block--int" href="' + ROOT + 'integrations/">' +
+              '<span class="nav__mega-block__lava" aria-hidden="true"></span>' +
               '<span class="nav__mega-block__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><path d="M9.1 9.1l5.8 5.8"/></svg></span>' +
               '<span class="nav__mega-block__txt"><b>Intégrations</b></span>' +
               '<span class="nav__mega-block__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
@@ -112,12 +114,12 @@
             '<a href="' + ROOT + 'software-gmao/"><b>Maintenance</b></a>' +
           '</div>' +
           '<div class="nav__mega-side">' +
-            '<a class="nav__mega-case" href="' + ROOT + 'etudes-de-cas/carnavi/" style="background-image:url(\'' + '/assets/operarios-planta-alimentaria.webp\')">' +
+            '<a class="nav__mega-case" href="' + ROOT + 'etudes-de-cas/carnavi/" style="background-image:url(\'' + '/assets/sala-despiece-cerdo.webp\')">' +
               '<img class="nav__mega-case__logo" src="' + '/assets/clients-color/carnavi.webp" alt="Carnavi" width="120" height="46" loading="lazy" decoding="async">' +
               '<span class="nav__mega-case__tag">Caso de éxito</span>' +
               '<span class="nav__mega-case__title">Dos horas diarias dedicadas al registro manual de incidencias</span>' +
             '</a>' +
-            '<a class="nav__mega-case" href="' + ROOT + 'etudes-de-cas/panificadora-alcala/" style="background-image:url(\'' + '/assets/tablet-fabrica-pan.webp\')">' +
+            '<a class="nav__mega-case" href="' + ROOT + 'etudes-de-cas/panificadora-alcala/" style="background-image:url(\'' + '/assets/panaderia-industrial-hornos.webp\')">' +
               '<img class="nav__mega-case__logo" src="' + '/assets/clients-color/panificadora-alcala.webp" alt="Panificadora de Alcalá" width="120" height="46" loading="lazy" decoding="async">' +
               '<span class="nav__mega-case__tag">Caso de éxito</span>' +
               '<span class="nav__mega-case__title">De dos plantas a cinco, con el registro todavía en papel</span>' +

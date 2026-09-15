@@ -422,6 +422,41 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -454,9 +489,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
 <link rel="stylesheet" href="/ds/site.css?v=20260911k">
-<link rel="stylesheet" href="/ds/hero.css?v=20260914d">
+<link rel="stylesheet" href="/ds/hero.css?v=20260914f">
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260910a">
+<link rel="stylesheet" href="/ds/scene.css?v=20260914b">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
@@ -537,7 +572,7 @@
         </span>
       </div>
       <h1>Digitalisieren Sie Ihre Werksaufzeichnungen und Checklisten: <span class="ds-dim">Erfassen Sie von überall und erzeugen Sie die Dokumente automatisch.</span></h1>
-      <p class="ds-hero__sub">Reinigung, Temperaturen, Gewichte, Wareneingang und vorbeugende Instandhaltung: dieselben Meldungen, die Sie schon nutzen, auf Ihren eigenen Formularen und direkt vor Ort ausgefüllt. Eine Kontrolle mit Ergebnis KO öffnet die Störung von selbst.</p>
+      <p class="ds-hero__sub">Dieselben Meldungen, die du schon nutzt —Reinigung, Temperaturen, Gewichte, Instandhaltung—, sofort ausgefüllt. Ein KO öffnet die Störung automatisch.</p>
       <div class="ds-hero__cta">
         <a class="ds-btn ds-btn--primary" href="#contacto">Demo anfordern</a>
       </div>
@@ -1427,8 +1462,25 @@
      texto ya traducido: no se lanzó `build:i18n` porque a esta hora hay una
      traducción de contenido en marcha (`translate-contenido.mjs --lang pt`) y
      ese build regenera las 22 páginas comerciales de los cinco idiomas enteras.
+
+     ESTADO A 11 SEP 2026: LAS CUATRO FOTOS, FUERA — no encajan en la sección
+     bajada. El recorte de `.switch--compacto` (4:3) se pensó contra el alto que
+     tenía la fila entonces; con `.section--ambitos-compacto` la foto pasa a un
+     alto fijo de 220–340px sobre una columna de ~700px, o sea un recorte real
+     de 2:1 y pico, mucho más panorámico que el 4:3 para el que se encuadraron
+     las cuatro fotos (personas centradas en un cuadro casi cuadrado). El
+     resultado es una tira que corta cabezas y deja demasiado suelo o techo.
+     No es un bug de `object-fit` —sigue en `cover`, no hay deformación—, es que
+     la foto no está compuesta para esa proporción. Salen las cuatro
+     (`mesa-calidad-movil`, `cuadro-tablet-tecnico`, `linea-tablet-supervisora`,
+     `estacion-seguridad-movil`, que siguen en `assets/planta/` sin usar) y
+     entra un `.img-slot` por ámbito con `--slot-ar:16/9` y su prompt para pedir
+     la foto ya compuesta en panorámico. Se pidió 2:1, pero Google Flow (nano
+     banana pro) sólo admite 1:1, 16:9, 9:16, 4:3 y 3:4 — se usa **16:9**, el más
+     cercano al recorte real y bastante más ancho que el 4:3 que daba el
+     problema. **Si se generan, hay que mantener el 16:9** o el problema vuelve.
      ============================================================ -->
-<section class="section section--tight" data-screen-label="Registros · Ámbitos">
+<section class="section section--tight section--ambitos-compacto" data-screen-label="Registros · Ámbitos">
   <div class="wrap">
     <div class="section-head section-head--split">
       <h2>Richten Sie Qualitäts-, Instandhaltungs-, Produktions- und Sicherheitskontrollen auf Ihren eigenen Verfahren ein</h2>
@@ -1453,7 +1505,10 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Wareneingang und Lieferantenfreigabe</span></li>
           </ul>
         </div>
-        <img src="/assets/planta/mesa-calidad-movil.webp" alt="Eine Mitarbeiterin prüft mit dem Smartphone eine Produktprobe am Qualitätskontrolltisch einer Industrieanlage" width="1100" height="1100" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px)">
+        <div class="img-slot" data-i18n="skip" style="--slot-ar:16/9">
+          <span class="img-slot__tag">Foto pendiente</span>
+          <p class="img-slot__prompt"><b>Prompt:</b> Photorealistic photo of a female quality control worker, hairnet and white coat, using a smartphone to check a product sample on a stainless steel table in a food processing plant. Wide landscape composition, subject positioned to one side with open factory space around her, natural bright daylight from skylights, candid documentary style, shallow depth of field, 16:9 aspect ratio. No visible app interface on the phone screen, no text overlays, no illustration style.</p>
+        </div>
       </div>
 
       <div class="switch__panel" role="tabpanel" id="pa-mant" aria-labelledby="am-mant">
@@ -1466,7 +1521,10 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Jede Anlage mit Stammblatt, QR-Code und Historie</span></li>
           </ul>
         </div>
-        <img src="/assets/planta/cuadro-tablet-tecnico.webp" alt="Ein Techniker prüft mit einem Tablet den Schaltschrank einer Maschine in einer Industrieanlage" width="1100" height="1100" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px)">
+        <div class="img-slot" data-i18n="skip" style="--slot-ar:16/9">
+          <span class="img-slot__tag">Foto pendiente</span>
+          <p class="img-slot__prompt"><b>Prompt:</b> Photorealistic photo of a maintenance technician holding a tablet while inspecting an open electrical control panel of an industrial machine. Wide landscape composition, technician off-center with the factory floor visible behind him, natural bright daylight, candid documentary style, shallow depth of field, 16:9 aspect ratio. No visible app interface on the tablet screen, no text overlays, no illustration style.</p>
+        </div>
       </div>
 
       <div class="switch__panel" role="tabpanel" id="pa-prod" aria-labelledby="am-prod">
@@ -1479,7 +1537,10 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Unterschrift des Schichtverantwortlichen, mit Uhrzeit</span></li>
           </ul>
         </div>
-        <img src="/assets/planta/linea-tablet-supervisora.webp" alt="Ein Vorarbeiter geht mit einem Tablet entlang der Produktionslinie einer Industrieanlage" width="1100" height="1100" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px)">
+        <div class="img-slot" data-i18n="skip" style="--slot-ar:16/9">
+          <span class="img-slot__tag">Foto pendiente</span>
+          <p class="img-slot__prompt"><b>Prompt:</b> Photorealistic photo of a production line supervisor walking alongside a conveyor belt with boxes, holding a tablet and glancing at it while walking. Wide landscape composition, wide factory aisle visible around the subject, natural bright daylight, candid documentary style, shallow depth of field, 16:9 aspect ratio. No visible app interface on the tablet screen, no text overlays, no illustration style.</p>
+        </div>
       </div>
 
       <div class="switch__panel" role="tabpanel" id="pa-seg" aria-labelledby="am-seg">
@@ -1492,7 +1553,10 @@
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span>Reinigungskontrollen und Hygiene-Basisanforderungen</span></li>
           </ul>
         </div>
-        <img src="/assets/planta/estacion-seguridad-movil.webp" alt="Eine Mitarbeiterin prüft mit dem Smartphone die Sicherheits- und Hygienestation einer Industrieanlage" width="1100" height="1100" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;border-radius:var(--ds-radius-card,12px)">
+        <div class="img-slot" data-i18n="skip" style="--slot-ar:16/9">
+          <span class="img-slot__tag">Foto pendiente</span>
+          <p class="img-slot__prompt"><b>Prompt:</b> Photorealistic photo of a female worker in a high-visibility vest using a smartphone at a safety and hygiene station with an eyewash unit and labeled waste bins in an industrial plant. Wide landscape composition with open space around her, natural bright daylight, candid documentary style, shallow depth of field, 16:9 aspect ratio. No visible app interface on the phone screen, no text overlays, no illustration style.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1505,33 +1569,31 @@
       <h2>Was im ersten Jahr erreicht wird</h2>
       <p>Kennzahlen, die Solved-Kunden im ersten Nutzungsjahr erfasst haben</p>
     </div>
-    <div class="ds-stats">
+    <div class="ds-stats ds-stats--iguales">
       <div class="ds-stat"><b>-100%</b><span>Zeit für das Übertragen von Checklisten nach Excel oder ins ERP</span></div>
       <div class="ds-stat"><b>-65%</b><span>Zeit für das Ausfüllen von Checklisten</span></div>
       <div class="ds-stat"><b>-72%</b><span>Durchschnittliche Reaktionszeit bis zur Umsetzung von Korrekturmaßnahmen</span></div>
       <div class="ds-stat"><b>-80%</b><span>Durchschnittliche Bearbeitungs- und Kommunikationszeit</span></div>
       <div class="ds-stat"><b>-55%</b><span>Durchschnittlicher Produktionsstillstand je Störung</span></div>
     </div>
-  </div>
-</section>
-
-<!-- ============ TESTIMONIALS ============ -->
-<section class="section" data-screen-label="Registros · Testimonios">
-  <div class="wrap">
-    <div class="section-head"><h2>Referenzen: Teams, die das Papier bereits ersetzt haben</h2></div>
-    <!-- Cita centrada de ds/sections.css, UNA por página. Panificadora Alcalá va
-         aquí porque su cita habla de registros: de pasar el papel a digital y de
-         la calidad del dato que sale. Sale del webinar del 14 de agosto de 2026
-         (transcripción en ~/Vídeos/casos-exito-solved/). -->
-    <figure class="pull-quote">
-      <img class="pull-quote__logo" src="/assets/testimonios/logo-panificadora-alcala.webp" alt="Panificadora Alcalá" width="256" height="112" decoding="async" loading="lazy">
-      <blockquote><p>„Vieles haben wir auf Papier geführt. Der Wechsel ins Digitale spart uns Zeit und liefert uns zweitens bessere und verlässlichere Informationen.“</p></blockquote>
-      <figcaption>
-        <img class="pull-quote__av" src="/assets/testimonios/samuel-panificadora-alcala.webp" alt="" width="168" height="168" decoding="async" loading="lazy">
-        <span class="pull-quote__by"><b>Samuel Pardo</b>Koordinator der technischen Abteilung · Panificadora Alcalá</span>
-      </figcaption>
-      <a class="pull-quote__caso" href="/de/fallstudien/panificadora-alcala/">Fallstudie Panificadora Alcalá als Video →</a>
-    </figure>
+    <!-- La tarjeta de Panificadora Alcalá, variante ancha (case-card--banda, ds/sections.css):
+         mismo tratamiento que la de Carnavi en /incidencias/ (petición del cliente, 11 de
+         septiembre de 2026). Se funde con la franja de resultados y se retira el título
+         «Referencias: equipos que ya han sustituido el papel»: el titular de las cifras ya
+         abre el bloque entero y un segundo título encima de la cita sobraba. La foto es la
+         misma que ya lleva la tarjeta de Panificadora Alcalá en el carril de la home —una
+         foto por cliente, no por página, cuando es la misma empresa la que se cuenta—. -->
+    <a class="case-card case-card--banda" href="/de/fallstudien/panificadora-alcala/">
+      <div class="case-card__photo">
+        <img src="/assets/panaderia-industrial-hornos.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+        <img class="case-card__logo" src="/assets/clients-color/panificadora-alcala.webp" alt="Panificadora Alcalá" width="120" height="46" loading="lazy" decoding="async">
+        <div class="case-card__banda-txt">
+          <p class="case-card__quote">„Vieles haben wir auf Papier geführt. Der Wechsel ins Digitale spart uns Zeit und liefert uns zweitens bessere und verlässlichere Informationen.“</p>
+          <p class="case-card__by"><b>Samuel Pardo</b>Koordinator der technischen Abteilung · Panificadora Alcalá</p>
+        </div>
+        <span class="case-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -1573,7 +1635,7 @@
 <script src="/ds/sections.js?v=20260903a" defer=""></script>
 <script src="/ds/aiband.js?v=20260901a" defer=""></script>
 <script src="/ds/rotador.js?v=20260909b" defer=""></script>
-<script src="/ds/hero-wave.js?v=20260914d" defer=""></script>
+<script src="/ds/hero-wave.js?v=20260914e" defer=""></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   function mount() {

@@ -422,6 +422,41 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#1E6BFF">
 <meta property="og:type" content="website">
@@ -450,7 +485,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&amp;display=swap">
 <link rel="stylesheet" href="/ds/tokens.css?v=20260903b">
 <link rel="stylesheet" href="/ds/site.css?v=20260911k">
-<link rel="stylesheet" href="/ds/hero.css?v=20260914d">
+<link rel="stylesheet" href="/ds/hero.css?v=20260914f">
 <!-- La cita centrada del testimonio vive en ds/sections.css; esta página no lo
      cargaba porque hasta ahora no montaba ninguna sección de ese fichero. -->
 <link rel="stylesheet" href="/ds/aiband.css?v=20260908b">
@@ -460,7 +495,7 @@
      pantallas de la app que van dentro. Entran el 17 de agosto con la sección
      «Detecta». -->
 <link rel="stylesheet" href="/ds/tint.css?v=20260902a">
-<link rel="stylesheet" href="/ds/scene.css?v=20260910a">
+<link rel="stylesheet" href="/ds/scene.css?v=20260914b">
 <link rel="stylesheet" href="/ds/device.css?v=20260814a">
 <link rel="stylesheet" href="/ds/app.css?v=20260909d">
 <style>
@@ -523,7 +558,7 @@
         </span>
       </div>
       <h1>Faça a gestão das ocorrências da sua fábrica do início ao fim, <span class="ds-dim">desde o alerta na linha até à documentação do encerramento.</span></h1>
-      <p class="ds-hero__sub">Sem formação prévia para quem a regista e sem trabalho administrativo para quem a encerra.</p>
+      <p class="ds-hero__sub">Sem formação para quem a regista, nem trabalho administrativo para quem a encerra.</p>
       <div class="ds-hero__cta">
         <a class="ds-btn ds-btn--primary" href="#contacto">Pedir demonstração</a>
       </div>
@@ -1426,7 +1461,13 @@
      existía. Si se quieren de vuelta, el sitio natural es el pie de la banda o
      una línea en las respuestas de la FAQ. -->
 
-<!-- ============ RESULTS ============ -->
+<!-- ============ RESULTS + TESTIMONIO ============
+     Fusionadas en una sola sección el 11 de septiembre de 2026, a petición
+     del cliente: la prueba con cifras y la cita de un cliente real son el
+     mismo argumento —esto ya lo usan y funciona—, no dos temas que necesiten
+     su propio encuadre. Con la fusión se retira el título «Referencias:
+     equipos que ya registran aquí sus incidencias»: el titular de las cifras
+     ya abre el bloque entero y un segundo título encima de la cita sobraba. -->
 <section class="section section--results-big" data-screen-label="Incidencias · Resultados">
   <div class="wrap">
     <div class="section-head section-head--split">
@@ -1440,27 +1481,24 @@
       <div class="ds-stat"><b>90%</b><span>Das ocorrências resolvem-se antes de 48 h</span></div>
       <div class="ds-stat"><b>100%</b><span>Compatível com sistemas ERP, MES e CMMS</span></div>
     </div>
-  </div>
-</section>
-
-<!-- ============ TESTIMONIALS ============ -->
-<section class="section" data-screen-label="Incidencias · Testimonios">
-  <div class="wrap">
-    <div class="section-head"><h2>Referências: equipas que já registam aqui as suas ocorrências</h2></div>
-    <!-- Cita centrada de ds/sections.css, UNA por página. Carnavi va en esta
-         página y no en una de sector porque su cita argumenta justo lo de aquí:
-         registrar una incidencia desde el móvil sin formación previa. Sale del
-         webinar del 26 de mayo de 2026 (transcripción en
-         ~/Vídeos/casos-exito-solved/), no de una reunión de trabajo. -->
-    <figure class="pull-quote">
-      <img class="pull-quote__logo" src="/assets/testimonios/logo-carnavi.webp" alt="Carnavi" width="217" height="112" decoding="async" loading="lazy">
-      <blockquote><p>«É tão intuitiva que se instala no telemóvel de um estafeta e nem é preciso explicar-lhe como registar uma ocorrência. Estamos operacionais desde o dia zero.»</p></blockquote>
-      <figcaption>
-        <img class="pull-quote__av" src="/assets/testimonios/ana-dominguez.webp" alt="" width="168" height="168" decoding="async" loading="lazy">
-        <span class="pull-quote__by"><b>Ana Domínguez</b>Responsável da qualidade · Carnavi</span>
-      </figcaption>
-      <a class="pull-quote__caso" href="/pt/casos-de-sucesso/carnavi/">Ver o caso da Carnavi em vídeo →</a>
-    </figure>
+    <!-- La tarjeta de Carnavi, variante ancha (case-card--banda, ds/sections.css):
+         petición del cliente el 11 de septiembre de 2026 sobre la primera
+         versión —calcada de la de la home—, que aquí resultaba demasiado alta
+         y con datos de más. En esta página sólo hace falta el testimonio: se
+         quitan los KPIs, y la cita con la firma se suben a la propia foto,
+         junto al logo, en vez de ir debajo. El botón redondo sí se queda
+         —sin él, nada en la tarjeta dice que se puede abrir—. -->
+    <a class="case-card case-card--banda" href="/pt/casos-de-sucesso/carnavi/">
+      <div class="case-card__photo">
+        <img src="/assets/sala-despiece-cerdo.webp" alt="" width="1600" height="900" loading="lazy" decoding="async">
+        <img class="case-card__logo" src="/assets/clients-color/carnavi.webp" alt="Carnavi" width="120" height="46" loading="lazy" decoding="async">
+        <div class="case-card__banda-txt">
+          <p class="case-card__quote">«É tão intuitiva que se instala no telemóvel de um estafeta e nem é preciso explicar-lhe como registar uma ocorrência. Estamos operacionais desde o dia zero.»</p>
+          <p class="case-card__by"><b>Ana Domínguez</b>Responsável da qualidade · Carnavi</p>
+        </div>
+        <span class="case-card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -1501,7 +1539,7 @@
 <script src="/ds/scene.js?v=20260815a" defer=""></script>
 <!-- Hero y franja de clientes: el mismo shader y la misma cinta que la home. -->
 <script src="/ds/aiband.js?v=20260901a" defer=""></script>
-<script src="/ds/hero-wave.js?v=20260914d" defer=""></script>
+<script src="/ds/hero-wave.js?v=20260914e" defer=""></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   function mount() {

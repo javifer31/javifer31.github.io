@@ -250,6 +250,17 @@
        mismos anillos y con la misma densidad. A partir de 2.2:1 vale 1 y no
        toca nada: el ajuste de escritorio se queda como está. */
     "float k=clamp(asp/2.2,0.46,1.0);",
+    /* MÁS ANILLOS VISIBLES EN MÓVIL (14 sep 2026, segunda vuelta). `rad` sigue
+       encogiendo con `k` para conservar el ritmo —es lo que impide que los
+       anillos se conviertan en rayas sueltas—, pero el radio del anillo más
+       lejano (0.42+12*0.115=1.80, ×k) se acercaba al arranque del
+       desvanecido de abajo (1.62×k): en el móvil más estrecho, dos o tres
+       anillos ya nacían medio disueltos y sólo quedaban cinco o seis
+       enteros, que es la «raya sueltas» que se quería evitar y que volvió a
+       aparecer. `kd` separa el desvanecido del encogido: se acerca menos a
+       `k`, así que el borde de fuera se aparta lo bastante para que los
+       trece anillos lleguen completos. */
+    "float kd=mix(k,1.0,0.62);",
     /* El origen sale del marco por abajo y por la derecha: el primer anillo ya
        entra abierto, sin que se vea el punto del que nace. */
     "vec2 o=vec2(0.20*asp,-0.56*k);",
@@ -258,14 +269,14 @@
     "vec3 col=" + p.papel + ";float alp=0.0;",
     "for(int i=0;i<13;i++){float fi=float(i);",
     "float ph=fi*0.72;",
-    "float amp=(0.052+0.026*sin(fi*1.3))*k;",
+    "float amp=(0.052+0.026*sin(fi*1.3))*kd;",
     /* El primer anillo arranca lejos del origen a propósito: cuando el radio
        se acerca a la amplitud de la ondulación, la banda se dobla sobre sí
        misma y deja un gancho a la vista. Con 0.42 de salida, ningún anillo
        llega a esa situación. */
     "float rad=(0.42+fi*0.115)*k;",
     "float c=rad+amp*sin(ang*2.4+uT*0.22+ph)+0.030*sin(ang*1.1-uT*0.15+ph*1.6);",
-    "float hw=(0.030+0.020*sin(ang*1.7+uT*0.20+ph*1.4)+0.0018*fi)*k;",
+    "float hw=(0.030+0.020*sin(ang*1.7+uT*0.20+ph*1.4)+0.0018*fi)*kd;",
     "float d=(r-c)/hw;",
     "float m=1.0-clamp(abs(d),0.0,1.0);",
     "float rnd=sqrt(max(m*(2.0-m),0.0));",
@@ -282,7 +293,7 @@
     "col=mix(col,cc,a);alp=alp+(1.0-alp)*a;}",
     /* Los anillos se deshacen al alejarse, que es lo que hace el borde de una
        onda y lo que evita que el último se lea como un aro cerrado. */
-    "alp*=1.0-smoothstep(1.62*k,2.18*k,r);",
+    "alp*=1.0-smoothstep(1.62*kd,2.18*kd,r);",
     /* El lavado, en el medio. */
     "float wash=smoothstep(0.14*k,0.86*k,length(q*vec2(0.58,1.0)));",
     "col=mix(" + p.papel + ",col,0.30+0.70*wash);",
@@ -322,6 +333,16 @@
        un ancho de escritorio, se apretaban hasta solaparse igual que le
        pasaba al haz antes de arreglarlo. */
     "float k=clamp(asp/2.2,0.46,1.0);",
+    /* LA TRAMA SE ESPESA EN MÓVIL (14 sep 2026, segunda vuelta). `k` sola
+       encogía los catorce hilos hasta dejarlos en una raya fina y pálida en
+       una esquina: bien para no solaparlos, mal para que la tela se lea como
+       material y no como un rasguño. `grosor` se acerca a 1 cuanto más
+       estrecho el aspecto y engorda hilo, amplitud y separación A LA VEZ, así
+       que la trama entera crece de tamaño sin que un hilo empiece a comerse
+       al de al lado —lo que sí pasaría subiendo sólo `hw`—. En escritorio
+       (k=1) no cambia nada. */
+    "float mov=1.0-k;",
+    "float grosor=k+mov*0.70;",
     "vec3 col=" + p.papel + ";float alp=0.0;",
     "for(int i=0;i<14;i++){float fi=float(i);",
     /* Par → urdimbre; impar → trama. La alternancia es lo que teje. */
@@ -331,9 +352,9 @@
     "vec2 q=vec2(p0.x*ca+p0.y*sa,-p0.x*sa+p0.y*ca);",
     "q.y-=0.06;",
     "float ph=fj*0.94+fam*0.62;",
-    "float amp=(0.078+0.030*sin(fj*1.3))*(1.0-0.28*fam)*k;",
-    "float c=amp*sin(q.x*1.15+uT*0.24+ph)+0.050*k*sin(q.x*0.52-uT*0.16+ph*1.6)+(fj-3.0)*0.098*k;",
-    "float hw=(0.048+0.026*sin(q.x*0.80+uT*0.20+ph*1.4)+0.002*fj)*(1.0-0.22*fam)*k;",
+    "float amp=(0.078+0.030*sin(fj*1.3))*(1.0-0.28*fam)*grosor;",
+    "float c=amp*sin(q.x*1.15+uT*0.24+ph)+0.050*grosor*sin(q.x*0.52-uT*0.16+ph*1.6)+(fj-3.0)*0.098*grosor;",
+    "float hw=(0.048+0.026*sin(q.x*0.80+uT*0.20+ph*1.4)+0.002*fj)*(1.0-0.22*fam)*grosor;",
     "float d=(q.y-c)/hw;",
     "float m=1.0-clamp(abs(d),0.0,1.0);",
     "float rnd=sqrt(max(m*(2.0-m),0.0));",
@@ -468,13 +489,23 @@
        en un teléfono las columnas quedan cortas y en el tercio inferior, que es
        justo donde el texto no está. Con la base escalada se subían al medio y
        cruzaban el subtítulo. */
-    "float base=-0.46;",
+    /* Y AUN ASÍ SE QUEDABAN DEMASIADO ABAJO (14 sep 2026, segunda vuelta). En
+       el móvil el titular ocupa casi toda la hero —cuatro líneas más el
+       subtítulo y los dos botones apilados—, así que el tercio inferior de
+       verdad es mucho más estrecho que en escritorio y las barras salían
+       pegadas al canto mismo, la mitad tapadas por lo que viene debajo de la
+       hero. `mov` (0 en escritorio) sube la base un poco y da algo más de
+       altura; el lavado de la línea 511 —el que ya deshacía la barra alta
+       antes de tocar el titular— sigue siendo el que impide que la columna
+       más alta llegue a pisar el texto: no hace falta tocarlo. */
+    "float mov=1.0-k;",
+    "float base=-0.46+mov*0.34;",
     "vec3 col=" + p.papel + ";float alp=0.0;",
     "for(int i=0;i<13;i++){float fi=float(i);",
     "float ph=fi*0.72;",
     "float cx=(fi-6.0)*0.150*k;",
     "float hw=(0.057+0.011*sin(fi*2.1))*k;",
-    "float alt=(0.20+0.52*(0.5+0.5*sin(fi*1.37+uT*0.20+ph*0.4)))*k;",
+    "float alt=(0.20+0.52*(0.5+0.5*sin(fi*1.37+uT*0.20+ph*0.4)))*(k+mov*0.30);",
     "float top=base+alt;",
     "float dx=(q.x-cx)/hw;",
     "float mx=1.0-clamp(abs(dx),0.0,1.0);",
@@ -654,15 +685,29 @@
        páginas de módulo con la hero ya probada en móvil; el haz es el más
        antiguo del prototipo y no la había recibido nunca. */
     "float k=clamp(asp/2.2,0.46,1.0);",
+    /* EL HAZ NO SE ADELGAZA EN MÓVIL (14 sep 2026, segunda vuelta). `k` sola
+       encogía la franja entera —ancho, ondulación y separación entre los
+       trece filamentos— para que no se apretara en un aspecto estrecho, y
+       eso es lo correcto para el RITMO. El problema es que en el móvil el
+       titular pasa a ocupar el 100% de la columna (ds/hero.css) y el haz es
+       lo único que llena el resto del encuadre: encogido del todo, lo que
+       queda es una raya azul fina sobre una página en blanco, no un
+       material con presencia. `grosor` parte de `k` pero se acerca a 1
+       cuanto más estrecho el aspecto, así que la franja se ENSANCHA en vez
+       de adelgazar a la vez que encoge. En escritorio (k=1) grosor=k=1: no
+       cambia nada, y es la misma variable que ya usan la trama y los
+       anillos para el mismo motivo. */
+    "float mov=1.0-k;",
+    "float grosor=k+mov*0.85;",
     "float ca=cos(0.44),sa=sin(0.44);",
     "vec2 q=vec2(p.x*ca+p.y*sa,-p.x*sa+p.y*ca);",
     "q.y-=0.06;",
     "vec3 col=" + p.papel + ";float alp=0.0;",
     "for(int i=0;i<13;i++){float fi=float(i);",
     "float ph=fi*0.72;",
-    "float amp=(0.070+0.028*sin(fi*1.3))*k;",
-    "float c=amp*sin(q.x*1.15+uT*0.24+ph)+0.046*k*sin(q.x*0.52-uT*0.16+ph*1.6)+(fi-6.0)*0.046*k;",
-    "float hw=(0.034+0.024*sin(q.x*0.80+uT*0.20+ph*1.4)+0.002*fi)*k;",
+    "float amp=(0.070+0.028*sin(fi*1.3))*grosor;",
+    "float c=amp*sin(q.x*1.15+uT*0.24+ph)+0.046*grosor*sin(q.x*0.52-uT*0.16+ph*1.6)+(fi-6.0)*0.046*grosor;",
+    "float hw=(0.034+0.024*sin(q.x*0.80+uT*0.20+ph*1.4)+0.002*fi)*grosor;",
     "float d=(q.y-c)/hw;",
     "float m=1.0-clamp(abs(d),0.0,1.0);",
     "float rnd=sqrt(max(m*(2.0-m),0.0));",
